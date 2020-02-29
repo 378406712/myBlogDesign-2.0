@@ -1,13 +1,21 @@
 export default {
   author: {
-    name: 'yu'
+    name: 'Liu'
   },
   login: {
-    title: 'Content Manage System',
+    title: 'Clover Blog System',
     account: 'Account',
     password: 'Pwd',
     remember: 'Remember',
-    login: 'Login'
+    login: 'Login',
+    register: 'Register'
+
+  },
+  register: {
+    title: 'Register',
+    account: 'Account',
+    password: 'Pwd',
+    register: 'Register'
   },
   navbar: {
     title: 'vue-cms',

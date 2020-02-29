@@ -1,13 +1,20 @@
 export default {
   author: {
-    name: '喻'
+    name: '刘'
   },
   login: {
-    title: '后台管理系统',
+    title: 'Clover博客系统',
     account: '账号',
     password: '密码',
     remember: '记住密码',
-    login: '登录'
+    login: '登录',
+    register: '注册账号'
+  },
+  register: {
+    title: '去注册',
+    account: '账号',
+    password: '密码',
+    register: '注册'
   },
   navbar: {
     title: '后台管理系统',
