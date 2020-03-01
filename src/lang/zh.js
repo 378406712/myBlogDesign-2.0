@@ -11,9 +11,10 @@ export default {
     register: '注册账号'
   },
   register: {
-    title: '去注册',
+    title: '欢迎 注册',
     account: '账号',
     password: '密码',
+    again_pass: '再次输入',
     register: '注册'
   },
   navbar: {

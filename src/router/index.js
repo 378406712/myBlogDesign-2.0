@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '@/views/login'
+import Register from '@/views/register'
 import Layout from '@/layout/layout'
 
 Vue.use(Router)
@@ -22,6 +23,15 @@ export const constantRouterMap = [
     component: Login,
     meta: {
       title: '登录'
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    hidden: true,
+    component: Register,
+    meta: {
+      title: '注册'
     }
   },
   {

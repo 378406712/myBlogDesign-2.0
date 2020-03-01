@@ -5,13 +5,17 @@
 import router from './router'
 import store from './store'
 import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'// progress bar style
-import { getToken } from '@/common/auth'
+import 'nprogress/nprogress.css' // progress bar style
+import {
+  getToken
+} from '@/common/auth'
 
-NProgress.configure({ showSpinner: false })
+NProgress.configure({
+  showSpinner: false
+})
 
 // 路由全局前置守卫
-const whiteList = ['/login']  // 白名单
+const whiteList = ['/login', '/register'] // 白名单
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   if (getToken()) {
@@ -24,7 +28,9 @@ router.beforeEach((to, from, next) => {
       if (store.getters.permissions.length === 0) {
         store.dispatch('pullUserInfo').then(resp => {
           const permissions = resp.permissions
-          store.dispatch('GenerateRoutes', { permissions }).then(() => {
+          store.dispatch('GenerateRoutes', {
+            permissions
+          }).then(() => {
             // 动态添加可访问路由表
             router.addRoutes(store.getters.addRouters)
             // console.log(to)

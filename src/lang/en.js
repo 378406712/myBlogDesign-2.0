@@ -12,9 +12,10 @@ export default {
 
   },
   register: {
-    title: 'Register',
+    title: 'Welcome,Register',
     account: 'Account',
     password: 'Pwd',
+    again_pass: 'Again Pass',
     register: 'Register'
   },
   navbar: {

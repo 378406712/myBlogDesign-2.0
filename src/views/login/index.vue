@@ -6,10 +6,10 @@
       <div slot="header" class="el-card-header">
         <lang-select class="lang-select"></lang-select>
         <div style="clear: both;"></div>
-        <img  src="../../../static/image/login-logo.png" alt />
-        <h2 class="login-title">{{$t('login.title')}}</h2>
+        <img src="../../../static/image/login-logo.png" alt />
+        <h2 class="login-title">{{ $t("login.title") }}</h2>
       </div>
-      <el-form :rules="rules" :model="loginForm" ref="loginForm" label-width="60px">
+      <el-form :rules="rules" :model="loginForm" ref="loginForm" label-width="80px">
         <el-form-item :label="$t('login.account')" prop="username" style="position:relative">
           <el-input type="text" v-model="loginForm.username" @keyup.enter.native="goToPwdInput"></el-input>
           <span class="svg-container svg-container_user">
@@ -23,12 +23,18 @@
           </span>
         </el-form-item>
         <el-form-item :label="$t('login.remember')" label-width="80px">
-          <el-row >
-            <el-col  :span="8">
+          <el-row>
+            <el-col :span="6">
               <el-switch v-model="remember"></el-switch>
             </el-col>
-            <el-col :span="12">
-              <router-link to="/register" :style="{color:'blue'}">{{$t('login.register')}}</router-link>
+            <el-col :offset="6" :span="12">
+              <el-button type="success" round>
+                <router-link to="/register">
+                  {{
+                  $t("login.register")
+                  }}
+                </router-link>
+              </el-button>
             </el-col>
           </el-row>
         </el-form-item>
@@ -36,7 +42,7 @@
           type="primary"
           @click="onLogin('loginForm')"
           :loading="loading"
-        >{{$t('login.login')}}</el-button>
+        >{{ $t("login.login") }}</el-button>
       </el-form>
     </el-card>
     <!-- particles.js container -->
