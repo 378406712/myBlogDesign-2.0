@@ -2,31 +2,57 @@
   <el-container class="register-container">
     <el-card class="animated flipInY">
       <div slot="header" class="el-card-header">
+        <lang-select class="lang-select"></lang-select>
         <div style="clear: both;"></div>
         <img src="../../../static/image/register-logo.png" alt />
         <h2 class="login-title">{{ $t("register.title") }}</h2>
       </div>
-      <el-form ref="loginForm" label-width="80px">
+      <el-form :rules="rules" :model="registerForm" ref="registerForm" label-width="80px">
         <el-form-item :label="$t('register.account')" prop="username" style="position:relative">
-          <el-input type="text" @keyup.enter.native="goToPwdInput"></el-input>
+          <el-input type="text" v-model="registerForm.username" @keyup.enter.native="goToPwdInput"></el-input>
           <span class="svg-container svg-container_user">
             <svg-icon icon-class="user" />
           </span>
         </el-form-item>
         <el-form-item :label="$t('register.password')" prop="pwd">
-          <el-input type="password" @keyup.enter.native="onLogin" ref="pwd"></el-input>
+          <el-input
+            type="password"
+            v-model="registerForm.pwd"
+            @keyup.enter.native="goToCheckPass"
+            ref="pwd"
+          ></el-input>
           <span class="svg-container svg-container_password">
             <svg-icon icon-class="password" />
           </span>
         </el-form-item>
-        <el-form-item :label="$t('register.again_pass')" prop="pwd">
-          <el-input type="password" @keyup.enter.native="onLogin" ref="pwd"></el-input>
+        <el-form-item :label="$t('register.again_pass')" prop="checkPass">
+          <el-input
+            type="password"
+            v-model="registerForm.checkPass"
+            @keyup.enter.native="goToEmail"
+            ref="checkPass"
+          ></el-input>
+          <span class="svg-container svg-container_password">
+            <svg-icon icon-class="again_pass" />
+          </span>
+        </el-form-item>
+        <el-form-item :label="$t('register.e_mail')" prop="e_mail">
+          <el-input
+            type="text"
+            v-model="registerForm.e_mail"
+            @keyup.enter.native="onRegister"
+            ref="e_mail"
+          ></el-input>
           <span class="svg-container svg-container_password">
             <svg-icon icon-class="again_pass" />
           </span>
         </el-form-item>
         <el-form-item :label="$t('')">
-          <el-button type="success">{{ $t("register.register") }}</el-button>
+          <el-button
+            type="success"
+            @click="onRegister('registerForm')"
+            :loading="loading"
+          >{{ $t("register.register") }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -34,128 +60,142 @@
 </template>
 
 <script>
-// import '../assets/css/login_register.css'
 // import { JSEncrypt } from 'jsencrypt'
+import LangSelect from '@/components/lang-select'
+import { isRegisterValid } from '@/utils/register-validate'
+import { register, getPublicKey } from '@/api/register'
+import { RegisterMsg } from '@/utils/message'
 export default {
   name: 'Register',
+  components: {
+    LangSelect
+  },
   data() {
+    // 用户名 验证
+    const validateUsername = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入正确的用户名'))
+      } else if (value.length > 10) {
+        calssback(new Error('用户名长度需少于10位'))
+      } else {
+        callback()
+      }
+    }
+    // pwd 验证
+    const validatePass = (rule, value, callback) => {
+      const reg = /^(?![A-Z]+$)(?![a-z]+$)(?!\d+$)\S{8,}$/
+      if (!reg.test(value)) {
+        callback(new Error('密码须由数字,大写字母,小写字母,至少其中两种组成'))
+      } else {
+        this.$refs.registerForm.validateField('checkPass')
+        callback()
+      }
+    }
+    // checkPass 验证
+    const validatePass2 = (rule, value, callback) => {
+      if (value !== this.registerForm.pwd) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
+    // e_mail 验证
+    const validateEmail = (rule, value, callback) => {
+      const exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
+      if (!exp.test(value)) {
+        callback(new Error('邮箱格式不正确'))
+      } else {
+        this.$refs.registerForm.validateField('checkPass')
+        callback()
+      }
+    }
+
     return {
-      flag: true,
-      tag: true,
-      peg: true,
-      lab: true,
-
-      username: '',
-      pass1: '',
-      pass2: '',
-      e_mail: '',
-
-      w_user: '',
-      w_pass: '',
-      w_mail: '',
-      timer: null,
-      num: 3
+      loading: false,
+      registerForm: {
+        username: '',
+        pwd: '',
+        checkPass: '',
+        e_mail: ''
+      },
+      rules: {
+        username: [
+          { required: true, message: '请输入账号', trigger: 'blur' },
+          { required: true, trigger: 'blur', validator: validateUsername },
+          { required: true, trigger: 'change', validator: validateUsername }
+        ],
+        pwd: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { required: true, trigger: 'blur', validator: validatePass },
+          { required: true, trigger: 'change', validator: validatePass }
+        ],
+        checkPass: [
+          { required: true, message: '请再次输入密码', trigger: 'blur' },
+          { required: true, trigger: 'blur', validator: validatePass2 },
+          { required: true, trigger: 'change', validator: validatePass2 }
+        ],
+        e_mail: [
+          { required: true, message: '请填写邮箱', trigger: 'blur' },
+          { required: true, trigger: 'blur', validator: validateEmail },
+          { required: true, trigger: 'change', validator: validateEmail }
+        ]
+      }
     }
   },
   methods: {
-    // confirm() {
-    //   var reg = /^(?![A-Z]+$)(?![a-z]+$)(?!\d+$)\S{8,}$/
-    //   var exp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
-    //   if (this.username.length > 10) {
-    //     this.w_user = '用户名长度需少于10位。'
-    //     this.flag = false
-    //     this.tag = false
-    //   }
-    //   if (this.username === '') {
-    //     this.w_user = '用户名不能为空。'
-    //     this.flag = false
-    //     this.tag = false
-    //   }
-    //   if (this.pass1 !== this.pass2) {
-    //     this.w_pass = '两次输入的密码不一致。'
-    //     this.flag = false
-    //     this.peg = false
-    //   }
-    //   if (this.pass1 === this.pass2 && !reg.test(this.pass1)) {
-    //     this.flag = false
-    //     this.peg = false
-    //     this.w_pass =
-    //       '密码必须符合由数字,大写字母,小写字母,至少其中两种组成，且长度不小于8，同时第一位不能为数字'
-    //   }
-    //   if (!exp.test(this.e_mail)) {
-    //     this.w_mail = '邮箱格式不正确。'
-    //     this.flag = false
-    //     this.lab = false
-    //   }
-    //   if (
-    //     this.username.length < 10 &&
-    //     this.username != '' &&
-    //     this.pass1 === this.pass2 &&
-    //     reg.test(this.pass1) &&
-    //     exp.test(this.e_mail)
-    //   ) {
-    //     this.$axios.get('api/getPublicKey').then(res => {
-    //       if (res.data.status === 0) {
-    //        /** 实例化 */
-    //         let encryptor = new JSEncrypt()
-    //         encryptor.setPublicKey(res.data.resultmap) //设置公钥
-    //         let registerData = {
-    //           username: this.username,
-    //           password: encryptor.encrypt(this.pass2),
-    //           e_mail: this.e_mail
-    //         }
-    //         this.$axios
-    //           .post('api/userRegister', registerData)
-    //           .then(res => {
-    //             if (res.data === '-1') {
-    //               //用户名已经存在
-    //               this.$message({
-    //                 showClose: true,
-    //                 message: '用户名已存在',
-    //                 type: 'error'
-    //               })
-    //             }
-    //             if (res.data === '0') {
-    //               //邮箱已经被注册
-    //               this.$message({
-    //                 showClose: true,
-    //                 message: '邮箱已经被注册',
-    //                 type: 'error'
-    //               })
-    //             }
-    //             if (res.data === '1') {
-    //               this.$message({
-    //                 message: `注册成功,${this.num}秒后跳转~`,
-    //                 type: 'success'
-    //               })
-    //               setTimeout(() => {
-    //                 this.$router.push('/login')
-    //               }, 3000)
-    //             }
-    //             if (res.data == '2') {
-    //               //注册失败
-    //               this.$message({
-    //                 showClose: true,
-    //                 message: '好像发生了点问题，再试一次吧~',
-    //                 type: 'error'
-    //               })
-    //             }
-    //           })
-    //           .catch(() => {
-    //             this.$message({
-    //               showClose: true,
-    //               message: '网络好像有点问题~。',
-    //               type: 'error'
-    //             })
-    //           })
-    //       }
-    //     })
-    //   }
-    // }
+    // 用户名输入框回车后切换到密码输入框
+    goToPwdInput() {
+      this.$refs.pwd.$el.getElementsByTagName('input')[0].focus()
+    },
+    goToCheckPass() {
+      this.$refs.checkPass.$el.getElementsByTagName('input')[0].focus()
+    },
+    goToEmail() {
+      this.$refs.e_mail.$el.getElementsByTagName('input')[0].focus()
+    },
+
+    // 注册操作
+    onRegister() {
+      this.$refs.e_mail.$el.getElementsByTagName('input')[0].blur()
+      this.$refs.registerForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          getPublicKey().then(res => {
+            let encryptor = new JSEncrypt()
+            encryptor.setPublicKey(res.data.resultmap) //设置公钥
+            let registerData = {
+              username: this.registerForm.username,
+              password: encryptor.encrypt(this.registerForm.checkPass),
+              e_mail: this.registerForm.e_mail
+            }
+            register(registerData)
+              .then(res => {
+                if (res.data === -1) {
+                  this.loading = false
+                  RegisterMsg('用户名重复', 'warning', '1000')
+                } else if (res.data === 0) {
+                  this.loading = false
+                  RegisterMsg('邮箱重复', 'warning', '1000')
+                } else if (res.data === 1) {
+                  RegisterMsg('注册成功,3秒后跳转', 'success', '3000')
+                  setTimeout(() => {
+                    this.$router.push('/login')
+                  }, 3000)
+                }
+              })
+              .catch(() => {
+                this.loading = false
+                RegisterMsg('注册失败,网络可能有点问题', 'error', '2000')
+              })
+          })
+        } else {
+          return false
+        }
+      })
+    }
   }
 }
 </script>
-
 <style scoped lang="stylus">
 .register-container {
   position: absolute;
@@ -182,7 +222,7 @@ export default {
     left: 50%;
     margin: -300px 0 0 -200px;
     width: 400px;
-    height: 450px;
+    height: 500px;
     background: rgba(255, 255, 255, 0.45);
 
     .el-card-header {
@@ -236,4 +276,3 @@ export default {
   background-repeat: no-repeat;
 }
 </style>
-

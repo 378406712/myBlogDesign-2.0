@@ -1,5 +1,15 @@
-import { login, userInfo, logout } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/common/auth'
+import {
+  login,
+  userInfo,
+  logout
+} from '@/api/login'
+
+import {
+  getToken,
+  setToken,
+  removeToken
+} from '@/common/auth'
+import JSEncrypt from 'jsencrypt'
 
 const SET_TOKEN = 'SET_TOKEN'
 const SET_NAME = 'SET_NAME'
@@ -34,10 +44,13 @@ const user = {
   },
   actions: {
     // 用户登录
-    login({ commit }, userInfo) {
+    login({
+      commit
+    }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(resp => {
           let data = resp.data
+          console.log(data)
           setToken(data.token)
           commit(SET_TOKEN, data.token)
           // commit(SET_NAME, data.name)
@@ -50,8 +63,11 @@ const user = {
         })
       })
     },
+ 
     // 拉取用户信息
-    pullUserInfo({ commit }) {
+    pullUserInfo({
+      commit
+    }) {
       return new Promise((resolve, reject) => {
         userInfo().then(resp => {
           let data = resp.data
@@ -66,7 +82,9 @@ const user = {
       })
     },
     // 用户退出登录
-    logout({ commit }) {
+    logout({
+      commit
+    }) {
       return new Promise((resolve, reject) => {
         logout().then(resp => {
           removeToken()

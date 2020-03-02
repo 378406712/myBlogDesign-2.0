@@ -26,6 +26,13 @@ module.exports = {
           '^/api/getMovieImage': ''
         }
       },
+      '/api': {
+        target: 'http://localhost:3001', //目标接口域名,后面会改成我自己的本地端口请求
+        changeOrigin: true, //是否跨域
+        pathRewrite: {
+        '^/api': '' //重写接口
+        }
+        }
     },
 
     // Various Dev Server settings
@@ -39,7 +46,7 @@ module.exports = {
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
-    useEslint: true,
+    useEslint: false,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,

@@ -14,8 +14,9 @@ export default {
   register: {
     title: 'Welcome,Register',
     account: 'Account',
+    e_mail: 'E-MAil',
     password: 'Pwd',
-    again_pass: 'Again Pass',
+    again_pass: 'Again it',
     register: 'Register'
   },
   navbar: {

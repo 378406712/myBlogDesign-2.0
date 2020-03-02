@@ -13,6 +13,7 @@ export default {
   register: {
     title: '欢迎 注册',
     account: '账号',
+    e_mail: '邮箱',
     password: '密码',
     again_pass: '再次输入',
     register: '注册'
