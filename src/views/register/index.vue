@@ -116,7 +116,9 @@ export default {
         username: '',
         pwd: '',
         checkPass: '',
-        e_mail: ''
+        e_mail: '',
+        permission: '/excel,/theme',
+        avatar:'./static/image/avatar/0.jpg'
       },
       rules: {
         username: [
@@ -153,9 +155,13 @@ export default {
     goToEmail() {
       this.$refs.e_mail.$el.getElementsByTagName('input')[0].focus()
     },
-
     // 注册操作
     onRegister() {
+      const { username, e_mail,avatar } = this.registerForm
+      let {permission} = this.registerForm
+      if (username === 'Clover') {
+        permission = '/excel,/clipboard,/theme,/test'
+      }
       this.$refs.e_mail.$el.getElementsByTagName('input')[0].blur()
       this.$refs.registerForm.validate(valid => {
         if (valid) {
@@ -163,12 +169,12 @@ export default {
           getPublicKey().then(res => {
             let encryptor = new JSEncrypt()
             encryptor.setPublicKey(res.data.resultmap) //设置公钥
-
-            const { username, e_mail } = this.registerForm
             let registerData = {
               username,
               e_mail,
+              avatar,
               token: username,
+            permission,
               password: encryptor.encrypt(this.registerForm.checkPass)
             }
             register(registerData)

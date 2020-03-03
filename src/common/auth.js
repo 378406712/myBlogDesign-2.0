@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 // import Mock from 'mockjs'
 
-const TokenKey = 'Vue-cms'
+const TokenKey = 'Vue-lzw'
 
 function getToken() {
   return Cookies.get(TokenKey)

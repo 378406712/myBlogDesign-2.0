@@ -47,9 +47,10 @@ const user = {
       commit
     }, userInfo) {
       return new Promise((resolve, reject) => {
+     
         login(userInfo).then(resp => {
-          console.log( )
-          let data = resp.data
+          let {data} = resp
+          console.log(data)
           setToken(data.token)
           commit(SET_TOKEN, data.token)
           // commit(SET_NAME, data.name)

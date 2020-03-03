@@ -17,7 +17,12 @@
           </span>
         </el-form-item>
         <el-form-item :label="$t('login.password')" prop="password">
-          <el-input type="password" v-model="loginForm.password" @keyup.enter.native="onLogin" ref="password"></el-input>
+          <el-input
+            type="password"
+            v-model="loginForm.password"
+            @keyup.enter.native="onLogin"
+            ref="password"
+          ></el-input>
           <span class="svg-container svg-container_password">
             <svg-icon icon-class="password" />
           </span>
@@ -53,6 +58,8 @@
 import LangSelect from '@/components/lang-select'
 import { saveToLocal, loadFromLocal } from '@/common/local-storage'
 import { mapActions } from 'vuex'
+import { getPublicKey } from '@/api/register'
+import { JSEncrypt } from 'jsencrypt'
 /* eslint-disable*/
 import particles from 'particles.js'
 export default {
@@ -104,27 +111,33 @@ export default {
     },
     // 登录操作
     onLogin() {
+      let { password } = this.loginForm
       this.$refs.password.$el.getElementsByTagName('input')[0].blur()
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.login(this.loginForm)
-            .then(() => {
-              // 保存账号
-              if (this.remember) {
-                saveToLocal('username', this.loginForm.username)
-                saveToLocal('password', this.loginForm.password)
-                saveToLocal('remember', true)
-              } else {
-                saveToLocal('username', '')
-                saveToLocal('password', '')
-                saveToLocal('remember', false)
-              }
-              this.$router.push({ path: '/' })
-            })
-            .catch(() => {
-              this.loading = false
-            })
+          getPublicKey().then(res => {
+            let encryptor = new JSEncrypt()
+            encryptor.setPublicKey(res.data.resultmap) //设置公钥
+            this.loginForm.password = encryptor.encrypt(password)
+            this.login(this.loginForm)
+              .then(() => {
+                // 保存账号
+                if (this.remember) {
+                  saveToLocal('username', this.loginForm.username)
+                  saveToLocal('password', this.loginForm.password)
+                  saveToLocal('remember', true)
+                } else {
+                  saveToLocal('username', '')
+                  saveToLocal('password', '')
+                  saveToLocal('remember', false)
+                }
+                this.$router.push({ path: '/' })
+              })
+              .catch(() => {
+                this.loading = false
+              })
+          })
         } else {
           return false
         }
