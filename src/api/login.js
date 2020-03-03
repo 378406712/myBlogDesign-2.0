@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function login(userInfo) {
-  return axios.post('/login/login', userInfo)
+  return axios.post('/api/login/login', userInfo)
 }
 
 export function userInfo() {

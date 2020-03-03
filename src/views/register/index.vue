@@ -60,7 +60,7 @@
 </template>
 
 <script>
-// import { JSEncrypt } from 'jsencrypt'
+import { JSEncrypt } from 'jsencrypt'
 import LangSelect from '@/components/lang-select'
 import { isRegisterValid } from '@/utils/register-validate'
 import { register, getPublicKey } from '@/api/register'
@@ -163,10 +163,13 @@ export default {
           getPublicKey().then(res => {
             let encryptor = new JSEncrypt()
             encryptor.setPublicKey(res.data.resultmap) //设置公钥
+
+            const { username, e_mail } = this.registerForm
             let registerData = {
-              username: this.registerForm.username,
-              password: encryptor.encrypt(this.registerForm.checkPass),
-              e_mail: this.registerForm.e_mail
+              username,
+              e_mail,
+              token: username,
+              password: encryptor.encrypt(this.registerForm.checkPass)
             }
             register(registerData)
               .then(res => {

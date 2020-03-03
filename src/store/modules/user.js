@@ -9,7 +9,6 @@ import {
   setToken,
   removeToken
 } from '@/common/auth'
-import JSEncrypt from 'jsencrypt'
 
 const SET_TOKEN = 'SET_TOKEN'
 const SET_NAME = 'SET_NAME'
@@ -49,8 +48,8 @@ const user = {
     }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(resp => {
+          console.log( )
           let data = resp.data
-          console.log(data)
           setToken(data.token)
           commit(SET_TOKEN, data.token)
           // commit(SET_NAME, data.name)
