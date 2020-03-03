@@ -1,620 +1,508 @@
 <template>
-  <div class="homepage-container">
+  <div class="center">
+    <div class="grey_bg">
+      <div class="content">
+        <div class="content-header">
+          <div class="container">
+            <h1 class="content-heading">用户中心</h1>
+          </div>
+        </div>
+        <!-- 内容 -->
+        <div class="container">
+          <section class="list">
+            <!-- 待循环 -->
+            <div class="card">
+              <div class="card-main">
+                <div class="myAccount">
+                  <div class="account">
+                   
+                  <el-button ref="allDelete" type="primary" @click="showUserInfo">我的资料</el-button>
 
-    <div class="home-total">
-      <div class="home-total-item" v-for="(item, index) of homeTotalData" >
-        <div class="wrapper-item">
-          <p class="title">{{item.title}}</p>
-          <p class="value digital-number" ref="countup">{{item.value}}</p>
-          <color-line :id='"main"+index' :color="item.color" :optionData="item.data" width="180px" height="70px"></color-line>
+                    <el-drawer
+                      custom-class="drawers"
+                      title="个人资料"
+                      :visible.sync="drawer"
+                      :with-header="false"
+                    >
+                      <!-- 头像 -->
+                      <el-divider content-position="left" style="padding:20px">
+                        <el-button type="primary" round @click="jumpToPersonal">编辑资料</el-button>
+                      </el-divider>
+                      <div class="demo-fit" style="padding:20px 20px 0px 20px;diplay:flex">
+                        <div class="block">
+                          <el-avatar
+                            style="vertical-align:middle"
+                            shape="circle"
+                            :size="100"
+                            :src="userInfoData.uploadUrl"
+                          ></el-avatar>
+                          <div class="block_item1">
+                            <span
+                              class="title"
+                              style="margin-left:20px"
+                            >昵称 ： {{ userInfoData.nickname }}</span>
+                            <span class="title" style="margin-left:20px;marginTop:10px">
+                              性别 ：
+                              <svg
+                                v-if="userInfoData.sex == '男'"
+                                aria-hidden="true"
+                                class="icon_svg"
+                              >
+                                <use xlink:href="#iconnan" />
+                              </svg>
+                              <svg
+                                v-else-if="userInfoData.sex == '女'"
+                                aria-hidden="true"
+                                class="icon_svg"
+                              >
+                                <use xlink:href="#iconnv" />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                        <el-divider></el-divider>
+                      </div>
+                      <!-- 个性签名，地区，职业等 -->
+                      <div class="more_detail">
+                        <p>
+                          <svg aria-hidden="true" class="icon_svg">
+                            <use xlink:href="#iconqianming" />
+                          </svg>
+                          个性签名：{{ userInfoData.desc }}
+                        </p>
+                        <el-divider></el-divider>
+                        <p>
+                          <svg aria-hidden="true" class="icon_svg">
+                            <use xlink:href="#iconlingdai" />
+                          </svg>
+                          职业：{{ userInfoData.job }}
+                        </p>
+
+                        <p>
+                          <svg aria-hidden="true" class="icon_svg">
+                            <use xlink:href="#iconnb-" />
+                          </svg>
+                          家乡：{{ userInfoData.hometown }}
+                        </p>
+
+                        <p>
+                          <svg aria-hidden="true" class="icon_svg">
+                            <use xlink:href="#icondangao" />
+                          </svg>
+                          生日：{{ userInfoData.birthday }}
+                        </p>
+                      </div>
+                    </el-drawer>
+                  </div>
+                </div>
+                <el-row type="flex">
+                  <el-col :span="8">
+                    <el-row>
+                      <el-col>
+                        <ul class="card-inner card-mine">
+                          <li>用户名 :</li>
+                          <li>{{ username }}</li>
+                          <li>邮箱 :</li>
+                          <li>{{ e_mail }}</li>
+                        </ul>
+                      </el-col>
+                      <!-- <el-col>饼图</el-col> -->
+                    </el-row>
+                  </el-col>
+                  <!-- <el-col :span="16">
+                    <div id="main" style="width: 600px;height:400px;"></div>
+                  </el-col>-->
+                </el-row>
+              </div>
+            </div>
+          </section>
+          <section class="list">
+            <!-- 待循环 -->
+            <div class="card">
+              <div class="card-main">
+                <div style="margin-bottom: 20px">
+                  <el-button ref="allDelete" type="primary" @click="allDelete">批量删除</el-button>
+                </div>
+                <el-table
+                  @selection-change="handleSelectionChange"
+                  border
+                  style="width: 100%"
+                  :data="
+                    tableData2.filter(
+                      data =>
+                        !search ||
+                        data.time
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        data.ip.toLowerCase().includes(search.toLowerCase()) ||
+                        data.os.toLowerCase().includes(search.toLowerCase()) ||
+                        data.browser.version
+                          .toLowerCase()
+                          .includes(search.toLowerCase())
+                    )
+                  "
+                >
+                  <el-table-column type="selection" width="55"></el-table-column>
+                  <el-table-column prop="time" label="登录时间" width="180"></el-table-column>
+                  <el-table-column prop="ip" label="ip" width="180"></el-table-column>
+                  <el-table-column prop="os" label="设备信息"></el-table-column>
+                  <el-table-column prop="browser.version" label="浏览器信息"></el-table-column>
+                  <el-table-column>
+                    <template slot="header" slot-scope="scope">
+                      <el-input
+                        v-model="search"
+                        size="mini"
+                        placeholder="输入关键字搜索"
+                        @change="show(scope.row)"
+                      />
+                    </template>
+                    <template slot-scope="scope">
+                      <el-button
+                        type="danger"
+                        icon="el-icon-delete"
+                        @click="open(scope.row)"
+                        circle
+                      ></el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </div>
+            </div>
+            <!-- 分页 -->
+            <Paginations
+              :msg="length"
+              :size="size"
+              :page="page"
+              v-on:sizeValue="sizeValue"
+              v-on:pageValue="pageValue"
+            />
+          </section>
         </div>
       </div>
     </div>
-
-    <el-row class="home-part1" :gutter="0">
-      <el-col :span="12">
-        <div class="near-six-month">
-          <div class="title">
-            <p class="title-value">平台近6个月的交易记录</p>
-          </div>
-          <div class="content" ref="near-six-month-chart">
-            <near-six-month width="100%" height="100%"></near-six-month>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="8" class="detail-item-wrapper">
-        <div class="home-detail-item" :style="{ background: item.color}" v-for="(item, index) of homeDetailItem">
-          <div class="name">{{item.name}}</div>
-          <div class="value">
-            <span class="num">{{(item.value / 10000).toFixed(2)}}</span>万
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="4">
-        <div class="rank">
-          <div class="title">
-            <p class="title-value">投资龙虎榜</p>
-          </div>
-          <div class="content" ref="rankContent">
-            <ul class="wrapper-user">
-              <li v-for="item of rankList" class="user-item">
-                <img class="avatar" :src="item.avatar" width="35" height="35" loading="lazy" alt="">
-                <div class="user-info">
-                  <p class="name">{{item.name}}</p>
-                  <p class="value">{{item.value}}</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-row class="home-part2" :gutter="0">
-      <el-col :span="12">
-        <div class="financing-sprinkled">
-          <div class="title">
-            <p class="title-value">投资金额及融资期限分布图示</p>
-          </div>
-          <div class="content" ref="">
-            <!-- 投资 -->
-            <div class="investment">
-              <span class="title">投资金额比例</span>
-              <investment-pie width="100%" height="50%"></investment-pie>
-              <div class="detail">
-                <span class="detail-item">
-                  1万元以下
-                  <br>
-                  33.04%
-                </span>
-                <span class="detail-item">
-                  1-10万
-                  <br>
-                  30.57%
-                </span>
-                <span class="detail-item">
-                  10-40万
-                  <br>
-                  23.08%
-                </span>
-                <span class="detail-item">
-                  40万以上
-                  <br>
-                  13.31%
-                </span>
-              </div>
-            </div>
-            <!-- 融资 -->
-            <div class="financing">
-              <span class="title">融资期限</span>
-              <financing-pie width="100%" height="50%"></financing-pie>
-              <div class="detail">
-                <span class="detail-item">
-                  0-3个月
-                  <br>
-                  18.91%
-                </span>
-                <span class="detail-item">
-                  3-6个月
-                  <br>
-                  29.41%
-                </span>
-                <span class="detail-item">
-                  6-12个月
-                  <br>
-                  32.77%
-                </span>
-                <span class="detail-item">
-                  12个月以上
-                  <br>
-                  18.91%
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </el-col>
-
-      <el-col :span="12">
-        <div class="bad-debt">
-          <div class="title">
-            <p class="title-value">平台坏账及逾期情况</p>
-          </div>
-          <div class="content">
-            <div class="bad">
-              <div class="total">
-                <div class="total1">
-                  <p>坏账金额</p>
-                  <p><span class="num">0</span>元</p>
-                </div>
-                <div class="total2">
-                  <p>坏账比例</p>
-                  <p><span class="num">0</span>%</p>
-                </div>
-              </div>
-              <div class="chart">
-                <p class="title">本平台自2015年1月上线以来无坏账</p>
-                <p class="line"></p>
-                <p class="line"></p>
-              </div>
-            </div>
-            <div class="overdue">
-              <div class="total">
-                <div class="total1">
-                  <p>逾期金额</p>
-                  <p><span class="num">0</span>元</p>
-                </div>
-                <div class="total2">
-                  <p>逾期比例</p>
-                  <p><span class="num">0</span>%</p>
-                </div>
-              </div>
-              <div class="chart">
-                <p class="title">本平台自2015年1月上线以来无逾期</p>
-                <p class="line"></p>
-                <p class="line"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
-
   </div>
 </template>
+
 <script>
-  import CountUp from 'countup.js'
-  import {getHomeTotal, getHomeDetailItem, getRank} from '@/api/homepage'
-  import ColorLine from '@/components/color-line'
-  import NearSixMonth from '@/views/homepage/near-six-month'
-  import BScroll from 'better-scroll'
-  import InvestmentPie from '@/views/homepage/investment-pie'
-  import FinancingPie from '@/views/homepage/financing-pie'
-  export default {
-    components: {
-      ColorLine,
-      NearSixMonth,
-      InvestmentPie,
-      FinancingPie
+import Paginations from '../../components/pagination/index'
+import { CodeToText } from 'element-china-area-data'
+import { mapMutations } from 'vuex'
+export default {
+  name: 'center',
+  components: { Paginations },
+  data() {
+    return {
+      disabled: true,
+      id: '',
+      url: '',
+      flag: true,
+      drawer: false,
+      e_mail: '',
+      username: '',
+      length: '',
+      tableData2: [],
+      search: '',
+      userInfoData: {
+        url:
+          'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+      },
+      page: 1,
+      size: 8
+    }
+  },
+  methods: {
+    ...mapMutations(['sliderList']),
+    open(val) {
+      this.$confirm('此操作将删除该记录 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$axios
+            .get('/api/deleteServerInfo', {
+              params: {
+                _id: val._id
+              }
+            })
+            .then(res => {
+              this.getServerInfo()
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+            })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
-    data() {
-      return {
-        homeTotalData: [],
-        homeDetailItem: [],
-        rankList: [],
-        numAnim: null
-      }
+    handleSelectionChange(val) {
+      this.multipleSelection = val
     },
-    methods: {
-      initCountUp() {
-        this.$nextTick(() => {
-          let countupLength = this.$refs.countup.length
-          let i = 0
-          for (i; i < countupLength; i++) {
-            this.numAnim = new CountUp(this.$refs.countup[i], 0, this.$refs.countup[i].innerText, 2, 1.5)
-            this.numAnim.start()
+    getServerInfo() {
+      this.$axios
+        .get('/api/getServerInfo', {
+          params: {
+            username: this.username
           }
         })
-      },
-      _initScroll() {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.rankContent, {
-            scrollY: true,
-            click: true,
-            scrollbar: {
-              fade: false,
-              interactive: true // 1.8.0 新增
-            },
-            mouseWheel: {
-              speed: 20,
-              invert: false,
-              easeTime: 300
+        .then(res => {
+          if (res.data.length != 0) {
+            res.data.map((item, index) => {
+              item.browser.version = item.browser.version.replace('/', ' ')
+            })
+            this.length = res.data.length
+            // this.$store.commit('settingList', )
+            this.sliderList({
+              username: this.username,
+              mode: 'loginCounts',
+              data: this.length
+            })
+            this.tableData2 = res.data
+              .reverse()
+              .slice(this.size * (this.page - 1), this.size * this.page)
+            if (this.tableData2.length == 0) {
+              this.page -= 1
+              this.getServerInfo()
             }
+          } else {
+            this.tableData2 = res.data
+          }
+        })
+    },
+    jumpToPersonal() {
+      this.$router.push('/backhome/personal')
+      this.$store.commit('sliderList', 2)
+      this.$router.go(0)
+    },
+    submitForm(formName) {},
+    resetForm(formName) {},
+    getUserInfo() {
+      this.$axios
+        .get('/api/userInfoData', {
+          params: {
+            username: this.username
+          }
+        })
+        .then(res => {
+          this.userInfoData = res.data
+          let hometown = []
+          res.data.hometown.map((item, index) => {
+            hometown += CodeToText[item] + ' '
+            this.userInfoData.hometown = hometown
           })
-        } else {
-          this.scroll.refresh()
-        }
+          if (this.userInfoData.hometown.length == 0) {
+            this.userInfoData.hometown = ''
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    showUserInfo() {
+      this.drawer = true
+      this.getUserInfo()
+    },
+    pageValue(pageValue) {
+      this.page = pageValue
+      this.getServerInfo()
+    },
+    sizeValue(sizeValue) {
+      this.size = sizeValue
+      this.getServerInfo()
+    },
+
+    allDelete() {
+      if (this.multipleSelection) {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            const data = []
+            this.multipleSelection.map(item => {
+              Object.getOwnPropertyNames(item).forEach(function(key) {
+                if (key == '_id') {
+                  data.push(item[key])
+                }
+              })
+            })
+            this.$axios
+              .get('/api/deleteAllServerInfo', {
+                params: {
+                  _id: JSON.stringify(data)
+                }
+              })
+              .then(res => {
+                if (res.data.status == '0') {
+                  this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                  })
+                  this.getServerInfo() //bug 此处不执行
+                } else {
+                  this.$message({
+                    type: 'error',
+                    message: '网络可能有点问题～'
+                  })
+                }
+              })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
+      } else {
+        this.$message({
+          message: '先选中～',
+          type: 'warning'
+        })
       }
-    },
-    created() {
-      // 获取头部hometotal
-      getHomeTotal().then((resp) => {
-        this.homeTotalData = resp.data
-        this.initCountUp()
-      }).catch(() => {
-        console.log('获取home-total出现异常')
-      })
-      // 获取 detailItem
-      getHomeDetailItem().then(resp => {
-        this.homeDetailItem = resp.data
-      }).catch(() => {
-        console.log('获取detailItem出现异常')
-      })
-      // 获取投资榜
-      getRank().then(resp => {
-        this.rankList = resp.data
-        this._initScroll()
-      }).catch(() => {
-        console.log('获取rankList出现异常')
-      })
-    },
-    mounted() {},
-    updated() {
-      // this.$nextTick(function() {
-      //   this.initCountUp()
-      // })
     }
+  },
+  created() {
+    let info = JSON.parse(localStorage.getItem('token'))
+    this.username = info.data.username
+    this.e_mail = info.data.e_mail
+    this.getUserInfo()
+  },
+  mounted() {
+    this.getServerInfo()
   }
+}
 </script>
-<style scoped lang="stylus">
-  .homepage-container
-    min-width 800px
+<style scoped>
+.content-header {
+  background-image: url('../../../static/image/center-bg.png')
+}
 
-  .home-total {
+.card-mine li {
+  margin-bottom: 10px !important;
+}
+button:focus {
+  outline: none;
+
+  box-shadow: none;
+}
+.el-table th,
+.el-table--enable-row-transition .el-table__body td {
+  text-align: center;
+}
+
+.account {
+  float: right;
+}
+.more_detail {
+  padding: 0 20px 20px 20px;
+}
+.demo-fit .block {
+  display: flex;
+}
+.demo-fit .block .block_item1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.drawers {
+  /* background-image: url('../media_icon/iloli.gif'); */
+  background-position: 150px 420px;
+  background-repeat: no-repeat;
+}
+
+.content {
+    padding:30px 30px 0px 20px;
     width: 100%;
-    min-width: 800px;
-    height: 160px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin: 0 0 15px 0;
-    .home-total-item {
-      box-sizing: border-box;
-      display: inline-block;
-      width: 25%;
-      height: 100%;
-      padding: 15px 0;
-      vertical-align: top;
-      .wrapper-item {
-        height: 100%;
-        padding: 0 20px;
-        border-right: 1px solid #ccc;
-        text-align: center;
-        .title {
-          margin: 0px 0;
-        }
-        .value {
-          margin 5px 0
-          font-size 34px
-          color: #ffc107
-        }
-      }
-      &:last-child {
-        .wrapper-item {
-          border: none;
-        }
-      }
-    }
-  }
-  .home-part1 {
-    margin: 0 !important;
-    .near-six-month {
-      border: 1px solid #eee;
-      height: 300px;
-      .title {
-        background: #dde3ef;
-        padding: 10px 0;
-        .title-value {
-          margin-left: 4px;
-          text-indent: 4px;
-          color: #666;
-          &:before {
-            display: inline-block;
-            content: '';
-            width: 4px;
-            height: 16px;
-            background: purple;
-            margin-right: 4px;
-            border-radius: 4px;
-            vertical-align: middle;
-          }
-        }
-      }
-      .content {
-        width: 100%;
-        height: 260px;
-      }
-    }
-    .detail-item-wrapper {
-      display: flex
-      height: 300px
-      overflow: hidden;
-      flex-wrap: wrap;
-      flex-flow: row wrap;
-      justify-content: space-around;
-      align-content: space-around;
-      padding: 0 10px;
-      color: #fff;
-      .home-detail-item {
-        flex: 0 0 48%
-        height: 145px
-        border: 1px solid #eee
-        background-image linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .3)) !important
-        cursor pointer
-      }
-      .home-detail-item:hover {
-        background-image none !important
-      }
-      .home-detail-item:nth-child(3), .home-detail-item:nth-child(4) {
-        margin-top: 10px;
-      }
-      .home-detail-item {
-        .name {
-          padding: 30px 0 10px 0;
-          text-align: center;
-          font-size: 20px;
-        }
-        .value {
-          text-align: center;
-          .num {
-            font-size: 28px;
-          }
-        }
-      }
-    }
-    .rank {
-      .title {
-        background: #dde3ef;
-        padding: 10px 0;
-        .title-value {
-          margin-left: 4px;
-          text-indent: 4px;
-          color: #666;
-          &:before {
-            display: inline-block;
-            content: '';
-            width: 4px;
-            height: 16px;
-            background: purple;
-            margin-right: 4px;
-            border-radius: 4px;
-            vertical-align: middle;
-          }
-        }
-      }
-      .content {
-        position: relative;
-        width: 100%;
-        height: 260px;
-        overflow: hidden;
-        .wrapper-user {
-          margin: 0;
-          list-style: none;
-          padding-left: 0;
-          .user-item {
-            height: 50px;
-            padding: 5px;
-            .avatar {
-              border: 1px solid #888;
-              border-radius: 100px;
-              vertical-align: bottom;
-            }
-            .user-info {
-              display: inline-block;
-              padding-left: 5px;
-              .name {
-                color: #999;
-                font-size: 14px;
-              }
-              .value {
-                color: red;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  .home-part2 {
-    margin-top: 15px;
-    .financing-sprinkled {
-      border: 1px solid #eee;
-      height: 350px;
-      .title {
-        background: #dde3ef;
-        padding: 10px 0;
-        .title-value {
-          margin-left: 4px;
-          text-indent: 4px;
-          color: #666;
-          &:before {
-            display: inline-block;
-            content: '';
-            width: 4px;
-            height: 16px;
-            background: purple;
-            margin-right: 4px;
-            border-radius: 4px;
-            vertical-align: middle;
-          }
-        }
-      }
-      .content {
-        display: inline-flex;
-        width: 100%;
-        height: 310px;
-        .investment {
-          height: 310px;
-          width: 50%;
-          .title {
-            display: inherit;
-            text-align: center;
-            background: transparent;
-            padding-top: 20px;
-          }
-          .detail {
-            margin-left: 10px;
-            text-align: center;
-            .detail-item {
-              display: inline-block;
-              width: 40%;
-              margin: 5px;
-              padding-left: 5px;
-              border-left: 5px solid #ccc;
-              color: #666;
-            }
-          }
-        }
-        .financing {
-          height: 310px;
-          width: 50%;
-          .title {
-            display: inherit;
-            text-align: center;
-            background: transparent;
-            padding-top: 20px;
-          }
-          .detail {
-            margin-left: 10px;
-            text-align: center;
-            .detail-item {
-              display: inline-block;
-              width: 40%;
-              margin: 5px;
-              padding-left: 5px;
-              border-left: 5px solid #ccc;
-              color: #666;
-            }
-          }
-        }
-      }
-    }
-    .bad-debt {
-      height: 350px;
-      min-width: 540px;
-      margin-left: 10px;
-      border: 1px solid #eee;
+    position: relative;
+    transition: padding .5s;
+    margin-bottom: 30px;
+}
+.grey_bg{
+      background-color: #f4f6f9;
+  overflow: hidden;
+}
+.content-header {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: -58px;
+  padding-top: 68px;
+  padding-bottom: 58px;
+  overflow: hidden;
+  box-shadow: 0 0px 0 rgb(67, 47, 40), 0 0 15px #412f1c,
+    0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  width:100%;
+  padding-right: 10px;
+  padding-left: 10px;
+ 
+}
+.content-heading {
+  font-weight: 300;
+  color: #fff;
+  font-size: 44px;
+  line-height: 48px;
+  margin-top: 48px;
+  margin-bottom: 12px;
+}
+.list {
+  margin-bottom: 48px;
+  margin-right: -10px;
+  margin-left: -10px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.card {
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0px 0 #e5e5e5, 0 0 15px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.05);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.card-main {
+  width:100%;
+  margin: 24px 16px;
+}
+.card-inner {
+  margin: 12px 0;
+  margin: 24px 16px;
+}
+.card-inner li {
+  line-height: 20px;
+}
 
-      .title {
-        background: #dde3ef;
-        padding: 10px 0;
-        .title-value {
-          margin-left: 4px;
-          text-indent: 4px;
-          color: #666;
-          &:before {
-            display: inline-block;
-            content: '';
-            width: 4px;
-            height: 16px;
-            background: purple;
-            margin-right: 4px;
-            border-radius: 4px;
-            vertical-align: middle;
-          }
-        }
-      }
-      .content {
-        height: inherit;
-        .bad {
-          height: 50%;
-          padding: 20px 30px;
-          .total {
-            display: inline-block;
-            width: 200px;
-            color: #666;
-            vertical-align: top;
-            .total1 {
-              text-align: center;
-              .num {
-                font-size: 24px;
-              }
-            }
-            .total2 {
-              text-align: center;
-              margin-top: 20px;
-              .num {
-                font-size: 24px;
-              }
-            }
-          }
-          .chart {
-            display: inline-block;
-            margin-left: 15px;
-            .title {
-              background: none;
-              border-bottom: 1px solid #ccc;
-            }
-            .line {
-              border-bottom: 1px solid #ccc;
-              padding-bottom: 30px;
-              &:last-child {
-                border-bottom-color: #000;
-              }
-            }
-            &:after {
-              content: '0';
-              position: relative;
-              font-size: 70px;
-              left: 20px;
-              top: -70px;
-              color: #ddd;
-            }
-          }
-        }
-        .overdue {
-          padding: 10px 30px;
-          height: 50%;
-          .total {
-            display: inline-block;
-            width: 200px;
-            color: #666;
-            vertical-align: top;
-            .total1 {
-              text-align: center;
-              .num {
-                font-size: 24px;
-              }
-            }
-            .total2 {
-              text-align: center;
-              margin-top: 20px;
-              .num {
-                font-size: 24px;
-              }
-            }
-          }
-          .chart {
-            display: inline-block;
-            margin-left: 15px;
-            .title {
-              background: none;
-              border-bottom: 1px solid #ccc;
-            }
-            .line {
-              border-bottom: 1px solid #ccc;
-              padding-bottom: 30px;
-              &:last-child {
-                border-bottom-color: #000;
-              }
-            }
-            &:after {
-              content: '0';
-              position: relative;
-              font-size: 70px;
-              left: 20px;
-              top: -70px;
-              color: #ddd;
-            }
-          }
-        }
-      }
-    }
-  }
+.el-table__row {
+  width: 100%;
+}
 
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
+.el-table .warning-row {
+  background: oldlace;
+}
+
+.el-table .success-row {
+  background: #f0f9eb;
+}
+
+/* icon font */
+.icon_svg{
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  vertical-align: middle
+}
 </style>
