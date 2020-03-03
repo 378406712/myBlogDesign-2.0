@@ -28,6 +28,7 @@ const permission = {
     GenerateRoutes({ commit }, routers) {
       return new Promise((resolve, reject) => {
         const { permissions: p } = routers
+        console.log(routers)
         const routersMap = p.split(',')
         let accessedRouters = filterAsyncRouter(asyncRouterMap, routersMap)
         commit(SET_ROUTERS, accessedRouters)

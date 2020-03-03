@@ -4,8 +4,8 @@ export function login(userInfo) {
   return axios.post('/api/login/login', userInfo)
 }
 
-export function userInfo() {
-  return axios.post('/user/getInfo')
+export function userInfo(username) {
+  return axios.post('/api/user/getInfo',username)
 }
 
 export function logout() {

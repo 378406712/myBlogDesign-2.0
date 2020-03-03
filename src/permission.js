@@ -22,14 +22,12 @@ router.beforeEach((to, from, next) => {
     // 有token访问login页面，就跳到首页
     if (to.path === '/login') {
       next('/')
-      console.log('000')
       NProgress.done() // 这种情况不会触发router的后置钩子，所以这里需要单独处理
     } else {
       // 有token，没有permissions
-      console.log('001')
       if (store.getters.permissions.length === 0) {
-        store.dispatch('pullUserInfo').then(resp => {
-          const permissions = resp.permissions
+        store.dispatch('pullUserInfo',getToken()).then(resp => {
+          const permissions = resp.permission
           store.dispatch('GenerateRoutes', {
             permissions
           }).then(() => {

@@ -2,7 +2,7 @@
   <div class="homepage-container">
 
     <div class="home-total">
-      <div class="home-total-item" v-for="(item, index) of homeTotalData">
+      <div class="home-total-item" v-for="(item, index) of homeTotalData" >
         <div class="wrapper-item">
           <p class="title">{{item.title}}</p>
           <p class="value digital-number" ref="countup">{{item.value}}</p>

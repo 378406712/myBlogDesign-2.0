@@ -47,9 +47,11 @@ const user = {
       commit
     }, userInfo) {
       return new Promise((resolve, reject) => {
-     
+
         login(userInfo).then(resp => {
-          let {data} = resp
+          let {
+            data
+          } = resp
           console.log(data)
           setToken(data.token)
           commit(SET_TOKEN, data.token)
@@ -63,18 +65,19 @@ const user = {
         })
       })
     },
- 
+
     // 拉取用户信息
     pullUserInfo({
       commit
-    }) {
+    },username) {
       return new Promise((resolve, reject) => {
-        userInfo().then(resp => {
+        console.log(username)
+        userInfo({username}).then(resp => {
+          console.log(resp,'1111')
           let data = resp.data
-          commit(SET_NAME, data.name)
-          commit(SET_AGE, data.age)
+          commit(SET_NAME, data.username)
           commit(SET_AVATAR, data.avatar)
-          commit(SET_PERMISSIONS, data.permissions)
+          commit(SET_PERMISSIONS, data.permission)
           return resolve(data)
         }).catch(err => {
           return reject(err)
