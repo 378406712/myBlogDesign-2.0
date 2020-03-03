@@ -9,5 +9,5 @@ export function userInfo(username) {
 }
 
 export function logout() {
-  return axios.post('/login/logout')
+  return axios.post('api/login/logout')
 }

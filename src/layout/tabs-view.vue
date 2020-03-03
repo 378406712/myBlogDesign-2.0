@@ -8,7 +8,7 @@
       :key="index"
     >
       <el-tag
-        :closable="index!=0"
+        :closable="tag.path!='/home'"
         :disable-transitions="false"
         @close.prevent.stop="handleClose(tag)"
       >{{tag.name}}</el-tag>
