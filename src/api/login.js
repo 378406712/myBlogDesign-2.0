@@ -11,3 +11,7 @@ export function userInfo(username) {
 export function logout() {
   return axios.post('api/login/logout')
 }
+export function DeviceInfo(InfoData){
+  return axios.post('api/login/DeviceInfo',InfoData)
+}
+

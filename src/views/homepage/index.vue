@@ -15,9 +15,7 @@
               <div class="card-main">
                 <div class="myAccount">
                   <div class="account">
-                   
-                  <el-button ref="allDelete" type="primary" @click="showUserInfo">我的资料</el-button>
-
+                    <el-button ref="allDelete" type="primary" @click="showUserInfo">我的资料</el-button>
                     <el-drawer
                       custom-class="drawers"
                       title="个人资料"
@@ -106,12 +104,8 @@
                           <li>{{ e_mail }}</li>
                         </ul>
                       </el-col>
-                      <!-- <el-col>饼图</el-col> -->
                     </el-row>
                   </el-col>
-                  <!-- <el-col :span="16">
-                    <div id="main" style="width: 600px;height:400px;"></div>
-                  </el-col>-->
                 </el-row>
               </div>
             </div>
@@ -187,6 +181,7 @@
 import Paginations from '../../components/pagination/index'
 import { CodeToText } from 'element-china-area-data'
 import { mapMutations } from 'vuex'
+import { Msg, ComfirmMsg } from '@/utils/message'
 export default {
   name: 'center',
   components: { Paginations },
@@ -213,11 +208,7 @@ export default {
   methods: {
     ...mapMutations(['sliderList']),
     open(val) {
-      this.$confirm('此操作将删除该记录 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
+      ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
         .then(() => {
           this.$axios
             .get('/api/deleteServerInfo', {
@@ -227,17 +218,11 @@ export default {
             })
             .then(res => {
               this.getServerInfo()
-              this.$message({
-                type: 'success',
-                message: '删除成功!'
-              })
+              Msg('删除成功', 'success')
             })
         })
         .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
+          Msg('已取消删除', 'info')
         })
     },
     handleSelectionChange(val) {
@@ -318,11 +303,7 @@ export default {
 
     allDelete() {
       if (this.multipleSelection) {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
+        ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
           .then(() => {
             const data = []
             this.multipleSelection.map(item => {
@@ -340,30 +321,18 @@ export default {
               })
               .then(res => {
                 if (res.data.status == '0') {
-                  this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  })
+                  Msg('删除成功', 'success')
                   this.getServerInfo() //bug 此处不执行
                 } else {
-                  this.$message({
-                    type: 'error',
-                    message: '网络可能有点问题～'
-                  })
+                  Msg('网络可能有点问题～', 'error')
                 }
               })
           })
           .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            })
+            Msg('已取消删除', 'info')
           })
       } else {
-        this.$message({
-          message: '先选中～',
-          type: 'warning'
-        })
+        Msg('先选中～', 'warning')
       }
     }
   },
@@ -380,7 +349,7 @@ export default {
 </script>
 <style scoped>
 .content-header {
-  background-image: url('../../../static/image/center-bg.png')
+  background-image: url('../../../static/image/center-bg.png');
 }
 
 .card-mine li {
@@ -417,14 +386,14 @@ button:focus {
 }
 
 .content {
-    padding:30px 30px 0px 20px;
-    width: 100%;
-    position: relative;
-    transition: padding .5s;
-    margin-bottom: 30px;
+  padding: 30px 30px 0px 20px;
+  width: 100%;
+  position: relative;
+  transition: padding 0.5s;
+  margin-bottom: 30px;
 }
-.grey_bg{
-      background-color: #f4f6f9;
+.grey_bg {
+  background-color: #f4f6f9;
   overflow: hidden;
 }
 .content-header {
@@ -441,10 +410,9 @@ button:focus {
 .container {
   margin-right: auto;
   margin-left: auto;
-  width:100%;
+  width: 100%;
   padding-right: 10px;
   padding-left: 10px;
- 
 }
 .content-heading {
   font-weight: 300;
@@ -475,7 +443,7 @@ button:focus {
   margin-bottom: 24px;
 }
 .card-main {
-  width:100%;
+  width: 100%;
   margin: 24px 16px;
 }
 .card-inner {
@@ -499,10 +467,10 @@ button:focus {
 }
 
 /* icon font */
-.icon_svg{
+.icon_svg {
   width: 25px;
   height: 25px;
   margin-right: 10px;
-  vertical-align: middle
+  vertical-align: middle;
 }
 </style>

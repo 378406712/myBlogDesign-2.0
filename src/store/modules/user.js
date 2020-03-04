@@ -15,14 +15,15 @@ const SET_NAME = 'SET_NAME'
 const SET_AGE = 'SET_AGE'
 const SET_AVATAR = 'SET_AVATAR'
 const SET_PERMISSIONS = 'SET_PERMISSIONS'
-
+const SET_STATUS = 'SET_STATUS'
 const user = {
   state: {
     token: getToken(),
     name: '',
     age: 0,
     avatar: '',
-    permissions: ''
+    permissions: '',
+    status: '123'
   },
   mutations: {
     [SET_TOKEN](state, token) {
@@ -39,6 +40,10 @@ const user = {
     },
     [SET_PERMISSIONS](state, permissions) {
       state.permissions = permissions
+    },
+    [SET_STATUS](state, status) {
+      state.status = status
+      console.log(state.status)
     }
   },
   actions: {
@@ -47,19 +52,18 @@ const user = {
       commit
     }, userInfo) {
       return new Promise((resolve, reject) => {
-
         login(userInfo).then(resp => {
           let {
             data
           } = resp
-          console.log(data)
-          setToken(data.token)
-          commit(SET_TOKEN, data.token)
-          // commit(SET_NAME, data.name)
-          // commit(SET_AGE, data.age)
-          // commit(SET_AVATAR, data.avatar)
-          // commit(SET_PERMISSIONS, data.permissions)
+
+          commit(SET_STATUS, data.status)
+          if (data.status === 1) {
+            setToken(data.token)
+            commit(SET_TOKEN, data.token)
+          }
           return resolve()
+
         }).catch(err => {
           return reject(err)
         })
@@ -69,11 +73,12 @@ const user = {
     // 拉取用户信息
     pullUserInfo({
       commit
-    },username) {
+    }, username) {
       return new Promise((resolve, reject) => {
-        console.log(username)
-        userInfo({username}).then(resp => {
-          console.log(resp,'1111')
+        userInfo({
+          username
+        }).then(resp => {
+          console.log(resp, '1111')
           let data = resp.data
           commit(SET_NAME, data.username)
           commit(SET_AVATAR, data.avatar)

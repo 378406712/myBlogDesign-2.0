@@ -1,18 +1,11 @@
+
+const SET_Device = 'SET_Device'
 const center = {
   state: {
     //存储共有数据
-    flag: true,
     avatar: null,
-    slider: 0,
-    setting: {
-      username: "",
-      e_mail: "",
-      alterPass: 0,
-      updateData: 0,
-      editEssay: 0,
-      readComment: 0,
-      loginCounts: 0
-    }
+    device:''
+    
   },
   mutations: {
     initstoreList(state, payload) {
@@ -43,7 +36,13 @@ const center = {
       } else {
         state.setting = payload;
       }
+    },
+    [SET_Device](state,device){
+      state.device = device
     }
+  },
+  action:{
+
   }
 }
 

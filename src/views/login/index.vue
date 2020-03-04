@@ -10,13 +10,19 @@
       </div>
       <el-form :rules="rules" :model="loginForm" ref="loginForm" label-width="80px">
         <el-form-item :label="$t('login.account')" prop="username" style="position:relative">
-          <el-input type="text" v-model="loginForm.username" @keyup.enter.native="goToPwdInput"></el-input>
+          <el-input
+            clearable
+            type="text"
+            v-model="loginForm.username"
+            @keyup.enter.native="goToPwdInput"
+          ></el-input>
           <span class="svg-container svg-container_user">
             <svg-icon icon-class="user" />
           </span>
         </el-form-item>
         <el-form-item :label="$t('login.password')" prop="password">
           <el-input
+            clearable
             type="password"
             v-model="loginForm.password"
             @keyup.enter.native="onLogin"
@@ -55,10 +61,13 @@
 </template>
 <script>
 import LangSelect from '@/components/lang-select'
-import { saveToLocal, loadFromLocal } from '@/common/local-storage'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { getPublicKey } from '@/api/register'
 import { JSEncrypt } from 'jsencrypt'
+import Devices from '@/utils/devices'
+import { Msg } from '@/utils/message'
+import { saveToLocal, loadFromLocal } from '@/common/local-storage'
+
 /* eslint-disable*/
 import particles from 'particles.js'
 export default {
@@ -131,7 +140,17 @@ export default {
                   saveToLocal('password', '')
                   saveToLocal('remember', false)
                 }
-                this.$router.push({ path: '/' })
+                if (this.status === 1) {
+                  Msg('登陆成功', 'success')
+                  this.$router.push({ path: '/' })
+                } else {
+                  if (this.status === -1) {
+                    Msg('密码错误', 'error')
+                  } else if (this.status === 0) {
+                    Msg('不存在该用户', 'error')
+                  }
+                }
+                this.loading = false
               })
               .catch(() => {
                 this.loading = false
@@ -256,6 +275,9 @@ export default {
         document.getElementById('particles').innerHTML = ''
       }
     }
+  },
+  computed: {
+    ...mapState({ status: state => state.user.status })
   }
 }
 </script>

@@ -64,7 +64,7 @@ import { JSEncrypt } from 'jsencrypt'
 import LangSelect from '@/components/lang-select'
 import { isRegisterValid } from '@/utils/register-validate'
 import { register, getPublicKey } from '@/api/register'
-import { RegisterMsg } from '@/utils/message'
+import { Msg } from '@/utils/message'
 export default {
   name: 'Register',
   components: {
@@ -181,12 +181,12 @@ export default {
               .then(res => {
                 if (res.data === -1) {
                   this.loading = false
-                  RegisterMsg('用户名重复', 'warning', '1000')
+                  Msg('用户名重复', 'warning')
                 } else if (res.data === 0) {
                   this.loading = false
-                  RegisterMsg('邮箱重复', 'warning', '1000')
+                  Msg('邮箱重复', 'warning')
                 } else if (res.data === 1) {
-                  RegisterMsg('注册成功,3秒后跳转', 'success', '3000')
+                  Msg('注册成功,3秒后跳转', 'success', '3000')
                   setTimeout(() => {
                     this.$router.push('/login')
                   }, 3000)
@@ -194,7 +194,7 @@ export default {
               })
               .catch(() => {
                 this.loading = false
-                RegisterMsg('注册失败,网络可能有点问题', 'error', '2000')
+                Msg('注册失败,网络可能有点问题', 'error')
               })
           })
         } else {
