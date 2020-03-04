@@ -61,10 +61,12 @@
 
 <script>
 import { JSEncrypt } from 'jsencrypt'
+import { getPublicKey } from '@/api/register'
 import LangSelect from '@/components/lang-select'
 import { isRegisterValid } from '@/utils/register-validate'
-import { register, getPublicKey } from '@/api/register'
+import { register } from '@/api/register'
 import { Msg } from '@/utils/message'
+import {mapMutations} from 'vuex'
 export default {
   name: 'Register',
   components: {
@@ -118,7 +120,7 @@ export default {
         checkPass: '',
         e_mail: '',
         permission: '/excel,/theme',
-        avatar:'./static/image/avatar/0.jpg'
+        avatar: './static/image/avatar/0.jpg'
       },
       rules: {
         username: [
@@ -157,8 +159,8 @@ export default {
     },
     // 注册操作
     onRegister() {
-      const { username, e_mail,avatar } = this.registerForm
-      let {permission} = this.registerForm
+      const { username, e_mail, avatar } = this.registerForm
+      let { permission } = this.registerForm
       if (username === 'Clover') {
         permission = '/excel,/clipboard,/theme,/test'
       }
@@ -174,7 +176,7 @@ export default {
               e_mail,
               avatar,
               token: username,
-            permission,
+              permission,
               password: encryptor.encrypt(this.registerForm.checkPass)
             }
             register(registerData)

@@ -5,13 +5,13 @@ export function login(userInfo) {
 }
 
 export function userInfo(username) {
-  return axios.post('/api/user/getInfo',username)
+  return axios.post('/api/user/getInfo', username)
 }
 
 export function logout() {
   return axios.post('api/login/logout')
 }
-export function DeviceInfo(InfoData){
-  return axios.post('api/login/DeviceInfo',InfoData)
+//传递设备信息
+export function devices(deviceInfo) {
+  return axios.post('api/login/DeviceInfo', deviceInfo)
 }
-

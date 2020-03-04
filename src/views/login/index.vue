@@ -112,14 +112,21 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(['login', 'setDevices']),
     // 用户名输入框回车后切换到密码输入框
     goToPwdInput() {
       this.$refs.password.$el.getElementsByTagName('input')[0].focus()
     },
     // 登录操作
     onLogin() {
-      let { password } = this.loginForm
+      let { username, password } = this.loginForm
+      const deviceInfo = {
+        username,
+        os: Devices.getOsInfo(),
+        digits: Devices.getDigits(),
+        browser: Devices.getBrowser()
+      }
+      
       this.$refs.password.$el.getElementsByTagName('input')[0].blur()
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -141,7 +148,10 @@ export default {
                   saveToLocal('remember', false)
                 }
                 if (this.status === 1) {
+                  console.log(deviceInfo)
+                  this.setDevices(deviceInfo)
                   Msg('登陆成功', 'success')
+
                   this.$router.push({ path: '/' })
                 } else {
                   if (this.status === -1) {

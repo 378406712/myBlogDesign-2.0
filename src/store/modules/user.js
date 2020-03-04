@@ -1,7 +1,8 @@
 import {
   login,
   userInfo,
-  logout
+  logout,
+  devices
 } from '@/api/login'
 
 import {
@@ -16,14 +17,16 @@ const SET_AGE = 'SET_AGE'
 const SET_AVATAR = 'SET_AVATAR'
 const SET_PERMISSIONS = 'SET_PERMISSIONS'
 const SET_STATUS = 'SET_STATUS'
+const SET_EMAIL = 'SET_EMAIL'
 const user = {
   state: {
     token: getToken(),
     name: '',
-    age: 0,
+    // age: 0,
     avatar: '',
     permissions: '',
-    status: '123'
+    status: '123',
+    e_mail:''
   },
   mutations: {
     [SET_TOKEN](state, token) {
@@ -43,8 +46,11 @@ const user = {
     },
     [SET_STATUS](state, status) {
       state.status = status
-      console.log(state.status)
+    },
+    [SET_EMAIL](state, e_mail) {
+      state.e_mail = e_mail
     }
+
   },
   actions: {
     // 用户登录
@@ -53,10 +59,11 @@ const user = {
     }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(resp => {
-          let {
+          const {
             data
           } = resp
-
+          console.log(data)
+          commit(SET_EMAIL,data.e_mail)
           commit(SET_STATUS, data.status)
           if (data.status === 1) {
             setToken(data.token)
@@ -64,6 +71,15 @@ const user = {
           }
           return resolve()
 
+        }).catch(err => {
+          return reject(err)
+        })
+      })
+    },
+    setDevices({},deviceInfo) {
+      return new Promise((resolve, reject) => {
+        devices(deviceInfo).then(() => {
+          return resolve()
         }).catch(err => {
           return reject(err)
         })
@@ -78,9 +94,9 @@ const user = {
         userInfo({
           username
         }).then(resp => {
-          console.log(resp, '1111')
           let data = resp.data
           commit(SET_NAME, data.username)
+          commit(SET_EMAIL, data.e_mail)
           commit(SET_AVATAR, data.avatar)
           commit(SET_PERMISSIONS, data.permission)
           return resolve(data)
@@ -110,6 +126,7 @@ const user = {
     name: state => state.name,
     age: state => state.age,
     avatar: state => state.avatar,
+    e_mail:state=>state.e_mail,
     permissions: state => state.permissions
   }
 }

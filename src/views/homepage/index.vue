@@ -99,9 +99,12 @@
                       <el-col>
                         <ul class="card-inner card-mine">
                           <li>用户名 :</li>
-                          <li>{{ username }}</li>
+                          <li>{{ name }}</li>
+                          <el-divider></el-divider>
+
                           <li>邮箱 :</li>
                           <li>{{ e_mail }}</li>
+                          <el-divider></el-divider>
                         </ul>
                       </el-col>
                     </el-row>
@@ -178,21 +181,18 @@
 </template>
 
 <script>
-import Paginations from '../../components/pagination/index'
+import Paginations from './pagination'
 import { CodeToText } from 'element-china-area-data'
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import { Msg, ComfirmMsg } from '@/utils/message'
 export default {
   name: 'center',
   components: { Paginations },
   data() {
     return {
-      disabled: true,
       id: '',
       url: '',
-      flag: true,
       drawer: false,
-      e_mail: '',
       username: '',
       length: '',
       tableData2: [],
@@ -206,7 +206,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['sliderList']),
+    ...mapActions(['getDevieces']),
     open(val) {
       ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
         .then(() => {
@@ -229,35 +229,36 @@ export default {
       this.multipleSelection = val
     },
     getServerInfo() {
-      this.$axios
-        .get('/api/getServerInfo', {
-          params: {
-            username: this.username
-          }
-        })
-        .then(res => {
-          if (res.data.length != 0) {
-            res.data.map((item, index) => {
-              item.browser.version = item.browser.version.replace('/', ' ')
-            })
-            this.length = res.data.length
-            // this.$store.commit('settingList', )
-            this.sliderList({
-              username: this.username,
-              mode: 'loginCounts',
-              data: this.length
-            })
-            this.tableData2 = res.data
-              .reverse()
-              .slice(this.size * (this.page - 1), this.size * this.page)
-            if (this.tableData2.length == 0) {
-              this.page -= 1
-              this.getServerInfo()
-            }
-          } else {
-            this.tableData2 = res.data
-          }
-        })
+      const { username } = this
+      // this.$axios
+      //   .get('/api/getServerInfo', {
+      //     params: {
+      //       username: this.username
+      //     }
+      //   })
+      //   .then(res => {
+      //     if (res.data.length != 0) {
+      //       res.data.map((item, index) => {
+      //         item.browser.version = item.browser.version.replace('/', ' ')
+      //       })
+      //       this.length = res.data.length
+      //       // this.$store.commit('settingList', )
+      //       this.sliderList({
+      //         username: this.username,
+      //         mode: 'loginCounts',
+      //         data: this.length
+      //       })
+      //       this.tableData2 = res.data
+      //         .reverse()
+      //         .slice(this.size * (this.page - 1), this.size * this.page)
+      //       if (this.tableData2.length == 0) {
+      //         this.page -= 1
+      //         this.getServerInfo()
+      //       }
+      //     } else {
+      //       this.tableData2 = res.data
+      //     }
+      //   })
     },
     jumpToPersonal() {
       this.$router.push('/backhome/personal')
@@ -336,13 +337,20 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['name', 'e_mail']),
+    ...mapState({ devices: state => state.homepage.devices })
+  },
   created() {
-    let info = JSON.parse(localStorage.getItem('token'))
-    this.username = info.data.username
-    this.e_mail = info.data.e_mail
-    this.getUserInfo()
+    // let info = JSON.parse(localStorage.getItem('token'))
+    // this.username = info.data.username
+    // this.e_mail = info.data.e_mail
+    // this.getUserInfo()
+    this.getDevieces(this.name)
   },
   mounted() {
+    console.log(this.devices)
+    this.tableData2 = this.devices
     this.getServerInfo()
   }
 }
@@ -360,8 +368,8 @@ button:focus {
 
   box-shadow: none;
 }
-.el-table th,
-.el-table--enable-row-transition .el-table__body td {
+.el-table >>> th,
+ .el-table /deep/ td {
   text-align: center;
 }
 
