@@ -157,7 +157,7 @@
                       <el-button
                         type="danger"
                         icon="el-icon-delete"
-                        @click="open(scope.row)"
+                        @click="open(scope.row,scope.$index)"
                         circle
                       ></el-button>
                     </template>
@@ -206,20 +206,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getDevieces']),
-    open(val) {
+    ...mapActions(['getDevieces', 'deleteDevices']),
+    open(val, index) {
       ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
         .then(() => {
-          this.$axios
-            .get('/api/deleteServerInfo', {
-              params: {
-                _id: val._id
-              }
-            })
-            .then(res => {
-              this.getServerInfo()
-              Msg('删除成功', 'success')
-            })
+          this.deleteDevices({ _id: val._id, index }).then(() => {
+            Msg('删除成功', 'success')
+          })
         })
         .catch(() => {
           Msg('已取消删除', 'info')
@@ -229,14 +222,7 @@ export default {
       this.multipleSelection = val
     },
     getServerInfo() {
-      const { username } = this
-      // this.$axios
-      //   .get('/api/getServerInfo', {
-      //     params: {
-      //       username: this.username
-      //     }
-      //   })
-      //   .then(res => {
+      //
       //     if (res.data.length != 0) {
       //       res.data.map((item, index) => {
       //         item.browser.version = item.browser.version.replace('/', ' ')
@@ -342,17 +328,10 @@ export default {
     ...mapState({ devices: state => state.homepage.devices })
   },
   created() {
-    // let info = JSON.parse(localStorage.getItem('token'))
-    // this.username = info.data.username
-    // this.e_mail = info.data.e_mail
-    // this.getUserInfo()
     this.getDevieces(this.name)
-  },
-  mounted() {
-    console.log(this.devices)
     this.tableData2 = this.devices
-    this.getServerInfo()
-  }
+  },
+  mounted() {}
 }
 </script>
 <style scoped>
@@ -369,7 +348,7 @@ button:focus {
   box-shadow: none;
 }
 .el-table >>> th,
- .el-table /deep/ td {
+.el-table /deep/ td {
   text-align: center;
 }
 

@@ -1,6 +1,6 @@
 import {
   Message,
-  Confirm
+  MessageBox
 } from 'element-ui'
 export function Msg(message, type, duration = '1000') {
   return Message({
@@ -10,8 +10,8 @@ export function Msg(message, type, duration = '1000') {
   })
 }
 
-export function ComfirmMsg(msg, type,title = '提示') {
-  return Confirm(msg, title, {
+export function ComfirmMsg(msg, type, title = '提示') {
+  return MessageBox.confirm(msg, title, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type

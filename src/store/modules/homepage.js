@@ -1,11 +1,10 @@
-import {
-  devices
-} from '@/api/homepage'
+import * as Api from '@/api/homepage'
 const SET_DEVICES = 'SET_DEVICES'
+const DEL_DEVICES = 'DEL_DEVICES'
 const homepage = {
   state: {
     //存储共有数据
-    devices:[]
+    devices: []
   },
   mutations: {
     initstoreList(state, payload) {
@@ -37,18 +36,40 @@ const homepage = {
         state.setting = payload;
       }
     },
-    [SET_DEVICES](state,devices){
+    [SET_DEVICES](state, devices) {
       state.devices.push(...devices)
+    },
+    [DEL_DEVICES](state,index){
+      state.devices.splice(index,1)
     }
-   
+
+
   },
-  actions:{
-    getDevieces({commit},username){
-      return new Promise((resolve,reject)=>{
-        devices({username}).then(res=>{
-          const {data} =res
-         commit(SET_DEVICES,data)
-        })
+  actions: {
+    getDevieces({
+      commit
+    }, username) {
+      return new Promise((resolve, reject) => {
+        Api.devices({
+          username
+        }).then(res => {
+          const {
+            data
+          } = res
+          commit(SET_DEVICES, data)
+          return resolve()
+        }).catch(err => reject(err))
+      })
+    },
+    deleteDevices({commit}, val) {
+     
+      return new Promise((resolve, reject) => {
+        Api.deleteDevices(val._id).then(() => {
+          commit(DEL_DEVICES, val.index)
+            return resolve()
+          })
+
+          .catch(err => reject(err))
       })
     }
   },

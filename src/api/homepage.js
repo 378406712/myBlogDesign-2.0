@@ -15,8 +15,15 @@ import user from '../store/modules/user'
 
 //获取用户设备信息
 export function devices(username){
-  console.log(username,123)
   return axios.get('/api/homepage/getServerInfo',{
     params:username
   })
+}
+
+export function deleteDevices(id){
+  console.log(id)
+  return axios.post('/api/homepage/deleteServerInfo',{_id:id})
+}
+export function deleteAllDevices(id){
+  return axios.post('/api/homepage/deleteServerInfo',id)
 }

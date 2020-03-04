@@ -26,7 +26,7 @@ const user = {
     avatar: '',
     permissions: '',
     status: '123',
-    e_mail:''
+    e_mail: ''
   },
   mutations: {
     [SET_TOKEN](state, token) {
@@ -63,7 +63,7 @@ const user = {
             data
           } = resp
           console.log(data)
-          commit(SET_EMAIL,data.e_mail)
+          commit(SET_EMAIL, data.e_mail)
           commit(SET_STATUS, data.status)
           if (data.status === 1) {
             setToken(data.token)
@@ -76,7 +76,7 @@ const user = {
         })
       })
     },
-    setDevices({},deviceInfo) {
+    setDevices({}, deviceInfo) {
       return new Promise((resolve, reject) => {
         devices(deviceInfo).then(() => {
           return resolve()
@@ -126,7 +126,7 @@ const user = {
     name: state => state.name,
     age: state => state.age,
     avatar: state => state.avatar,
-    e_mail:state=>state.e_mail,
+    e_mail: state => state.e_mail,
     permissions: state => state.permissions
   }
 }
