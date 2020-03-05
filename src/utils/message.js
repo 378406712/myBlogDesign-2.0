@@ -17,3 +17,4 @@ export function ComfirmMsg(msg, type, title = '提示') {
     type
   })
 }
+

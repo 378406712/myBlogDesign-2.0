@@ -50,7 +50,7 @@ export default {
     },
     dropDownMenuMode: {
       type: String,
-      default: 'bottom',
+      default: 'none',
       validator(value) {
         return dropDownMenuModes.includes(value);
       },

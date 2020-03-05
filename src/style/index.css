@@ -61,10 +61,18 @@ p {
   margin: 0;
 }
 
+
 .components-container {
   margin: 20px 30px;
 }
+
 li {
   list-style: none;
 }
 
+.clearFix::before,
+.clearFix::after {
+  content: '';
+  display: block;
+  clear: both
+}

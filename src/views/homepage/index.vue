@@ -96,7 +96,7 @@
                   </div>
                 </div>
                 <el-row type="flex">
-                  <el-col :span="7">
+                  <el-col>
                     <el-row>
                       <el-col>
                         <ul class="card-inner card-mine card-beautify">
@@ -111,23 +111,24 @@
                       </el-col>
                     </el-row>
                   </el-col>
-                  <el-col :span="9">
+                  <el-col>
                     <DanceHeart />
                   </el-col>
-                  <el-col :span="8">
+                  <el-col>
                     <el-row>
                       <el-col>
                         <ul class="card-inner card-mine card-player card-beautify">
                           <li>当前设备 :</li>
                           <li>{{ name }}</li>
                           <el-divider></el-divider>
-                          <CPlayer :playlist="playlist"/>
+                          <CPlayer :playlist="playlist" />
                           <el-divider></el-divider>
                         </ul>
                       </el-col>
                     </el-row>
                   </el-col>
                 </el-row>
+                <el-button class="playerList" type="primary" @click="addPlayer">添加歌曲</el-button>
               </div>
             </div>
           </section>
@@ -195,6 +196,7 @@
         </div>
       </div>
     </div>
+    <service-dialog :show.sync="show"></service-dialog>
   </div>
 </template>
 
@@ -205,14 +207,23 @@ import DanceHeart from '@/components/heart-dance'
 import { CodeToText } from 'element-china-area-data'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import { Msg, ComfirmMsg } from '@/utils/message'
+import serviceDialog from '@/components/serviceDialog'
+
 export default {
   name: 'center',
-  components: { Paginations, DanceHeart,CPlayer },
+  components: { Paginations, DanceHeart, CPlayer, serviceDialog },
   data() {
     return {
-      playlist:[{
+      show: false,
+      playlist: [
+        {
           src: 'http://music.163.com/song/media/outer/url?id=1308032189.mp3',
-      }],
+          poster:
+            'http://p2.music.126.net/lqbJvcEM2GIDWlDy7s1Sqw==/109951163537827777.jpg?param=130y130',
+          name: '春、恋、花以外の',
+          artist: '茶玖 / 熊太kuma / 池树'
+        }
+      ],
       id: '',
       url: '',
       drawer: false,
@@ -346,6 +357,12 @@ export default {
       this.getDevieces(this.name).then(() => {
         this.tableData2 = this.devices
       })
+    },
+    /**
+     * 添加歌曲
+     */
+    addPlayer() {
+      this.show = true
     }
   },
   computed: {
@@ -359,7 +376,7 @@ export default {
 </script>
 <style scoped>
 .content-header {
-  background-image: url('../../../static/image/center-bg.png');
+  background-image: url('/static/image/center-bg.png');
 }
 
 .card-mine li {
@@ -375,9 +392,6 @@ button:focus {
   text-align: center;
 }
 
-.account {
-  float: right;
-}
 .more_detail {
   padding: 0 20px 20px 20px;
 }
@@ -484,13 +498,16 @@ button:focus {
   vertical-align: middle;
 }
 .card-beautify {
-  background-image: url('../../../static/image/beautify/comment-bg.png');
+  background-image: url('/static/image/beautify/comment-bg.png');
   background-repeat: no-repeat;
   background-position: 130px 100px;
-  padding-left:20px
+  padding-left: 20px;
 }
-.card-player{
-  padding:0;
+.card-player {
+  padding: 0;
   background-position: 100px 0px;
+}
+.playerList {
+  float: right;
 }
 </style>
