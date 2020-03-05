@@ -328,7 +328,8 @@ export default {
     ...mapState({ devices: state => state.homepage.devices })
   },
   created() {
-    this.getDevieces(this.name)
+    
+   this.getDevieces(this.name)
     this.tableData2 = this.devices
   },
   mounted() {}

@@ -37,7 +37,8 @@ const homepage = {
       }
     },
     [SET_DEVICES](state, devices) {
-      state.devices.push(...devices)
+      state.devices.push(...devices.reverse())
+   
     },
     [DEL_DEVICES](state,index){
       state.devices.splice(index,1)
