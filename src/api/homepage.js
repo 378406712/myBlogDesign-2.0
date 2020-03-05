@@ -21,9 +21,9 @@ export function devices(username){
 }
 
 export function deleteDevices(id){
-  console.log(id)
   return axios.post('/api/homepage/deleteServerInfo',{_id:id})
 }
-export function deleteAllDevices(id){
-  return axios.post('/api/homepage/deleteServerInfo',id)
+export function BatchDeleteDevices(key){
+  console.log(key,'99999')
+  return axios.post('/api/homepage/BatchDeleteDevices',key)
 }

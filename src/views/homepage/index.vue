@@ -15,7 +15,9 @@
               <div class="card-main">
                 <div class="myAccount">
                   <div class="account">
-                    <el-button ref="allDelete" type="primary" @click="showUserInfo">我的资料</el-button>
+                    <el-button type="primary" @click="showUserInfo">我的资料</el-button>
+
+                    <!-- <el-button ref="BatchDelete" type="primary" @click="showUserInfo">我的资料</el-button> -->
                     <el-drawer
                       custom-class="drawers"
                       title="个人资料"
@@ -118,7 +120,7 @@
             <div class="card">
               <div class="card-main">
                 <div style="margin-bottom: 20px">
-                  <el-button ref="allDelete" type="primary" @click="allDelete">批量删除</el-button>
+                  <el-button ref="BatchDelete" type="primary" @click="BatchDelete">批量删除</el-button>
                 </div>
                 <el-table
                   @selection-change="handleSelectionChange"
@@ -206,12 +208,19 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getDevieces', 'deleteDevices']),
+    ...mapActions(['getDevieces', 'deleteDevices', 'BatchDeleteDevices']),
+    /**
+     * 删除单条
+     * @class open
+     * @param {object}  val 单元行信息
+     * @param {number} index 表格单元行id
+     */
     open(val, index) {
       ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
         .then(() => {
           this.deleteDevices({ _id: val._id, index }).then(() => {
             Msg('删除成功', 'success')
+            this.query()
           })
         })
         .catch(() => {
@@ -222,18 +231,6 @@ export default {
       this.multipleSelection = val
     },
     getServerInfo() {
-      //
-      //     if (res.data.length != 0) {
-      //       res.data.map((item, index) => {
-      //         item.browser.version = item.browser.version.replace('/', ' ')
-      //       })
-      //       this.length = res.data.length
-      //       // this.$store.commit('settingList', )
-      //       this.sliderList({
-      //         username: this.username,
-      //         mode: 'loginCounts',
-      //         data: this.length
-      //       })
       //       this.tableData2 = res.data
       //         .reverse()
       //         .slice(this.size * (this.page - 1), this.size * this.page)
@@ -287,8 +284,11 @@ export default {
       this.size = sizeValue
       this.getServerInfo()
     },
-
-    allDelete() {
+    /**
+     * 删除多条
+     * @class BatchDelete
+     */
+    BatchDelete() {
       if (this.multipleSelection) {
         ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
           .then(() => {
@@ -300,19 +300,14 @@ export default {
                 }
               })
             })
-            this.$axios
-              .get('/api/deleteAllServerInfo', {
-                params: {
-                  _id: JSON.stringify(data)
-                }
+            const param = { _id: JSON.stringify(data) }
+            this.BatchDeleteDevices(param)
+              .then(() => {
+                this.query()
+                Msg('删除成功', 'success')
               })
-              .then(res => {
-                if (res.data.status == '0') {
-                  Msg('删除成功', 'success')
-                  this.getServerInfo() //bug 此处不执行
-                } else {
-                  Msg('网络可能有点问题～', 'error')
-                }
+              .catch(() => {
+                Msg('网络可能有点问题～', 'error')
               })
           })
           .catch(() => {
@@ -321,18 +316,24 @@ export default {
       } else {
         Msg('先选中～', 'warning')
       }
+    },
+    /**
+     * 获取表格数据
+     * @clss query
+     */
+    query() {
+      this.getDevieces(this.name).then(() => {
+        this.tableData2 = this.devices
+      })
     }
   },
   computed: {
     ...mapGetters(['name', 'e_mail']),
     ...mapState({ devices: state => state.homepage.devices })
   },
-  created() {
-    
-   this.getDevieces(this.name)
-    this.tableData2 = this.devices
-  },
-  mounted() {}
+  mounted() {
+    this.query()
+  }
 }
 </script>
 <style scoped>

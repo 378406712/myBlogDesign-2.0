@@ -1,6 +1,5 @@
 import * as Api from '@/api/homepage'
-const SET_DEVICES = 'SET_DEVICES'
-const DEL_DEVICES = 'DEL_DEVICES'
+const GET_DEVICES = 'GET_DEVICES'
 const homepage = {
   state: {
     //存储共有数据
@@ -36,13 +35,11 @@ const homepage = {
         state.setting = payload;
       }
     },
-    [SET_DEVICES](state, devices) {
-      state.devices.push(...devices.reverse())
-   
-    },
-    [DEL_DEVICES](state,index){
-      state.devices.splice(index,1)
+    [GET_DEVICES](state, devices) {
+      state.devices = devices.reverse()
     }
+
+
 
 
   },
@@ -57,19 +54,21 @@ const homepage = {
           const {
             data
           } = res
-          commit(SET_DEVICES, data)
+
+          commit(GET_DEVICES, data)
           return resolve()
         }).catch(err => reject(err))
       })
     },
-    deleteDevices({commit}, val) {
-     
+    deleteDevices({}, val) {
       return new Promise((resolve, reject) => {
-        Api.deleteDevices(val._id).then(() => {
-          commit(DEL_DEVICES, val.index)
-            return resolve()
-          })
-
+        Api.deleteDevices(val._id).then(() => resolve())
+          .catch(err => reject(err))
+      })
+    },
+    BatchDeleteDevices({}, key) {
+      return new Promise((resolve, reject) => {
+        Api.BatchDeleteDevices(key).then(() => resolve())
           .catch(err => reject(err))
       })
     }
