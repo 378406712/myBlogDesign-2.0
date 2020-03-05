@@ -96,16 +96,32 @@
                   </div>
                 </div>
                 <el-row type="flex">
-                  <el-col :span="8">
+                  <el-col :span="7">
                     <el-row>
                       <el-col>
-                        <ul class="card-inner card-mine">
+                        <ul class="card-inner card-mine card-beautify">
                           <li>用户名 :</li>
                           <li>{{ name }}</li>
                           <el-divider></el-divider>
 
                           <li>邮箱 :</li>
                           <li>{{ e_mail }}</li>
+                          <el-divider></el-divider>
+                        </ul>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                  <el-col :span="9">
+                    <DanceHeart />
+                  </el-col>
+                  <el-col :span="8">
+                    <el-row>
+                      <el-col>
+                        <ul class="card-inner card-mine card-player card-beautify">
+                          <li>当前设备 :</li>
+                          <li>{{ name }}</li>
+                          <el-divider></el-divider>
+                          <CPlayer :playlist="playlist"/>
                           <el-divider></el-divider>
                         </ul>
                       </el-col>
@@ -184,14 +200,19 @@
 
 <script>
 import Paginations from './pagination'
+import CPlayer from '@/components/c-player'
+import DanceHeart from '@/components/heart-dance'
 import { CodeToText } from 'element-china-area-data'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import { Msg, ComfirmMsg } from '@/utils/message'
 export default {
   name: 'center',
-  components: { Paginations },
+  components: { Paginations, DanceHeart,CPlayer },
   data() {
     return {
+      playlist:[{
+          src: 'http://music.163.com/song/media/outer/url?id=1308032189.mp3',
+      }],
       id: '',
       url: '',
       drawer: false,
@@ -461,5 +482,15 @@ button:focus {
   height: 25px;
   margin-right: 10px;
   vertical-align: middle;
+}
+.card-beautify {
+  background-image: url('../../../static/image/beautify/comment-bg.png');
+  background-repeat: no-repeat;
+  background-position: 130px 100px;
+  padding-left:20px
+}
+.card-player{
+  padding:0;
+  background-position: 100px 0px;
 }
 </style>
