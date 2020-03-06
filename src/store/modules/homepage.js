@@ -1,9 +1,14 @@
 import * as Api from '@/api/homepage'
+import {
+  MUSIC
+} from '@/helper/const'
 const GET_DEVICES = 'GET_DEVICES'
+const GET_MUSIU = 'GET_MUSIC'
 const homepage = {
   state: {
     //存储共有数据
-    devices: []
+    devices: [],
+    music: MUSIC
   },
   mutations: {
     initstoreList(state, payload) {
@@ -18,7 +23,6 @@ const homepage = {
       state.avatar = payload;
     },
     settingList(state, payload) {
-      console.log(payload)
       let data = payload.data;
       if (payload.mode) {
         Object.keys(state.setting).forEach(key => {
@@ -37,6 +41,9 @@ const homepage = {
     },
     [GET_DEVICES](state, devices) {
       state.devices = devices.reverse()
+    },
+    [GET_MUSIU](state, music) {
+      state.music.push(music)
     }
 
 

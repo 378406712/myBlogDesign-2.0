@@ -12,58 +12,56 @@ export default {
   props: {
     playlist: {
       type: Array,
-      required: true,
+      required: true
     },
     volume: {
       type: Number,
-      default: 1,
+      default: 1
     },
     playMode: {
       type: String,
       default: 'listloop',
       validator(value) {
-        return playModes.includes(value);
-      },
+        return playModes.includes(value)
+      }
     },
     zoomOutKana: {
-      type: Boolean,
+      type: Boolean
     },
     showPlaylist: {
-      type: Boolean,
+      type: Boolean
     },
     autoplay: {
-      type: Boolean,
+      type: Boolean
     },
     width: {
-      type: String,
+      type: String
     },
     size: {
-      type: String,
+      type: String
     },
     playerStyle: {
       type: String,
-      default: '',
+      default: ''
     },
     showPlaylistButton: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dropDownMenuMode: {
       type: String,
-      default: 'none',
+      default: 'bottom',
       validator(value) {
-        return dropDownMenuModes.includes(value);
-      },
-    },
+        return dropDownMenuModes.includes(value)
+      }
+    }
   },
   data() {
     return {
-      controller: null,
-      
-    };
+      controller: null
+    }
   },
   mounted() {
-    console.log(this.playlist)
     this.controller = new CPlayer({
       dropDownMenuMode: this.dropDownMenuMode,
       element: this.$el,
@@ -76,18 +74,18 @@ export default {
       volume: this.volume,
       width: this.width,
       zoomOutKana: this.zoomOutKana,
-      autoplay: this.autoplay,
-    });
+      autoplay: this.autoplay
+    })
   },
   beforeDestroy() {
     try {
-      if (this.controller) this.controller.destroy();
+      if (this.controller) this.controller.destroy()
     } catch (e) {}
-  },
-};
+  }
+}
 </script>
 <style lang="stylus" scoped>
-#c-player{
-  width:100%
+#c-player {
+  width: 100%;
 }
 </style>

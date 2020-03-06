@@ -126,7 +126,7 @@ export default {
         digits: Devices.getDigits(),
         browser: Devices.getBrowser()
       }
-      
+
       this.$refs.password.$el.getElementsByTagName('input')[0].blur()
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -137,6 +137,7 @@ export default {
             this.loginForm.password = encryptor.encrypt(password)
             this.login(this.loginForm)
               .then(() => {
+                 saveToLocal('device', Devices.getOsInfo())
                 // 保存账号
                 if (this.remember) {
                   saveToLocal('username', this.loginForm.username)

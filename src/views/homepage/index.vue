@@ -119,7 +119,12 @@
                       <el-col>
                         <ul class="card-inner card-mine card-player card-beautify">
                           <li>当前设备 :</li>
-                          <li>{{ name }}</li>
+                          <li>
+                            {{ os }}
+                            <span class="svg-container">
+                              <svg-icon :icon-class="os" />
+                            </span>
+                          </li>
                           <el-divider></el-divider>
                           <CPlayer :playlist="playlist" />
                           <el-divider></el-divider>
@@ -128,7 +133,6 @@
                     </el-row>
                   </el-col>
                 </el-row>
-                <el-button class="playerList" type="primary" @click="addPlayer">添加歌曲</el-button>
               </div>
             </div>
           </section>
@@ -208,6 +212,7 @@ import { CodeToText } from 'element-china-area-data'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import { Msg, ComfirmMsg } from '@/utils/message'
 import serviceDialog from '@/components/serviceDialog'
+import { loadFromLocal } from '@/common/local-storage'
 
 export default {
   name: 'center',
@@ -215,15 +220,7 @@ export default {
   data() {
     return {
       show: false,
-      playlist: [
-        {
-          src: 'http://music.163.com/song/media/outer/url?id=1308032189.mp3',
-          poster:
-            'http://p2.music.126.net/lqbJvcEM2GIDWlDy7s1Sqw==/109951163537827777.jpg?param=130y130',
-          name: '春、恋、花以外の',
-          artist: '茶玖 / 熊太kuma / 池树'
-        }
-      ],
+      playlist: [],
       id: '',
       url: '',
       drawer: false,
@@ -357,20 +354,22 @@ export default {
       this.getDevieces(this.name).then(() => {
         this.tableData2 = this.devices
       })
-    },
-    /**
-     * 添加歌曲
-     */
-    addPlayer() {
-      this.show = true
     }
   },
   computed: {
     ...mapGetters(['name', 'e_mail']),
-    ...mapState({ devices: state => state.homepage.devices })
+    ...mapState({
+      devices: state => state.homepage.devices,
+      music: state => state.homepage.music
+    })
+  },
+  created() {
+    this.os = loadFromLocal('device')
+    this.playlist = this.music
   },
   mounted() {
     this.query()
+    console.log(this.music, '000')
   }
 }
 </script>
