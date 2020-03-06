@@ -6,7 +6,7 @@ const GET_DEVICES = 'GET_DEVICES'
 const GET_MUSIU = 'GET_MUSIC'
 const SET_PAGES = 'SET_PAGES'
 const SET_SIZES = 'SET_SIZES'
-
+const SET_TOTALS = 'SET_TOTALS'
 const homepage = {
   state: {
     //存储共有数据
@@ -14,6 +14,7 @@ const homepage = {
     music: MUSIC,
     pages: 1,
     sizes: 8,
+    totals:0
   },
   mutations: {
     initstoreList(state, payload) {
@@ -52,11 +53,13 @@ const homepage = {
     },
     [SET_PAGES](state, pages) {
       state.pages = pages
-      console.log(pages)
     },
     [SET_SIZES](state, sizes) {
       state.sizes = sizes
-      console.log(sizes)
+    },
+    [SET_TOTALS](state,totals){
+      state.totals = totals
+      console.log(state.totals)
     }
   },
   actions: {
@@ -72,6 +75,7 @@ const homepage = {
           } = res
 
           commit(GET_DEVICES, data)
+          commit (SET_TOTALS,data.length)
           return resolve()
         }).catch(err => reject(err))
       })

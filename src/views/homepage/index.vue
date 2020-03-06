@@ -148,7 +148,7 @@
             </div>
             <!-- 分页 -->
             <Paginations
-              :msg="length"
+              :total="total"
               :size="size"
               :page="page"
               v-on:sizeValue="sizeValue"
@@ -185,6 +185,7 @@ export default {
       length: '',
       tableData2: [],
       search: '',
+      total: '',
       userInfoData: {
         url:
           'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
@@ -216,8 +217,6 @@ export default {
       this.multipleSelection = val
     },
     getServerInfo() {
-      //       this.tableData2 = res.data
-      //         .reverse()
       //
       //       if (this.tableData2.length == 0) {
       //         this.page -= 1
@@ -307,7 +306,7 @@ export default {
     query() {
       this.getDevieces(this.name).then(() => {
         this.tableData2 = this.devices
-        console.log(this.devices)
+        this.total = this.totals
       })
     }
   },
@@ -317,14 +316,14 @@ export default {
       devices: state => state.homepage.devices,
       music: state => state.homepage.music,
       pages: state => state.homepage.pages,
-      sizes: state => state.homepage.sizes
+      sizes: state => state.homepage.sizes,
+      totals: state => state.homepage.totals
     })
   },
   created() {
     this.os = loadFromLocal('device')
     this.playlist = this.music
     this.page = this.pages
-    console.log(this.pages,'00000')
     this.size = this.sizes
   },
   mounted() {

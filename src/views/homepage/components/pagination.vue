@@ -7,7 +7,7 @@
       :page-size="size"
       :current-page="page"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="Number(msg)"
+      :total="Number(total)"
     >
     </el-pagination>
   </div>
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "paginations",
-  props: ["msg", "size", "page"],
+  props: ["total", "size", "page"],
   data() {
     return {}
   },
