@@ -23,8 +23,12 @@ export default {
   methods: {
     handleSizeChange(size) {
       this.$emit("sizeValue", size)
+             console.log(size,'size')
+
     },
     handleCurrentChange(page) {
+       console.log(page,'page')
+
       if (page != this.page) {
         this.$emit("pageValue", page - 1)
       }
@@ -32,6 +36,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.page)
   }
 }
 </script>

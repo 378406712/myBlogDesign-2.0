@@ -16,8 +16,6 @@
                 <div class="myAccount">
                   <div class="account">
                     <el-button type="primary" @click="showUserInfo">我的资料</el-button>
-
-                    <!-- <el-button ref="BatchDelete" type="primary" @click="showUserInfo">我的资料</el-button> -->
                     <el-drawer
                       custom-class="drawers"
                       title="个人资料"
@@ -77,14 +75,12 @@
                           </svg>
                           职业：{{ userInfoData.job }}
                         </p>
-
                         <p>
                           <svg aria-hidden="true" class="icon_svg">
                             <use xlink:href="#iconnb-" />
                           </svg>
                           家乡：{{ userInfoData.hometown }}
                         </p>
-
                         <p>
                           <svg aria-hidden="true" class="icon_svg">
                             <use xlink:href="#icondangao" />
@@ -103,7 +99,6 @@
                           <li>用户名 :</li>
                           <li>{{ name }}</li>
                           <el-divider></el-divider>
-
                           <li>邮箱 :</li>
                           <li>{{ e_mail }}</li>
                           <el-divider></el-divider>
@@ -143,49 +138,12 @@
                 <div style="margin-bottom: 20px">
                   <el-button ref="BatchDelete" type="primary" @click="BatchDelete">批量删除</el-button>
                 </div>
-                <el-table
-                  @selection-change="handleSelectionChange"
-                  border
-                  style="width: 100%"
-                  :data="
-                    tableData2.filter(
-                      data =>
-                        !search ||
-                        data.time
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        data.ip.toLowerCase().includes(search.toLowerCase()) ||
-                        data.os.toLowerCase().includes(search.toLowerCase()) ||
-                        data.browser.version
-                          .toLowerCase()
-                          .includes(search.toLowerCase())
-                    )
-                  "
-                >
-                  <el-table-column type="selection" width="55"></el-table-column>
-                  <el-table-column prop="time" label="登录时间" width="180"></el-table-column>
-                  <el-table-column prop="ip" label="ip" width="180"></el-table-column>
-                  <el-table-column prop="os" label="设备信息"></el-table-column>
-                  <el-table-column prop="browser.version" label="浏览器信息"></el-table-column>
-                  <el-table-column>
-                    <template slot="header" slot-scope="scope">
-                      <el-input
-                        v-model="search"
-                        size="mini"
-                        placeholder="输入关键字搜索"
-                        @change="show(scope.row)"
-                      />
-                    </template>
-                    <template slot-scope="scope">
-                      <el-button
-                        type="danger"
-                        icon="el-icon-delete"
-                        @click="open(scope.row,scope.$index)"
-                        circle
-                      ></el-button>
-                    </template>
-                  </el-table-column>
-                </el-table>
+                <DevicesTable
+                  :search="search"
+                  :open="open"
+                  :tableData2="tableData2"
+                  :handleChange="handleChange"
+                />
               </div>
             </div>
             <!-- 分页 -->
@@ -200,23 +158,22 @@
         </div>
       </div>
     </div>
-    <service-dialog :show.sync="show"></service-dialog>
   </div>
 </template>
 
 <script>
-import Paginations from './pagination'
 import CPlayer from '@/components/c-player'
 import DanceHeart from '@/components/heart-dance'
-import { CodeToText } from 'element-china-area-data'
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-import { Msg, ComfirmMsg } from '@/utils/message'
 import serviceDialog from '@/components/serviceDialog'
+import DevicesTable from './components/table'
+import Paginations from './components/pagination'
+import { CodeToText } from 'element-china-area-data'
 import { loadFromLocal } from '@/common/local-storage'
-
+import { Msg, ComfirmMsg } from '@/utils/message'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'center',
-  components: { Paginations, DanceHeart, CPlayer, serviceDialog },
+  components: { DevicesTable, Paginations, DanceHeart, CPlayer, serviceDialog },
   data() {
     return {
       show: false,
@@ -231,12 +188,11 @@ export default {
       userInfoData: {
         url:
           'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-      },
-      page: 1,
-      size: 8
+      }
     }
   },
   methods: {
+    ...mapMutations(['SET_SIZES', 'SET_PAGES']),
     ...mapActions(['getDevieces', 'deleteDevices', 'BatchDeleteDevices']),
     /**
      * 删除单条
@@ -256,13 +212,13 @@ export default {
           Msg('已取消删除', 'info')
         })
     },
-    handleSelectionChange(val) {
+    handleChange(val) {
       this.multipleSelection = val
     },
     getServerInfo() {
       //       this.tableData2 = res.data
       //         .reverse()
-      //         .slice(this.size * (this.page - 1), this.size * this.page)
+      //
       //       if (this.tableData2.length == 0) {
       //         this.page -= 1
       //         this.getServerInfo()
@@ -277,8 +233,6 @@ export default {
       this.$store.commit('sliderList', 2)
       this.$router.go(0)
     },
-    submitForm(formName) {},
-    resetForm(formName) {},
     getUserInfo() {
       this.$axios
         .get('/api/userInfoData', {
@@ -306,12 +260,12 @@ export default {
       this.getUserInfo()
     },
     pageValue(pageValue) {
-      this.page = pageValue
-      this.getServerInfo()
+      this.SET_PAGES(pageValue)
+      this.query()
     },
     sizeValue(sizeValue) {
-      this.size = sizeValue
-      this.getServerInfo()
+      this.SET_SIZES(sizeValue)
+      this.query()
     },
     /**
      * 删除多条
@@ -353,6 +307,7 @@ export default {
     query() {
       this.getDevieces(this.name).then(() => {
         this.tableData2 = this.devices
+        console.log(this.devices)
       })
     }
   },
@@ -360,37 +315,24 @@ export default {
     ...mapGetters(['name', 'e_mail']),
     ...mapState({
       devices: state => state.homepage.devices,
-      music: state => state.homepage.music
+      music: state => state.homepage.music,
+      pages: state => state.homepage.pages,
+      sizes: state => state.homepage.sizes
     })
   },
   created() {
     this.os = loadFromLocal('device')
     this.playlist = this.music
+    this.page = this.pages
+    console.log(this.pages,'00000')
+    this.size = this.sizes
   },
   mounted() {
     this.query()
-    console.log(this.music, '000')
   }
 }
 </script>
 <style scoped>
-.content-header {
-  background-image: url('/static/image/center-bg.png');
-}
-
-.card-mine li {
-  margin-bottom: 10px !important;
-}
-button:focus {
-  outline: none;
-
-  box-shadow: none;
-}
-.el-table >>> th,
-.el-table /deep/ td {
-  text-align: center;
-}
-
 .more_detail {
   padding: 0 20px 20px 20px;
 }
@@ -407,88 +349,6 @@ button:focus {
   background-position: 150px 420px;
   background-repeat: no-repeat;
 }
-
-.content {
-  padding: 30px 30px 0px 20px;
-  width: 100%;
-  position: relative;
-  transition: padding 0.5s;
-  margin-bottom: 30px;
-}
-.grey_bg {
-  background-color: #f4f6f9;
-  overflow: hidden;
-}
-.content-header {
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-bottom: -58px;
-  padding-top: 68px;
-  padding-bottom: 58px;
-  overflow: hidden;
-  box-shadow: 0 0px 0 rgb(67, 47, 40), 0 0 15px #412f1c,
-    0 1px 3px rgba(0, 0, 0, 0.05);
-}
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
-}
-.content-heading {
-  font-weight: 300;
-  color: #fff;
-  font-size: 44px;
-  line-height: 48px;
-  margin-top: 48px;
-  margin-bottom: 12px;
-}
-.list {
-  margin-bottom: 48px;
-  margin-right: -10px;
-  margin-left: -10px;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-.card {
-  overflow: hidden;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 0px 0 #e5e5e5, 0 0 15px rgba(0, 0, 0, 0.12),
-    0 2px 4px rgba(0, 0, 0, 0.05);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 24px;
-  margin-bottom: 24px;
-}
-.card-main {
-  width: 100%;
-  margin: 24px 16px;
-}
-.card-inner {
-  margin: 12px 0;
-  margin: 24px 16px;
-}
-.card-inner li {
-  line-height: 20px;
-}
-
-.el-table__row {
-  width: 100%;
-}
-
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
-
 /* icon font */
 .icon_svg {
   width: 25px;

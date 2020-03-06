@@ -4,11 +4,16 @@ import {
 } from '@/helper/const'
 const GET_DEVICES = 'GET_DEVICES'
 const GET_MUSIU = 'GET_MUSIC'
+const SET_PAGES = 'SET_PAGES'
+const SET_SIZES = 'SET_SIZES'
+
 const homepage = {
   state: {
     //存储共有数据
     devices: [],
-    music: MUSIC
+    music: MUSIC,
+    pages: 1,
+    sizes: 8,
   },
   mutations: {
     initstoreList(state, payload) {
@@ -40,15 +45,19 @@ const homepage = {
       }
     },
     [GET_DEVICES](state, devices) {
-      state.devices = devices.reverse()
+      state.devices = devices.reverse().slice(state.sizes * (state.pages - 1), state.sizes * state.pages)
     },
     [GET_MUSIU](state, music) {
       state.music.push(music)
+    },
+    [SET_PAGES](state, pages) {
+      state.pages = pages
+      console.log(pages)
+    },
+    [SET_SIZES](state, sizes) {
+      state.sizes = sizes
+      console.log(sizes)
     }
-
-
-
-
   },
   actions: {
     getDevieces({
@@ -78,7 +87,25 @@ const homepage = {
         Api.BatchDeleteDevices(key).then(() => resolve())
           .catch(err => reject(err))
       })
-    }
+    },
+    // changePages({
+    //   commit
+    // }, pages) {
+    //   return new Promise((resolve, reject) => {
+    //     commit(SET_PAGE, pages)
+    //     commit(GET_DEVICES)
+    //     resolve()
+    //   })
+    // },
+    // changeSizes({
+    //   commit
+    // }, sizes) {
+    //   return new Promise((resolve, reject) => {
+    //     commit(SET_SIZES, sizes)
+    //     commit(GET_DEVICES)
+    //     resolve()
+    //   })
+    // }
   },
 
 }
