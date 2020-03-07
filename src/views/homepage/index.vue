@@ -140,7 +140,7 @@
                 </div>
                 <DevicesTable
                   :search="search"
-                  :open="open"
+                  :handleDelete="handleDelete"
                   :tableData2="tableData2"
                   :handleChange="handleChange"
                 />
@@ -195,37 +195,9 @@ export default {
   methods: {
     ...mapMutations(['SET_SIZES', 'SET_PAGES']),
     ...mapActions(['getDevieces', 'deleteDevices', 'BatchDeleteDevices']),
-    /**
-     * 删除单条
-     * @class open
-     * @param {object}  val 单元行信息
-     * @param {number} index 表格单元行id
-     */
-    open(val, index) {
-      ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
-        .then(() => {
-          this.deleteDevices({ _id: val._id, index }).then(() => {
-            Msg('删除成功', 'success')
-            this.query()
-          })
-        })
-        .catch(() => {
-          Msg('已取消删除', 'info')
-        })
-    },
+   
     handleChange(val) {
       this.multipleSelection = val
-    },
-    getServerInfo() {
-      //
-      //       if (this.tableData2.length == 0) {
-      //         this.page -= 1
-      //         this.getServerInfo()
-      //       }
-      //     } else {
-      //       this.tableData2 = res.data
-      //     }
-      //   })
     },
     jumpToPersonal() {
       this.$router.push('/backhome/personal')
@@ -258,6 +230,7 @@ export default {
       this.drawer = true
       this.getUserInfo()
     },
+    
     pageValue(pageValue) {
       this.SET_PAGES(pageValue)
       this.query()
@@ -265,6 +238,24 @@ export default {
     sizeValue(sizeValue) {
       this.SET_SIZES(sizeValue)
       this.query()
+    },
+     /**
+     * 删除单条
+     * @class delete
+     * @param {object}  val 单元行信息
+     * @param {number} index 表格单元行id
+     */
+    handleDelete(val, index) {
+      ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
+        .then(() => {
+          this.deleteDevices({ _id: val._id, index }).then(() => {
+            Msg('删除成功', 'success')
+            this.query()
+          })
+        })
+        .catch(() => {
+          Msg('已取消删除', 'info')
+        })
     },
     /**
      * 删除多条
@@ -306,7 +297,6 @@ export default {
     query() {
       this.getDevieces(this.name).then(() => {
         this.tableData2 = this.devices
-        console.log(this.devices)
         this.total = this.totals
       })
     }

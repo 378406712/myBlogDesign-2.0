@@ -22,7 +22,7 @@
           <el-button
             type="danger"
             icon="el-icon-delete"
-            @click="open(scope.row,scope.$index)"
+            @click="handleDelete(scope.row,scope.$index)"
             circle
           ></el-button>
         </template>
@@ -36,7 +36,7 @@ export default {
   props: {
     search: String,
     tableData2: Array,
-    open: Function,
+    handleDelete: Function,
     handleChange: Function
   },
   data() {
