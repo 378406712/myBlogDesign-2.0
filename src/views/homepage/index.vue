@@ -306,6 +306,7 @@ export default {
     query() {
       this.getDevieces(this.name).then(() => {
         this.tableData2 = this.devices
+        console.log(this.devices)
         this.total = this.totals
       })
     }

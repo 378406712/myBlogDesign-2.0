@@ -14,7 +14,7 @@ const homepage = {
     music: MUSIC,
     pages: 1,
     sizes: 8,
-    totals:0
+    totals: 0
   },
   mutations: {
     initstoreList(state, payload) {
@@ -46,6 +46,12 @@ const homepage = {
       }
     },
     [GET_DEVICES](state, devices) {
+      //先判断slice后的数组长度是否为0，是，则将pages-1，返回新的state.decice
+      //这里的pages已经变更
+      let data = devices.reverse().slice(state.sizes * (state.pages - 1), state.sizes * state.pages)
+      if (data.length === 0) {
+        state.pages -= 1
+      }
       state.devices = devices.reverse().slice(state.sizes * (state.pages - 1), state.sizes * state.pages)
     },
     [GET_MUSIU](state, music) {
@@ -57,9 +63,8 @@ const homepage = {
     [SET_SIZES](state, sizes) {
       state.sizes = sizes
     },
-    [SET_TOTALS](state,totals){
+    [SET_TOTALS](state, totals) {
       state.totals = totals
-      console.log(state.totals)
     }
   },
   actions: {
@@ -73,9 +78,8 @@ const homepage = {
           const {
             data
           } = res
-
           commit(GET_DEVICES, data)
-          commit (SET_TOTALS,data.length)
+          commit(SET_TOTALS, data.length)
           return resolve()
         }).catch(err => reject(err))
       })
@@ -91,25 +95,9 @@ const homepage = {
         Api.BatchDeleteDevices(key).then(() => resolve())
           .catch(err => reject(err))
       })
-    },
-    // changePages({
-    //   commit
-    // }, pages) {
-    //   return new Promise((resolve, reject) => {
-    //     commit(SET_PAGE, pages)
-    //     commit(GET_DEVICES)
-    //     resolve()
-    //   })
-    // },
-    // changeSizes({
-    //   commit
-    // }, sizes) {
-    //   return new Promise((resolve, reject) => {
-    //     commit(SET_SIZES, sizes)
-    //     commit(GET_DEVICES)
-    //     resolve()
-    //   })
-    // }
+    }
+
+
   },
 
 }
