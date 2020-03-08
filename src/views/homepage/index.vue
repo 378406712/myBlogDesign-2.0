@@ -4,91 +4,18 @@
       <div class="content">
         <div class="content-header">
           <div class="container">
-            <h1 class="content-heading">用户中心</h1>
+            <h1 class="content-heading">用户首页</h1>
           </div>
         </div>
         <!-- 内容 -->
         <div class="container">
           <section class="list">
-            <!-- 待循环 -->
             <div class="card">
               <div class="card-main">
                 <div class="myAccount">
                   <div class="account">
                     <el-button type="primary" @click="showUserInfo">我的资料</el-button>
-                    <el-drawer
-                      custom-class="drawers"
-                      title="个人资料"
-                      :visible.sync="drawer"
-                      :with-header="false"
-                    >
-                      <!-- 头像 -->
-                      <el-divider content-position="left" style="padding:20px">
-                        <el-button type="primary" round @click="jumpToPersonal">编辑资料</el-button>
-                      </el-divider>
-                      <div class="demo-fit" style="padding:20px 20px 0px 20px;diplay:flex">
-                        <div class="block">
-                          <el-avatar
-                            style="vertical-align:middle"
-                            shape="circle"
-                            :size="100"
-                            :src="userInfoData.uploadUrl"
-                          ></el-avatar>
-                          <div class="block_item1">
-                            <span
-                              class="title"
-                              style="margin-left:20px"
-                            >昵称 ： {{ userInfoData.nickname }}</span>
-                            <span class="title" style="margin-left:20px;marginTop:10px">
-                              性别 ：
-                              <svg
-                                v-if="userInfoData.sex == '男'"
-                                aria-hidden="true"
-                                class="icon_svg"
-                              >
-                                <use xlink:href="#iconnan" />
-                              </svg>
-                              <svg
-                                v-else-if="userInfoData.sex == '女'"
-                                aria-hidden="true"
-                                class="icon_svg"
-                              >
-                                <use xlink:href="#iconnv" />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                        <el-divider></el-divider>
-                      </div>
-                      <!-- 个性签名，地区，职业等 -->
-                      <div class="more_detail">
-                        <p>
-                          <svg aria-hidden="true" class="icon_svg">
-                            <use xlink:href="#iconqianming" />
-                          </svg>
-                          个性签名：{{ userInfoData.desc }}
-                        </p>
-                        <el-divider></el-divider>
-                        <p>
-                          <svg aria-hidden="true" class="icon_svg">
-                            <use xlink:href="#iconlingdai" />
-                          </svg>
-                          职业：{{ userInfoData.job }}
-                        </p>
-                        <p>
-                          <svg aria-hidden="true" class="icon_svg">
-                            <use xlink:href="#iconnb-" />
-                          </svg>
-                          家乡：{{ userInfoData.hometown }}
-                        </p>
-                        <p>
-                          <svg aria-hidden="true" class="icon_svg">
-                            <use xlink:href="#icondangao" />
-                          </svg>
-                          生日：{{ userInfoData.birthday }}
-                        </p>
-                      </div>
-                    </el-drawer>
+                    <Detail :detailData="detailData" :drawer="drawer" v-on:closeDrawer="closeDrawer" />
                   </div>
                 </div>
                 <el-row type="flex">
@@ -107,6 +34,7 @@
                     </el-row>
                   </el-col>
                   <el-col>
+                    <!-- css心型 -->
                     <DanceHeart />
                   </el-col>
                   <el-col>
@@ -132,12 +60,12 @@
             </div>
           </section>
           <section class="list">
-            <!-- 待循环 -->
             <div class="card">
               <div class="card-main">
                 <div style="margin-bottom: 20px">
                   <el-button ref="BatchDelete" type="primary" @click="BatchDelete">批量删除</el-button>
                 </div>
+                <!-- 设备表格 -->
                 <DevicesTable
                   :search="search"
                   :handleDelete="handleDelete"
@@ -166,6 +94,7 @@ import CPlayer from '@/components/c-player'
 import DanceHeart from '@/components/heart-dance'
 import serviceDialog from '@/components/serviceDialog'
 import DevicesTable from './components/table'
+import Detail from './components/detail'
 import Paginations from './components/pagination'
 import { CodeToText } from 'element-china-area-data'
 import { loadFromLocal } from '@/common/local-storage'
@@ -173,64 +102,75 @@ import { Msg, ComfirmMsg } from '@/utils/message'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'center',
-  components: { DevicesTable, Paginations, DanceHeart, CPlayer, serviceDialog },
+  components: {
+    Detail,
+    DevicesTable,
+    Paginations,
+    DanceHeart,
+    CPlayer,
+    serviceDialog
+  },
   data() {
     return {
       show: false,
       playlist: [],
       id: '',
-      url: '',
       drawer: false,
       username: '',
       length: '',
       tableData2: [],
       search: '',
       total: '',
-      userInfoData: {
-        url:
-          'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-      }
+      detailData: {}
     }
   },
   methods: {
     ...mapMutations(['SET_SIZES', 'SET_PAGES']),
-    ...mapActions(['getDevieces', 'deleteDevices', 'BatchDeleteDevices']),
-   
-    handleChange(val) {
-      this.multipleSelection = val
-    },
-    jumpToPersonal() {
-      this.$router.push('/backhome/personal')
-      this.$store.commit('sliderList', 2)
-      this.$router.go(0)
-    },
-    getUserInfo() {
-      this.$axios
-        .get('/api/userInfoData', {
-          params: {
-            username: this.username
-          }
-        })
-        .then(res => {
-          this.userInfoData = res.data
-          let hometown = []
-          res.data.hometown.map((item, index) => {
-            hometown += CodeToText[item] + ' '
-            this.userInfoData.hometown = hometown
-          })
-          if (this.userInfoData.hometown.length == 0) {
-            this.userInfoData.hometown = ''
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    ...mapActions([
+      'getDetails',
+      'getDevieces',
+      'deleteDevices',
+      'BatchDeleteDevices'
+    ]),
+
+    // jumpToPersonal() {
+    //   this.$router.push('/backhome/personal')
+    //   this.$store.commit('sliderList', 2)
+    //   this.$router.go(0)
+    // },
+    userInfo() {
+      const { username } = this
+      this.getDetails({ username })
+      // this.$axios
+      //   .get('/api/userInfoData', {
+      //     params: {username: this.username
+      //   }
+      // })
+      // .then(res => {
+      //   this.userInfoData = res.data
+      //   let hometown = []
+      //   res.data.hometown.map((item, index) => {
+      //     hometown += CodeToText[item] + ' '
+      //     this.userInfoData.hometown = hometown
+      //   })
+      //   if (this.userInfoData.hometown.length == 0) {
+      //     this.userInfoData.hometown = ''
+      //   }
+      // })
+      // .catch(err => {
+      //   console.log(err)
+      // })
     },
     showUserInfo() {
       this.drawer = true
-      this.getUserInfo()
+      this.userInfo()
     },
-    
+    closeDrawer(drawer) {
+      this.drawer = drawer
+    },
+    handleChange(val) {
+      this.multipleSelection = val
+    },
     pageValue(pageValue) {
       this.SET_PAGES(pageValue)
       this.query()
@@ -239,7 +179,7 @@ export default {
       this.SET_SIZES(sizeValue)
       this.query()
     },
-     /**
+    /**
      * 删除单条
      * @class delete
      * @param {object}  val 单元行信息
@@ -323,29 +263,6 @@ export default {
 }
 </script>
 <style scoped>
-.more_detail {
-  padding: 0 20px 20px 20px;
-}
-.demo-fit .block {
-  display: flex;
-}
-.demo-fit .block .block_item1 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.drawers {
-  /* background-image: url('../media_icon/iloli.gif'); */
-  background-position: 150px 420px;
-  background-repeat: no-repeat;
-}
-/* icon font */
-.icon_svg {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
 .card-beautify {
   background-image: url('/static/image/beautify/comment-bg.png');
   background-repeat: no-repeat;

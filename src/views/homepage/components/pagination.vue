@@ -8,35 +8,25 @@
       :current-page="page"
       layout="total, sizes, prev, pager, next, jumper"
       :total="Number(total)"
-    >
-    </el-pagination>
+    ></el-pagination>
   </div>
 </template>
 
 <script>
 export default {
-  name: "paginations",
-  props: ["total", "size", "page"],
-  data() {
-    return {}
-  },
+  props: ['total', 'size', 'page'],
   methods: {
     handleSizeChange(size) {
-      this.$emit("sizeValue", size)
-             console.log(size,'size')
-
+      this.$emit('sizeValue', size)
+      console.log(size, 'size')
     },
     handleCurrentChange(page) {
-       console.log(page,'page')
-
+      console.log(page, 'page')
       if (page != this.page) {
-        this.$emit("pageValue", page - 1)
+        this.$emit('pageValue', page - 1)
       }
-      this.$emit("pageValue", page)
+      this.$emit('pageValue', page)
     }
-  },
-  mounted() {
-    console.log(this.page)
   }
 }
 </script>

@@ -47,10 +47,6 @@ export default {
 </script>
 
 <style scoped>
-.el-table >>> th,
-.el-table /deep/ td {
-  text-align: center;
-}
 .el-table__row {
   width: 100%;
 }
@@ -60,5 +56,11 @@ export default {
 }
 .el-table .success-row {
   background: #f0f9eb;
+}
+</style>
+<style >
+.el-table th,
+.el-table td {
+  text-align: center !important;
 }
 </style>

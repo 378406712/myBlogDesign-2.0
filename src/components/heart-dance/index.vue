@@ -28,16 +28,15 @@ export default {
   margin: 0;
   list-style: none;
 }
-
 #dance-heart {
- position: relative;
- top:80px;
- left:20px
+  position: relative;
+  top: 80px;
+  left: 20px;
+  background-color: transparent;
 }
 ul {
   height: 200px;
 }
-
 li {
   float: left;
   width: 20px;

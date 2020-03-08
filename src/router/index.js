@@ -41,7 +41,7 @@ export const constantRouterMap = [
   },
   {
     path: '/',
-    hidden: true,
+    hidden: false,
     component: Layout,
     redirect: '/home',
     children: [
@@ -49,16 +49,16 @@ export const constantRouterMap = [
         path: 'home',
         name: 'home',
         component: () => import('@/views/homepage'),
-        meta: {title: '首页'}
+        meta: {title: '首页',icon:'s-home'}
       }
     ]
   },
   {
     path: '/user',
     component: Layout,
-    hidden: true,
+    hidden: false,
     meta: {
-      icon: 'tickets',
+      icon: 'user-solid',
       title: '个人中心'
     },
     children: [
@@ -66,13 +66,7 @@ export const constantRouterMap = [
         path: 'profile',
         name: 'Profile',
         component: () => import('@/views/user/profile'),
-        meta: {icon: 'warning', title: '个人中心'}
-      },
-      {
-        path: 'avatar',
-        name: 'Avatar',
-        component: () => import('@/views/user/profile'),
-        meta: {icon: 'warning', title: '修改头像'}
+        meta: {icon: 's-promotion', title: '个人中心'}
       }
     ]
   },

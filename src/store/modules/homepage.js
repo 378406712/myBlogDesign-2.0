@@ -7,6 +7,7 @@ const GET_MUSIU = 'GET_MUSIC'
 const SET_PAGES = 'SET_PAGES'
 const SET_SIZES = 'SET_SIZES'
 const SET_TOTALS = 'SET_TOTALS'
+const SET_DETAIL = 'SET_DETAIL'
 const homepage = {
   state: {
     //存储共有数据
@@ -14,7 +15,8 @@ const homepage = {
     music: MUSIC,
     pages: 1,
     sizes: 8,
-    totals: 0
+    totals: 0,
+    details: {}
   },
   mutations: {
     initstoreList(state, payload) {
@@ -65,6 +67,9 @@ const homepage = {
     },
     [SET_TOTALS](state, totals) {
       state.totals = totals
+    },
+    [SET_DETAIL](state, details) {
+      state.details = details
     }
   },
   actions: {
@@ -95,8 +100,16 @@ const homepage = {
         Api.BatchDeleteDevices(key).then(() => resolve())
           .catch(err => reject(err))
       })
+    },
+    getDetails({
+      commit
+    }, username) {
+      return  new Promise((resolve,reject)=>{
+        Api.getUserInfo(username).then((res)=>{
+          console.log(res)
+        })
+      })
     }
-
 
   },
 

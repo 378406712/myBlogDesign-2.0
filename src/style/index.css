@@ -22,6 +22,11 @@
   --dark: #343a40;
 }
 
+/*elementUi*/
+.el-menu-item i {
+  color: #606266;
+}
+
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
