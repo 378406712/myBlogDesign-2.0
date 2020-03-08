@@ -15,7 +15,7 @@
                 <div class="myAccount">
                   <div class="account">
                     <el-button type="primary" @click="showUserInfo">我的资料</el-button>
-                    <Detail :detailData="detailData" :drawer="drawer" v-on:closeDrawer="closeDrawer" />
+                    <Detail :drawer="drawer" v-on:closeDrawer="closeDrawer" />
                   </div>
                 </div>
                 <el-row type="flex">
@@ -120,8 +120,7 @@ export default {
       length: '',
       tableData2: [],
       search: '',
-      total: '',
-      detailData: {}
+      total: ''
     }
   },
   methods: {
@@ -133,37 +132,31 @@ export default {
       'BatchDeleteDevices'
     ]),
 
-    // jumpToPersonal() {
-    //   this.$router.push('/backhome/personal')
-    //   this.$store.commit('sliderList', 2)
-    //   this.$router.go(0)
+    // userInfo() {
+    //   const { username } = this
+    //   this.getDetails({ username })
+    //   // this.$axios
+    //   //   .get('/api/userInfoData', {
+    //   //     params: {username: this.username
+    //   //   }
+    //   // })
+    //   // .then(res => {
+    //   //   this.userInfoData = res.data
+    //   //   let hometown = []
+    //   //   res.data.hometown.map((item, index) => {
+    //   //     hometown += CodeToText[item] + ' '
+    //   //     this.userInfoData.hometown = hometown
+    //   //   })
+    //   //   if (this.userInfoData.hometown.length == 0) {
+    //   //     this.userInfoData.hometown = ''
+    //   //   }
+    //   // })
+    //   // .catch(err => {
+    //   //   console.log(err)
+    //   // })
     // },
-    userInfo() {
-      const { username } = this
-      this.getDetails({ username })
-      // this.$axios
-      //   .get('/api/userInfoData', {
-      //     params: {username: this.username
-      //   }
-      // })
-      // .then(res => {
-      //   this.userInfoData = res.data
-      //   let hometown = []
-      //   res.data.hometown.map((item, index) => {
-      //     hometown += CodeToText[item] + ' '
-      //     this.userInfoData.hometown = hometown
-      //   })
-      //   if (this.userInfoData.hometown.length == 0) {
-      //     this.userInfoData.hometown = ''
-      //   }
-      // })
-      // .catch(err => {
-      //   console.log(err)
-      // })
-    },
     showUserInfo() {
       this.drawer = true
-      this.userInfo()
     },
     closeDrawer(drawer) {
       this.drawer = drawer
