@@ -96,10 +96,10 @@ npm run build --report
 ```
 
 ## 截图
-![](./resource/screenhot3.png)
-![](./resource/screenhot1.png)
-![](./resource/screenhot2.png)
-![](./resource/screenhot4.png)
+![](./resource/login.png)
+![](./resource/register.png)
+![](./resource/homepage.png)
+![](./resource/profile.png)
 
 ## Online Demo
 
@@ -109,7 +109,7 @@ npm run build --report
 
 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 :tropical_drink:
 
-<img src="https://neveryu.github.io/reward/wechat-alipay.png" alt="donate" width="650">
+/**<img src="https://neveryu.github.io/reward/wechat-alipay.png" alt="donate" width="650">/
 
 
 ## Browsers support
