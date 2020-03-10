@@ -110,7 +110,7 @@ npm run build --report
 
 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 :tropical_drink:
 
-<s><img src="https://neveryu.github.io/reward/wechat-alipay.png" alt="donate" width="650"></s>
+<img style="display:none" src="https://neveryu.github.io/reward/wechat-alipay.png" alt="donate" width="650">
 
 
 ## Browsers support
@@ -123,6 +123,6 @@ Modern browsers and Internet Explorer 10+.
 
 ## License
 
-[MIT](https://github.com/Neveryu/vue-cms/blob/master/LICENSE)
+[MIT](https://github.com/378406712/myBlogDesign-2.0/blob/master/LICENSE)
 
-Copyright (c) 2017-present NeverYu
+Copyright (c) 2017-present 南山忆旧@lzw
