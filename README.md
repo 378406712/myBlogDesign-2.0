@@ -96,10 +96,10 @@ npm run build --report
 ```
 
 ## 截图
-![](./resource/login.png)
-![](./resource/register.png)
-![](./resource/homepage.png)
-![](./resource/profile.png)
+![](/resource/login.png)
+![](/resource/register.png)
+![](/resource/homepage.png)
+![](/resource/profile.png)
 
 ## Online Demo
 
