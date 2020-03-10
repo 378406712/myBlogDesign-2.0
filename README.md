@@ -97,9 +97,9 @@ npm run build --report
 
 ## 截图
 ![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/login.png)
-![](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/register.png)
-![](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/homepage.png)
-![](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/profile.png)
+![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/register.png)
+![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/homepage.png)
+![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/profile.png)
 
 ## Online Demo
 
