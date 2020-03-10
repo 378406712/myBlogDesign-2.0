@@ -25,7 +25,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.join(config.dev.assetsPublicPath, 'index.html') },
+      //  { from: /.*/, to: path.join(config.dev.assetsPublicPath, 'index.html') },
+       { from: /.*/, to: '/index.html'},
       ],
     },
     hot: true,
