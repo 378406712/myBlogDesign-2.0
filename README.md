@@ -96,10 +96,10 @@ npm run build --report
 ```
 
 ## 截图
-![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/login.png)
-![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/register.png)
-![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/homepage.png)
-![image](https://github.com/378406712/myBlogDesign-2.0/tree/master/resource/profile.png)
+![](./resource/login.png)
+![](./resource/register.png)
+![](./resource/homepage.png)
+![](./resource/profile.png)
 
 ## Online Demo
 
