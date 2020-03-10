@@ -43,7 +43,7 @@
 
 ``` bash
 # 克隆项目
-git clone https://github.com/Neveryu/vue-cms.git
+git clone https://github.com/378406712/myBlogDesign-2.0.git
 
 # 进入项目
 cd vue-cms
@@ -96,7 +96,7 @@ npm run build --report
 ```
 
 ## 截图
-![](./resource/login.png)
+![image](./resource/login.png)
 ![](./resource/register.png)
 ![](./resource/homepage.png)
 ![](./resource/profile.png)
