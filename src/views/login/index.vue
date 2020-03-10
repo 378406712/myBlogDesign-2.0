@@ -1,15 +1,23 @@
 <template>
   <el-container class="login-container">
-    <el-switch v-model="toggleParticles" inactive-color="#ff4949">></el-switch>
     <el-card class="animated flipInY">
       <div slot="header" class="el-card-header">
         <lang-select class="lang-select"></lang-select>
         <div style="clear: both;"></div>
-        <img src="../../../static/image/login-logo.png" alt />
-        <h2 class="login-title">{{ $t("login.title") }}</h2>
+        <img src="/static/image/login-logo.png" alt />
+        <h2 class="login-title">{{ $t('login.title') }}</h2>
       </div>
-      <el-form :rules="rules" :model="loginForm" ref="loginForm" label-width="80px">
-        <el-form-item :label="$t('login.account')" prop="username" style="position:relative">
+      <el-form
+        :rules="rules"
+        :model="loginForm"
+        ref="loginForm"
+        label-width="80px"
+      >
+        <el-form-item
+          :label="$t('login.account')"
+          prop="username"
+          style="position:relative"
+        >
           <el-input
             clearable
             type="text"
@@ -38,11 +46,9 @@
               <el-switch v-model="remember"></el-switch>
             </el-col>
             <el-col :offset="6" :span="12">
-              <el-button type="success" round>
+              <el-button class="btn-register" round>
                 <router-link to="/register">
-                  {{
-                  $t("login.register")
-                  }}
+                  {{ $t('login.register') }}
                 </router-link>
               </el-button>
             </el-col>
@@ -52,11 +58,10 @@
           type="primary"
           @click="onLogin('loginForm')"
           :loading="loading"
-        >{{ $t("login.login") }}</el-button>
+          >{{ $t('login.login') }}</el-button
+        >
       </el-form>
     </el-card>
-    <!-- particles.js container -->
-    <div id="particles"></div>
   </el-container>
 </template>
 <script>
@@ -69,7 +74,6 @@ import { Msg } from '@/utils/message'
 import { saveToLocal, loadFromLocal } from '@/common/local-storage'
 
 /* eslint-disable*/
-import particles from 'particles.js'
 export default {
   components: {
     LangSelect
@@ -84,8 +88,6 @@ export default {
       }
     }
     return {
-      // 粒子开关
-      toggleParticles: false,
       loginForm: {
         username: '',
         password: ''
@@ -137,7 +139,7 @@ export default {
             this.loginForm.password = encryptor.encrypt(password)
             this.login(this.loginForm)
               .then(() => {
-                 saveToLocal('device', Devices.getOsInfo())
+                saveToLocal('device', Devices.getOsInfo())
                 // 保存账号
                 if (this.remember) {
                   saveToLocal('username', this.loginForm.username)
@@ -173,120 +175,7 @@ export default {
       })
     }
   },
-  watch: {
-    toggleParticles(val) {
-      if (val) {
-        particlesJS('particles', {
-          particles: {
-            number: {
-              value: 15
-            },
-            color: {
-              value: 'random'
-            },
-            shape: {
-              type: ['star', 'image'],
-              stroke: {
-                width: 0,
-                color: 'yellow'
-              },
-              polygon: {
-                nb_sides: 5
-              },
-              image: {
-                src: 'https://neveryu.github.io/avatar/avatar.png',
-                width: 100,
-                height: 100
-              }
-            },
-            opacity: {
-              value: 1,
-              random: false,
-              anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.1,
-                sync: false
-              }
-            },
-            size: {
-              value: 10,
-              random: true,
-              anim: {
-                enable: true,
-                speed: 10,
-                size_min: 0.1,
-                sync: false
-              }
-            },
-            line_linked: {
-              enable: false,
-              distance: 150,
-              color: '#ccc',
-              opacity: 0.4,
-              width: 1
-            },
-            move: {
-              enable: true,
-              speed: 2,
-              direction: 'random',
-              random: true,
-              straight: false,
-              out_mode: 'out',
-              attract: {
-                enable: false,
-                rotateX: 600,
-                rotateY: 1200
-              }
-            }
-          },
-          interactivity: {
-            // "detect_on": "canvas",
-            detect_on: 'window',
-            events: {
-              onhover: {
-                enable: false,
-                // "mode": "repulse"
-                mode: 'grab'
-              },
-              onclick: {
-                enable: false,
-                mode: 'repulse'
-                // "mode": "push"
-              },
-              resize: true
-            },
-            modes: {
-              grab: {
-                distance: 400,
-                line_linked: {
-                  opacity: 1
-                }
-              },
-              bubble: {
-                distance: 400,
-                size: 40,
-                duration: 2,
-                opacity: 8,
-                speed: 3
-              },
-              repulse: {
-                distance: 200
-              },
-              push: {
-                particles_nb: 4
-              },
-              remove: {
-                particles_nb: 2
-              }
-            }
-          }
-        })
-      } else {
-        document.getElementById('particles').innerHTML = ''
-      }
-    }
-  },
+
   computed: {
     ...mapState({ status: state => state.user.status })
   }
@@ -301,7 +190,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: mix(#494166, #424b50) url('../../../static/image/login-bg.jpg') center no-repeat;
+  background: mix(#494166, #424b50) url('/static/image/login-bg.jpg') center no-repeat;
   background-size: cover;
   overflow: hidden;
 
@@ -359,16 +248,12 @@ export default {
     }
   }
 }
-
-#particles {
-  width: 100%;
-  height: 100%;
-  /* background-color: #b61924; */
-  /* background-color: #23ae88; */
-  background-color: transparent;
-  /* background-image: url('../img/bg_particles.png'); */
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-}
+.btn-register{
+  color:white;
+  border:0;
+  background: linear-gradient(
+    90deg,
+    rgb(209, 255, 26) 0%,
+    rgb(26, 209, 255) 100%
+  );}
 </style>

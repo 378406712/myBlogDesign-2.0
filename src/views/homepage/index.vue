@@ -14,8 +14,14 @@
               <div class="card-main">
                 <div class="myAccount">
                   <div class="account">
-                    <el-button type="primary" @click="showUserInfo">我的资料</el-button>
-                    <Detail :drawer="drawer" v-on:closeDrawer="closeDrawer" />
+                    <el-button type="primary" @click="showUserInfo"
+                      >我的资料</el-button
+                    >
+                    <Detail
+                      :drawer="drawer"
+                      :detailData="detailData"
+                      v-on:closeDrawer="closeDrawer"
+                    />
                   </div>
                 </div>
                 <el-row type="flex">
@@ -40,7 +46,9 @@
                   <el-col>
                     <el-row>
                       <el-col>
-                        <ul class="card-inner card-mine card-player card-beautify">
+                        <ul
+                          class="card-inner card-mine card-player card-beautify"
+                        >
                           <li>当前设备 :</li>
                           <li>
                             {{ os }}
@@ -63,7 +71,12 @@
             <div class="card">
               <div class="card-main">
                 <div style="margin-bottom: 20px">
-                  <el-button ref="BatchDelete" type="primary" @click="BatchDelete">批量删除</el-button>
+                  <el-button
+                    ref="BatchDelete"
+                    type="primary"
+                    @click="BatchDelete"
+                    >批量删除</el-button
+                  >
                 </div>
                 <!-- 设备表格 -->
                 <DevicesTable
@@ -120,7 +133,8 @@ export default {
       length: '',
       tableData2: [],
       search: '',
-      total: ''
+      total: '',
+      detailData: {}
     }
   },
   methods: {
@@ -259,12 +273,12 @@ export default {
 .card-beautify {
   background-image: url('/static/image/beautify/comment-bg.png');
   background-repeat: no-repeat;
-  background-position: 130px 100px;
+  background-position: 160px 100px;
   padding-left: 20px;
 }
 .card-player {
   padding: 0;
-  background-position: 100px 0px;
+  background-position: 160px 0px;
 }
 .playerList {
   float: right;

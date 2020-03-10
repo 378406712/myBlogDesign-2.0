@@ -1,15 +1,33 @@
 <template>
   <el-container class="register-container">
     <el-card class="animated flipInY">
-      <div slot="header" class="el-card-header">
+      <div slot="header" class="el-card-header clearFix">
         <lang-select class="lang-select"></lang-select>
-        <div style="clear: both;"></div>
+        <router-link class="tologin clearFix" to="/login">
+          <span class="svg-container svg-container_user">
+            <svg-icon icon-class="back" />
+          </span>
+        </router-link>
+
         <img src="../../../static/image/register-logo.png" alt />
-        <h2 class="login-title">{{ $t("register.title") }}</h2>
+        <h2 class="login-title">{{ $t('register.title') }}</h2>
       </div>
-      <el-form :rules="rules" :model="registerForm" ref="registerForm" label-width="80px">
-        <el-form-item :label="$t('register.account')" prop="username" style="position:relative">
-          <el-input type="text" v-model="registerForm.username" @keyup.enter.native="goToPwdInput"></el-input>
+      <el-form
+        :rules="rules"
+        :model="registerForm"
+        ref="registerForm"
+        label-width="80px"
+      >
+        <el-form-item
+          :label="$t('register.account')"
+          prop="username"
+          style="position:relative"
+        >
+          <el-input
+            type="text"
+            v-model="registerForm.username"
+            @keyup.enter.native="goToPwdInput"
+          ></el-input>
           <span class="svg-container svg-container_user">
             <svg-icon icon-class="user" />
           </span>
@@ -47,12 +65,13 @@
             <svg-icon icon-class="again_pass" />
           </span>
         </el-form-item>
-        <el-form-item :label="$t('')">
+        <el-form-item :label="$t()">
           <el-button
             type="success"
             @click="onRegister('registerForm')"
             :loading="loading"
-          >{{ $t("register.register") }}</el-button>
+            >{{ $t('register.register') }}</el-button
+          >
         </el-form-item>
       </el-form>
     </el-card>
@@ -66,7 +85,7 @@ import LangSelect from '@/components/lang-select'
 import { isRegisterValid } from '@/utils/register-validate'
 import { register } from '@/api/register'
 import { Msg } from '@/utils/message'
-import {mapMutations} from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   name: 'Register',
   components: {
@@ -216,17 +235,15 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: mix(#494166, #424b50) url('../../../static/image/login-bg.jpg') center no-repeat;
+  background: mix(#494166, #424b50) url('/static/image/login-bg.jpg') center no-repeat;
   background-size: cover;
   overflow: hidden;
-
   .show-account {
     position: absolute;
     left: 15px;
     bottom: 20px;
     color: red;
   }
-
   .el-card {
     position: absolute;
     top: 50%;
@@ -286,4 +303,8 @@ export default {
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
+.tologin{
+  display:block;
+  position relative;
+  }
 </style>

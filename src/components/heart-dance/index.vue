@@ -42,7 +42,7 @@ li {
   width: 20px;
   height: 20px;
   border-radius: 20px;
-  margin-right: 20px;
+  margin-right: 15px;
 }
 li:nth-child(1) {
   background-color: #f62e74;
