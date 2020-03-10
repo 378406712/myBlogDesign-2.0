@@ -96,6 +96,7 @@ npm run build --report
 ```
 
 ## 截图
+![](./resource/screenhot4.png)
 ![](./resource/login.png)
 ![](./resource/register.png)
 ![](./resource/homepage.png)
@@ -109,7 +110,7 @@ npm run build --report
 
 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 :tropical_drink:
 
-/**<img src="https://neveryu.github.io/reward/wechat-alipay.png" alt="donate" width="650">/
+<s><img src="https://neveryu.github.io/reward/wechat-alipay.png" alt="donate" width="650"></s>
 
 
 ## Browsers support
