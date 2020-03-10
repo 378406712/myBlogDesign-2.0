@@ -9,9 +9,9 @@ export function userInfo(username) {
 }
 
 export function logout() {
-  return axios.post('api/login/logout')
+  return axios.post('/api/login/logout')
 }
 //传递设备信息
 export function devices(deviceInfo) {
-  return axios.post('api/login/DeviceInfo', deviceInfo)
+  return axios.post('/api/login/DeviceInfo', deviceInfo)
 }

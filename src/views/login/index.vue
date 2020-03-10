@@ -159,8 +159,10 @@ export default {
                 } else {
                   if (this.status === -1) {
                     Msg('密码错误', 'error')
+                    this.loginForm.password = ''
                   } else if (this.status === 0) {
                     Msg('不存在该用户', 'error')
+                    this.loginForm.password = ''
                   }
                 }
                 this.loading = false

@@ -1,15 +1,6 @@
-import {
-  login,
-  userInfo,
-  logout,
-  devices
-} from '@/api/login'
+import { login, userInfo, logout, devices } from '@/api/login'
 
-import {
-  getToken,
-  setToken,
-  removeToken
-} from '@/common/auth'
+import { getToken, setToken, removeToken } from '@/common/auth'
 
 const SET_TOKEN = 'SET_TOKEN'
 const SET_NAME = 'SET_NAME'
@@ -50,74 +41,72 @@ const user = {
     [SET_EMAIL](state, e_mail) {
       state.e_mail = e_mail
     }
-
   },
   actions: {
     // 用户登录
-    login({
-      commit
-    }, userInfo) {
+    login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        login(userInfo).then(resp => {
-          const {
-            data
-          } = resp
-          console.log(data)
-          commit(SET_EMAIL, data.e_mail)
-          commit(SET_STATUS, data.status)
-          if (data.status === 1) {
-            setToken(data.token)
-            commit(SET_TOKEN, data.token)
-          }
-          return resolve()
-
-        }).catch(err => {
-          return reject(err)
-        })
+        login(userInfo)
+          .then(resp => {
+            const { data } = resp
+            console.log(data)
+            commit(SET_EMAIL, data.e_mail)
+            commit(SET_STATUS, data.status)
+            if (data.status === 1) {
+              setToken(data.token)
+              commit(SET_TOKEN, data.token)
+            }
+            return resolve()
+          })
+          .catch(err => {
+            return reject(err)
+          })
       })
     },
     setDevices({}, deviceInfo) {
       return new Promise((resolve, reject) => {
-        devices(deviceInfo).then(() => {
-          return resolve()
-        }).catch(err => {
-          return reject(err)
-        })
+        devices(deviceInfo)
+          .then(() => {
+            return resolve()
+          })
+          .catch(err => {
+            return reject(err)
+          })
       })
     },
 
     // 拉取用户信息
-    pullUserInfo({
-      commit
-    }, username) {
+    pullUserInfo({ commit }, username) {
       return new Promise((resolve, reject) => {
         userInfo({
           username
-        }).then(resp => {
-          let data = resp.data
-          commit(SET_NAME, data.username)
-          commit(SET_EMAIL, data.e_mail)
-          commit(SET_AVATAR, data.avatar)
-          commit(SET_PERMISSIONS, data.permission)
-          return resolve(data)
-        }).catch(err => {
-          return reject(err)
         })
+          .then(resp => {
+            let data = resp.data
+            commit(SET_NAME, data.username)
+            commit(SET_EMAIL, data.e_mail)
+            commit(SET_AVATAR, data.avatar)
+            commit(SET_PERMISSIONS, data.permission)
+            return resolve(data)
+          })
+          .catch(err => {
+            return reject(err)
+          })
       })
     },
     // 用户退出登录
-    logout({
-      commit
-    }) {
+    logout({ commit }) {
       return new Promise((resolve, reject) => {
-        logout().then(resp => {
-          removeToken()
-          commit(SET_TOKEN, '')
-          commit(SET_NAME, '')
-          return resolve()
-        }).catch(err => {
-          return reject(err)
-        })
+        logout()
+          .then(resp => {
+            removeToken()
+            commit(SET_TOKEN, '')
+            commit(SET_NAME, '')
+            return resolve()
+          })
+          .catch(err => {
+            return reject(err)
+          })
       })
     }
   },

@@ -9,7 +9,7 @@
           </span>
         </router-link>
 
-        <img src="../../../static/image/register-logo.png" alt />
+        <img src="/static/image/register-logo.png" alt />
         <h2 class="login-title">{{ $t('register.title') }}</h2>
       </div>
       <el-form
@@ -34,6 +34,7 @@
         </el-form-item>
         <el-form-item :label="$t('register.password')" prop="pwd">
           <el-input
+            show-password
             type="password"
             v-model="registerForm.pwd"
             @keyup.enter.native="goToCheckPass"
@@ -45,6 +46,7 @@
         </el-form-item>
         <el-form-item :label="$t('register.again_pass')" prop="checkPass">
           <el-input
+            show-password
             type="password"
             v-model="registerForm.checkPass"
             @keyup.enter.native="goToEmail"
@@ -82,10 +84,8 @@
 import { JSEncrypt } from 'jsencrypt'
 import { getPublicKey } from '@/api/register'
 import LangSelect from '@/components/lang-select'
-import { isRegisterValid } from '@/utils/register-validate'
 import { register } from '@/api/register'
 import { Msg } from '@/utils/message'
-import { mapMutations } from 'vuex'
 export default {
   name: 'Register',
   components: {
@@ -94,9 +94,7 @@ export default {
   data() {
     // 用户名 验证
     const validateUsername = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入正确的用户名'))
-      } else if (value.length > 10) {
+      if (value.length > 10) {
         calssback(new Error('用户名长度需少于10位'))
       } else {
         callback()
