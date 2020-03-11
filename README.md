@@ -1,11 +1,7 @@
 <p align="center"><a href="https://qdmmz.cn"><img width="120" src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640"></a></p>
-
 <p align="center">基于 Vue 和 ElementUI 二次构建的企业级后台博客管理项目</p>
-
 <p align="center">后端：node.js </p>
-
 <p align="center">数据库：mongodb</p>
-
 <p align="center">
   <a href="https://github.com/vuejs/vue" rel="nofollow" target="_blank">
     <img src="https://img.shields.io/badge/vue-2.6.10-brightgreen.svg" alt="vue">
@@ -32,7 +28,7 @@
 在线体验：
 
 ## 简介
-`vue-lzw` 是一个企业级管理后台项目，基于 Vue 和 ElementUI 构建。它使用了最新的前端技术栈，内置了i18n国际化解决方案，支持多语言，动态路由，权限验证，登录注册，等很多功能特性。
+`vue-lzw` 是一个企业级管理二次构建的后台博客发布以及管理项目，基于 Vue 和 ElementUI 构建。它使用了最新的前端技术栈，内置了i18n国际化解决方案，支持多语言，动态路由，权限验证，登录注册，等很多功能特性。
 
 同时，它也是一个很好的学习项目，包含了一些常见问题的解决方案，比如：数据可视化，表单表格，导入导出，自定义组件，自定义指令，富文本，换肤等等。
 
@@ -46,7 +42,7 @@
 git clone https://github.com/378406712/myBlogDesign-2.0.git
 
 # 进入项目
-cd vue-cms
+cd myBlogDesign-2.0
 
 # install dependencies
 npm install
@@ -110,7 +106,7 @@ npm run build --report
 
 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 :tropical_drink:
 
-<img style="display:none" src="https://neveryu.github.io/reward/wechat-alipay.png" alt="donate" width="650">
+<img style="display:none" src="https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/profile.png" alt="donate">
 
 
 ## Browsers support
