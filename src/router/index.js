@@ -55,7 +55,7 @@ export const constantRouterMap = [
   },
   {
     path: '/user',
-    redirect:'/user',
+    redirect: '/user',
     component: Layout,
     hidden: false,
     meta: {
@@ -64,10 +64,10 @@ export const constantRouterMap = [
     },
     children: [
       {
-        path: 'profile',
-        name: 'Profile',
-        component: () => import('@/views/user/profile'),
-        meta: { icon: 's-promotion', title: '个人中心' }
+        path: 'center',
+        name: 'center',
+        component: () => import('@/views/user/center'),
+        meta: { icon: 's-promotion', title: '用户设置' }
       }
     ]
   },

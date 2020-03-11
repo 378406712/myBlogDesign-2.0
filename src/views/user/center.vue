@@ -38,13 +38,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { JSEncrypt } from 'jsencrypt'
 import ChangePass from './components/changePass'
 import DeleteInfo from './components/deleteInfo'
 import PersonAccount from './components/personAccount'
-import {mapGetters} from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import { regionData, CodeToText } from 'element-china-area-data'
+import { Alerts } from '@/utils/swal'
 export default {
   name: 'personal',
   components: { ChangePass, DeleteInfo, PersonAccount },
@@ -52,78 +52,14 @@ export default {
     return {}
   },
   methods: {
-  
+    ...mapActions(['getStatus']),
     //修改密码
     alterPass(alterData) {
-      console.log(alterData)
-      // let { originPass, againPass, newPass } = this.alterForm
-      // if (originPass == '' || againPass == '' || newPass == '') {
-      //   swal({
-      //     title: '有未输入内容!',
-      //     text: '请重新输入',
-      //     icon: 'warning',
-      //     button: 'OK'
-      //   })
-      // } else if (originPass == newPass && originPass != '') {
-      //   swal({
-      //     title: '修改密码失败!',
-      //     text: '原密码与新密码相同',
-      //     icon: 'warning',
-      //     button: 'OK'
-      //   })
-      // } else if (newPass == againPass && newPass != '') {
-      //   this.$axios.get('/api/getPublicKey').then(res => {
-      //     //先获取公钥
-      //     if (res.data.status === 0) {
-      //       let encryptor = new JSEncrypt() //实例化
-      //       encryptor.setPublicKey(res.data.resultmap) //设置公钥
-
-      //       let PwdData = {
-      //         e_mail: this.e_mail,
-      //         originPass: encryptor.encrypt(originPass),
-      //         againPass: encryptor.encrypt(againPass)
-      //       }
-      //       this.$axios.post('/api/userPassAlter', PwdData).then(res => {
-      //         if (res.data.status == '0') {
-      //           swal({
-      //             title: '修改密码成功!',
-      //             text: '请重新登录',
-      //             icon: 'success',
-      //             button: 'OK'
-      //           }).then(() => {
-      //             delete localStorage.token
-      //             this.$router.go(0)
-      //           })
-      //         } else if (res.data.status === '1') {
-      //           swal({
-      //             title: '修改密码失败!',
-      //             text: '原密码错误',
-      //             icon: 'error',
-      //             button: 'OK'
-      //           })
-      //         } else if (res.date.status == '2') {
-      //           swal({
-      //             title: '修改密码失败!',
-      //             text: '网络好像有点问题～',
-      //             icon: 'warn',
-      //             button: 'OK'
-      //           })
-      //         }
-      //       })
-      //     } else {
-      //       //网络问题
-      //     }
-      //   })
-      // } else if (newPass != againPass) {
-      //   swal({
-      //     title: '修改密码失败!',
-      //     text: '两次输入不符合',
-      //     icon: 'error',
-      //     button: 'OK'
-      //   })
-      // }
+      this.getStatus(alterData).then(res => {
+        this.alertInfo()
+      })
     },
-    
+
     // //获取个人资料显示在表单
     // getPersonal() {
     //   let getPersonalData = this.$axios
@@ -181,11 +117,17 @@ export default {
     //     })
     // },
 
-
+    alertInfo() {
+      Alerts(this.status)
+    }
   },
   created() {},
+  mounted() {},
   computed: {
-    ...mapGetters(['e_mail'])
+    ...mapGetters(['e_mail']),
+    ...mapState({
+      status: state => state.center.status
+    })
   }
 }
 </script>

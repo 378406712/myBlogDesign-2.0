@@ -8,18 +8,13 @@
     <div class="card-body">
       <h4>修改密码</h4>
       <p>定期修改为高强度密码以保护您的账号</p>
-      <a
-        href="javascript:;"
-        class="card-cta"
-        @click="dialogFormVisible = true"
-      >
+      <a href="javascript:;" class="card-cta" @click="dialogFormVisible = true">
         立即修改
         <span class="svg-container">
           <svg-icon icon-class="chevron-right" />
         </span>
       </a>
     </div>
-    <!-- 表单 修改密码 -->
     <el-dialog
       top="2%"
       width="35%"
@@ -34,6 +29,7 @@
             v-model="alterForm.originPass"
             ref="originPass"
             autocomplete="off"
+            show-password
             clearable
           ></el-input>
         </el-form-item>
@@ -57,17 +53,12 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="alterPass" :loading="loading"
-          >确 定</el-button
-        >
-        <el-button @click="dialogFormVisible = false"
-          >取 消</el-button
-        >
+        <el-button type="primary" @click="alterPass">确 定</el-button>
+        <el-button @click="cancel('alterForm')">取 消</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
-
 <script>
 import { JSEncrypt } from 'jsencrypt'
 import { getPublicKey } from '@/api/publicKey'
@@ -96,7 +87,6 @@ export default {
       }
     }
     return {
-      loading: false,
       dialogFormVisible: false,
       // 修改密码表单
       alterForm: {
@@ -126,13 +116,11 @@ export default {
       const { originPass, newPass } = this.alterForm
       this.$refs.alterForm.validate(valid => {
         if (valid) {
-          this.loading = true
           getPublicKey().then(res => {
-                      console.log(res)
             let encryptor = new JSEncrypt()
             encryptor.setPublicKey(res.data.resultmap) //设置公钥
             let alterData = {
-              originPass,
+              originPass: encryptor.encrypt(originPass),
               newPass: encryptor.encrypt(newPass),
               e_mail: this.e_mail
             }
@@ -142,6 +130,10 @@ export default {
           return false
         }
       })
+    },
+    cancel(formName) {
+      this.dialogFormVisible = false
+      this.$refs[formName].resetFields()
     }
   },
   computed: {

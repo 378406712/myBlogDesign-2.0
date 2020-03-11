@@ -5,7 +5,7 @@ import user from './modules/user'
 import tabsview from './modules/tabsview'
 import language from './modules/language'
 import permission from './modules/permission'
-
+import center from './modules/user/center'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,6 +14,7 @@ export default new Vuex.Store({
     homepage,
     tabsview,
     language,
-    permission
+    permission,
+    center
   }
 })

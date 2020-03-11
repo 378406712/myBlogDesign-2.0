@@ -4,6 +4,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import './element-variables.scss'
 
+//弹窗
+import VueSwal from 'vue-swal'
+
 // animate动画库
 import 'animate.css'
 
@@ -22,6 +25,8 @@ import './permission'
 import './icons'
 // 全局 Mock 接口
 import './mock'
+
+Vue.use(VueSwal)
 
 Vue.use(ElementUI, {
   size: 'medium',

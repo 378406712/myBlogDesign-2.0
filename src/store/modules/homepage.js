@@ -1,7 +1,5 @@
 import * as Api from '@/api/homepage'
-import {
-  MUSIC
-} from '@/helper/const'
+import { MUSIC } from '@/helper/const'
 const GET_DEVICES = 'GET_DEVICES'
 const GET_MUSIU = 'GET_MUSIC'
 const SET_PAGES = 'SET_PAGES'
@@ -20,41 +18,45 @@ const homepage = {
   },
   mutations: {
     initstoreList(state, payload) {
-      state.flag = payload;
+      state.flag = payload
     },
     sliderList(state, payload) {
-      state.slider = payload;
+      state.slider = payload
 
-      sessionStorage.setItem("sliderStatus", payload);
+      sessionStorage.setItem('sliderStatus', payload)
     },
     userAvatar(state, payload) {
-      state.avatar = payload;
+      state.avatar = payload
     },
     settingList(state, payload) {
-      let data = payload.data;
+      let data = payload.data
       if (payload.mode) {
         Object.keys(state.setting).forEach(key => {
           if (payload.mode == key) {
-            state.setting[key] += data;
-            if (payload.mode == "loginCounts") {
-              state.setting.loginCounts = data;
+            state.setting[key] += data
+            if (payload.mode == 'loginCounts') {
+              state.setting.loginCounts = data
             }
-            state.setting.username = payload.username;
+            state.setting.username = payload.username
             state.setting.e_mail = payload.e_mail
           }
-        });
+        })
       } else {
-        state.setting = payload;
+        state.setting = payload
       }
     },
     [GET_DEVICES](state, devices) {
       //先判断slice后的数组长度是否为0，是，则将pages-1，返回新的state.decice
       //这里的pages已经变更
-      let data = devices.reverse().slice(state.sizes * (state.pages - 1), state.sizes * state.pages)
+      let data = devices
+        .reverse()
+        .slice(state.sizes * (state.pages - 1), state.sizes * state.pages)
       if (data.length === 0) {
         state.pages -= 1
       }
-      state.devices = devices.reverse().slice(state.sizes * (state.pages - 1), state.sizes * state.pages)
+      state.devices = devices
+        .reverse()
+        .slice(state.sizes * (state.pages - 1), state.sizes * state.pages)
     },
     [GET_MUSIU](state, music) {
       state.music.push(music)
@@ -73,46 +75,43 @@ const homepage = {
     }
   },
   actions: {
-    getDevieces({
-      commit
-    }, username) {
+    getDevieces({ commit }, username) {
       return new Promise((resolve, reject) => {
         Api.devices({
           username
-        }).then(res => {
-          const {
-            data
-          } = res
-          commit(GET_DEVICES, data)
-          commit(SET_TOTALS, data.length)
-          return resolve()
-        }).catch(err => reject(err))
+        })
+          .then(res => {
+            const { data } = res
+            commit(GET_DEVICES, data)
+            commit(SET_TOTALS, data.length)
+            return resolve()
+          })
+          .catch(err => reject(err))
       })
     },
     deleteDevices({}, val) {
       return new Promise((resolve, reject) => {
-        Api.deleteDevices(val._id).then(() => resolve())
+        Api.deleteDevices(val._id)
+          .then(() => resolve())
           .catch(err => reject(err))
       })
     },
     BatchDeleteDevices({}, key) {
       return new Promise((resolve, reject) => {
-        Api.BatchDeleteDevices(key).then(() => resolve())
+        Api.BatchDeleteDevices(key)
+          .then(() => resolve())
           .catch(err => reject(err))
       })
     },
-    getDetails({
-      commit
-    }, username) {
-      return  new Promise((resolve,reject)=>{
-        Api.getUserInfo(username).then((res)=>{
+    getDetails({ commit }, username) {
+      return new Promise((resolve, reject) => {
+        Api.getUserInfo(username).then(res => {
           console.log(res)
+          return resolve()
         })
       })
     }
-
-  },
-
+  }
 }
 
-export default homepage;
+export default homepage

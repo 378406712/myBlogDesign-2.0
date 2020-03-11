@@ -49,7 +49,6 @@ const user = {
         login(userInfo)
           .then(resp => {
             const { data } = resp
-            console.log(data)
             commit(SET_EMAIL, data.e_mail)
             commit(SET_STATUS, data.status)
             if (data.status === 1) {
