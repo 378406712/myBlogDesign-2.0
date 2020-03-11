@@ -204,19 +204,7 @@ export default {
   .el-radio {
     margin: 0;
   }
-  .showPic {
-    background-color: #fbfdff;
-    border: 1px dashed #c0ccda;
-    border-radius: 6px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 148px;
-    height: 148px;
-    line-height: 146px;
-    vertical-align: top;
-    text-align: center;
-    outline: 0;
-  }
+
   .card-cta {
     color: #6777ef;
     font-weight: 500;

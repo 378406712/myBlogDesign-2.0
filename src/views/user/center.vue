@@ -14,7 +14,7 @@
                       <h1>我的账号</h1>
                     </div>
                     <div class="section-body">
-                      <h2 class="section-title">欢迎, clover_1996!</h2>
+                      <h2 class="section-title">欢迎, {{ name }}!</h2>
                       <p class="section-lead">{{ e_mail }}</p>
                       <div class="row mt-sm-4">
                         <div class="col-lg-6">
@@ -23,7 +23,9 @@
                         <div class="col-lg-6">
                           <PersonAccount />
                         </div>
-                        <div class="col-lg-6"><DeleteInfo /></div>
+                        <div class="col-lg-6">
+                          <DeleteInfo v-on:removePass="removePass" />
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -44,7 +46,7 @@ import DeleteInfo from './components/deleteInfo'
 import PersonAccount from './components/personAccount'
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { regionData, CodeToText } from 'element-china-area-data'
-import { Alerts } from '@/utils/swal'
+import { AlterAlert, DelAlert } from '@/utils/swal'
 export default {
   name: 'personal',
   components: { ChangePass, DeleteInfo, PersonAccount },
@@ -52,11 +54,14 @@ export default {
     return {}
   },
   methods: {
-    ...mapActions(['getStatus']),
-    //修改密码
+    ...mapActions(['getStatus', 'deleteUser']),
+    /**
+     * 修改密码
+     * @param {Object} alterData 新旧密码及邮箱
+     */
     alterPass(alterData) {
       this.getStatus(alterData).then(res => {
-        this.alertInfo()
+        this.alertAlter()
       })
     },
 
@@ -76,55 +81,31 @@ export default {
     //       Object.assign(this.ruleForm, { ...res.data })
     //     })
     // },
-    // //删除账号
-    // removePass() {
-    //   this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-    //     confirmButtonText: '确定',
-    //     cancelButtonText: '取消',
-    //     type: 'warning'
-    //   })
-    //     .then(() => {
-    //       let removeData = {
-    //         params: {
-    //           username: this.username,
-    //           e_mail: this.e_mail
-    //         }
-    //       }
-    //       this.$axios.get('/api/userRemove', removeData).then(res => {
-    //         if (res.data.status == '0') {
-    //           swal({
-    //             title: '删除成功!',
-    //             icon: 'success',
-    //             button: 'Aww yiss!'
-    //           }).then(() => {
-    //             delete localStorage.token
-    //             this.$router.go(0)
-    //           })
-    //         } else {
-    //           swal({
-    //             title: '删除失败,网络好像出了小差～',
-    //             icon: 'error',
-    //             button: 'yiss Aww!'
-    //           })
-    //         }
-    //       })
-    //     })
-    //     .catch(() => {
-    //       this.$message({
-    //         type: 'info',
-    //         message: '已取消删除'
-    //       })
-    //     })
-    // },
-
-    alertInfo() {
-      Alerts(this.status)
+    
+   /**
+    *  删除账号
+    * @property {Object} DelData 用户名
+    */
+    removePass() {
+      const DelData = { username: this.name }
+      this.deleteUser(DelData)
+        .then(() => {
+          this.alertDel()
+        })
+        .catch(() => {
+          this.alertDel()
+        })
+    },
+    alertAlter() {
+      AlterAlert(this.status)
+    },
+    alertDel() {
+      DelAlert(this.status)
     }
   },
-  created() {},
-  mounted() {},
+
   computed: {
-    ...mapGetters(['e_mail']),
+    ...mapGetters(['e_mail', 'name']),
     ...mapState({
       status: state => state.center.status
     })

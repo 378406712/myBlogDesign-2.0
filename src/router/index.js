@@ -67,7 +67,7 @@ export const constantRouterMap = [
         path: 'center',
         name: 'center',
         component: () => import('@/views/user/center'),
-        meta: { icon: 's-promotion', title: '用户设置' }
+        meta: { icon: 's-promotion', title: '账号设置' }
       }
     ]
   },
