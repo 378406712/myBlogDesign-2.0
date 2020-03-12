@@ -38,3 +38,27 @@ export function DelAlert(status) {
     })
   }
 }
+export function SetAlert(status) {
+  if (status === 'success-insert') {
+    return swal({
+      title: '设置成功!',
+      icon: 'success',
+      button: 'OK'
+    })
+  } else if (status === 'success-update') {
+    return swal({
+      title: '更新成功!',
+      icon: 'success',
+      button: 'OK'
+    }).then(()=>{
+      
+    })
+  } else {
+    return swal({
+      title: '设置失败,网络好像出了小差～',
+      text: '请重试',
+      icon: 'error',
+      button: 'OK'
+    })
+  }
+}

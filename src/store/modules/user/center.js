@@ -1,17 +1,22 @@
 import * as Api from '@/api/center'
 
 const GET_STATUS = 'GET_STATUS'
-
+const SET_VISIBLE = 'SET_VISIBLE'
 const center = {
   /**
-   * @param {String} status 更改密码的提示(密码修改错误/重复/成功)
+   * @param {string} status 更改密码的提示
+   * @param {boolean} visible 提示框的显示隐藏
    */
   state: {
-    status: ''
+    status: '',
+    visible: false
   },
   mutations: {
     [GET_STATUS](state, status) {
       state.status = status
+    },
+    [SET_VISIBLE](state, visible) {
+      state.visible = visible
     }
   },
   actions: {
@@ -35,6 +40,15 @@ const center = {
             resolve()
           })
           .catch(() => reject())
+      })
+    },
+    setInfo({ commit }, Info) {
+      return new Promise((resolve, reject) => {
+        Api.userInfoAdd(Info).then(res => {
+          console.log(res)
+          commit(GET_STATUS, res.data.status)
+          resolve()
+        })
       })
     }
   }

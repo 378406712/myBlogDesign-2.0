@@ -122,9 +122,9 @@ export default {
             let alterData = {
               originPass: encryptor.encrypt(originPass),
               newPass: encryptor.encrypt(newPass),
-              e_mail: this.e_mail
+              username: this.name
             }
-            this.$emit('changePass', alterData)
+            this.$emit('alterPass', alterData)
           })
         } else {
           return false
@@ -137,7 +137,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['e_mail'])
+    ...mapGetters(['name'])
   }
 }
 </script>

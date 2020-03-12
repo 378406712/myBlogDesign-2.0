@@ -13,7 +13,7 @@
         class="card-cta"
         data-toggle="modal"
         data-target="#ga-modal"
-        @click="dialogPersonalVisible = true"
+        @click="show"
       >
         立即设置
         <span class="svg-container">
@@ -26,7 +26,9 @@
       top="2%"
       width="50%"
       title="个人信息"
-      :visible.sync="dialogPersonalVisible"
+      :visible="visible"
+      @close="hide"
+      @open="show"
     >
       <el-form
         :model="ruleForm"
@@ -50,7 +52,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item id="labels" label="性别">
+        <el-form-item id="labels" prop="sex" label="性别">
           <el-radio v-model="ruleForm.sex" label="男" border size="small"
             >男</el-radio
           >
@@ -58,7 +60,7 @@
             >女</el-radio
           >
         </el-form-item>
-        <el-form-item label="生日">
+        <el-form-item prop="sex" label="生日">
           <el-col :span="12">
             <el-form-item prop="birthday">
               <el-date-picker
@@ -72,13 +74,14 @@
         </el-form-item>
         <el-row :gutter="10">
           <el-col :span="12">
-            <el-form-item id="labels" label="职业">
+            <el-form-item id="labels" prop="job" label="职业">
               <el-input v-model.trim="ruleForm.job" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item id="labels" label="家乡">
+            <el-form-item id="labels" prop="hometown" label="家乡">
               <el-cascader
+                ref="cascader"
                 :options="area.options"
                 v-model="area.hometown"
                 @change="handleChange"
@@ -121,15 +124,14 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="setPersonal">提 交</el-button>
-        <el-button @click="dialogPersonalVisible = false">取 消</el-button>
+        <el-button @click="hide">取 消</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
-
 <script>
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import { regionData, CodeToText } from 'element-china-area-data'
-
 export default {
   props: {},
   data() {
@@ -148,11 +150,11 @@ export default {
       area: {
         options: regionData
       },
-      param: new FormData(),
-      dialogPersonalVisible: false
+      param: new FormData()
     }
   },
   methods: {
+    ...mapMutations(['SET_VISIBLE']),
     //地区处理
     handleChange(value) {
       this.ruleForm.hometown = value
@@ -166,55 +168,37 @@ export default {
       this.param.append('file', file, file.name)
       return false
     },
-    //覆盖默认的上传行为
+    // //覆盖默认的上传行为
     httprequest() {},
     //设置个人资料
     setPersonal() {
-      if (this.ruleForm.hometown.length === 0) {
-        this.ruleForm.hometown = this.area.hometown
-      }
+      this.ruleForm.username = this.name
       this.param.append('message', JSON.stringify(this.ruleForm))
-      this.$axios.post('/api/userInfoAdd', this.param).then(res => {
-        if (res.data == '0') {
-          swal({
-            title: '设置成功!',
-            icon: 'success',
-            button: 'Aww yiss!'
-          }).then(() => {
-            this.$router.go(0)
-          })
-        } else if (res.data == '1') {
-          swal({
-            title: '更新成功!',
-            icon: 'success',
-            button: 'Aww yiss!'
-          })
-            .then(() => {
-              this.$router.go(0)
-            })
-            .then(() => {
-              this.$store.commit('settingList', {
-                username: this.ruleForm.username,
-                mode: 'updateData',
-                data: 1
-              })
-
-              this.$axios.post('/api/optionStatistical', this.statistical)
-            })
-        } else {
-          swal({
-            title: '设置失败!',
-            text: '网络好像有点问题',
-            icon: 'error',
-            button: 'yiss Aww!'
-          })
-        }
-      })
+      this.$emit('setUserInfo', this.param)
+      this.reset()
+    },
+    hide() {
+      this.SET_VISIBLE(false)
+      this.reset()
+    },
+    show() {
+      this.SET_VISIBLE(true)
+    },
+    reset() {
+      this.$refs['ruleForm'].resetFields()
+      
+      this.$refs['cascader'].checkedValue = null
+     
     }
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({
+      visible: state => state.center.visible
+    })
   }
 }
 </script>
-
 <style lang="stylus" scoped>
 /deep/ .el-form-item__label {
     font-weight: 800;

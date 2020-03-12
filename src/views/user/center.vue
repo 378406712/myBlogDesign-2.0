@@ -18,10 +18,13 @@
                       <p class="section-lead">{{ e_mail }}</p>
                       <div class="row mt-sm-4">
                         <div class="col-lg-6">
-                          <ChangePass v-on:changePass="alterPass" />
+                          <ChangePass v-on:alterPass="alterPass" />
                         </div>
                         <div class="col-lg-6">
-                          <PersonAccount />
+                          <PersonAccount
+                            :PersonalVisible="PersonalVisible"
+                            v-on:setUserInfo="setUserInfo"
+                          />
                         </div>
                         <div class="col-lg-6">
                           <DeleteInfo v-on:removePass="removePass" />
@@ -44,25 +47,35 @@ import { JSEncrypt } from 'jsencrypt'
 import ChangePass from './components/changePass'
 import DeleteInfo from './components/deleteInfo'
 import PersonAccount from './components/personAccount'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { regionData, CodeToText } from 'element-china-area-data'
-import { AlterAlert, DelAlert } from '@/utils/swal'
+import { AlterAlert, DelAlert, SetAlert } from '@/utils/swal'
 export default {
   name: 'personal',
   components: { ChangePass, DeleteInfo, PersonAccount },
   data() {
-    return {}
+    return { PersonalVisible: false }
   },
   methods: {
-    ...mapActions(['getStatus', 'deleteUser']),
+    ...mapMutations(['SET_VISIBLE']),
+    ...mapActions(['getStatus', 'deleteUser', 'setInfo']),
     /**
      * 修改密码
      * @param {Object} alterData 新旧密码及邮箱
      */
     alterPass(alterData) {
-      this.getStatus(alterData).then(res => {
+      this.getStatus(alterData).then(() => {
         this.alertAlter()
       })
+    },
+
+    async setUserInfo(Info) {
+      try {
+        await this.setInfo(Info)
+        this.alertSet()
+      } catch (error) {
+        this.alertSet()
+      }
     },
 
     // //获取个人资料显示在表单
@@ -81,11 +94,11 @@ export default {
     //       Object.assign(this.ruleForm, { ...res.data })
     //     })
     // },
-    
-   /**
-    *  删除账号
-    * @property {Object} DelData 用户名
-    */
+
+    /**
+     *  删除账号
+     * @property {Object} DelData 用户名
+     */
     removePass() {
       const DelData = { username: this.name }
       this.deleteUser(DelData)
@@ -101,6 +114,11 @@ export default {
     },
     alertDel() {
       DelAlert(this.status)
+    },
+    alertSet() {
+      SetAlert(this.status).then(() => {
+        this.SET_VISIBLE(false)
+      })
     }
   },
 
