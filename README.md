@@ -106,7 +106,7 @@ npm run build --report
 
 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 :tropical_drink:
 
-<img style="display:none" src="https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/alipay-weixin.png" alt="donate">
+<img style="display:none" src="https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/alipay-wxpay.png" alt="donate">
 
 
 ## Browsers support
