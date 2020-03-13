@@ -9,5 +9,8 @@ function userRemove(User) {
 function userInfoAdd(Info) {
   return axios.post('/api/user/userInfoAdd', Info)
 }
+function userInfoGet(User){
+  return axios.get('/api/user/userInfoGet',User)
+}
 
-export { userPassAlter, userRemove, userInfoAdd }
+export { userPassAlter, userRemove, userInfoAdd,userInfoGet }

@@ -22,7 +22,9 @@
                         </div>
                         <div class="col-lg-6">
                           <PersonAccount
-                            :PersonalVisible="PersonalVisible"
+                            :ruleForm="ruleForm"
+                            :visible="visible"
+                            v-on:getPersonal="getPersonal"
                             v-on:setUserInfo="setUserInfo"
                           />
                         </div>
@@ -36,6 +38,7 @@
               </ul>
             </div>
           </div>
+          <el-input v-model="text"></el-input>
         </section>
       </div>
     </div>
@@ -54,14 +57,16 @@ export default {
   name: 'personal',
   components: { ChangePass, DeleteInfo, PersonAccount },
   data() {
-    return { PersonalVisible: false }
+    return {
+      text:''
+    }
   },
   methods: {
     ...mapMutations(['SET_VISIBLE']),
-    ...mapActions(['getStatus', 'deleteUser', 'setInfo']),
+    ...mapActions(['getStatus', 'deleteUser', 'setInfo', 'getInfo']),
     /**
      * 修改密码
-     * @param {Object} alterData 新旧密码及邮箱
+     * @param {Object} alterData 新旧密码
      */
     alterPass(alterData) {
       this.getStatus(alterData).then(() => {
@@ -77,7 +82,9 @@ export default {
         this.alertSet()
       }
     },
-
+    async getPersonal() {
+      await this.getInfo({ params: { username: this.name } })
+    },
     // //获取个人资料显示在表单
     // getPersonal() {
     //   let getPersonalData = this.$axios
@@ -125,7 +132,9 @@ export default {
   computed: {
     ...mapGetters(['e_mail', 'name']),
     ...mapState({
-      status: state => state.center.status
+      status: state => state.center.status,
+      visible: state => state.center.visible,
+      ruleForm: state => state.center.form
     })
   }
 }

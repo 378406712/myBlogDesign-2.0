@@ -2,6 +2,7 @@ import * as Api from '@/api/center'
 
 const GET_STATUS = 'GET_STATUS'
 const SET_VISIBLE = 'SET_VISIBLE'
+const GET_USERINFO = 'GET_USERINFO'
 const center = {
   /**
    * @param {string} status 更改密码的提示
@@ -9,7 +10,17 @@ const center = {
    */
   state: {
     status: '',
-    visible: false
+    visible: false,
+    form: {
+      username: '',
+      nickname: '',
+      sex: '',
+      hometown: [],
+      job: '',
+      birthday: '',
+      desc: '',
+      url: ''
+    }
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -17,6 +28,9 @@ const center = {
     },
     [SET_VISIBLE](state, visible) {
       state.visible = visible
+    },
+    [GET_USERINFO](state, form) {
+      state.form = form
     }
   },
   actions: {
@@ -45,8 +59,15 @@ const center = {
     setInfo({ commit }, Info) {
       return new Promise((resolve, reject) => {
         Api.userInfoAdd(Info).then(res => {
-          console.log(res)
           commit(GET_STATUS, res.data.status)
+          resolve()
+        })
+      })
+    },
+    getInfo({ commit }, username) {
+      return new Promise((resolve, reject) => {
+        Api.userInfoGet(username).then(res => {
+          commit(GET_USERINFO, res.data)
           resolve()
         })
       })

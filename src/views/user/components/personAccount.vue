@@ -105,7 +105,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item>
+            <el-form-item prop="avatar">
               <el-image width="80%" class="showPic" :src="ruleForm.url" alt>
                 <div slot="error" class="image-slot">
                   <i style="fontSize:28px" class="el-icon-picture-outline"></i>
@@ -133,20 +133,23 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import { regionData, CodeToText } from 'element-china-area-data'
 export default {
-  props: {},
+  props: {
+    visible: Boolean,
+    ruleForm:Object
+  },
   data() {
     return {
       //个人信息表单
-      ruleForm: {
-        username: '',
-        nickname: '',
-        sex: '',
-        hometown: [],
-        job: '',
-        birthday: '',
-        desc: '',
-        url: ''
-      },
+      // ruleForm: {
+      //   username: '',
+      //   nickname: '',
+      //   sex: '',
+      //   hometown: [],
+      //   job: '',
+      //   birthday: '',
+      //   desc: '',
+      //   url: ''
+      // },
       area: {
         options: regionData
       },
@@ -168,8 +171,6 @@ export default {
       this.param.append('file', file, file.name)
       return false
     },
-    // //覆盖默认的上传行为
-    httprequest() {},
     //设置个人资料
     setPersonal() {
       this.ruleForm.username = this.name
@@ -183,19 +184,15 @@ export default {
     },
     show() {
       this.SET_VISIBLE(true)
+      this.$emit('getPersonal')
     },
     reset() {
       this.$refs['ruleForm'].resetFields()
-      
       this.$refs['cascader'].checkedValue = null
-     
     }
   },
   computed: {
     ...mapGetters(['name']),
-    ...mapState({
-      visible: state => state.center.visible
-    })
   }
 }
 </script>
