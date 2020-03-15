@@ -1,24 +1,24 @@
 function saveToLocal(key, value) {
-  let vuecms = window.localStorage.__vuecms__
-  if (!vuecms) {
-    vuecms = {}
+  let vuelzw = window.localStorage.__vuelzw__
+  if (!vuelzw) {
+    vuelzw = {}
   } else {
-    vuecms = JSON.parse(vuecms)
+    vuelzw = JSON.parse(vuelzw)
   }
-  vuecms[key] = value
-  window.localStorage.__vuecms__ = JSON.stringify(vuecms)
+  vuelzw[key] = value
+  window.localStorage.__vuelzw__ = JSON.stringify(vuelzw)
 }
 
 function loadFromLocal(key, def) {
-  let vuecms = window.localStorage.__vuecms__
-  if (!vuecms) {
+  let vuelzw = window.localStorage.__vuelzw__
+  if (!vuelzw) {
     return def
   }
-  vuecms = JSON.parse(vuecms)
-  if (!vuecms) {
+  vuelzw = JSON.parse(vuelzw)
+  if (!vuelzw) {
     return def
   }
-  let result = vuecms[key]
+  let result = vuelzw[key]
   return result || def
 }
 

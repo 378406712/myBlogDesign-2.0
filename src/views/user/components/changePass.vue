@@ -33,7 +33,6 @@
             clearable
           ></el-input>
         </el-form-item>
-
         <el-form-item id="labels" prop="newPass" label="新密码">
           <el-input
             v-model="alterForm.newPass"
@@ -42,7 +41,6 @@
             clearable
           ></el-input>
         </el-form-item>
-
         <el-form-item id="labels" prop="checkPass" label="再次输入新密码">
           <el-input
             v-model="alterForm.checkPass"
@@ -141,7 +139,6 @@ export default {
   }
 }
 </script>
-
 <style lang="stylus" scoped>
 /deep/ .el-form-item__label {
     font-weight: 800;

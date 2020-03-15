@@ -18,7 +18,7 @@
                       <p class="section-lead">{{ e_mail }}</p>
                       <div class="row mt-sm-4">
                         <div class="col-lg-6">
-                          <ChangePass v-on:alterPass="alterPass" />
+                          <ChangePass v-on:alterPass="changePass" />
                         </div>
                         <div class="col-lg-6">
                           <PersonAccount
@@ -38,7 +38,6 @@
               </ul>
             </div>
           </div>
-          <el-input v-model="text"></el-input>
         </section>
       </div>
     </div>
@@ -58,18 +57,18 @@ export default {
   components: { ChangePass, DeleteInfo, PersonAccount },
   data() {
     return {
-      text:''
+      text: ''
     }
   },
   methods: {
     ...mapMutations(['SET_VISIBLE']),
-    ...mapActions(['getStatus', 'deleteUser', 'setInfo', 'getInfo']),
+    ...mapActions(['alterPass', 'deleteUser', 'setInfo', 'getInfo']),
     /**
      * 修改密码
      * @param {Object} alterData 新旧密码
      */
-    alterPass(alterData) {
-      this.getStatus(alterData).then(() => {
+    changePass(alterData) {
+      this.alterPass(alterData).then(() => {
         this.alertAlter()
       })
     },
@@ -85,23 +84,6 @@ export default {
     async getPersonal() {
       await this.getInfo({ params: { username: this.name } })
     },
-    // //获取个人资料显示在表单
-    // getPersonal() {
-    //   let getPersonalData = this.$axios
-    //     .get('/api/userInfoData', {
-    //       params: {
-    //         username: this.ruleForm.username
-    //       }
-    //     })
-    //     .then(res => {
-    //       this.ruleForm.url = res.data.uploadUrl
-    //       this.area.hometown = res.data.hometown
-    //       delete res.data._id
-    //       delete res.data.uploadUrl
-    //       Object.assign(this.ruleForm, { ...res.data })
-    //     })
-    // },
-
     /**
      *  删除账号
      * @property {Object} DelData 用户名
@@ -128,7 +110,6 @@ export default {
       })
     }
   },
-
   computed: {
     ...mapGetters(['e_mail', 'name']),
     ...mapState({

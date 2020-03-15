@@ -1,5 +1,5 @@
 import * as Api from '@/api/center'
-
+import { CodeToText } from 'element-china-area-data'
 const GET_STATUS = 'GET_STATUS'
 const SET_VISIBLE = 'SET_VISIBLE'
 const GET_USERINFO = 'GET_USERINFO'
@@ -11,8 +11,7 @@ const center = {
   state: {
     status: '',
     visible: false,
-    form: {
-    }
+    form: {}
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -26,10 +25,7 @@ const center = {
     }
   },
   actions: {
-    /**
-     * @param {Object} PwdData 更改密码
-     */
-    getStatus({ commit }, PwdData) {
+    alterPass({ commit }, PwdData) {
       return new Promise((resolve, reject) => {
         Api.userPassAlter(PwdData).then(res => {
           commit(GET_STATUS, res.data.status)
@@ -38,7 +34,6 @@ const center = {
       })
     },
     deleteUser({ commit }, DelData) {
-      console.log(DelData)
       return new Promise((resolve, reject) => {
         Api.userRemove(DelData)
           .then(res => {

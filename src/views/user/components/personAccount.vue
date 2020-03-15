@@ -38,12 +38,7 @@
       >
         <el-row :gutter="10">
           <el-col :span="12">
-            <el-form-item
-              prop="nickname"
-              :rules="{ required: true, message: '昵称不能为空' }"
-              id="labels"
-              label="昵称"
-            >
+            <el-form-item prop="nickname" id="labels" label="昵称">
               <el-input
                 type="nickname"
                 v-model="ruleForm.nickname"
@@ -83,7 +78,7 @@
               <el-cascader
                 ref="cascader"
                 :options="area.options"
-                v-model="area.hometown"
+                v-model="ruleForm.hometown"
                 @change="handleChange"
                 clearable
               ></el-cascader>
@@ -108,14 +103,17 @@
             <el-form-item prop="avatar">
               <el-image
                 width="80%"
-                @error="reloads"
                 class="showPic"
                 :src="ruleForm.url"
                 :lazy="true"
                 alt
               >
-                  <div slot="error" class="image-slot">
-                  <el-image :lazy="true" fit="cover" :src="ruleForm.url">
+                <div slot="error" class="image-slot">
+                  <el-image
+                    :lazy="true"
+                    class="showPic-error showPic"
+                    :src="ruleForm.url"
+                  >
                   </el-image>
                 </div>
               </el-image>
@@ -143,7 +141,8 @@ import { regionData, CodeToText } from 'element-china-area-data'
 export default {
   props: {
     visible: Boolean,
-    ruleForm: Object
+    ruleForm: Object,
+    hometown: String
   },
   data() {
     return {
@@ -186,18 +185,10 @@ export default {
     reset() {
       this.$refs['ruleForm'].resetFields()
       this.$refs['cascader'].checkedValue = null
-    },
-    reloads() {
-      console.log(this.ruleForm.url)
     }
   },
   computed: {
     ...mapGetters(['name'])
-  },
-  watch: {
-    ruleForm(data) {
-      console.log(data)
-    }
   }
 }
 </script>
@@ -275,6 +266,9 @@ export default {
     vertical-align: top;
     text-align: center;
     outline: 0;
+  }
+  .showPic-error {
+    border: none
   }
   .card-cta {
     color: #6777ef;

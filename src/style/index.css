@@ -121,10 +121,10 @@ li:hover {
 
 /*  chrome，safari滚动条 */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 0px;
 }
 
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background-image: linear-gradient(to top,
       #d5dee7 0%,
       #ffafbd 0%,
@@ -133,7 +133,7 @@ li:hover {
 
 ::-webkit-scrollbar-track {
   background-color: #eee;
-}
+} */
 
 
 .content-header {
