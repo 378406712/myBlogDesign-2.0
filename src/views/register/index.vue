@@ -198,13 +198,13 @@ export default {
             }
             register(registerData)
               .then(res => {
-                if (res.data === -1) {
+                if (res.data.status === 'USERNAME_REPERATED') {
                   this.loading = false
                   Msg('用户名重复', 'warning')
-                } else if (res.data === 0) {
+                } else if (res.data.status === 'EMAIL_REPEATED') {
                   this.loading = false
                   Msg('邮箱重复', 'warning')
-                } else if (res.data === 1) {
+                } else if (res.data.status === 'SUCCESS') {
                   Msg('注册成功,3秒后跳转', 'success', '3000')
                   setTimeout(() => {
                     this.$router.push('/login')

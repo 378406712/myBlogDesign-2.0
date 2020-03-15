@@ -31,6 +31,7 @@
         <el-form-item :label="$t('login.password')" prop="password">
           <el-input
             clearable
+            show-password
             type="password"
             v-model="loginForm.password"
             @keyup.enter.native="onLogin"
@@ -150,17 +151,16 @@ export default {
                   saveToLocal('password', '')
                   saveToLocal('remember', false)
                 }
-                if (this.status === 1) {
-                  console.log(deviceInfo)
+                if (this.status === 'SUCCESS') {
                   this.setDevices(deviceInfo)
                   Msg('登陆成功', 'success')
 
                   this.$router.push({ path: '/' })
                 } else {
-                  if (this.status === -1) {
+                  if (this.status === 'PASSWORD_ERROR') {
                     Msg('密码错误', 'error')
                     this.loginForm.password = ''
-                  } else if (this.status === 0) {
+                  } else if (this.status === 'UNFIND') {
                     Msg('不存在该用户', 'error')
                     this.loginForm.password = ''
                   }

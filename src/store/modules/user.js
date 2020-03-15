@@ -51,7 +51,7 @@ const user = {
             const { data } = resp
             commit(SET_EMAIL, data.e_mail)
             commit(SET_STATUS, data.status)
-            if (data.status === 1) {
+            if (data.status === 'SUCCESS') {
               setToken(data.token)
               commit(SET_TOKEN, data.token)
             }
@@ -97,7 +97,7 @@ const user = {
     logout({ commit }) {
       return new Promise((resolve, reject) => {
         logout()
-          .then(resp => {
+          .then(() => {
             removeToken()
             commit(SET_TOKEN, '')
             commit(SET_NAME, '')

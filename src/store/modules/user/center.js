@@ -12,14 +12,6 @@ const center = {
     status: '',
     visible: false,
     form: {
-      username: '',
-      nickname: '',
-      sex: '',
-      hometown: [],
-      job: '',
-      birthday: '',
-      desc: '',
-      url: ''
     }
   },
   mutations: {
@@ -67,6 +59,7 @@ const center = {
     getInfo({ commit }, username) {
       return new Promise((resolve, reject) => {
         Api.userInfoGet(username).then(res => {
+          delete res.data.id
           commit(GET_USERINFO, res.data)
           resolve()
         })

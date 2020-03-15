@@ -106,9 +106,17 @@
           </el-col>
           <el-col :span="12">
             <el-form-item prop="avatar">
-              <el-image width="80%" class="showPic" :src="ruleForm.url" alt>
-                <div slot="error" class="image-slot">
-                  <i style="fontSize:28px" class="el-icon-picture-outline"></i>
+              <el-image
+                width="80%"
+                @error="reloads"
+                class="showPic"
+                :src="ruleForm.url"
+                :lazy="true"
+                alt
+              >
+                  <div slot="error" class="image-slot">
+                  <el-image :lazy="true" fit="cover" :src="ruleForm.url">
+                  </el-image>
                 </div>
               </el-image>
             </el-form-item>
@@ -135,21 +143,10 @@ import { regionData, CodeToText } from 'element-china-area-data'
 export default {
   props: {
     visible: Boolean,
-    ruleForm:Object
+    ruleForm: Object
   },
   data() {
     return {
-      //个人信息表单
-      // ruleForm: {
-      //   username: '',
-      //   nickname: '',
-      //   sex: '',
-      //   hometown: [],
-      //   job: '',
-      //   birthday: '',
-      //   desc: '',
-      //   url: ''
-      // },
       area: {
         options: regionData
       },
@@ -189,10 +186,18 @@ export default {
     reset() {
       this.$refs['ruleForm'].resetFields()
       this.$refs['cascader'].checkedValue = null
+    },
+    reloads() {
+      console.log(this.ruleForm.url)
     }
   },
   computed: {
-    ...mapGetters(['name']),
+    ...mapGetters(['name'])
+  },
+  watch: {
+    ruleForm(data) {
+      console.log(data)
+    }
   }
 }
 </script>
