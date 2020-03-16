@@ -62,7 +62,7 @@
                 type="date"
                 placeholder="选择日期"
                 v-model="ruleForm.birthday"
-                style="width: 85%"
+                style="width: 84%"
               ></el-date-picker>
             </el-form-item>
           </el-col>
@@ -77,6 +77,7 @@
             <el-form-item id="labels" prop="hometown" label="家乡">
               <el-cascader
                 ref="cascader"
+                style="width: 100%"
                 :options="area.options"
                 v-model="ruleForm.hometown"
                 @change="handleChange"
@@ -109,11 +110,10 @@
                 alt
               >
                 <div slot="error" class="image-slot">
-                  <el-image
-                    :lazy="true"
-                    class="showPic-error showPic"
-                    :src="ruleForm.url"
-                  >
+                  <el-image>
+                    <div slot="error" class="image-slot">
+                      <i class="el-icon-picture-outline"></i>
+                    </div>
                   </el-image>
                 </div>
               </el-image>
@@ -121,11 +121,7 @@
           </el-col>
         </el-row>
         <el-form-item label="个性签名" id="labels" prop="desc">
-          <el-input
-            type="textarea"
-            style="width: 91.5%"
-            v-model="ruleForm.desc"
-          ></el-input>
+          <el-input type="textarea" v-model="ruleForm.desc"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -189,6 +185,11 @@ export default {
   },
   computed: {
     ...mapGetters(['name'])
+  },
+  watch: {
+    ruleForm(data) {
+      console.log(data)
+    }
   }
 }
 </script>

@@ -50,7 +50,6 @@ import ChangePass from './components/changePass'
 import DeleteInfo from './components/deleteInfo'
 import PersonAccount from './components/personAccount'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
-import { regionData, CodeToText } from 'element-china-area-data'
 import { AlterAlert, DelAlert, SetAlert } from '@/utils/swal'
 export default {
   name: 'personal',
