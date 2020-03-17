@@ -28,7 +28,6 @@
       title="个人信息"
       :visible="visible"
       @close="hide"
-      @open="show"
     >
       <el-form
         :model="ruleForm"
@@ -76,8 +75,8 @@
           <el-col :span="12">
             <el-form-item id="labels" prop="hometown" label="家乡">
               <el-cascader
-                ref="cascader"
                 style="width: 100%"
+                ref="cascader"
                 :options="area.options"
                 v-model="ruleForm.hometown"
                 @change="handleChange"
@@ -93,7 +92,6 @@
                 action="#"
                 list-type="picture-card"
                 :limit="1"
-                show-file-list
                 :before-upload="beforeupload"
               >
                 <i class="el-icon-plus"></i>
@@ -101,19 +99,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="avatar">
-              <el-image
-                width="80%"
-                class="showPic"
-                :src="ruleForm.url"
-                :lazy="true"
-                alt
-              >
+            <el-form-item>
+              <el-image width="80%" class="showPic" :src="ruleForm.url">
                 <div slot="error" class="image-slot">
-                  <el-image>
-                    <div slot="error" class="image-slot">
-                      <i class="el-icon-picture-outline"></i>
-                    </div>
+                  <i class="el-icon-picture-outline"></i>
+                  <el-image class="showPic-error showPic" :src="ruleForm.url">
                   </el-image>
                 </div>
               </el-image>
@@ -133,12 +123,11 @@
 </template>
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { regionData, CodeToText } from 'element-china-area-data'
+import { regionData } from 'element-china-area-data'
 export default {
   props: {
     visible: Boolean,
-    ruleForm: Object,
-    hometown: String
+    ruleForm: Object
   },
   data() {
     return {
@@ -187,9 +176,7 @@ export default {
     ...mapGetters(['name'])
   },
   watch: {
-    ruleForm(data) {
-      console.log(data)
-    }
+    ruleForm(data) {}
   }
 }
 </script>

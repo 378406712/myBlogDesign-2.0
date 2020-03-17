@@ -1,5 +1,4 @@
 import * as Api from '@/api/center'
-import { CodeToText } from 'element-china-area-data'
 const GET_STATUS = 'GET_STATUS'
 const SET_VISIBLE = 'SET_VISIBLE'
 const GET_USERINFO = 'GET_USERINFO'
@@ -44,6 +43,7 @@ const center = {
       })
     },
     setInfo({ commit }, Info) {
+      console.log(Info)
       return new Promise((resolve, reject) => {
         Api.userInfoAdd(Info).then(res => {
           commit(GET_STATUS, res.data.status)
@@ -52,9 +52,9 @@ const center = {
       })
     },
     getInfo({ commit }, username) {
+      console.log(username)
       return new Promise((resolve, reject) => {
         Api.userInfoGet(username).then(res => {
-          delete res.data.id
           commit(GET_USERINFO, res.data)
           resolve()
         })

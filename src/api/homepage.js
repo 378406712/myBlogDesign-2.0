@@ -1,5 +1,4 @@
 import axios from 'axios'
-import user from '../store/modules/user'
 // export function getHomeTotal() {
 //   return axios.post('/homepage/hometotal')
 // }
@@ -14,19 +13,19 @@ import user from '../store/modules/user'
 
 //获取用户设备信息
 export function devices(username){
-  return axios.get('/api/homepage/getServerInfo',{
+  return axios.get('/api/homepage/getDevices',{
     params:username
   })
 }
 
 export function deleteDevices(id){
-  return axios.post('/api/homepage/deleteServerInfo',{_id:id})
+  return axios.post('/api/homepage/deleteDevice',{_id:id})
 }
 export function BatchDeleteDevices(key){
   return axios.post('/api/homepage/BatchDeleteDevices',key)
 }
 
-//获取用户个人信息
-export function getUserInfo(username){
+//获取用户个人资料
+export function getPersonal(username){
   return  axios.get('/api/homepage/UserInfo',username)
 }

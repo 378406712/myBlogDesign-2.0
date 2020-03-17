@@ -55,9 +55,7 @@ export default {
   name: 'personal',
   components: { ChangePass, DeleteInfo, PersonAccount },
   data() {
-    return {
-      text: ''
-    }
+    return {}
   },
   methods: {
     ...mapMutations(['SET_VISIBLE']),
@@ -72,16 +70,19 @@ export default {
       })
     },
 
-    async setUserInfo(Info) {
-      try {
-        await this.setInfo(Info)
+    setUserInfo(Info) {
+      this.setInfo(Info).then(() => {
         this.alertSet()
-      } catch (error) {
-        this.alertSet()
-      }
+      })
+      // try {
+      //   await this.setInfo(Info)
+      //   this.alertSet()
+      // } catch (error) {
+      //   this.alertSet()
+      // }
     },
-    async getPersonal() {
-      await this.getInfo({ params: { username: this.name } })
+    getPersonal() {
+      this.getInfo({ params: { username: this.name } })
     },
     /**
      *  删除账号
