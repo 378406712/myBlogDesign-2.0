@@ -82,7 +82,7 @@
 
 <script>
 import { JSEncrypt } from 'jsencrypt'
-import { getPublicKey } from '@/api/register'
+import { getPublicKey } from '@/api/publicKey'
 import LangSelect from '@/components/lang-select'
 import { register } from '@/api/register'
 import { Msg } from '@/utils/message'

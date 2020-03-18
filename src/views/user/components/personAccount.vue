@@ -30,6 +30,7 @@
       @close="hide"
     >
       <el-form
+        class="bg-form"
         :model="ruleForm"
         ref="ruleForm"
         label-position="right"
@@ -85,29 +86,35 @@
             </el-form-item>
           </el-col>
         </el-row>
+
         <el-row>
           <el-col :span="12">
-            <el-form-item label="头像">
+            <el-form-item label="头像" prop="avatar">
               <el-upload
                 action="#"
                 list-type="picture-card"
                 :limit="1"
                 :before-upload="beforeupload"
               >
-                <i class="el-icon-plus"></i>
+                <i class="showPic el-icon-plus"></i>
               </el-upload>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item>
-              <el-image width="80%" class="showPic" :src="ruleForm.url">
-                <div slot="error" class="image-slot">
-                  <i class="el-icon-picture-outline"></i>
-                  <el-image class="showPic-error showPic" :src="ruleForm.url">
-                  </el-image>
-                </div>
-              </el-image>
-            </el-form-item>
+          <el-col :span="6" :offset="3">
+            <el-image
+              :src="ruleForm.url"
+              v-if="ruleForm.url"
+              :preview-src-list="[ruleForm.url]"
+              width="80%"
+              class="showPic showPic-success"
+            >
+              <div slot="error" class="image-slot">
+                <i
+                  style="fontSize:30px"
+                  class="showPic-error showPic el-icon-picture-outline"
+                ></i>
+              </div>
+            </el-image>
           </el-col>
         </el-row>
         <el-form-item label="个性签名" id="labels" prop="desc">
@@ -126,8 +133,7 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 import { regionData } from 'element-china-area-data'
 export default {
   props: {
-    visible: Boolean,
-    ruleForm: Object
+    visible: Boolean
   },
   data() {
     return {
@@ -170,13 +176,18 @@ export default {
     reset() {
       this.$refs['ruleForm'].resetFields()
       this.$refs['cascader'].checkedValue = null
+      this.ruleForm.url = ''
+    },
+    onPreview() {
+      this.showViewer = true
     }
   },
+
   computed: {
-    ...mapGetters(['name'])
-  },
-  watch: {
-    ruleForm(data) {}
+    ...mapGetters(['name']),
+    ...mapState({
+      ruleForm: state => state.center.form
+    })
   }
 }
 </script>
@@ -191,6 +202,7 @@ export default {
     padding: 25px;
     padding-top: 15px;
   }
+
   /deep/ .el-dialog {
     border-radius: 0.3rem;
   }
@@ -243,20 +255,22 @@ export default {
     margin: 0;
   }
   .showPic {
-    background-color: #fbfdff;
-    border: 1px dashed #c0ccda;
+
     border-radius: 6px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 148px;
     height: 148px;
-    line-height: 146px;
-    vertical-align: top;
+    line-height: 148px;
     text-align: center;
     outline: 0;
   }
   .showPic-error {
-    border: none
+   background-color: #fbfdff;
+    border: 1px dashed #c0ccda;
+  }
+  .showPic-success{
+      border: 1px solid #c0ccda;
   }
   .card-cta {
     color: #6777ef;

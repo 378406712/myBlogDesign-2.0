@@ -68,7 +68,7 @@
 <script>
 import LangSelect from '@/components/lang-select'
 import { mapActions, mapState } from 'vuex'
-import { getPublicKey } from '@/api/register'
+import { getPublicKey } from '@/api/publicKey'
 import { JSEncrypt } from 'jsencrypt'
 import Devices from '@/utils/devices'
 import { Msg } from '@/utils/message'

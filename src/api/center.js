@@ -6,11 +6,13 @@ function userPassAlter(PwdData) {
 function userRemove(User) {
   return axios.post('/api/user/userRemove', User)
 }
+
+
 function userInfoAdd(Info) {
-  return axios.post('/api/user/userInfoAdd', Info)
+  return axios.post('/api/center/userInfoAdd', Info)
 }
 function userInfoGet(User){
-  return axios.get('/api/user/userInfoGet',User)
+  return axios.get('/api/center/userInfoGet',User)
 }
 
 export { userPassAlter, userRemove, userInfoAdd,userInfoGet }

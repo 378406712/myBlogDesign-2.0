@@ -22,7 +22,6 @@
                         </div>
                         <div class="col-lg-6">
                           <PersonAccount
-                            :ruleForm="ruleForm"
                             :visible="visible"
                             v-on:getPersonal="getPersonal"
                             v-on:setUserInfo="setUserInfo"
@@ -115,7 +114,6 @@ export default {
     ...mapState({
       status: state => state.center.status,
       visible: state => state.center.visible,
-      ruleForm: state => state.center.form
     })
   }
 }

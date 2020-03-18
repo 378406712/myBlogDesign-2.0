@@ -10,7 +10,16 @@ const center = {
   state: {
     status: '',
     visible: false,
-    form: {}
+    form: {
+      url: '',
+      username: '',
+      nickname: '',
+      birthday: '',
+      sex: '',
+      desc: '',
+      hometown: [],
+      job: ''
+    }
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -43,7 +52,6 @@ const center = {
       })
     },
     setInfo({ commit }, Info) {
-      console.log(Info)
       return new Promise((resolve, reject) => {
         Api.userInfoAdd(Info).then(res => {
           commit(GET_STATUS, res.data.status)
@@ -52,10 +60,12 @@ const center = {
       })
     },
     getInfo({ commit }, username) {
-      console.log(username)
       return new Promise((resolve, reject) => {
         Api.userInfoGet(username).then(res => {
-          commit(GET_USERINFO, res.data)
+          if (res.data.length !== 0) {
+            commit(GET_USERINFO, res.data)
+          }
+
           resolve()
         })
       })
