@@ -76,7 +76,6 @@ const user = {
 
     // 拉取用户信息
     pullUserInfo({ commit }, username) {
-      console.log(username)
       return new Promise((resolve, reject) => {
         userInfo({
           username

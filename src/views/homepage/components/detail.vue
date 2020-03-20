@@ -1,6 +1,6 @@
 <template>
   <el-drawer
-    custom-class="drawers"
+    custom-class="loli-drawers"
     :before-close="handleClose"
     :visible.sync="drawer"
     :with-header="false"
@@ -11,22 +11,22 @@
     </el-divider>
     <div class="demo-fit" style="padding:20px 20px 0px 20px;diplay:flex">
       <div class="block">
-        <el-avatar style="vertical-align:middle" shape="circle" :size="100" :src="avatar"></el-avatar>
+        <el-avatar
+          style="vertical-align:middle"
+          shape="circle"
+          :size="100"
+          :src="avatar"
+        ></el-avatar>
         <div class="block_item1">
-          <span class="title" style="margin-left:20px">昵称 ： {{ detailData.nickname }}</span>
+          <span class="title" style="margin-left:20px"
+            >昵称 ：{{ detailData.nickname }}</span
+          >
           <span class="title" style="margin-left:20px;marginTop:10px">
             性别 ：
             <span class="svg-container">
               <svg-icon v-if="detailData.sex == '男'" icon-class="odoko" />
               <svg-icon v-if="detailData.sex == '女'" icon-class="onnna" />
             </span>
-            <!-- <svg v-if="detailData.sex == '男'" aria-hidden="true" class="icon_svg">
-              <use xlink:href="#iconnan" />
-            </svg>-->
-
-            <!-- <svg v-else-if="detailData.sex == '女'" aria-hidden="true" class="icon_svg">
-              <use xlink:href="#iconnv" />
-            </svg>-->
           </span>
         </div>
       </div>
@@ -35,28 +35,21 @@
     <!-- 个性签名，地区，职业等 -->
     <div class="more_detail">
       <p>
-        <svg aria-hidden="true" class="icon_svg">
-          <use xlink:href="#iconqianming" />
-        </svg>
-        个性签名：{{ detailData.desc }}
+        <svg-icon icon-class="personal_signature" />
+        个性签名：
       </p>
+      <span class="personal_signature"> {{ detailData.desc }}</span>
       <el-divider></el-divider>
       <p>
-        <svg aria-hidden="true" class="icon_svg">
-          <use xlink:href="#iconlingdai" />
-        </svg>
+        <svg-icon icon-class="job" />
         职业：{{ detailData.job }}
       </p>
       <p>
-        <svg aria-hidden="true" class="icon_svg">
-          <use xlink:href="#iconnb-" />
-        </svg>
-        家乡：{{ detailData.hometown }}
+        <svg-icon icon-class="hometown" />
+        家乡：<span> {{ detailData.hometown }}</span>
       </p>
       <p>
-        <svg aria-hidden="true" class="icon_svg">
-          <use xlink:href="#icondangao" />
-        </svg>
+        <svg-icon icon-class="birthday" />
         生日：{{ detailData.birthday }}
       </p>
     </div>
@@ -64,11 +57,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   props: {
-    detailData: Object,
     drawer: Boolean
   },
   data() {
@@ -80,7 +72,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['name', 'avatar'])
+    ...mapGetters(['name', 'avatar']),
+    ...mapState({ detailData: state => state.homepage.details })
   }
 }
 </script>
@@ -94,11 +87,7 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-.drawers {
-  /* background-image: url('../media_icon/iloli.gif'); */
-  background-position: 150px 420px;
-  background-repeat: no-repeat;
-}
+
 /* icon font */
 .icon_svg {
   width: 25px;
@@ -108,5 +97,19 @@ export default {
 }
 .more_detail {
   padding: 0 20px 20px 20px;
+}
+.personal_signature {
+  letter-spacing: 1px;
+  line-height: 25px;
+  text-indent: 2em;
+}
+</style>
+
+<style>
+.loli-drawers {
+  background-position: 220px 340px;
+  background-repeat: no-repeat;
+  background-image: url('/static/image/beautify/iloli.gif');
+  background-size:12rem
 }
 </style>

@@ -1,4 +1,5 @@
 import * as Api from '@/api/center'
+import obj from '@/helper/enum'
 const GET_STATUS = 'GET_STATUS'
 const SET_VISIBLE = 'SET_VISIBLE'
 const GET_USERINFO = 'GET_USERINFO'
@@ -10,16 +11,7 @@ const center = {
   state: {
     status: '',
     visible: false,
-    form: {
-      url: '',
-      username: '',
-      nickname: '',
-      birthday: '',
-      sex: '',
-      desc: '',
-      hometown: [],
-      job: ''
-    }
+    form: obj
   },
   mutations: {
     [GET_STATUS](state, status) {

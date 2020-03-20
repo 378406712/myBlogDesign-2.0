@@ -31,8 +31,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-  cursor: url(/static/cur/normal.cur), auto
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+  cursor: url(/static/cur/normal.cur), auto;
 }
 
 html {
@@ -64,41 +65,37 @@ a:hover {
 }
 
 a span i {
-  cursor: url(/static/cur/normal.cur), auto
+  cursor: url(/static/cur/normal.cur), auto;
 }
 
 a {
-  cursor: url(/static/cur/ayuda.cur), auto
+  cursor: url(/static/cur/ayuda.cur), auto;
 }
 
 img:hover {
-  cursor: url(/static/cur/No_Disponible.cur), auto
+  cursor: url(/static/cur/No_Disponible.cur), auto;
 }
 
 li div:hover {
-  cursor: url(/static/cur/No_Disponible.cur), auto
+  cursor: url(/static/cur/No_Disponible.cur), auto;
 }
 
 a:active {
-  cursor: url(/static/cur/work.cur), alias
+  cursor: url(/static/cur/work.cur), alias;
 }
 
 input {
-  cursor: url(/static/cur/normal.cur), auto !important
+  cursor: url(/static/cur/normal.cur), auto !important;
 }
 
 span i {
-  cursor: url(/static/cur/normal.cur), auto !important
+  cursor: url(/static/cur/normal.cur), auto !important;
 }
-
-
-
 
 p {
-  margin: 0;
-  cursor: url(/static/cur/texto.cur), auto
+  /* margin: 0; */
+  cursor: url(/static/cur/texto.cur), auto;
 }
-
 
 .components-container {
   margin: 20px 30px;
@@ -109,14 +106,14 @@ li {
 }
 
 li:hover {
-  cursor: url(/static/cur/normal.cur), default
+  cursor: url(/static/cur/normal.cur), default;
 }
 
 .clearFix::before,
 .clearFix::after {
   content: '';
   display: block;
-  clear: both
+  clear: both;
 }
 
 /*  chrome，safari滚动条 */
@@ -135,7 +132,6 @@ li:hover {
   background-color: #eee;
 } */
 
-
 .content-header {
   background-image: url('/static/image/center-bg.png');
 }
@@ -150,7 +146,7 @@ button:focus {
 }
 
 button {
-  cursor: url(/static/cur/No_Disponible.cur), auto !important
+  cursor: url(/static/cur/No_Disponible.cur), auto !important;
 }
 
 .content {

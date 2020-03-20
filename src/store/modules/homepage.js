@@ -1,4 +1,6 @@
 import * as Api from '@/api/homepage'
+import obj from '@/helper/enum'
+import { CodeToText } from 'element-china-area-data'
 import { MUSIC } from '@/helper/const'
 const GET_DEVICES = 'GET_DEVICES'
 const GET_MUSIU = 'GET_MUSIC'
@@ -14,7 +16,7 @@ const homepage = {
     pages: 1,
     sizes: 8,
     totals: 0,
-    details: {}
+    details: obj
   },
   mutations: {
     [GET_DEVICES](state, devices) {
@@ -76,15 +78,24 @@ const homepage = {
           .then(() => resolve())
           .catch(err => reject(err))
       })
+    },
+    getInfo({ commit }, username) {
+      return new Promise((resolve, reject) => {
+        Api.userInfoGet(username).then(res => {
+          if (res.data.length !== 0) {
+            let hometown = []
+            res.data.hometown.map(item => {
+              hometown += CodeToText[item] + ' '
+            })
+            if (hometown.length === 0) hometown = ''
+            res.data.hometown = hometown
+
+            commit(SET_DETAIL, res.data)
+          }
+          resolve()
+        })
+      })
     }
-    // getPersonal({ commit }, username) {
-    //   return new Promise((resolve, reject) => {
-    //     Api.getPersonal(username).then(res => {
-    //       console.log(res)
-    //       return resolve()
-    //     })
-    //   })
-    // }
   }
 }
 

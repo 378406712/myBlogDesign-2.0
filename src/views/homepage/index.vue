@@ -19,7 +19,7 @@
                     >
                     <Detail
                       :drawer="drawer"
-                      :detailData="detailData"
+       
                       v-on:closeDrawer="closeDrawer"
                     />
                   </div>
@@ -133,44 +133,45 @@ export default {
       length: '',
       tableData2: [],
       search: '',
-      total: '',
-      detailData: {}
+      total: ''
     }
   },
   methods: {
     ...mapMutations(['SET_SIZES', 'SET_PAGES']),
     ...mapActions([
-      'getDetails',
+      'getInfo',
       'getDevieces',
       'deleteDevices',
       'BatchDeleteDevices'
     ]),
 
-    // userInfo() {
-    //   const { username } = this
-    //   this.getDetails({ username })
-    //   // this.$axios
-    //   //   .get('/api/userInfoData', {
-    //   //     params: {username: this.username
-    //   //   }
-    //   // })
-    //   // .then(res => {
-    //   //   this.userInfoData = res.data
-    //   //   let hometown = []
-    //   //   res.data.hometown.map((item, index) => {
-    //   //     hometown += CodeToText[item] + ' '
-    //   //     this.userInfoData.hometown = hometown
-    //   //   })
-    //   //   if (this.userInfoData.hometown.length == 0) {
-    //   //     this.userInfoData.hometown = ''
-    //   //   }
-    //   // })
-    //   // .catch(err => {
-    //   //   console.log(err)
-    //   // })
-    // },
+    userInfo() {
+      this.getInfo({ params: { username: this.name } })
+
+      //   this.getDetails({ username })
+      //   // this.$axios
+      //   //   .get('/api/userInfoData', {
+      //   //     params: {username: this.username
+      //   //   }
+      //   // })
+      //   // .then(res => {
+      //   //   this.userInfoData = res.data
+      //   //   let hometown = []
+      //   //   res.data.hometown.map((item, index) => {
+      //   //     hometown += CodeToText[item] + ' '
+      //   //     this.userInfoData.hometown = hometown
+      //   //   })
+      //   //   if (this.userInfoData.hometown.length == 0) {
+      //   //     this.userInfoData.hometown = ''
+      //   //   }
+      //   // })
+      //   // .catch(err => {
+      //   //   console.log(err)
+      //   // })
+    },
     showUserInfo() {
       this.drawer = true
+      this.userInfo()
     },
     closeDrawer(drawer) {
       this.drawer = drawer

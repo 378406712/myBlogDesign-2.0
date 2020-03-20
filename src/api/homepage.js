@@ -24,8 +24,7 @@ export function deleteDevices(id){
 export function BatchDeleteDevices(key){
   return axios.post('/api/homepage/BatchDeleteDevices',key)
 }
-
 //获取用户个人资料
-export function getPersonal(username){
-  return  axios.get('/api/homepage/UserInfo',username)
+export function userInfoGet(User){
+  return  axios.get('/api/center/userInfoGet',User)
 }
