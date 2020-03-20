@@ -8,7 +8,7 @@
     <div class="card-body">
       <h4>修改密码</h4>
       <p>定期修改为高强度密码以保护您的账号</p>
-      <a href="javascript:;" class="card-cta" @click="dialogFormVisible = true">
+      <a class="card-cta" @click="dialogFormVisible = true">
         立即修改
         <span class="svg-container">
           <svg-icon icon-class="chevron-right" />

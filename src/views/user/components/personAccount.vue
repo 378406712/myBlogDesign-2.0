@@ -8,13 +8,7 @@
     <div class="card-body">
       <h4>个人信息</h4>
       <p>个性化设置资料,如上传/修改头像等</p>
-      <a
-        href="##"
-        class="card-cta"
-        data-toggle="modal"
-        data-target="#ga-modal"
-        @click="show"
-      >
+      <a class="card-cta" @click="show">
         立即设置
         <span class="svg-container">
           <svg-icon icon-class="chevron-right" />

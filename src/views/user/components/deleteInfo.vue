@@ -9,10 +9,7 @@
       <h4>删除账号</h4>
       <p>您的所有数据都会被删除，无法找回</p>
       <a
-        href="##"
         class="card-cta"
-        data-toggle="modal"
-        data-target="#kill-modal"
         @click="removePass"
       >
         申请删除

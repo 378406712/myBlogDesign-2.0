@@ -31,7 +31,6 @@
         <el-form-item :label="$t('login.password')" prop="password">
           <el-input
             clearable
-            show-password
             type="password"
             v-model="loginForm.password"
             @keyup.enter.native="onLogin"

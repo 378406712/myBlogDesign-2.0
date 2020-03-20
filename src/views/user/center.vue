@@ -69,16 +69,16 @@ export default {
       })
     },
 
-    setUserInfo(Info) {
-      this.setInfo(Info).then(() => {
+   async setUserInfo(Info) {
+      // this.setInfo(Info).then(() => {
+      //   this.alertSet()
+      // })
+      try {
+        await this.setInfo(Info)
         this.alertSet()
-      })
-      // try {
-      //   await this.setInfo(Info)
-      //   this.alertSet()
-      // } catch (error) {
-      //   this.alertSet()
-      // }
+      } catch (error) {
+        this.alertSet()
+      }
     },
     getPersonal() {
       this.getInfo({ params: { username: this.name } })
