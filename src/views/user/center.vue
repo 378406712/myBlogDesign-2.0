@@ -69,10 +69,7 @@ export default {
       })
     },
 
-   async setUserInfo(Info) {
-      // this.setInfo(Info).then(() => {
-      //   this.alertSet()
-      // })
+    async setUserInfo(Info) {
       try {
         await this.setInfo(Info)
         this.alertSet()
@@ -113,7 +110,7 @@ export default {
     ...mapGetters(['e_mail', 'name']),
     ...mapState({
       status: state => state.center.status,
-      visible: state => state.center.visible,
+      visible: state => state.center.visible
     })
   }
 }
