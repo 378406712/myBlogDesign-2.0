@@ -15,7 +15,7 @@
           style="vertical-align:middle"
           shape="circle"
           :size="100"
-          :src="detailData.url"
+          :src="avatar"
         ></el-avatar>
         <div class="block_item1">
           <span class="title" style="margin-left:20px"
