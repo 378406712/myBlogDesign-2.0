@@ -61,7 +61,6 @@ const center = {
           if (res.data.length !== 0) {
             commit(GET_USERINFO, res.data)
           }
-
           resolve()
         })
       })

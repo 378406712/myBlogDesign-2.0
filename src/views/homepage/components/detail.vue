@@ -7,9 +7,9 @@
   >
     <!-- 头像 -->
     <el-divider content-position="left" style="padding:20px">
-      <el-button type="primary" round>编辑资料</el-button>
+      <el-button type="primary" round @click="jumpToCenter">编辑资料</el-button>
     </el-divider>
-    <div class="demo-fit" style="padding:20px 20px 0px 20px;diplay:flex">
+    <div class="demo-fit">
       <div class="block">
         <el-avatar
           style="vertical-align:middle"
@@ -57,28 +57,36 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
-  props: {
-    drawer: Boolean
-  },
   data() {
     return {}
   },
   methods: {
+    ...mapMutations(['SET_VISIBLE', 'SET_DRAWER']),
     handleClose() {
-      this.$emit('closeDrawer', !this.drawer)
+      this.SET_DRAWER(false)
+    },
+    jumpToCenter() {
+      this.$router.push('/user/center')
+      this.SET_DRAWER(false)
     }
   },
   computed: {
     ...mapGetters(['name', 'avatar']),
-    ...mapState({ detailData: state => state.homepage.details })
+    ...mapState({
+      detailData: state => state.homepage.details,
+      drawer: state => state.homepage.drawers
+    })
   }
 }
 </script>
 
 <style scoped>
+.demo-fit {
+  padding: 20px 20px 0px 20px;
+}
 .demo-fit .block {
   display: flex;
 }
@@ -88,13 +96,6 @@ export default {
   justify-content: center;
 }
 
-/* icon font */
-.icon_svg {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
 .more_detail {
   padding: 0 20px 20px 20px;
 }
@@ -102,6 +103,10 @@ export default {
   letter-spacing: 1px;
   line-height: 25px;
   text-indent: 2em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 </style>
 
@@ -110,6 +115,6 @@ export default {
   background-position: 220px 340px;
   background-repeat: no-repeat;
   background-image: url('/static/image/beautify/iloli.gif');
-  background-size:12rem
+  background-size: 12rem;
 }
 </style>

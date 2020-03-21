@@ -7,6 +7,7 @@ const SET_PAGES = 'SET_PAGES'
 const SET_SIZES = 'SET_SIZES'
 const SET_TOTALS = 'SET_TOTALS'
 const SET_DETAIL = 'SET_DETAIL'
+const SET_DRAWER = 'SET_DRAWER'
 const homepage = {
   state: {
     //存储共有数据
@@ -15,7 +16,8 @@ const homepage = {
     pages: 1,
     sizes: 8,
     totals: 0,
-    details: {}
+    details: {},
+    drawers: false
   },
   mutations: {
     [GET_DEVICES](state, devices) {
@@ -47,6 +49,9 @@ const homepage = {
     },
     [SET_DETAIL](state, details) {
       state.details = details
+    },
+    [SET_DRAWER](state, drawers) {
+      state.drawers = drawers
     }
   },
   actions: {
@@ -56,9 +61,8 @@ const homepage = {
           username
         })
           .then(res => {
-            const { data } = res
-            commit(GET_DEVICES, data.reverse())
-            commit(SET_TOTALS, data.length)
+            commit(GET_DEVICES, res.data.reverse())
+            commit(SET_TOTALS, res.data.length)
             return resolve()
           })
           .catch(err => reject(err))
@@ -88,7 +92,6 @@ const homepage = {
             })
             if (hometown.length === 0) hometown = ''
             res.data.hometown = hometown
-
             commit(SET_DETAIL, res.data)
           }
           resolve()

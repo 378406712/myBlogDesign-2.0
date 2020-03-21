@@ -125,6 +125,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import { regionData } from 'element-china-area-data'
+import { Msg } from '@/utils/message'
 export default {
   props: {
     visible: Boolean
@@ -146,12 +147,22 @@ export default {
     //阻止upload的自动上传，进行再操作
     beforeupload(file) {
       //创建临时的路径来展示图片
-      var windowURL = window.URL || window.webkitURL
-      this.ruleForm.url = windowURL.createObjectURL(file)
-      this.SET_AVATAR(this.ruleForm.url)
-      //重新写一个表单上传的方法
-      this.param.append('file', file, file.name)
-      return false
+      const reg = /^image\/(jpg|gif|png|jpeg)/i
+      const isPic = reg.test(file.type)
+      const isLt3M = file.size / 1024 / 1024 < 3
+      console.log(file.type)
+
+      if (isPic && isLt3M) {
+        const windowURL = window.URL || window.webkitURL
+        this.ruleForm.url = windowURL.createObjectURL(file)
+        this.SET_AVATAR(this.ruleForm.url)
+        //重新写一个表单上传的方法
+        this.param.append('file', file, file.name)
+        return false
+      }
+      if (!isPic) Msg('上传头像图片只能是 JPG|GIF|PNG|JPEG 格式!', 'error')
+      if (!isLt3M) Msg('上传头像图片大小不能超过 3MB!', 'error')
+      return isPic && isLt3M
     },
     //设置个人资料
     setPersonal() {
@@ -172,9 +183,6 @@ export default {
       this.$refs['ruleForm'].resetFields()
       this.$refs['cascader'].checkedValue = null
       this.ruleForm.url = ''
-    },
-    onPreview() {
-      this.showViewer = true
     }
   },
 
@@ -187,70 +195,8 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-/deep/ .el-form-item__label {
-    font-weight: 800;
-    color: #34395e;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-  }
-  /deep/ .el-dialog__body {
-    padding: 25px;
-    padding-top: 15px;
-  }
-
-  /deep/ .el-dialog {
-    border-radius: 0.3rem;
-  }
-  /deep/.el-dialog__title {
-    font-size: 18px;
-    margin-bottom: 0;
-    line-height: 1.5;
-    font-weight: 700;
-    color: #6c757d;
-  }
-  /deep/.swal-button {
-    padding: 7px 19px;
-    border-radius: 5px;
-    background-color: #3085d6;
-    font-size: 1.1rem;
-    font-family: none;
-    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
-    padding: 10px 25px;
-  }
-  /deep/.swal-footer {
-    text-align: center;
-  }
-  .card.card-large-icons .card-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 150px;
-    border-radius: 3px 0 0 3px;
-  }
-  .card-icon svg {
-    font-size: 66px !important;
-  }
-  .card.card-large-icons .card-body {
-    padding: 18px 30px;
-  }
-  .card.card-large-icons .card-body h4 {
-    font-size: 18px;
-    margin-bottom: 8px;
-  }
-  .card.card-large-icons .card-body p {
-    opacity: 0.6;
-    font-weight: 500;
-    margin-bottom: 16px;
-  }
-  .bg-primary {
-    background-color: #6777ef !important;
-  }
-  .el-radio {
-    margin: 0;
-  }
+@import url('../../../style/card.css');
   .showPic {
-
     border-radius: 6px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -265,13 +211,5 @@ export default {
   }
   .showPic-success{
       border: 1px solid #c0ccda;
-  }
-  .card-cta {
-    color: #6777ef;
-    font-weight: 500;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    font-size: 14px;
   }
 </style>

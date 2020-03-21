@@ -17,11 +17,7 @@
                     <el-button type="primary" @click="showUserInfo"
                       >我的资料</el-button
                     >
-                    <Detail
-                      :drawer="drawer"
-       
-                      v-on:closeDrawer="closeDrawer"
-                    />
+                    <Detail />
                   </div>
                 </div>
                 <el-row type="flex">
@@ -128,7 +124,6 @@ export default {
       show: false,
       playlist: [],
       id: '',
-      drawer: false,
       username: '',
       length: '',
       tableData2: [],
@@ -137,7 +132,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_SIZES', 'SET_PAGES']),
+    ...mapMutations(['SET_SIZES', 'SET_PAGES', 'SET_DRAWER']),
     ...mapActions([
       'getInfo',
       'getDevieces',
@@ -147,34 +142,10 @@ export default {
 
     userInfo() {
       this.getInfo({ params: { username: this.name } })
-
-      //   this.getDetails({ username })
-      //   // this.$axios
-      //   //   .get('/api/userInfoData', {
-      //   //     params: {username: this.username
-      //   //   }
-      //   // })
-      //   // .then(res => {
-      //   //   this.userInfoData = res.data
-      //   //   let hometown = []
-      //   //   res.data.hometown.map((item, index) => {
-      //   //     hometown += CodeToText[item] + ' '
-      //   //     this.userInfoData.hometown = hometown
-      //   //   })
-      //   //   if (this.userInfoData.hometown.length == 0) {
-      //   //     this.userInfoData.hometown = ''
-      //   //   }
-      //   // })
-      //   // .catch(err => {
-      //   //   console.log(err)
-      //   // })
     },
     showUserInfo() {
-      this.drawer = true
+      this.SET_DRAWER(true)
       this.userInfo()
-    },
-    closeDrawer(drawer) {
-      this.drawer = drawer
     },
     handleChange(val) {
       this.multipleSelection = val
