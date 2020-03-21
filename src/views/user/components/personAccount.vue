@@ -98,7 +98,6 @@
           <el-col :span="6" :offset="3">
             <el-image
               :src="ruleForm.url"
-              v-if="ruleForm.url"
               :preview-src-list="[ruleForm.url]"
               width="80%"
               class="showPic showPic-success"
@@ -139,7 +138,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_VISIBLE']),
+    ...mapMutations(['SET_VISIBLE', 'SET_AVATAR']),
     //地区处理
     handleChange(value) {
       this.ruleForm.hometown = value
@@ -149,6 +148,7 @@ export default {
       //创建临时的路径来展示图片
       var windowURL = window.URL || window.webkitURL
       this.ruleForm.url = windowURL.createObjectURL(file)
+      this.SET_AVATAR(this.ruleForm.url)
       //重新写一个表单上传的方法
       this.param.append('file', file, file.name)
       return false
@@ -262,7 +262,6 @@ export default {
   }
   .showPic-error {
    background-color: #fbfdff;
-    border: 1px dashed #c0ccda;
   }
   .showPic-success{
       border: 1px solid #c0ccda;

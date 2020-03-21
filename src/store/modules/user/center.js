@@ -1,8 +1,8 @@
 import * as Api from '@/api/center'
-import obj from '@/helper/enum'
 const GET_STATUS = 'GET_STATUS'
 const SET_VISIBLE = 'SET_VISIBLE'
 const GET_USERINFO = 'GET_USERINFO'
+const SET_AVATAR = 'SET_AVATAR'
 const center = {
   /**
    * @param {string} status 更改密码的提示
@@ -10,8 +10,9 @@ const center = {
    */
   state: {
     status: '',
+    avatar: '',
     visible: false,
-    form: obj
+    form: { url: '' }
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -22,6 +23,9 @@ const center = {
     },
     [GET_USERINFO](state, form) {
       state.form = form
+    },
+    [SET_AVATAR](state, avatar) {
+      state.form.url = avatar
     }
   },
   actions: {

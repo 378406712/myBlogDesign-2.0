@@ -1,5 +1,4 @@
 import * as Api from '@/api/homepage'
-import obj from '@/helper/enum'
 import { CodeToText } from 'element-china-area-data'
 import { MUSIC } from '@/helper/const'
 const GET_DEVICES = 'GET_DEVICES'
@@ -16,7 +15,7 @@ const homepage = {
     pages: 1,
     sizes: 8,
     totals: 0,
-    details: obj
+    details: {}
   },
   mutations: {
     [GET_DEVICES](state, devices) {
