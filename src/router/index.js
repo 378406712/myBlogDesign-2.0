@@ -36,6 +36,7 @@ export const constantRouterMap = [
   },
   {
     path: '/404',
+    name: '404',
     component: () => import('@/views/error-page/404'),
     hidden: true
   },
@@ -55,7 +56,7 @@ export const constantRouterMap = [
   },
   {
     path: '/user',
-    redirect: '/user',
+    redirect: '/user/account',
     component: Layout,
     hidden: false,
     meta: {
@@ -64,9 +65,9 @@ export const constantRouterMap = [
     },
     children: [
       {
-        path: 'center',
-        name: 'center',
-        component: () => import('@/views/user/center'),
+        path: 'account',
+        name: 'account',
+        component: () => import('@/views/user/account'),
         meta: { icon: 's-promotion', title: '账号设置' }
       }
     ]
@@ -83,7 +84,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'index',
-        name: 'Introduction',
+        name: 'introduction',
         component: () => import('@/views/introduction/index'),
         meta: { icon: 'svg-aperture', title: '简述' }
       }
@@ -117,8 +118,8 @@ export const constantRouterMap = [
             children: [
               {
                 path: 'menu1-2-1',
-                component: () => import('@/views/introduction/index'),
                 name: 'menu1-2-1',
+                component: () => import('@/views/introduction/index'),
                 meta: { icon: 'warning', title: '嵌套路由1-2-1' }
               }
             ]
@@ -162,7 +163,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'index',
-        name: '数量统计',
+        name: 'count',
         component: () => import('@/views/echarts'),
         meta: { title: '数量统计', icon: 'svg-heart' }
       }
@@ -232,19 +233,19 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'export-excel',
-        name: '导出表格',
+        name: 'exportExcel',
         component: () => import('@/views/excel/export-excel'),
         meta: { icon: 'download', title: '导出表格' }
       },
       {
         path: 'upload-excel',
-        name: '上传表格',
+        name: 'uploadExcel',
         component: () => import('@/views/excel/upload-excel'),
         meta: { icon: 'upload', title: '上传表格' }
       },
       {
         path: 'merge-count',
-        name: '合并&统计',
+        name: 'mergeCount',
         component: () => import('@/views/excel/merge-count'),
         meta: { icon: 'upload', title: '合并&统计' }
       }

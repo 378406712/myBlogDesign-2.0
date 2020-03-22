@@ -7,15 +7,22 @@
       <!-- 那么就将他的唯一子路由放到一级菜单来 -->
       <!-- 20190707 note: 那么这里的icon和title就用子路由的吧 -->
       <router-link
-        v-if="hasOneShowingChildren(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChild) && !item.alwaysShow"
+        v-if="
+          hasOneShowingChildren(item.children, item) &&
+            (!onlyOneChild.children || onlyOneChild.noShowingChild) &&
+            !item.alwaysShow
+        "
         :to="resolvePath(onlyOneChild.path)"
       >
-        <el-menu-item :index="item.path">
-          <item :icon="item.children[0].meta.icon" :title="item.children[0].meta.title"></item>
+        <el-menu-item :index="resolvePath(onlyOneChild.path)">
+          <item
+            :icon="item.children[0].meta.icon"
+            :title="item.children[0].meta.title"
+          ></item>
         </el-menu-item>
       </router-link>
 
-      <el-submenu v-else :index="item.path">
+      <el-submenu v-else :index="resolvePath(onlyOneChild.path)">
         <template slot="title">
           <item :icon="item.meta.icon" :title="item.meta.title"></item>
         </template>
@@ -24,11 +31,11 @@
           <sidebar-item
             :item="child"
             :base-path="resolvePath(child.path)"
-            v-if="child.children && child.children.length>0"
+            v-if="child.children && child.children.length > 0"
           />
 
           <router-link v-else :to="resolvePath(child.path)">
-            <el-menu-item :index="child.path">
+            <el-menu-item :index="resolvePath(child.path)">
               <item :icon="child.meta.icon" :title="child.meta.title"></item>
             </el-menu-item>
           </router-link>
@@ -62,6 +69,9 @@ export default {
     }
   },
   methods: {
+    click(data) {
+      console.log(data)
+    },
     hasOneShowingChildren(children, parent) {
       // 把 children 里面没有 hidden 属性的元素，收集起来，看看有哪些
       // 1、后面要来判断，children 里面是不是只有一个
@@ -94,12 +104,8 @@ export default {
       return false
     },
     resolvePath(routePath) {
-      // console.log(path.resolve(this.basePath, routePath))
       return path.resolve(this.basePath, routePath)
     }
-  },
-  created() {
-    // console.log(this.basePath)
   }
 }
 </script>

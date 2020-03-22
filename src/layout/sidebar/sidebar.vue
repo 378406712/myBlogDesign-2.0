@@ -6,38 +6,48 @@
       @open="handleOpen"
       @close="handleClose"
       background-color=""
-      :collapse="isCollapse">
-      <sidebar-item v-for="router of routers" :key="router.path" :item="router" :base-path="router.path"></sidebar-item>
+      :collapse="isCollapse"
+      :default-active="$route.path"
+    >
+      <sidebar-item
+        v-for="router of routers"
+        :key="router.path"
+        :item="router"
+        :base-path="router.path"
+      ></sidebar-item>
     </el-menu>
-  </div>  
+  </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
-  import SidebarItem from './sidebar-item'
-  export default {
-    name: 'SideBar',
-    components: {
-      SidebarItem
+import { mapGetters } from 'vuex'
+import SidebarItem from './sidebar-item'
+export default {
+  name: 'SideBar',
+  components: {
+    SidebarItem
+  },
+  data() {
+    return {
+      isCollapse: false
+    }
+  },
+  computed: {
+    ...mapGetters(['routers'])
+    // getActive() {
+    //   const path = this.
+    //   console.log(path, '99999')
+    //   return path
+    // }
+  },
+  methods: {
+    handleOpen(key, keyPath) {
+      // console.log('handleOpen', key, keyPath)
     },
-    data() {
-      return {
-        isCollapse: false
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'routers'
-      ])
-    },
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log('handleOpen', key, keyPath)
-      },
-      handleClose(key, keyPath) {
-        console.log('handleClose', key, keyPath)
-      }
+    handleClose(key, keyPath) {
+      // console.log('handleClose', key, keyPath)
     }
   }
+}
 </script>
 <style lang="stylus" scoped>
 .left-sidebar
