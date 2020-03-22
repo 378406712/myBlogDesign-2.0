@@ -4,7 +4,6 @@ import { getToken, setToken, removeToken } from '@/common/auth'
 
 const SET_TOKEN = 'SET_TOKEN'
 const SET_NAME = 'SET_NAME'
-const SET_AGE = 'SET_AGE'
 const SET_AVATAR = 'SET_AVATAR'
 const SET_PERMISSIONS = 'SET_PERMISSIONS'
 const SET_STATUS = 'SET_STATUS'
@@ -13,10 +12,9 @@ const user = {
   state: {
     token: getToken(),
     name: '',
-    // age: 0,
     avatar: '',
     permissions: '',
-    status: '123',
+    status: '',
     e_mail: ''
   },
   mutations: {
@@ -25,9 +23,6 @@ const user = {
     },
     [SET_NAME](state, name) {
       state.name = name
-    },
-    [SET_AGE](state, age) {
-      state.age = age
     },
     [SET_AVATAR](state, avatar) {
       state.avatar = avatar
@@ -112,7 +107,6 @@ const user = {
   getters: {
     token: state => state.token,
     name: state => state.name,
-    age: state => state.age,
     avatar: state => state.avatar,
     e_mail: state => state.e_mail,
     permissions: state => state.permissions

@@ -137,7 +137,7 @@ export default {
         checkPass: '',
         e_mail: '',
         permission: '/excel,/theme',
-        avatar: './static/image/avatar/0.jpg'
+        avatar: `/static/image/avatar/${Math.floor(Math.random()*5+1)}.jpg`
       },
       rules: {
         username: [
