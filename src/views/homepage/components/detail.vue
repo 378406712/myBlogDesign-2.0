@@ -23,7 +23,7 @@
           >
           <span class="title" style="margin-left:20px;marginTop:10px">
             性别 ：
-            <span class="svg-container">
+            <span class="svg-container">fsvg
               <svg-icon v-if="detailData.sex == '男'" icon-class="odoko" />
               <svg-icon v-if="detailData.sex == '女'" icon-class="onnna" />
             </span>
@@ -69,7 +69,7 @@ export default {
       this.SET_DRAWER(false)
     },
     jumpToCenter() {
-      this.$router.push('/user/center')
+      this.$router.push('/user/account')
       this.SET_DRAWER(false)
     }
   },

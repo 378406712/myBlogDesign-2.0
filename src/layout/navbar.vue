@@ -2,12 +2,17 @@
   <div class="top-navbar">
     <el-menu mode="horizontal" text-color="#fff" active-text-color="#fff">
       <router-link to="/home" style="display: table;">
-        <el-menu-item index="1" class="title-name">{{$t('navbar.title')}}</el-menu-item>
+        <el-menu-item index="1" class="title-name">{{
+          $t('navbar.title')
+        }}</el-menu-item>
       </router-link>
-
       <change-theme class="theme-container"></change-theme>
 
-      <el-tooltip effect="dark" :content="$t('navbar.screenfull')" placement="bottom">
+      <el-tooltip
+        effect="dark"
+        :content="$t('navbar.screenfull')"
+        placement="bottom"
+      >
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
 
@@ -20,20 +25,23 @@
           <div class="avatar-wrapper">
             <img class="user-avatar" :src="avatar" />
             <div class="username-wrapper">
-              <span class="user-name">{{name}}</span>
+              <span class="user-name">{{ name }}</span>
               <i class="el-icon-caret-bottom"></i>
             </div>
           </div>
           <el-dropdown-menu class="user-dropdown" slot="dropdown">
             <router-link class="inlineBlock" to="/user/profile">
-              <el-dropdown-item>{{$t('navbar.profile')}}</el-dropdown-item>
+              <el-dropdown-item>{{ $t('navbar.profile') }}</el-dropdown-item>
             </router-link>
 
-            <a target="_blank" href="https://github.com/378406712/myBlogDesign-2.0">
-              <el-dropdown-item>{{$t('navbar.github')}}</el-dropdown-item>
+            <a
+              target="_blank"
+              href="https://github.com/378406712/myBlogDesign-2.0"
+            >
+              <el-dropdown-item>{{ $t('navbar.github') }}</el-dropdown-item>
             </a>
             <el-dropdown-item @click.native="logout">
-              <span style="display:block;">{{$t('navbar.logOut')}}</span>
+              <span style="display:block;">{{ $t('navbar.logOut') }}</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

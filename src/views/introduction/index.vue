@@ -1,163 +1,95 @@
 <template>
   <div class="introduction">
-  
-    {{$t('author.name')}}：
-    <ul>
-      <li>{{$t('introduction.item1')}}</li>
-    </ul>
+    <canvas></canvas>
+    <h1>Hello.</h1>
+    <p style="font-weight:500; font-size:2.2em">
+      My name is Liu ZW.
+    </p>
+    <p>
+      I am a Grade 4 student of a college, I use
+      <a href="https://vuejs.org" target="_blank">Vue.js</a> to rebuild this
+      project. The basic project is this
+      <a href="https://github.com/Neveryu/vue-cms">One.</a> It is open source
+      and published on
+      <a href="https://github.com/378406712" target="_blank">GitHub</a>.
+    </p>
 
-    <div class="mid-center">
-      <div class="stack-wrapper">
-        <stack ref="stack" :pages="someList" :stackinit="stackinit"></stack>
-      </div>
-      <div class="controls">
-        <button @click="prev" class="button"><i class="prev"></i><span class="text-hidden">prev</span></button>
-        <button @click="next" class="button"><i class="next"></i><span class="text-hidden">next</span></button>
-      </div>
-    </div>
+    <p>
+      I have an <a href="https://www.qdmmz.cn" target="_blank">blog</a>
+      which I share some experience on it.
+    </p>
+    <p>
+      Now I will show you something about this management.
+    </p>
+    <p>
+      It is a good learning project, including solutions to some common
+      problems, such as:
+      <a href="http://localhost:8080/rich-editor/quill">rich text</a>, data
+      visualization, import and export, custom components,
+      <a href="http://localhost:8080/theme/index"> skin changing</a>
+      and so on.
+    </p>
+    <p>I hope that I can make progresses together with <a>you</a>.</p>
   </div>
 </template>
+
 <script>
-import { getImage } from '@/api/introduction'
-import Stack from '@/components/tantan/stack'
+import Belt from '@/utils/color-belt.js'
 export default {
-  name: 'introduction',
-  components: {
-    Stack
-  },
-  data() {
-    return {
-      isDev: null,
-      imgUrl: [],
-      someList: [],
-      stackinit: {
-        visible: 3
-      }
-    }
-  },
-  methods: {
-    prev () {
-      this.$refs.stack.$emit('prev')
-    },
-    next () {
-      this.$refs.stack.$emit('next')
-    }
-  },
-  created() {
-    this.isDev = process.env.NODE_ENV === 'development'
-    getImage().then(resp => {
-      let movieData
-      if(this.isDev) {
-        movieData = resp.data.data.movies
-        movieData.forEach((v, i, _this) => {
-          // v.posterUrl.medium
-          this.imgUrl.push({
-            html: `<img src='${v.posterUrl.large}'>`
-          })
-        })
-      } else {
-        movieData = [...resp[0].subjects, ...resp[1].subjects]
-        movieData.forEach((v, i, _this) => {
-          // v.images.large
-          this.imgUrl.push({
-            html: `<img src='${v.images.large}'>`
-          })
-        })
-      }
-    })
-  },
   mounted() {
-    this.$nextTick(() => {
-      this.someList = this.imgUrl
-    })
+    Belt()
   }
 }
 </script>
-<style scoped lang="stylus">
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,500,700');
 .introduction {
-  padding-bottom: 300px;
-  overflow: hidden;
+  font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: calc(10px + 0.33vw);
+  -webkit-font-smoothing: antialiased;
+  padding: 1vh 2vw;
+  color: #121314;
 }
-.stack-wrapper {
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-  width: 320px;
-  height: 420px;
-  padding: 0;
-  list-style: none;
-  pointer-events: none;
+h1 {
+  font-size: 4.5em;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0;
 }
-.controls{
-  position: relative;
-  width: 200px;
-  text-align: center;
-  display:flex;/*Flex布局*/
-  display: -webkit-flex; /* Safari */
-  justify-content:space-around;
-  margin: 0 auto;
-  margin-top: 50px
+p {
+  font-size: 1.6em;
+  font-weight: 300;
+  line-height: 1.4;
+  max-width: 26em;
 }
-.controls .button {
-  border: none;
-  background: none;
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 16px;
-  width: 50px;
-  height: 50px;
-  z-index: 100;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  border-radius: 50%;
-  background: #fff;
-  outline: none;
-}
-.button .next{
-  display: inline-block;
-  width: 10px;
-  height:5px;
-  background: rgb(129,212,125);
-  line-height: 0;
-  font-size:0;
-  vertical-align: middle;
-  -webkit-transform: rotate(45deg);
-  left: -5px;
-  top: 2px;
+a {
+  text-decoration: none;
+  color: #121314;
   position: relative;
 }
-.button .next:after{
-  content:'/';
-  display:block;
-  width: 20px;
-  height:5px;
-  background: rgb(129,212,125);
-  -webkit-transform: rotate(-90deg) translateY(-50%) translateX(50%);
-}
-.button .prev{
-  display: inline-block;
-  width: 20px;
-  height:5px;
-  background: rgb(230,104,104);
-  line-height: 0;
-  font-size:0;
-  vertical-align: middle;
-  -webkit-transform: rotate(45deg);
-}
-.button .prev:after{
-  content:'/';
-  display:block;
-  width: 20px;
-  height:5px;
-  background: rgb(230,104,104);
-  -webkit-transform: rotate(-90deg);
-}
-.controls .text-hidden {
+a:after {
+  content: '';
   position: absolute;
-  overflow: hidden;
-  width: 0;
-  height: 0;
-  color: transparent;
-  display: block;
+  z-index: -1;
+  top: 60%;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: 0;
+  transition: top 200ms cubic-bezier(0, 0.8, 0.13, 1);
+  background-color: rgba(79, 192, 141, 0.5);
+}
+a:hover:after {
+  top: 0%;
+}
+canvas {
+  position: absolute;
+  top: 0;
+  left: 200px;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 </style>
