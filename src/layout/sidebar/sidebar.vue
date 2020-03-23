@@ -1,21 +1,22 @@
 <template>
   <div class="left-sidebar">
-    <el-menu
-      mode="vertical"
-      unique-opened
-      @open="handleOpen"
-      @close="handleClose"
-      background-color=""
-      :collapse="isCollapse"
-      :default-active="$route.path"
-    >
-      <sidebar-item
-        v-for="router of routers"
-        :key="router.path"
-        :item="router"
-        :base-path="router.path"
-      ></sidebar-item>
-    </el-menu>
+    <el-scrollbar class="el_scroll" :native="false" :noresize="true">
+      <el-menu
+        class="scroll-menu"
+        mode="vertical"
+        unique-opened
+        background-color=""
+        :collapse="isCollapse"
+        :default-active="$route.path"
+      >
+        <sidebar-item
+          v-for="router of routers"
+          :key="router.path"
+          :item="router"
+          :base-path="router.path"
+        ></sidebar-item>
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 <script>
@@ -33,19 +34,6 @@ export default {
   },
   computed: {
     ...mapGetters(['routers'])
-    // getActive() {
-    //   const path = this.
-    //   console.log(path, '99999')
-    //   return path
-    // }
-  },
-  methods: {
-    handleOpen(key, keyPath) {
-      // console.log('handleOpen', key, keyPath)
-    },
-    handleClose(key, keyPath) {
-      // console.log('handleClose', key, keyPath)
-    }
   }
 }
 </script>
@@ -58,4 +46,16 @@ export default {
   min-height 500px
 .el-menu
   height 100%
+</style>
+<style>
+.left-sidebar >>> .el-scrollbar_wrap {
+  overflow-x: hidden;
+}
+.left-sidebar {
+  overflow-y: hidden;
+  height: 100%;
+}
+.el_scroll {
+  height: 100%;
+}
 </style>
