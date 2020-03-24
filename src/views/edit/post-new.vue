@@ -1,35 +1,66 @@
 <template>
   <div class="components-container main-container">
-    
-    <div class="tips">
-      <el-link class="font" type="primary" href="https://quilljs.com/docs/configuration/" target="_blank">quill</el-link>
-      算是现在一个常见富文本器的选择，它支持 CDN，也支持 npm 的方式；
-      <p>1、工具栏可以自定义配置</p>
-      <p>2、功能可以自己修改（重新定义图片上传功能，上传到服务器）</p>
-      <p>3、简约实用（多了也麻烦）</p>
-    </div>
-
     <h2>新增文章</h2>
-    
-    <el-upload
-      id="img-upload"
-      action="https://httpbin.org/post"
-      :multiple="false"
-      :show-file-list="false"
-      :on-success="richUploadSuccess"
-      style="height: 10px;">
-    </el-upload>
-    <div id="quill-editor" ref="quill-editor"></div>
-    <!-- quill字数统计 -->
-    <div class="quill-count">
-      <span class="number">{{richCurrentLength}}/{{richMaxLength}}</span>
-    </div>
+    <el-row :gutter="20" class="el-row">
+      <el-col :span="18">
+        <div class="tips">
+          <el-input placeholder="添加标题" v-model="title"></el-input>
+        </div>
 
-    <el-divider content-position="left">富文本内容</el-divider>
+        <el-upload
+          id="img-upload"
+          action="https://httpbin.org/post"
+          :multiple="false"
+          :show-file-list="false"
+          :on-success="richUploadSuccess"
+          style="height: 10px;"
+        >
+        </el-upload>
+        <div id="quill-editor" ref="quill-editor"></div>
+        <!-- quill字数统计 -->
+        <div class="quill-count">
+          <span class="number"
+            >{{ richCurrentLength }}/{{ richMaxLength }}</span
+          >
+        </div>
 
-    <div class="ql-editor" v-html="content"></div>
+        <el-divider content-position="left">富文本内容</el-divider>
 
-    <el-divider content-position="center">End</el-divider>
+        <div class="ql-editor" v-html="content"></div>
+
+        <el-divider content-position="center">End</el-divider>
+      </el-col>
+      <el-col :span="6">
+        <div class="tips" style="height:100%">
+          <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse-item title="状态与可见性" name="1">
+              <div>
+                与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；
+              </div>
+              <!-- <div>
+                  在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。
+                </div> -->
+            </el-collapse-item>
+            <el-collapse-item title="发布" name="2">
+              <div>
+                控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="分类目录" name="3">
+              <div>简化流程：设计简洁直观的操作流程；</div>
+              <div>
+                清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="特色图片" name="4">
+              <div>
+                用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；
+              </div>
+            </el-collapse-item>
+          </el-collapse>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -46,19 +77,19 @@ Quill.register('modules/imageDrop', ImageDrop)
 export default {
   // 富文本工具栏配置
   toolbarOptions: [
-    [{ 'size': ['small', false, 'large', 'huge'] }], // 字体大小
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],     // 几级标题
-    ['bold', 'italic', 'underline', 'strike'],    // 加粗，斜体，下划线，删除线
-    [{ 'indent': '-1' }, { 'indent': '+1' }],     // 缩进
-    [{ 'color': [] }, { 'background': [] }],     // 字体颜色，字体背景颜色
-    [{ 'align': [] }],    // 对齐方式
-    ['clean'],    // 清除字体样式
+    [{ size: ['small', false, 'large', 'huge'] }], // 字体大小
+    [{ header: [1, 2, 3, 4, 5, 6, false] }], // 几级标题
+    ['bold', 'italic', 'underline', 'strike'], // 加粗，斜体，下划线，删除线
+    [{ indent: '-1' }, { indent: '+1' }], // 缩进
+    [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
+    [{ align: [] }], // 对齐方式
+    ['clean'], // 清除字体样式
     ['image'],
-    ['custom']  // 添加一个自定义功能
+    ['custom'] // 添加一个自定义功能
   ],
   // 自定义富文本的图片上传
   imageFunction(val) {
-    if(val) {
+    if (val) {
       document.querySelector('#img-upload input').click()
     } else {
       this.quill.format('image', false)
@@ -66,6 +97,8 @@ export default {
   },
   data() {
     return {
+      activeNames: ['1', '2', '3'],
+      title: '',
       // 富文本内容
       content: '',
       richMaxLength: 800,
@@ -77,7 +110,7 @@ export default {
       // 富文本内容长度
       this.richCurrentLength = this.quill.getLength() - 1
       let numWrapper = document.querySelector('.quill-count')
-      if(this.richCurrentLength > this.richMaxLength) {
+      if (this.richCurrentLength > this.richMaxLength) {
         numWrapper.style.color = 'red'
       } else {
         numWrapper.style.color = '#666'
@@ -85,6 +118,9 @@ export default {
     }
   },
   methods: {
+    handleChange(val) {
+      console.log(val)
+    },
     // 富文本中的图片上传
     richUploadSuccess(response, file, fileList) {
       /**
@@ -94,7 +130,7 @@ export default {
        * 以及，图片上传成功后的路径
        * 将路径赋值给 imgUrl
        */
-      if(response.files.file) {
+      if (response.files.file) {
         let imgUrl = response.files.file
         // 获取光标所在位置
         let length = this.quill.getSelection().index
@@ -108,10 +144,12 @@ export default {
       }
     },
     onEditorChange(eventName, ...args) {
-      if(eventName === 'text-change') {
+      if (eventName === 'text-change') {
         // args[0] will be delta
         // 获取富文本内容
-        this.content = document.querySelector('#quill-editor').children[0].innerHTML
+        this.content = document.querySelector(
+          '#quill-editor'
+        ).children[0].innerHTML
       } else if (eventName === 'selection-change') {
         // args[0] will be old range
       }
@@ -129,7 +167,11 @@ export default {
       this.$notify({
         type: 'success',
         title: '自定义一个quill功能',
-        message: h('i', {style: 'color: teal'}, '可不可以让我自定义一个 Quill 的功能？可不可以让我自定义一个 Quill 的功能？')
+        message: h(
+          'i',
+          { style: 'color: teal' },
+          '可不可以让我自定义一个 Quill 的功能？可不可以让我自定义一个 Quill 的功能？'
+        )
       })
     },
     initQuill() {
@@ -141,9 +183,10 @@ export default {
         modules: {
           toolbar: {
             container: this.$options.toolbarOptions,
-            handlers: {  // 自定义功能
-              'image': this.$options.imageFunction,
-              'custom': this.quillCustomFunction
+            handlers: {
+              // 自定义功能
+              image: this.$options.imageFunction,
+              custom: this.quillCustomFunction
             }
           },
           imageDrop: true,
@@ -192,18 +235,22 @@ export default {
 </script>
 
 <style scoped>
+.el-row {
+  height: 100%;
+}
+
 .main-container {
-  max-width: 80%;
+  max-width: 100%;
   min-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 20px 0 20px 30px;
 }
 .tips {
-  width: 600px;
+  width: 100%;
   padding: 15px 20px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   line-height: 2;
 }
+
 .font {
   font-size: 18px;
 }

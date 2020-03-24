@@ -91,50 +91,6 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/nested',
-    component: Layout,
-    meta: {
-      icon: 'svg-layers',
-      title: '路由嵌套'
-    },
-    children: [
-      {
-        path: 'menu1',
-        meta: { icon: 'share', title: '嵌套路由1' },
-        component: () => import('@/views/nested/menu1/index'),
-        children: [
-          {
-            path: 'menu1-1',
-            name: 'menu1-1',
-            component: () => import('@/views/introduction/index'),
-            meta: { icon: 'success', title: '嵌套路由1-1' }
-          },
-          {
-            path: 'menu1-2',
-            name: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2/index'),
-            alwaysShow: true,
-            meta: { icon: 'error', title: '嵌套路由1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                name: 'menu1-2-1',
-                component: () => import('@/views/introduction/index'),
-                meta: { icon: 'warning', title: '嵌套路由1-2-1' }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        name: 'menu2',
-        component: () => import('@/views/user/add'),
-        meta: { icon: 'star-on', title: '嵌套路由2' }
-      }
-    ]
-  },
-  {
     path: '/custom-component',
     component: Layout,
     meta: {
@@ -170,26 +126,32 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/rich-editor',
+    path: '/edit',
     component: Layout,
     alwaysShow: true,
     meta: {
-      icon: 's-order',
-      title: '富文本'
+      icon: 'svg-edit',
+      title: '文章'
     },
-    redirect: 'quill',
+    redirect: 'post-new',
     children: [
       {
-        path: 'quill',
-        name: 'QuillEditor',
-        component: () => import('@/views/rich-editor/quill'),
-        meta: { icon: 's-order', title: 'quill' }
+        path: 'post-new',
+        name: 'post-new',
+        component: () => import('@/views/edit/post-new'),
+        meta: { icon: 'svg-type', title: '写文章' }
       },
       {
-        path: 'tinymce',
-        name: 'TinyMCE',
-        component: () => import('@/views/rich-editor/tinymce'),
-        meta: { icon: 'svg-type', title: 'tinymce' }
+        path: 'all-essay',
+        name: 'all-essay',
+        component: () => import('@/views/edit/all-essay'),
+        meta: { icon: 'svg-all-essay', title: '所有文章' }
+      },
+      {
+        path: 'category',
+        name: 'category',
+        component: () => import('@/views/edit/category'),
+        meta: { icon: 'svg-category', title: '分类目录' }
       }
     ]
   },

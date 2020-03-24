@@ -85,7 +85,7 @@ a:hover:after {
 }
 canvas {
   position: absolute;
-  top: 0;
+  top: 100px;
   left: 200px;
   z-index: 0;
   width: 100%;
