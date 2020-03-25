@@ -23,7 +23,7 @@
           >
           <span class="title" style="margin-left:20px;marginTop:10px">
             性别 ：
-            <span class="svg-container">fsvg
+            <span class="svg-container">
               <svg-icon v-if="detailData.sex == '男'" icon-class="odoko" />
               <svg-icon v-if="detailData.sex == '女'" icon-class="onnna" />
             </span>

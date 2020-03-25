@@ -1,7 +1,7 @@
 <template>
   <div class="components-container main-container">
     <h2>新增文章</h2>
-    <el-row :gutter="20" class="el-row">
+    <el-row :gutter="20">
       <el-col :span="18">
         <div class="tips">
           <el-input placeholder="添加标题" v-model="title"></el-input>
@@ -9,10 +9,12 @@
 
         <el-upload
           id="img-upload"
-          action="https://httpbin.org/post"
+          action="/api/edit/post-new"
           :multiple="false"
           :show-file-list="false"
+          :on-error="errors"
           :on-success="richUploadSuccess"
+          :before-upload="beforeUploadEdit"
           style="height: 10px;"
         >
         </el-upload>
@@ -33,28 +35,82 @@
       <el-col :span="6">
         <div class="tips" style="height:100%">
           <el-collapse v-model="activeNames" @change="handleChange">
+            <el-button @click="publish" type="primary">发布</el-button>
             <el-collapse-item title="状态与可见性" name="1">
-              <div>
-                与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；
+              <div class="units">
+                <span>可见性</span>
+                <el-popover
+                  placement="bottom"
+                  title="标题"
+                  width="200"
+                  trigger="click"
+                  content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+                >
+                  <el-button class="btn-control" slot="reference"
+                    >公开</el-button
+                  >
+                </el-popover>
               </div>
-              <!-- <div>
-                  在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。
-                </div> -->
-            </el-collapse-item>
-            <el-collapse-item title="发布" name="2">
-              <div>
-                控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；
+              <div class="units">
+                <span>时间</span>
+                <el-popover
+                  placement="bottom"
+                  title="标题"
+                  width="200"
+                  trigger="click"
+                  content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+                >
+                  <el-button class="btn-control" slot="reference"
+                    >公开</el-button
+                  >
+                </el-popover>
+              </div>
+              <div class="select">
+                <el-checkbox v-model="top">在博客中置顶</el-checkbox>
+              </div>
+              <div class="select">
+                <el-checkbox v-model="recheck">等待复审</el-checkbox>
               </div>
             </el-collapse-item>
-            <el-collapse-item title="分类目录" name="3">
-              <div>简化流程：设计简洁直观的操作流程；</div>
+            <el-collapse-item title="分类目录" name="2">
               <div>
-                清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；
+                <div>搜索分类目录</div>
+                <el-input placeholder="请输入内容" v-model="search">
+                  <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                </el-input>
+              </div>
+
+              <el-card class="box-card category">
+                <div v-for="o in 4" :key="o" class="text item">
+                  <div class="select">
+                    <el-checkbox v-model="top">在博客中置顶</el-checkbox>
+                  </div>
+                </div>
+              </el-card>
+              <button
+                type="button"
+                class="is-link"
+                @click="newCategory = !newCategory"
+              >
+                添加新分类目录
+              </button>
+              <div v-if="newCategory">
+                <div class="editor-post">新分类目录</div>
+                <el-input placeholder="请输入内容" v-model="createCategory" />
+                <el-button style="marginTop:5px" type="primary">
+                  添加新分类目录</el-button
+                >
               </div>
             </el-collapse-item>
-            <el-collapse-item title="特色图片" name="4">
-              <div>
-                用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；
+
+            <el-collapse-item title="特色图片" name="3">
+              <div class="editor-post-featured-image">
+                <button
+                  type="button"
+                  class="editor-post-featured-image__toggle"
+                >
+                  设置特色图片
+                </button>
               </div>
             </el-collapse-item>
           </el-collapse>
@@ -70,7 +126,7 @@ import 'quill/dist/quill.snow.css'
 import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 import { ImageDrop } from 'quill-image-drop-module'
-
+import { mapActions } from 'vuex'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
 
@@ -97,9 +153,15 @@ export default {
   },
   data() {
     return {
+      search: '',
+      createCategory: '',
+      newCategory: false,
+      top: '',
+      recheck: '',
       activeNames: ['1', '2', '3'],
       title: '',
       // 富文本内容
+      quillUpdateImg: false,
       content: '',
       richMaxLength: 800,
       richCurrentLength: 0
@@ -118,12 +180,25 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setPic']),
     handleChange(val) {
-      console.log(val)
+      //console.log(val)
+    },
+
+    beforeUploadEdit(file) {
+      // const windowURL = window.URL || window.webkitURL
+      // const newURL = windowURL.createObjectURL(file)
+      // this.quillUpdateImg = true
+      // const form = new FormData()
+      // form.append('file', file, file.name)
+      this.quillUpdateImg = true
+      // this.setPic({ url: newURL })
     },
     // 富文本中的图片上传
     richUploadSuccess(response, file, fileList) {
+      console.log(response)
       /**
+       *
        * 如果上传成功
        * ps：不同的上传接口，判断是否成功的标志也不一样，需要看后端的返回
        * 通常情况下，应该有返回上传的结果状态（是否上传成功）
@@ -138,6 +213,7 @@ export default {
         this.quill.insertEmbed(length, 'image', imgUrl)
         // 调整光标到最后
         this.quill.setSelection(length + 1)
+        this.quillUpdateImg = false
       } else {
         // 提示信息，需引入Message
         this.$message.error('图片插入失败')
@@ -222,6 +298,13 @@ export default {
        * 文档：https://quilljs.com/docs/api/#text-change
        */
       quill.on('editor-change', this.onEditorChange)
+    },
+    publish() {
+      console.log(this.content)
+    },
+
+    errors(data) {
+      console.log(data)
     }
   },
   mounted() {
@@ -234,11 +317,57 @@ export default {
 }
 </script>
 
-<style scoped>
-.el-row {
-  height: 100%;
+<style lang="stylus" scoped>
+.editor-post-featured-image__toggle {
+  width:100%;
+    border: 1px dashed #a2aab2;
+    background-color: #edeff0;
+    line-height: 20px;
+    padding: 8px 0;
+    text-align: center;
+}
+.editor-post-featured-image__toggle:hover{
+    background-color: #f8f9f9;
+}
+.editor-post{
+      margin-top: 12px;
+}
+.is-link{
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    outline: none;
+    text-align: left;
+    color: #0073aa;
+    text-decoration: underline;
+    transition-property: border,background,color;
+    transition-duration: .05s;
+    transition-timing-function: ease-in-out;
+}
+.is-link:hover{
+    color: #00a0d2;
+}
+.category{
+  margin-top 10px
+  margin-bottom:10px
+}
+.select{
+  margin-top:5px
+}
+.units{
+ display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top 5px
+
 }
 
+>>> .el-collapse-item__header{
+  font-weight: bold;
+}
 .main-container {
   max-width: 100%;
   min-width: 800px;

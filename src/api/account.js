@@ -9,10 +9,10 @@ function userRemove(User) {
 
 
 function userInfoAdd(Info) {
-  return axios.post('/api/center/userInfoAdd', Info)
+  return axios.post('/api/account/userInfoAdd', Info)
 }
 function userInfoGet(User){
-  return axios.get('/api/center/userInfoGet',User)
+  return axios.get('/api/account/userInfoGet',User)
 }
 
 export { userPassAlter, userRemove, userInfoAdd,userInfoGet }

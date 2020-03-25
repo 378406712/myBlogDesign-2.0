@@ -26,5 +26,5 @@ export function BatchDeleteDevices(key){
 }
 //获取用户个人资料
 export function userInfoGet(User){
-  return  axios.get('/api/center/userInfoGet',User)
+  return  axios.get('/api/account/userInfoGet',User)
 }

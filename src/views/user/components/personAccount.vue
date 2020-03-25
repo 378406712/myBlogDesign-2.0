@@ -150,8 +150,6 @@ export default {
       const reg = /^image\/(jpg|gif|png|jpeg)/i
       const isPic = reg.test(file.type)
       const isLt3M = file.size / 1024 / 1024 < 3
-      console.log(file.type)
-
       if (isPic && isLt3M) {
         const windowURL = window.URL || window.webkitURL
         this.ruleForm.url = windowURL.createObjectURL(file)
@@ -189,7 +187,7 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      ruleForm: state => state.center.form
+      ruleForm: state => state.account.form
     })
   }
 }

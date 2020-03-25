@@ -1,9 +1,9 @@
-import * as Api from '@/api/center'
+import * as Api from '@/api/account'
 const GET_STATUS = 'GET_STATUS'
 const SET_VISIBLE = 'SET_VISIBLE'
 const GET_USERINFO = 'GET_USERINFO'
 const SET_AVATAR = 'SET_AVATAR'
-const center = {
+const account = {
   /**
    * @param {string} status 更改密码的提示
    * @param {boolean} visible 提示框的显示隐藏
@@ -67,4 +67,4 @@ const center = {
     }
   }
 }
-export default center
+export default account
