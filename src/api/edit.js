@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-function sendPic(data) {
-  return axios.post('/api/edit/post-new', data)
+function PostEssay(essay) {
+  return axios.post('/api/edit/post-new', essay)
 }
 
-export { sendPic }
+export { PostEssay }

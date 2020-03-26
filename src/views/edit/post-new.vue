@@ -9,7 +9,7 @@
 
         <el-upload
           id="img-upload"
-          action="/api/edit/post-new"
+          action="/api/edit/essayPic"
           :multiple="false"
           :show-file-list="false"
           :on-success="richUploadSuccess"
@@ -125,7 +125,8 @@ import 'quill/dist/quill.snow.css'
 import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 import { ImageDrop } from 'quill-image-drop-module'
-
+import { mapActions, mapGetters, mapState } from 'vuex'
+import { Msg } from '@/utils/message'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
 
@@ -179,6 +180,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['PostEssay']),
     handleChange(val) {
       //console.log(val)
     },
@@ -292,11 +294,27 @@ export default {
       quill.on('editor-change', this.onEditorChange)
     },
     publish() {
-      console.log(this.content)
+      const EssayData = {
+        title: this.title,
+        essay: this.content,
+        username: this.name
+      }
+      this.PostEssay(EssayData)
+        .then(() => {
+          if (this.status === 'SUCCESS') return Msg('发布成功', 'success')
+          else if (this.status === 'ERROR') return Msg('发布失败', 'error')
+        })
+        .catch(() => Msg('发布失败', 'error'))
     }
   },
   mounted() {
     this.initQuill()
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({
+      status: state => state.edit.status
+    })
   },
   beforeDestroy() {
     this.quill = null
