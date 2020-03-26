@@ -12,7 +12,6 @@
           action="/api/edit/post-new"
           :multiple="false"
           :show-file-list="false"
-          :on-error="errors"
           :on-success="richUploadSuccess"
           :before-upload="beforeUploadEdit"
           style="height: 10px;"
@@ -126,7 +125,7 @@ import 'quill/dist/quill.snow.css'
 import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 import { ImageDrop } from 'quill-image-drop-module'
-import { mapActions } from 'vuex'
+
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
 
@@ -180,19 +179,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setPic']),
     handleChange(val) {
       //console.log(val)
     },
 
-    beforeUploadEdit(file) {
-      // const windowURL = window.URL || window.webkitURL
-      // const newURL = windowURL.createObjectURL(file)
-      // this.quillUpdateImg = true
-      // const form = new FormData()
-      // form.append('file', file, file.name)
+    beforeUploadEdit() {
       this.quillUpdateImg = true
-      // this.setPic({ url: newURL })
     },
     // 富文本中的图片上传
     richUploadSuccess(response, file, fileList) {
@@ -205,8 +197,8 @@ export default {
        * 以及，图片上传成功后的路径
        * 将路径赋值给 imgUrl
        */
-      if (response.files.file) {
-        let imgUrl = response.files.file
+      if (response.file) {
+        let imgUrl = response.file
         // 获取光标所在位置
         let length = this.quill.getSelection().index
         // 插入图片，res为服务器返回的图片链接地址
@@ -301,10 +293,6 @@ export default {
     },
     publish() {
       console.log(this.content)
-    },
-
-    errors(data) {
-      console.log(data)
     }
   },
   mounted() {
@@ -333,7 +321,7 @@ export default {
       margin-top: 12px;
 }
 .is-link{
-    margin: 0;
+      margin: 0;
     padding: 0;
     box-shadow: none;
     border: 0;
