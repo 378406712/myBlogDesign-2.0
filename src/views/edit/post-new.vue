@@ -140,8 +140,7 @@ export default {
     [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
     [{ align: [] }], // 对齐方式
     ['clean'], // 清除字体样式
-    ['image'],
-    ['custom'] // 添加一个自定义功能
+    ['image']
   ],
   // 自定义富文本的图片上传
   imageFunction(val) {
@@ -224,26 +223,7 @@ export default {
         // args[0] will be old range
       }
     },
-    // 初始化自定义的quill工具栏
-    // 拿到quill实例以后，在执行自定义toolbar的操作
-    initCustomQullToolbar() {
-      const timeButton = document.querySelector('.ql-custom')
-      timeButton.style.cssText = 'width: 80px; outline: none;'
-      timeButton.innerText = '自定义'
-    },
-    // 给自定义的按钮功能加上方法
-    quillCustomFunction() {
-      const h = this.$createElement
-      this.$notify({
-        type: 'success',
-        title: '自定义一个quill功能',
-        message: h(
-          'i',
-          { style: 'color: teal' },
-          '可不可以让我自定义一个 Quill 的功能？可不可以让我自定义一个 Quill 的功能？'
-        )
-      })
-    },
+
     initQuill() {
       const quill = new Quill('#quill-editor', {
         // 编辑器配置选项
@@ -255,8 +235,7 @@ export default {
             container: this.$options.toolbarOptions,
             handlers: {
               // 自定义功能
-              image: this.$options.imageFunction,
-              custom: this.quillCustomFunction
+              image: this.$options.imageFunction
             }
           },
           imageDrop: true,
@@ -283,8 +262,7 @@ export default {
         }
       })
       this.quill = quill
-      // 拿到quill实例以后，在执行自定义toolbar的操作
-      this.initCustomQullToolbar()
+
       /**
        * 监听富文本变化
        * editor-change 包括 text-change、selection-change
