@@ -39,31 +39,25 @@
               <div class="units">
                 <span>可见性</span>
                 <el-popover
+                  width="250.25"
                   placement="bottom"
-                  title="标题"
-                  width="200"
+                  title="文章可见性"
                   trigger="click"
-                  content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
                 >
+                  <div v-for="(item, i) in visible" :key="i">
+                    <el-radio v-model="radioVisible" :label="item.title">
+                      {{ item.title }}</el-radio
+                    >
+                    <p class="visible-info">
+                      {{ item.info }}
+                    </p>
+                  </div>
                   <el-button class="btn-control" slot="reference"
                     >公开</el-button
                   >
                 </el-popover>
               </div>
-              <div class="units">
-                <span>时间</span>
-                <el-popover
-                  placement="bottom"
-                  title="标题"
-                  width="200"
-                  trigger="click"
-                  content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-                >
-                  <el-button class="btn-control" slot="reference"
-                    >公开</el-button
-                  >
-                </el-popover>
-              </div>
+
               <div class="select">
                 <el-checkbox v-model="top">在博客中置顶</el-checkbox>
               </div>
@@ -80,7 +74,7 @@
               </div>
 
               <el-card class="box-card category">
-                <div v-for="o in 4" :key="o" class="text item">
+                <div v-for="o in 1" :key="o" class="text item">
                   <div class="select">
                     <el-checkbox v-model="top">在博客中置顶</el-checkbox>
                   </div>
@@ -152,6 +146,16 @@ export default {
   },
   data() {
     return {
+      // 可见性
+      radioVisible: '',
+      visible: [
+        { title: '公开', info: '所有人可见。' },
+        { title: '私密', info: '只有站点管理员和编辑可见。' },
+        {
+          title: '密码保护',
+          info: '受您选择的密码保护，只有持有密码的人士可查看此文章。'
+        }
+      ],
       search: '',
       createCategory: '',
       newCategory: false,
@@ -302,6 +306,21 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+>>> .el-popover{
+  right:100%!important
+}
+>>> .el-popover__title{
+ font-weight 600
+ font-size 13px
+}
+>>> .el-radio__label{
+  font-weight 600
+  font-size 13px
+}
+.visible-info{
+  margin-top: 0;
+  margin-left: 27px
+}
 .editor-post-featured-image__toggle {
   width:100%;
     border: 1px dashed #a2aab2;

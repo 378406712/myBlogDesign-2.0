@@ -16,7 +16,6 @@ import store from './store'
 
 // 自定义的全局组件
 import Notification from '@/components/notification'
-
 // 国际化
 import i18n from './lang'
 // 全局权限检查

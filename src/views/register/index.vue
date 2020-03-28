@@ -2,12 +2,12 @@
   <el-container class="register-container">
     <el-card class="animated flipInY">
       <div slot="header" class="el-card-header clearFix">
-        <lang-select class="lang-select"></lang-select>
-        <router-link class="tologin clearFix" to="/login">
+             <router-link class="tologin clearFix" to="/login">
           <span class="svg-container svg-container_user">
             <svg-icon icon-class="back" />
           </span>
         </router-link>
+        <lang-select class="lang-select"></lang-select>
 
         <img src="/static/image/register-logo.png" alt />
         <h2 class="login-title">{{ $t('register.title') }}</h2>
@@ -137,7 +137,7 @@ export default {
         checkPass: '',
         e_mail: '',
         permission: '/excel,/theme',
-        avatar: `/static/image/avatar/${Math.floor(Math.random()*5+1)}.jpg`
+        avatar: `/static/image/avatar/${Math.floor(Math.random() * 5 + 1)}.jpg`
       },
       rules: {
         username: [

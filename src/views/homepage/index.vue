@@ -249,7 +249,7 @@ export default {
   padding-left: 20px;
 }
 .card-player {
-  padding: 0;
+  padding: 0; 
   background-position: 160px 0px;
 }
 .playerList {
