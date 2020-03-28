@@ -4,9 +4,12 @@
     <el-row :gutter="20">
       <el-col :span="18">
         <div class="tips">
-          <el-input placeholder="添加标题" v-model="title"></el-input>
+          <el-input
+            placeholder="添加标题"
+            @input="changeTitle"
+            v-model="title"
+          ></el-input>
         </div>
-
         <el-upload
           id="img-upload"
           action="/api/edit/essayPic"
@@ -24,17 +27,16 @@
             >{{ richCurrentLength }}/{{ richMaxLength }}</span
           >
         </div>
-
         <el-divider content-position="left">富文本内容</el-divider>
-
         <div class="ql-editor" v-html="content"></div>
-
         <el-divider content-position="center">End</el-divider>
       </el-col>
       <el-col :span="6">
         <div class="tips" style="height:100%">
-          <el-collapse v-model="activeNames" @change="handleChange">
-            <el-button @click="publish" type="primary">发布</el-button>
+          <el-collapse v-model="activeNames">
+            <el-button :disabled="disabled" @click="toPublish" type="primary">{{
+              publish
+            }}</el-button>
             <el-collapse-item title="状态与可见性" name="1">
               <div class="units">
                 <span>可见性</span>
@@ -45,16 +47,20 @@
                   trigger="click"
                 >
                   <div v-for="(item, i) in visible" :key="i">
-                    <el-radio v-model="radioVisible" :label="item.title">
+                    <el-radio
+                      @change="VisibleChange"
+                      v-model="radioVisible"
+                      :label="item.status"
+                    >
                       {{ item.title }}</el-radio
                     >
                     <p class="visible-info">
                       {{ item.info }}
                     </p>
                   </div>
-                  <el-button class="btn-control" slot="reference"
-                    >公开</el-button
-                  >
+                  <el-button class="btn-control" slot="reference">{{
+                    showVisible
+                  }}</el-button>
                 </el-popover>
               </div>
 
@@ -120,7 +126,7 @@ import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 import { ImageDrop } from 'quill-image-drop-module'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import { Msg } from '@/utils/message'
+import { ComfirmMsg, Msg } from '@/utils/message'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
 
@@ -147,13 +153,21 @@ export default {
   data() {
     return {
       // 可见性
-      radioVisible: '',
+      disabled: true,
+      publish: '发布',
+      radioVisible: 'public',
+      showVisible: '公开',
       visible: [
-        { title: '公开', info: '所有人可见。' },
-        { title: '私密', info: '只有站点管理员和编辑可见。' },
+        { status: 'public', info: '所有人可见。', title: '公开' },
         {
-          title: '密码保护',
-          info: '受您选择的密码保护，只有持有密码的人士可查看此文章。'
+          status: 'private',
+          info: '只有站点管理员和编辑可见。',
+          title: '私密'
+        },
+        {
+          status: 'protect',
+          info: '受您选择的密码保护，只有持有密码的人士可查看此文章。',
+          title: '密码保护'
         }
       ],
       search: '',
@@ -173,7 +187,10 @@ export default {
   watch: {
     content() {
       // 富文本内容长度
+
       this.richCurrentLength = this.quill.getLength() - 1
+      if (this.richCurrentLength > 0 || this.title) this.disabled = false
+      else this.disabled = true
       let numWrapper = document.querySelector('.quill-count')
       if (this.richCurrentLength > this.richMaxLength) {
         numWrapper.style.color = 'red'
@@ -184,16 +201,12 @@ export default {
   },
   methods: {
     ...mapActions(['PostEssay']),
-    handleChange(val) {
-      //console.log(val)
-    },
 
     beforeUploadEdit() {
       this.quillUpdateImg = true
     },
     // 富文本中的图片上传
     richUploadSuccess(response, file, fileList) {
-      console.log(response)
       /**
        *
        * 如果上传成功
@@ -266,7 +279,6 @@ export default {
         }
       })
       this.quill = quill
-
       /**
        * 监听富文本变化
        * editor-change 包括 text-change、selection-change
@@ -275,18 +287,40 @@ export default {
        */
       quill.on('editor-change', this.onEditorChange)
     },
-    publish() {
+    toPublish() {
       const EssayData = {
+        visiable: this.radioVisible,
         title: this.title,
         essay: this.content,
         username: this.name
       }
       this.PostEssay(EssayData)
         .then(() => {
-          if (this.status === 'SUCCESS') return Msg('发布成功', 'success')
-          else if (this.status === 'ERROR') return Msg('发布失败', 'error')
+          if (this.status === 'SUCCESS') {
+            this.publish = '更新'
+            return Msg('发布成功', 'success')
+          } else if (this.status === 'ERROR') return Msg('发布失败', 'error')
         })
         .catch(() => Msg('发布失败', 'error'))
+    },
+    VisibleChange(data) {
+      switch (data) {
+        case 'public':
+          this.showVisible = '公开'
+          break
+        case 'private':
+          ComfirmMsg('您希望现在私密地发布此文章吗？').then(
+            () => (this.showVisible = '私密')
+          )
+          break
+        case 'protect':
+          this.showVisible = '密码保护'
+          break
+      }
+    },
+    changeTitle(data) {
+      if (this.richCurrentLength > 0 || data) this.disabled = false
+      else this.disabled = true
     }
   },
   mounted() {
