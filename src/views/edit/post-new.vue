@@ -32,88 +32,7 @@
         <el-divider content-position="center">End</el-divider>
       </el-col>
       <el-col :span="6">
-        <div class="tips" style="height:100%">
-          <el-collapse v-model="activeNames">
-            <el-button :disabled="disabled" @click="toPublish" type="primary">{{
-              publish
-            }}</el-button>
-            <el-collapse-item title="状态与可见性" name="1">
-              <div class="units">
-                <span>可见性</span>
-                <el-popover
-                  width="250.25"
-                  placement="bottom"
-                  title="文章可见性"
-                  trigger="click"
-                >
-                  <div v-for="(item, i) in visible" :key="i">
-                    <el-radio
-                      @change="VisibleChange"
-                      v-model="radioVisible"
-                      :label="item.status"
-                    >
-                      {{ item.title }}</el-radio
-                    >
-                    <p class="visible-info">
-                      {{ item.info }}
-                    </p>
-                  </div>
-                  <el-button class="btn-control" slot="reference">{{
-                    showVisible
-                  }}</el-button>
-                </el-popover>
-              </div>
-
-              <div class="select">
-                <el-checkbox v-model="top">在博客中置顶</el-checkbox>
-              </div>
-              <div class="select">
-                <el-checkbox v-model="recheck">等待复审</el-checkbox>
-              </div>
-            </el-collapse-item>
-            <el-collapse-item title="分类目录" name="2">
-              <div>
-                <div>搜索分类目录</div>
-                <el-input placeholder="请输入内容" v-model="search">
-                  <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                </el-input>
-              </div>
-
-              <el-card class="box-card category">
-                <div v-for="o in 1" :key="o" class="text item">
-                  <div class="select">
-                    <el-checkbox v-model="top">在博客中置顶</el-checkbox>
-                  </div>
-                </div>
-              </el-card>
-              <button
-                type="button"
-                class="is-link"
-                @click="newCategory = !newCategory"
-              >
-                添加新分类目录
-              </button>
-              <div v-if="newCategory">
-                <div class="editor-post">新分类目录</div>
-                <el-input placeholder="请输入内容" v-model="createCategory" />
-                <el-button style="marginTop:5px" type="primary">
-                  添加新分类目录</el-button
-                >
-              </div>
-            </el-collapse-item>
-
-            <el-collapse-item title="特色图片" name="3">
-              <div class="editor-post-featured-image">
-                <button
-                  type="button"
-                  class="editor-post-featured-image__toggle"
-                >
-                  设置特色图片
-                </button>
-              </div>
-            </el-collapse-item>
-          </el-collapse>
-        </div>
+        <EssaySetting :disabled="disabled" v-on:toPublish="toPublish" />
       </el-col>
     </el-row>
   </div>
@@ -126,11 +45,13 @@ import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 import { ImageDrop } from 'quill-image-drop-module'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import { ComfirmMsg, Msg } from '@/utils/message'
+import { Msg } from '@/utils/message'
+import EssaySetting from './components/essay-setting'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
 
 export default {
+  components: { EssaySetting },
   // 富文本工具栏配置
   toolbarOptions: [
     [{ size: ['small', false, 'large', 'huge'] }], // 字体大小
@@ -152,30 +73,7 @@ export default {
   },
   data() {
     return {
-      // 可见性
       disabled: true,
-      publish: '发布',
-      radioVisible: 'public',
-      showVisible: '公开',
-      visible: [
-        { status: 'public', info: '所有人可见。', title: '公开' },
-        {
-          status: 'private',
-          info: '只有站点管理员和编辑可见。',
-          title: '私密'
-        },
-        {
-          status: 'protect',
-          info: '受您选择的密码保护，只有持有密码的人士可查看此文章。',
-          title: '密码保护'
-        }
-      ],
-      search: '',
-      createCategory: '',
-      newCategory: false,
-      top: '',
-      recheck: '',
-      activeNames: ['1', '2', '3'],
       title: '',
       // 富文本内容
       quillUpdateImg: false,
@@ -187,7 +85,6 @@ export default {
   watch: {
     content() {
       // 富文本内容长度
-
       this.richCurrentLength = this.quill.getLength() - 1
       if (this.richCurrentLength > 0 || this.title) this.disabled = false
       else this.disabled = true
@@ -287,9 +184,11 @@ export default {
        */
       quill.on('editor-change', this.onEditorChange)
     },
-    toPublish() {
+    toPublish(visiable) {
+      const { radioVisible, essayPassword } = visiable
       const EssayData = {
-        visiable: this.radioVisible,
+        essayPassword,
+        essayStatus: radioVisible,
         title: this.title,
         essay: this.content,
         username: this.name
@@ -303,21 +202,7 @@ export default {
         })
         .catch(() => Msg('发布失败', 'error'))
     },
-    VisibleChange(data) {
-      switch (data) {
-        case 'public':
-          this.showVisible = '公开'
-          break
-        case 'private':
-          ComfirmMsg('您希望现在私密地发布此文章吗？').then(
-            () => (this.showVisible = '私密')
-          )
-          break
-        case 'protect':
-          this.showVisible = '密码保护'
-          break
-      }
-    },
+
     changeTitle(data) {
       if (this.richCurrentLength > 0 || data) this.disabled = false
       else this.disabled = true
@@ -338,73 +223,7 @@ export default {
   }
 }
 </script>
-
 <style lang="stylus" scoped>
->>> .el-popover{
-  right:100%!important
-}
->>> .el-popover__title{
- font-weight 600
- font-size 13px
-}
->>> .el-radio__label{
-  font-weight 600
-  font-size 13px
-}
-.visible-info{
-  margin-top: 0;
-  margin-left: 27px
-}
-.editor-post-featured-image__toggle {
-  width:100%;
-    border: 1px dashed #a2aab2;
-    background-color: #edeff0;
-    line-height: 20px;
-    padding: 8px 0;
-    text-align: center;
-}
-.editor-post-featured-image__toggle:hover{
-    background-color: #f8f9f9;
-}
-.editor-post{
-      margin-top: 12px;
-}
-.is-link{
-      margin: 0;
-    padding: 0;
-    box-shadow: none;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    outline: none;
-    text-align: left;
-    color: #0073aa;
-    text-decoration: underline;
-    transition-property: border,background,color;
-    transition-duration: .05s;
-    transition-timing-function: ease-in-out;
-}
-.is-link:hover{
-    color: #00a0d2;
-}
-.category{
-  margin-top 10px
-  margin-bottom:10px
-}
-.select{
-  margin-top:5px
-}
-.units{
- display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top 5px
-
-}
-
->>> .el-collapse-item__header{
-  font-weight: bold;
-}
 .main-container {
   max-width: 100%;
   min-width: 800px;
