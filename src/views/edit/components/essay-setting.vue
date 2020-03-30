@@ -36,16 +36,18 @@
               ></el-input>
             </div>
 
-            <el-button class="btn-control" slot="reference">{{
+            <el-button class="is-link" slot="reference">{{
               Status_Visible.showVisible
             }}</el-button>
           </el-popover>
         </div>
         <div class="select">
-          <el-checkbox v-model="top">在博客中置顶</el-checkbox>
+          <el-checkbox v-model="Status_Visible.keepTop"
+            >在博客中置顶</el-checkbox
+          >
         </div>
         <div class="select">
-          <el-checkbox v-model="recheck">等待复审</el-checkbox>
+          <el-checkbox v-model="Status_Visible.reCheck">等待复审</el-checkbox>
         </div>
       </el-collapse-item>
       <el-collapse-item title="分类目录" name="2">
@@ -99,10 +101,12 @@ export default {
       /**
        * @enum
        * @param {Boolean} showPass 显示密码保护框
-       * @param {Sting} essayPassword 密码保护框双向绑定
-       * @param {Sting} radioVisible 传给后台判断的文章状态,radio
-       * @param {Sting} showVisible 可见性按钮文字
+       * @param {String} essayPassword 密码保护框双向绑定
+       * @param {String} radioVisible 传给后台判断的文章状态,radio
+       * @param {String} showVisible 可见性按钮文字
        * @param {Array} visible v-for的可见性数据
+       * @param {Boolean} keepTop 是否置顶
+       * @param {Boolean} reCheck 等待复审（存入草稿）
        */
       Status_Visible: {
         showPass: false,
@@ -121,21 +125,28 @@ export default {
             info: '受您选择的密码保护，只有持有密码的人士可查看此文章。',
             title: '密码保护'
           }
-        ]
+        ],
+        keepTop: '',
+        reCheck: ''
       },
       publish: '发布',
       search: '',
-      top: '',
+
       createCategory: '',
       newCategory: false,
-      recheck: '',
+
       activeNames: ['1', '2', '3']
     }
   },
   methods: {
     toPublish() {
-      const { radioVisible, essayPassword } = this.Status_Visible
-      this.$emit('toPublish', { radioVisible, essayPassword })
+      const {
+        radioVisible,
+        essayPassword,
+        keepTop,
+        reCheck
+      } = this.Status_Visible
+      this.$emit('toPublish', { radioVisible, essayPassword, keepTop, reCheck })
     },
     VisibleChange(data) {
       switch (data) {
@@ -156,7 +167,6 @@ export default {
   }
 }
 </script>
-
 <style lang="stylus" scoped>
 >>> .el-popover{
   right:100%!important

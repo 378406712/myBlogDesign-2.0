@@ -185,8 +185,10 @@ export default {
       quill.on('editor-change', this.onEditorChange)
     },
     toPublish(visiable) {
-      const { radioVisible, essayPassword } = visiable
+      const { radioVisible, essayPassword, keepTop, reCheck } = visiable
       const EssayData = {
+        keepTop,
+        reCheck,
         essayPassword,
         essayStatus: radioVisible,
         title: this.title,
