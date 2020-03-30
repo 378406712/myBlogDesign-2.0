@@ -57,10 +57,14 @@
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
         </div>
-        <el-card class="box-card category">
-          <div v-for="o in 1" :key="o" class="text item">
+        <el-card v-if="category.length" class="box-card category">
+          <div
+            v-for="(item, index) in category.title"
+            :key="index"
+            class="text item"
+          >
             <div class="select">
-              <el-checkbox v-model="top">在博客中置顶</el-checkbox>
+              <el-checkbox>{{ item | filterCategory }}</el-checkbox>
             </div>
           </div>
         </el-card>
@@ -74,7 +78,7 @@
         <div v-if="newCategory">
           <div class="editor-post">新分类目录</div>
           <el-input placeholder="请输入内容" v-model="createCategory" />
-          <el-button style="marginTop:5px" type="primary">
+          <el-button style="marginTop:5px" @click="addCategory" type="primary">
             添加新分类目录</el-button
           >
         </div>
@@ -91,11 +95,11 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
   props: {
     disabled: Boolean
   },
-
   data() {
     return {
       /**
@@ -104,15 +108,18 @@ export default {
        * @param {String} essayPassword 密码保护框双向绑定
        * @param {String} radioVisible 传给后台判断的文章状态,radio
        * @param {String} showVisible 可见性按钮文字
-       * @param {Array} visible v-for的可见性数据
        * @param {Boolean} keepTop 是否置顶
        * @param {Boolean} reCheck 等待复审（存入草稿）
+       * @param {Array} visible v-for的可见性数据
+    
        */
       Status_Visible: {
         showPass: false,
         essayPassword: '',
         radioVisible: 'public',
         showVisible: '公开',
+        keepTop: '',
+        reCheck: '',
         visible: [
           { status: 'public', info: '所有人可见。', title: '公开' },
           {
@@ -125,9 +132,10 @@ export default {
             info: '受您选择的密码保护，只有持有密码的人士可查看此文章。',
             title: '密码保护'
           }
-        ],
-        keepTop: '',
-        reCheck: ''
+        ]
+      },
+      Classify_Category: {
+        title: []
       },
       publish: '发布',
       search: '',
@@ -139,6 +147,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['SetCategory']),
+    addCategory() {
+      console.log(this.createCategory)
+      this.SetCategory({ username: this.name, category: this.createCategory })
+    },
     toPublish() {
       const {
         radioVisible,
@@ -164,9 +177,20 @@ export default {
           break
       }
     }
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({
+      category: state => state.edit.category
+    })
+  },
+
+  filters: {
+    filterCategory(value) {}
   }
 }
 </script>
+
 <style lang="stylus" scoped>
 >>> .el-popover{
   right:100%!important

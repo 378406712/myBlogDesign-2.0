@@ -137,7 +137,6 @@ export default {
         // args[0] will be old range
       }
     },
-
     initQuill() {
       const quill = new Quill('#quill-editor', {
         // 编辑器配置选项
@@ -185,12 +184,11 @@ export default {
       quill.on('editor-change', this.onEditorChange)
     },
     toPublish(visiable) {
-      const { radioVisible, essayPassword, keepTop, reCheck } = visiable
       const EssayData = {
-        keepTop,
-        reCheck,
-        essayPassword,
-        essayStatus: radioVisible,
+        keepTop: visiable.keepTop,
+        reCheck: visiable.reCheck,
+        essayPassword: visiable.essayPassword,
+        essayStatus: visiable.radioVisible,
         title: this.title,
         essay: this.content,
         username: this.name
@@ -204,7 +202,6 @@ export default {
         })
         .catch(() => Msg('发布失败', 'error'))
     },
-
     changeTitle(data) {
       if (this.richCurrentLength > 0 || data) this.disabled = false
       else this.disabled = true
