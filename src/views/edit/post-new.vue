@@ -32,7 +32,11 @@
         <el-divider content-position="center">End</el-divider>
       </el-col>
       <el-col :span="6">
-        <EssaySetting :disabled="disabled" v-on:toPublish="toPublish" />
+        <EssaySetting
+          :disabled="disabled"
+          v-on:addCategory="addCategory"
+          v-on:toPublish="toPublish"
+        />
       </el-col>
     </el-row>
   </div>
@@ -97,8 +101,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['PostEssay']),
-
+    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory']),
+    async addCategory(category) {
+      await this.SetCategory(category)
+      this.getCategory()
+    },
     beforeUploadEdit() {
       this.quillUpdateImg = true
     },
@@ -205,10 +212,14 @@ export default {
     changeTitle(data) {
       if (this.richCurrentLength > 0 || data) this.disabled = false
       else this.disabled = true
+    },
+    getCategory() {
+      this.GetCategory({ params: { username: this.name } })
     }
   },
   mounted() {
     this.initQuill()
+    this.getCategory()
   },
   computed: {
     ...mapGetters(['name']),

@@ -58,13 +58,9 @@
           </el-input>
         </div>
         <el-card v-if="category.length" class="box-card category">
-          <div
-            v-for="(item, index) in category.title"
-            :key="index"
-            class="text item"
-          >
+          <div v-for="(item, index) in category" :key="index" class="text item">
             <div class="select">
-              <el-checkbox>{{ item | filterCategory }}</el-checkbox>
+              <el-checkbox>{{ item.category }}</el-checkbox>
             </div>
           </div>
         </el-card>
@@ -111,7 +107,6 @@ export default {
        * @param {Boolean} keepTop 是否置顶
        * @param {Boolean} reCheck 等待复审（存入草稿）
        * @param {Array} visible v-for的可见性数据
-    
        */
       Status_Visible: {
         showPass: false,
@@ -134,9 +129,9 @@ export default {
           }
         ]
       },
-      Classify_Category: {
-        title: []
-      },
+      // Classify_Category: {
+      //   title: []
+      // },
       publish: '发布',
       search: '',
 
@@ -149,8 +144,7 @@ export default {
   methods: {
     ...mapActions(['SetCategory']),
     addCategory() {
-      console.log(this.createCategory)
-      this.SetCategory({ username: this.name, category: this.createCategory })
+      this.$emit('addCategory',{ username: this.name, category: this.createCategory })
     },
     toPublish() {
       const {
