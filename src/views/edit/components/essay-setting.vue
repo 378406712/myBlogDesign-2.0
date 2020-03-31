@@ -58,22 +58,27 @@
           </el-input>
         </div>
         <el-card v-if="category.length" class="box-card category">
-          <div v-for="(item, index) in category" :key="index" class="text item">
-            <div class="select">
-              <el-checkbox>{{ item.category }}</el-checkbox>
-            </div>
+          <div v-for="(item, index) in category" :key="index" class="select">
+            <el-checkbox-group v-model="Classify_Category.checkCategory">
+              <el-checkbox :label="item.category"></el-checkbox>
+            </el-checkbox-group>
           </div>
         </el-card>
         <button
           type="button"
           class="is-link"
-          @click="newCategory = !newCategory"
+          @click="
+            Classify_Category.newCategory = !Classify_Category.newCategory
+          "
         >
           添加新分类目录
         </button>
-        <div v-if="newCategory">
+        <div v-if="Classify_Category.newCategory">
           <div class="editor-post">新分类目录</div>
-          <el-input placeholder="请输入内容" v-model="createCategory" />
+          <el-input
+            placeholder="请输入内容"
+            v-model="Classify_Category.createCategory"
+          />
           <el-button style="marginTop:5px" @click="addCategory" type="primary">
             添加新分类目录</el-button
           >
@@ -82,12 +87,58 @@
 
       <el-collapse-item title="特色图片" name="3">
         <div class="editor-post-featured-image">
-          <button type="button" class="editor-post-featured-image__toggle">
+          <button
+            @click="Special_Pic.showDialog = true"
+            type="button"
+            class="editor-post-featured-image__toggle"
+          >
             设置特色图片
           </button>
         </div>
       </el-collapse-item>
     </el-collapse>
+    <el-dialog
+      top="3%"
+      custom-class="special-bg"
+      :visible.sync="Special_Pic.showDialog"
+      width="95%"
+    >
+      <div slot="title" class="special-title">
+        <span>特色图片</span>
+      </div>
+      <el-tabs
+        v-model="Special_Pic.activeName"
+        type="border-card"
+        @tab-click="handleClick"
+      >
+        <el-tab-pane name="uploadDocs">
+          <span slot="label"><i class="el-icon-upload"></i> 上传文件</span>
+
+          <div class="upload-ui">
+            <h2 class="upload-instructions drop-instructions">
+              拖文件到任何地方来上传
+            </h2>
+            <p class="upload-instructions drop-instructions">或</p>
+            <button
+              type="button"
+              class="browser button button-hero"
+              style="display: inline-block; position: relative; z-index: 1;"
+            >
+              选择文件
+            </button>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane name="mediaStore">
+          <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span
+          >媒体库</el-tab-pane
+        >
+      </el-tabs>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="centerDialogVisible = false"
+          >选 择</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -102,7 +153,7 @@ export default {
        * @enum
        * @param {Boolean} showPass 显示密码保护框
        * @param {String} essayPassword 密码保护框双向绑定
-       * @param {String} radioVisible 传给后台判断的文章状态,radio
+       * @param {String} radioVisible 传给后台判断的文章状态(公开/私密/密码保护)
        * @param {String} showVisible 可见性按钮文字
        * @param {Boolean} keepTop 是否置顶
        * @param {Boolean} reCheck 等待复审（存入草稿）
@@ -129,22 +180,35 @@ export default {
           }
         ]
       },
-      // Classify_Category: {
-      //   title: []
-      // },
+      /**
+       * @enum
+       * @param {String} createCategory 输入框中填的目录
+       * @param {Boolean} newCategory 显示新增分类输入框
+       */
+      Classify_Category: {
+        createCategory: '',
+        newCategory: false,
+        checkCategory: []
+      },
+      Special_Pic: {
+        showDialog: false,
+        activeName: 'uploadDocs'
+      },
       publish: '发布',
       search: '',
-
-      createCategory: '',
-      newCategory: false,
 
       activeNames: ['1', '2', '3']
     }
   },
   methods: {
     ...mapActions(['SetCategory']),
+
     addCategory() {
-      this.$emit('addCategory',{ username: this.name, category: this.createCategory })
+      this.$emit('addCategory', {
+        username: this.name,
+        category: this.Classify_Category.createCategory
+      })
+      this.Classify_Category.createCategory = ''
     },
     toPublish() {
       const {
@@ -153,7 +217,14 @@ export default {
         keepTop,
         reCheck
       } = this.Status_Visible
-      this.$emit('toPublish', { radioVisible, essayPassword, keepTop, reCheck })
+      const { checkCategory } = this.Classify_Category
+      this.$emit('toPublish', {
+        radioVisible,
+        essayPassword,
+        keepTop,
+        reCheck,
+        checkCategory
+      })
     },
     VisibleChange(data) {
       switch (data) {
@@ -186,6 +257,18 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.upload-ui{
+  text-align center;
+  margin-top 11%
+}
+.special-title{
+    font-size: 22px;
+}
+>>> .el-dialog__body {
+    padding: 0px 20px;}
+>>>   .el-dialog__header {
+    padding: 0 0 20px 20px
+}
 >>> .el-popover{
   right:100%!important
 }
