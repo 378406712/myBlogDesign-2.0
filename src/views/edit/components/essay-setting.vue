@@ -115,23 +115,46 @@
           <span slot="label"><i class="el-icon-upload"></i> 上传文件</span>
 
           <div class="upload-ui">
-            <h2 class="upload-instructions drop-instructions">
+            <h2>
               拖文件到任何地方来上传
             </h2>
-            <p class="upload-instructions drop-instructions">或</p>
-            <button
-              type="button"
-              class="browser button button-hero"
-              style="display: inline-block; position: relative; z-index: 1;"
+            <p>或</p>
+            <el-upload
+              action="#"
+              :before-remove="beforeRemove"
+              multiple
+              :limit="1"
+              :on-exceed="handleExceed"
             >
-              选择文件
-            </button>
+              <el-button>点击上传</el-button>
+            </el-upload>
+          </div>
+          <div class="post-upload-ui">
+            <p class="max-upload-size">
+              只能上传jpg/png文件，且不超过500kb
+            </p>
           </div>
         </el-tab-pane>
         <el-tab-pane name="mediaStore">
-          <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span
-          >媒体库</el-tab-pane
-        >
+          <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span>
+          <div class="clearFix media-toolbar">
+            <div class="selectDate">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option> </el-option>
+              </el-select>
+            </div>
+            <div class="searchPic">
+              <el-input
+                class="searchPic-input"
+                v-model="input"
+                placeholder="请输入内容"
+              ></el-input>
+            </div>
+          </div>
+          <div>
+            <Media />
+          </div>
+        </el-tab-pane>
       </el-tabs>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="centerDialogVisible = false"
@@ -143,10 +166,12 @@
 </template>
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
+import Media from '@/components/media'
 export default {
   props: {
     disabled: Boolean
   },
+  components: { Media },
   data() {
     return {
       /**
@@ -190,6 +215,11 @@ export default {
         newCategory: false,
         checkCategory: []
       },
+      /**
+       * @enum
+       * @param {Boolean} showDialog 显示特色图片dialog
+       * @param {Boolean} activeName 初始显示的标签页
+       */
       Special_Pic: {
         showDialog: false,
         activeName: 'uploadDocs'
@@ -257,12 +287,33 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+//媒体库
+
+.selectDate{
+  float left
+}
+ .searchPic{
+    max-width: 33%;
+      float right
+
+ }
+
+
+//上传文件
+.max-upload-size,.upload-ui{
+   text-align center;
+}
 .upload-ui{
-  text-align center;
-  margin-top 11%
+  margin-top 10%
 }
 .special-title{
     font-size: 22px;
+}
+>>>.el-collapse {
+  border-top: 0px
+}
+>>> .el-tabs__content{
+  height 420px
 }
 >>> .el-dialog__body {
     padding: 0px 20px;}
