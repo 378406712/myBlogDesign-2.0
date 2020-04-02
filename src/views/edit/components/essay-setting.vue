@@ -135,9 +135,9 @@
             </p>
           </div>
         </el-tab-pane>
-        <el-tab-pane name="mediaStore">
+        <el-tab-pane name="mediaStore" class="media-store">
           <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span>
-          <div class="clearFix media-toolbar">
+          <div class="clearFix media-options">
             <div class="selectDate">
               <el-select v-model="value" placeholder="请选择">
                 <el-option> </el-option>
@@ -151,8 +151,63 @@
               ></el-input>
             </div>
           </div>
-          <div>
-            <Media />
+          <Media />
+          <div class="media-sidebar">
+            <el-scrollbar
+              class="el_scroll el-media el-media-sidebar "
+              :native="false"
+            >
+              <div class="media-uploader-status" style="display: none;">
+                <h2>正上传</h2>
+                <div class="process-bar" style="display:none"></div>
+              </div>
+              <div class="attachment-details save-ready">
+                <h2>
+                  附件详情
+                </h2>
+                <div class="attachment-info">
+                  <div class="thumbnail">
+                    <img
+                      src="https://www.qdmmz.cn/wp-content/uploads/2020/04/PDQ@PF8EDQZCJA1HT-300x188.jpg"
+                      draggable="false"
+                      alt=""
+                    />
+                  </div>
+                  <div class="details">
+                    <div class="filename">PDQ@PF8EDQZCJA1HT.jpg</div>
+                    <div class="uploaded">2020年4月2日</div>
+                    <div class="file-size">134 KB</div>
+                    <div class="dimensions">
+                      1280×800像素
+                    </div>
+                    <a
+                      class="edit-attachment"
+                      href="https://www.qdmmz.cn/wp-admin/post.php?post=1028&amp;action=edit&amp;image-editor"
+                      target="_blank"
+                      >编辑图像</a
+                    >
+                    <button type="button" class="button-link delete-attachment">
+                      永久删除
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <el-form
+                class="pic-form"
+                :label-position="right"
+                label-width="80px"
+              >
+                <el-form-item label="标题">
+                  <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="图片描述">
+                  <el-input type="textarea"></el-input>
+                </el-form-item>
+                <el-form-item label="复制链接">
+                  <el-input></el-input>
+                </el-form-item>
+              </el-form>
+            </el-scrollbar>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -226,7 +281,6 @@ export default {
       },
       publish: '发布',
       search: '',
-
       activeNames: ['1', '2', '3']
     }
   },
@@ -287,8 +341,25 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+//附件详情
+@import url('../../../style/attachment-detail.css');
+.pic-form{
+padding-right:10px
+}
 //媒体库
+.media-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    padding: 0 16px 0;
+    z-index: 75;
+    background: #f3f3f3;
+    border: 1px solid #ddd;
 
+    overflow: auto;
+}
 .selectDate{
   float left
 }
@@ -297,6 +368,23 @@ export default {
       float right
 
  }
+ .media-store{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+ }
+ .media-options{
+   position: absolute;
+    top: 0;
+    left: -15px;
+    right: 300px;
+    z-index: 100;
+    height: 60px;
+    padding: 0 16px;
+    border: 0 solid #ddd;
+    overflow: hidden
+}
 
 
 //上传文件

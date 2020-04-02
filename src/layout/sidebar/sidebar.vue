@@ -1,6 +1,6 @@
 <template>
   <div class="left-sidebar">
-    <el-scrollbar class="el_scroll" :native="false" :noresize="true">
+    <el-scrollbar class="el_scroll" :native="false" >
       <el-menu
         class="scroll-menu"
         mode="vertical"
@@ -48,9 +48,6 @@ export default {
 <style>
 .left-sidebar >>> .el-scrollbar_wrap {
   overflow-x: hidden;
-}
-.left-sidebar {
-  overflow-y: hidden;
 }
 .el_scroll {
   height: 100%;

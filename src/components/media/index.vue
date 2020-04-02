@@ -1,25 +1,25 @@
 <template>
   <ul class="pic-list cleanFix">
-    <li v-for="o in 214" :key="o" class="attachment save-ready">
-      <div
-        class="attachment-preview js--select-attachment type-image subtype-jpeg landscape"
-      >
-        <div class="thumbnail">
-          <div class="centered">
-            <img
-              src="https://www.qdmmz.cn/wp-content/uploads/2020/03/109951163745497280-300x141.png"
-              draggable="false"
-              alt=""
-            />
+    <el-scrollbar class="el_scroll el-media" :native="false">
+      <li v-for="o in 36" :key="o" class="attachment save-ready">
+        <div class="attachment-preview">
+          <div class="thumbnail">
+            <div class="centered">
+              <img
+                src="https://www.qdmmz.cn/wp-content/uploads/2020/03/109951163745497280-300x141.png"
+                draggable="false"
+                alt=""
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <button type="button" class="check" tabindex="-1">
-        <span class="media-modal-icon"></span
-        ><span class="screen-reader-text">取消选择</span>
-      </button>
-    </li>
+        <button type="button" class="check" tabindex="-1">
+          <span class="media-modal-icon"></span
+          ><span class="screen-reader-text">取消选择</span>
+        </button>
+      </li>
+    </el-scrollbar>
   </ul>
 </template>
 
@@ -31,12 +31,13 @@ export default {}
 .pic-list {
   position: absolute;
   top: 50px;
-  left: 0;
+  left: -15px;
   right: 300px;
   bottom: 0;
   overflow: auto;
   outline: 0;
-  padding: 2px 8px 8px;
+  margin: 0;
+  padding: 2px 8px 0;
 }
 .attachment {
   width: 14.28%;
@@ -141,5 +142,9 @@ export default {}
   position: absolute;
   width: 1px;
   word-wrap: normal !important;
+}
+
+.el-media >>> .el-scrollbar__bar.is-vertical {
+  margin-top: 6px;
 }
 </style>
