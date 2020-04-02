@@ -40,12 +40,10 @@ export default {
 <style lang="stylus" scoped>
 .left-sidebar
   position fixed
-  top 56px
+  margin-top 56px
   width 200px
-  height 100%
-  min-height 500px
-.el-menu
-  height 100%
+  top: 0;
+  bottom: 0;
 </style>
 <style>
 .left-sidebar >>> .el-scrollbar_wrap {
@@ -53,7 +51,6 @@ export default {
 }
 .left-sidebar {
   overflow-y: hidden;
-  height: 100%;
 }
 .el_scroll {
   height: 100%;
