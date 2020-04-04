@@ -12,7 +12,7 @@
         </div>
         <el-upload
           id="img-upload"
-          action="/api/edit/essayPic"
+          action="/api/edit/media"
           :multiple="false"
           :show-file-list="false"
           :on-success="richUploadSuccess"

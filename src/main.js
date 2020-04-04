@@ -23,8 +23,10 @@ import './permission'
 // 全局图标
 import './icons'
 // 全局 Mock 接口
-import './mock'
+//import './mock'
+import moment from 'moment' //导入文件
 
+Vue.prototype.$moment = moment //赋值使用
 Vue.use(VueSwal)
 
 Vue.use(ElementUI, {

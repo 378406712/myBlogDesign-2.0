@@ -22,7 +22,6 @@
     </el-scrollbar>
   </ul>
 </template>
-
 <script>
 export default {}
 </script>

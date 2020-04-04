@@ -120,11 +120,14 @@
             </h2>
             <p>或</p>
             <el-upload
-              action="#"
-              :before-remove="beforeRemove"
+              action="/api/edit/media"
               multiple
               :limit="1"
-              :on-exceed="handleExceed"
+              ref="mediaUpload"
+              :file-list="media - list"
+              :show-file-list="false"
+              :on-progress="handleProgress"
+              :on-success="handleSuccess"
             >
               <el-button>点击上传</el-button>
             </el-upload>
@@ -153,61 +156,71 @@
           </div>
           <Media />
           <div class="media-sidebar">
-            <el-scrollbar
-              class="el_scroll el-media el-media-sidebar "
-              :native="false"
-            >
-              <div class="media-uploader-status" style="display: none;">
-                <h2>正上传</h2>
-                <div class="process-bar" style="display:none"></div>
-              </div>
-              <div class="attachment-details save-ready">
-                <h2>
-                  附件详情
-                </h2>
-                <div class="attachment-info">
-                  <div class="thumbnail">
-                    <img
-                      src="https://www.qdmmz.cn/wp-content/uploads/2020/04/PDQ@PF8EDQZCJA1HT-300x188.jpg"
-                      draggable="false"
-                      alt=""
-                    />
-                  </div>
-                  <div class="details">
-                    <div class="filename">PDQ@PF8EDQZCJA1HT.jpg</div>
-                    <div class="uploaded">2020年4月2日</div>
-                    <div class="file-size">134 KB</div>
-                    <div class="dimensions">
-                      1280×800像素
+            <div v-if="UploadFile.src">
+              <el-scrollbar
+                class="el_scroll el-media el-media-sidebar "
+                :native="false"
+              >
+                <div
+                  class="media-uploader-status"
+                  :style="{ display: UploadFile.none ? 'none' : 'block' }"
+                >
+                  <h2>正上传</h2>
+                  <el-progress
+                    :percentage="UploadFile.percentage"
+                    :color="UploadFile.colors"
+                  ></el-progress>
+                  <p>{{ UploadFile.pic_title }}</p>
+                </div>
+                <div class="attachment-details save-ready">
+                  <h2>
+                    附件详情
+                  </h2>
+                  <div class="attachment-info">
+                    <div class="thumbnail">
+                      <img :src="UploadFile.src" draggable="false" alt="" />
                     </div>
-                    <a
-                      class="edit-attachment"
-                      href="https://www.qdmmz.cn/wp-admin/post.php?post=1028&amp;action=edit&amp;image-editor"
-                      target="_blank"
-                      >编辑图像</a
-                    >
-                    <button type="button" class="button-link delete-attachment">
-                      永久删除
-                    </button>
+                    <div class="details">
+                      <div class="filename">{{ UploadFile.media_title }}</div>
+                      <div class="uploaded">{{ UploadFile.date }}</div>
+                      <div class="file-size">{{ UploadFile.size }}</div>
+                      <div class="dimensions">
+                        {{ UploadFile.pic_width }}×{{
+                          UploadFile.pic_height
+                        }}像素
+                      </div>
+                      <a
+                        class="edit-attachment"
+                        href="https://www.qdmmz.cn/wp-admin/post.php?post=1028&amp;action=edit&amp;image-editor"
+                        target="_blank"
+                        >编辑图像</a
+                      >
+                      <button
+                        type="button"
+                        class="button-link delete-attachment"
+                      >
+                        永久删除
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <el-form
-                class="pic-form"
-                :label-position="right"
-                label-width="80px"
-              >
-                <el-form-item label="标题">
-                  <el-input></el-input>
-                </el-form-item>
-                <el-form-item label="图片描述">
-                  <el-input type="textarea"></el-input>
-                </el-form-item>
-                <el-form-item label="复制链接">
-                  <el-input></el-input>
-                </el-form-item>
-              </el-form>
-            </el-scrollbar>
+                <el-form
+                  class="pic-form"
+                  :label-position="right"
+                  label-width="80px"
+                >
+                  <el-form-item label="标题">
+                    <el-input v-model="UploadFile.media_title"></el-input>
+                  </el-form-item>
+                  <el-form-item label="图片描述">
+                    <el-input type="textarea"></el-input>
+                  </el-form-item>
+                  <el-form-item label="复制链接">
+                    <el-input></el-input>
+                  </el-form-item>
+                </el-form>
+              </el-scrollbar>
+            </div>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -279,6 +292,33 @@ export default {
         showDialog: false,
         activeName: 'uploadDocs'
       },
+      /**
+       * @enum
+       * @param {Number} percentage 进度条数字
+       * @param {Boolean} none 是否显示进度条内容
+       * @param {String}  media_title 标题
+       * @param {String} size 大小
+       * @param {Number} pic_width 宽度
+       * @param {Number} pic_height 高度
+       * @param {String} date 日期
+       */
+      UploadFile: {
+        percentage: 0,
+        none: true,
+        media_title: '',
+        size: '',
+        src: '',
+        date: '',
+        pic_width: '',
+        pic_height: '',
+        colors: [
+          { color: '#f56c6c', percentage: 20 },
+          { color: '#e6a23c', percentage: 40 },
+          { color: '#5cb87a', percentage: 60 },
+          { color: '#1989fa', percentage: 80 },
+          { color: '#6f7ad3', percentage: 100 }
+        ]
+      },
       publish: '发布',
       search: '',
       activeNames: ['1', '2', '3']
@@ -325,6 +365,28 @@ export default {
           this.Status_Visible.showPass = true
           break
       }
+    },
+    //上传文件
+    handleProgress(event, file, fileList) {
+      this.UploadFile.none = false
+      this.Special_Pic.activeName = 'mediaStore'
+      this.UploadFile.percentage = Math.floor(event.percent)
+    },
+    handleSuccess(response, file, fileList) {
+      const img = new Image()
+      const _this = this
+      img.onload = function() {
+        _this.UploadFile.pic_width = img.width
+        _this.UploadFile.pic_height = img.height
+      }
+      img.src = response.file
+      this.UploadFile.src = response.file
+      this.UploadFile.media_title = file.name
+      this.UploadFile.date = this.$moment().format('YYYY年MM月DD日mm分')
+      this.UploadFile.size =
+        Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
+      this.UploadFile.none = true
+      this.$refs.mediaUpload.clearFiles()
     }
   },
   computed: {
@@ -388,6 +450,9 @@ padding-right:10px
 
 
 //上传文件
+.none{
+  display:none
+}
 .max-upload-size,.upload-ui{
    text-align center;
 }
@@ -467,9 +532,7 @@ padding-right:10px
     justify-content: space-between;
     align-items: center;
     margin-top 5px
-
 }
-
 >>> .el-collapse-item__header{
   font-weight: bold;
 }

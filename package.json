@@ -25,6 +25,7 @@
     "jsencrypt": "^3.0.0-rc.1",
     "jsonp": "^0.2.1",
     "mockjs": "^1.0.1-beta3",
+    "moment": "^2.24.0",
     "normalize.css": "^7.0.0",
     "nprogress": "^0.2.0",
     "particles.js": "^2.0.0",

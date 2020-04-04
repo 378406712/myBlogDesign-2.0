@@ -9,4 +9,5 @@ function SetCategory(category) {
 function GetCategory(category) {
   return axios.get('/api/edit/get-category', category)
 }
+
 export { PostEssay, SetCategory, GetCategory }
