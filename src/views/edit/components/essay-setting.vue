@@ -125,9 +125,11 @@
               :limit="1"
               ref="mediaUpload"
               :file-list="media - list"
+              :data="UploadFile.extraData"
               :show-file-list="false"
               :on-progress="handleProgress"
               :on-success="handleSuccess"
+              :before-upload="beforeUpload"
             >
               <el-button>点击上传</el-button>
             </el-upload>
@@ -170,7 +172,7 @@
                     :percentage="UploadFile.percentage"
                     :color="UploadFile.colors"
                   ></el-progress>
-                  <p>{{ UploadFile.pic_title }}</p>
+                  <p>{{ UploadFile.extraData.pic_title }}</p>
                 </div>
                 <div class="attachment-details save-ready">
                   <h2>
@@ -181,9 +183,15 @@
                       <img :src="UploadFile.src" draggable="false" alt="" />
                     </div>
                     <div class="details">
-                      <div class="filename">{{ UploadFile.media_title }}</div>
-                      <div class="uploaded">{{ UploadFile.date }}</div>
-                      <div class="file-size">{{ UploadFile.size }}</div>
+                      <div class="filename">
+                        {{ UploadFile.extraData.media_title }}
+                      </div>
+                      <div class="uploaded">
+                        {{ UploadFile.extraData.date }}
+                      </div>
+                      <div class="file-size">
+                        {{ UploadFile.extraData.size }}
+                      </div>
                       <div class="dimensions">
                         {{ UploadFile.pic_width }}×{{
                           UploadFile.pic_height
@@ -305,12 +313,14 @@ export default {
       UploadFile: {
         percentage: 0,
         none: true,
-        media_title: '',
-        size: '',
-        src: '',
-        date: '',
-        pic_width: '',
-        pic_height: '',
+        extraData: {
+          media_title: '',
+          size: '',
+          src: '',
+          date: '',
+          pic_width: '',
+          pic_height: ''
+        },
         colors: [
           { color: '#f56c6c', percentage: 20 },
           { color: '#e6a23c', percentage: 40 },
@@ -367,24 +377,40 @@ export default {
       }
     },
     //上传文件
+    beforeUpload(file) {
+      // const img = new Image()
+      // const _this = this
+      // img.onload = function() {
+      //   _this.UploadFile.pic_width = img.width
+      //   _this.UploadFile.pic_height = img.height
+      // }
+      // img.src = response.file
+      //this.UploadFile.extraData.src = response.file
+      this.UploadFile.extraData.media_title = file.name
+      this.UploadFile.extraData.date = this.$moment().format(
+        'YYYY年MM月DD日mm分'
+      )
+      this.UploadFile.extraData.size =
+        Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
+    },
     handleProgress(event, file, fileList) {
       this.UploadFile.none = false
       this.Special_Pic.activeName = 'mediaStore'
       this.UploadFile.percentage = Math.floor(event.percent)
     },
     handleSuccess(response, file, fileList) {
-      const img = new Image()
-      const _this = this
-      img.onload = function() {
-        _this.UploadFile.pic_width = img.width
-        _this.UploadFile.pic_height = img.height
-      }
-      img.src = response.file
-      this.UploadFile.src = response.file
-      this.UploadFile.media_title = file.name
-      this.UploadFile.date = this.$moment().format('YYYY年MM月DD日mm分')
-      this.UploadFile.size =
-        Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
+      // const img = new Image()
+      // const _this = this
+      // img.onload = function() {
+      //   _this.UploadFile.pic_width = img.width
+      //   _this.UploadFile.pic_height = img.height
+      // }
+      // img.src = response.file
+      //   this.UploadFile.src = response.file
+      // this.UploadFile.media_title = file.name
+      // this.UploadFile.date = this.$moment().format('YYYY年MM月DD日mm分')
+      // this.UploadFile.size =
+      //   Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
       this.UploadFile.none = true
       this.$refs.mediaUpload.clearFiles()
     }
