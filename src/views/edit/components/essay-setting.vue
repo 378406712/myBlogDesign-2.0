@@ -99,6 +99,7 @@
     </el-collapse>
     <el-dialog
       top="3%"
+      @open="handleOpen"
       custom-class="special-bg"
       :visible.sync="Special_Pic.showDialog"
       width="95%"
@@ -106,11 +107,7 @@
       <div slot="title" class="special-title">
         <span>特色图片</span>
       </div>
-      <el-tabs
-        v-model="Special_Pic.activeName"
-        type="border-card"
-        @tab-click="handleClick"
-      >
+      <el-tabs v-model="Special_Pic.activeName" type="border-card">
         <el-tab-pane name="uploadDocs">
           <span slot="label"><i class="el-icon-upload"></i> 上传文件</span>
 
@@ -124,7 +121,6 @@
               multiple
               :limit="1"
               ref="mediaUpload"
-              :file-list="media - list"
               :data="UploadFile.extraData"
               :show-file-list="false"
               :on-progress="handleProgress"
@@ -144,14 +140,13 @@
           <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span>
           <div class="clearFix media-options">
             <div class="selectDate">
-              <el-select v-model="value" placeholder="请选择">
+              <el-select placeholder="请选择">
                 <el-option> </el-option>
               </el-select>
             </div>
             <div class="searchPic">
               <el-input
                 class="searchPic-input"
-                v-model="input"
                 placeholder="请输入内容"
               ></el-input>
             </div>
@@ -172,7 +167,7 @@
                     :percentage="UploadFile.percentage"
                     :color="UploadFile.colors"
                   ></el-progress>
-                  <p>{{ UploadFile.extraData.pic_title }}</p>
+                  <p>{{ UploadFile.extraData.media_title }}</p>
                 </div>
                 <div class="attachment-details save-ready">
                   <h2>
@@ -193,8 +188,8 @@
                         {{ UploadFile.extraData.size }}
                       </div>
                       <div class="dimensions">
-                        {{ UploadFile.pic_width }}×{{
-                          UploadFile.pic_height
+                        {{ UploadFile.extraData.pic_width }}×{{
+                          UploadFile.extraData.pic_height
                         }}像素
                       </div>
                       <a
@@ -218,7 +213,9 @@
                   label-width="80px"
                 >
                   <el-form-item label="标题">
-                    <el-input v-model="UploadFile.media_title"></el-input>
+                    <el-input
+                      v-model="UploadFile.extraData.media_title"
+                    ></el-input>
                   </el-form-item>
                   <el-form-item label="图片描述">
                     <el-input type="textarea"></el-input>
@@ -313,6 +310,7 @@ export default {
       UploadFile: {
         percentage: 0,
         none: true,
+        src: '',
         extraData: {
           media_title: '',
           size: '',
@@ -334,7 +332,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['SetCategory']),
+    ...mapActions(['GetMedia']),
 
     addCategory() {
       this.$emit('addCategory', {
@@ -375,6 +373,11 @@ export default {
           break
       }
     },
+    handleOpen() {
+      this.GetMedia({ params: { username: this.name } }).then(res =>
+        console.log(res)
+      )
+    },
     //上传文件
     beforeUpload(file) {
       const _this = this
@@ -383,6 +386,7 @@ export default {
         const img = new Image()
         img.src = windowURL.createObjectURL(file)
         img.onload = function() {
+          _this.UploadFile.extraData.username = _this.name
           _this.UploadFile.extraData.media_title = file.name
           _this.UploadFile.extraData.pic_width = img.width
           _this.UploadFile.extraData.pic_height = img.height
@@ -397,23 +401,14 @@ export default {
       })
     },
     handleProgress(event, file, fileList) {
-      this.UploadFile.none = false
       this.Special_Pic.activeName = 'mediaStore'
+
+      this.UploadFile.none = false
+
       this.UploadFile.percentage = Math.floor(event.percent)
     },
     handleSuccess(response, file, fileList) {
-      // const img = new Image()
-      // const _this = this
-      // img.onload = function() {
-      //   _this.UploadFile.pic_width = img.width
-      //   _this.UploadFile.pic_height = img.height
-      // }
-      // img.src = response.file
-      //   this.UploadFile.src = response.file
-      // this.UploadFile.media_title = file.name
-      // this.UploadFile.date = this.$moment().format('YYYY年MM月DD日mm分')
-      // this.UploadFile.size =
-      //   Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
+      this.UploadFile.src = response.file
       this.UploadFile.none = true
       this.$refs.mediaUpload.clearFiles()
     }

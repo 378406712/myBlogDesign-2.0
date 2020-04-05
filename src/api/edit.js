@@ -9,5 +9,7 @@ function SetCategory(category) {
 function GetCategory(category) {
   return axios.get('/api/edit/get-category', category)
 }
-
-export { PostEssay, SetCategory, GetCategory }
+function GetMedia(username) {
+  return axios.get('/api/edit/get-media', username)
+}
+export { PostEssay, SetCategory, GetCategory,GetMedia }

@@ -1,15 +1,15 @@
 <template>
   <ul class="pic-list cleanFix">
     <el-scrollbar class="el_scroll el-media" :native="false">
-      <li v-for="o in 36" :key="o" class="attachment save-ready">
+      <li
+        v-for="(item, index) in media"
+        :key="index"
+        class="attachment save-ready"
+      >
         <div class="attachment-preview">
           <div class="thumbnail">
             <div class="centered">
-              <img
-                src="https://www.qdmmz.cn/wp-content/uploads/2020/03/109951163745497280-300x141.png"
-                draggable="false"
-                alt=""
-              />
+              <img :src="item.file" draggable="false" alt="" />
             </div>
           </div>
         </div>
@@ -23,7 +23,14 @@
   </ul>
 </template>
 <script>
-export default {}
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState({
+      media: state => state.edit.media
+    })
+  }
+}
 </script>
 
 <style scoped>
