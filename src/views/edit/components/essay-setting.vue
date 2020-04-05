@@ -316,7 +316,6 @@ export default {
         extraData: {
           media_title: '',
           size: '',
-          src: '',
           date: '',
           pic_width: '',
           pic_height: ''
@@ -378,20 +377,24 @@ export default {
     },
     //上传文件
     beforeUpload(file) {
-      // const img = new Image()
-      // const _this = this
-      // img.onload = function() {
-      //   _this.UploadFile.pic_width = img.width
-      //   _this.UploadFile.pic_height = img.height
-      // }
-      // img.src = response.file
-      //this.UploadFile.extraData.src = response.file
-      this.UploadFile.extraData.media_title = file.name
-      this.UploadFile.extraData.date = this.$moment().format(
-        'YYYY年MM月DD日mm分'
-      )
-      this.UploadFile.extraData.size =
-        Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
+      const _this = this
+      return new Promise((resolve, reject) => {
+        const windowURL = window.URL || window.webkitURL
+        const img = new Image()
+        img.src = windowURL.createObjectURL(file)
+        img.onload = function() {
+          _this.UploadFile.extraData.media_title = file.name
+          _this.UploadFile.extraData.pic_width = img.width
+          _this.UploadFile.extraData.pic_height = img.height
+          _this.UploadFile.extraData.media_title = file.name
+          _this.UploadFile.extraData.size =
+            Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
+          _this.UploadFile.extraData.date = _this
+            .$moment()
+            .format('YYYY年MM月DD日mm分')
+          resolve()
+        }
+      })
     },
     handleProgress(event, file, fileList) {
       this.UploadFile.none = false
