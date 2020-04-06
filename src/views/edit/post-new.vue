@@ -191,7 +191,6 @@ export default {
       quill.on('editor-change', this.onEditorChange)
     },
     toPublish(visiable) {
-      console.log(visiable.checkCategory)
       const EssayData = {
         keepTop: visiable.keepTop,
         reCheck: visiable.reCheck,

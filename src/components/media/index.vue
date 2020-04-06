@@ -2,9 +2,10 @@
   <ul class="pic-list cleanFix">
     <el-scrollbar class="el_scroll el-media" :native="false">
       <li
-        v-for="(item, index) in media"
-        :key="index"
+        v-for="item in media"
+        :key="item._id"
         class="attachment save-ready"
+        @click="handleDetail(item._id)"
       >
         <div class="attachment-preview">
           <div class="thumbnail">
@@ -23,12 +24,21 @@
   </ul>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
+  methods: {
+    ...mapActions(['MediaDetail']),
+
+    handleDetail(id) {
+      this.MediaDetail({ params: { _id: id, username: this.name } })
+      this.$emit('showContent', true)
+    }
+  },
   computed: {
     ...mapState({
       media: state => state.edit.media
-    })
+    }),
+    ...mapGetters(['name'])
   }
 }
 </script>

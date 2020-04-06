@@ -4,11 +4,15 @@ const GET_STATUS = 'GET_STATUS'
 const SET_CATEGORY = 'SET_CATEGORY'
 const GET_CATEGORY = 'GET_CATEGORY'
 const GET_MEDIA = 'GET_MEDIA'
+const MEDIA_DETAIL = 'MEDIA_DETAIL'
 const Edit = {
   state: {
     status: '',
     category: [],
-    media: []
+    media: [],
+    detail: {
+      media_title: ''
+    }
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -19,7 +23,10 @@ const Edit = {
     },
     [GET_MEDIA](state, media) {
       state.media = media
-      console.log(state.media)
+    },
+    [MEDIA_DETAIL](state, detail) {
+      state.detail = detail
+      console.log(state.detail)
     }
   },
   actions: {
@@ -43,21 +50,30 @@ const Edit = {
     GetCategory({ commit }, username) {
       return new Promise((resolve, reject) => {
         Api.GetCategory(username).then(res => {
-          commit(GET_MEDIA, res.data)
+          console.log(res.data)
+          commit(GET_CATEGORY, res.data)
           resolve()
         })
       })
     },
     GetMedia({ commit }, username) {
-      console.log(username)
       return new Promise((resolve, reject) => {
         Api.GetMedia(username)
           .then(res => {
-            console.log(res, '00000')
-            commit(GET_MEDIA, res.data)
+            commit(GET_MEDIA, res.data.reverse())
             resolve()
           })
           .then(() => reject())
+      })
+    },
+    MediaDetail({ commit }, detail) {
+      return new Promise((resolve, reject) => {
+        Api.MediaDetail(detail)
+          .then(res => {
+            commit(MEDIA_DETAIL, res.data)
+            resolve()
+          })
+          .catch(() => reject())
       })
     }
   }

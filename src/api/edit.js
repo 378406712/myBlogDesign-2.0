@@ -12,4 +12,7 @@ function GetCategory(category) {
 function GetMedia(username) {
   return axios.get('/api/edit/get-media', username)
 }
-export { PostEssay, SetCategory, GetCategory,GetMedia }
+function MediaDetail(detail) {
+  return axios.get('/api/edit/media-detail', detail)
+}
+export { PostEssay, SetCategory, GetCategory, GetMedia, MediaDetail }

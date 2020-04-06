@@ -100,6 +100,7 @@
     <el-dialog
       top="3%"
       @open="handleOpen"
+      @close="handleClose"
       custom-class="special-bg"
       :visible.sync="Special_Pic.showDialog"
       width="95%"
@@ -153,7 +154,7 @@
           </div>
           <Media />
           <div class="media-sidebar">
-            <div v-if="UploadFile.src">
+            <div v-if="detail.file">
               <el-scrollbar
                 class="el_scroll el-media el-media-sidebar "
                 :native="false"
@@ -167,7 +168,7 @@
                     :percentage="UploadFile.percentage"
                     :color="UploadFile.colors"
                   ></el-progress>
-                  <p>{{ UploadFile.extraData.media_title }}</p>
+                  <p>{{ detail.media_title }}</p>
                 </div>
                 <div class="attachment-details save-ready">
                   <h2>
@@ -175,22 +176,24 @@
                   </h2>
                   <div class="attachment-info">
                     <div class="thumbnail">
-                      <img :src="UploadFile.src" draggable="false" alt="" />
+                      <img
+                        :src="detail.file"
+                        draggable="false"
+                        alt="图片缩略"
+                      />
                     </div>
                     <div class="details">
                       <div class="filename">
-                        {{ UploadFile.extraData.media_title }}
+                        {{ detail.media_title }}
                       </div>
                       <div class="uploaded">
-                        {{ UploadFile.extraData.date }}
+                        {{ detail.date }}
                       </div>
                       <div class="file-size">
-                        {{ UploadFile.extraData.size }}
+                        {{ detail.size }}
                       </div>
                       <div class="dimensions">
-                        {{ UploadFile.extraData.pic_width }}×{{
-                          UploadFile.extraData.pic_height
-                        }}像素
+                        {{ detail.pic_width }}×{{ detail.pic_height }}像素
                       </div>
                       <a
                         class="edit-attachment"
@@ -208,19 +211,18 @@
                   </div>
                 </div>
                 <el-form
+                  ref="detailForm"
                   class="pic-form"
-                  :label-position="right"
+                  label-position="right"
                   label-width="80px"
                 >
-                  <el-form-item label="标题">
-                    <el-input
-                      v-model="UploadFile.extraData.media_title"
-                    ></el-input>
+                  <el-form-item label="标题" prop="media_title">
+                    <el-input v-model="detail.media_title"></el-input>
                   </el-form-item>
-                  <el-form-item label="图片描述">
+                  <el-form-item label="图片描述" prop="pic_describe">
                     <el-input type="textarea"></el-input>
                   </el-form-item>
-                  <el-form-item label="复制链接">
+                  <el-form-item label="复制链接" prop="copy_url">
                     <el-input></el-input>
                   </el-form-item>
                 </el-form>
@@ -311,6 +313,7 @@ export default {
         percentage: 0,
         none: true,
         src: '',
+        showDetail: '',
         extraData: {
           media_title: '',
           size: '',
@@ -374,10 +377,15 @@ export default {
       }
     },
     handleOpen() {
-      this.GetMedia({ params: { username: this.name } }).then(res =>
-        console.log(res)
-      )
+      this.getMedia()
     },
+    handleClose() {},
+    getMedia() {
+      this.GetMedia({ params: { username: this.name } })
+    },
+    // showContent() {
+
+    // },
     //上传文件
     beforeUpload(file) {
       const _this = this
@@ -408,15 +416,18 @@ export default {
       this.UploadFile.percentage = Math.floor(event.percent)
     },
     handleSuccess(response, file, fileList) {
-      this.UploadFile.src = response.file
+      this.detail.file = response.file
+      console.log(this.detail.file)
       this.UploadFile.none = true
       this.$refs.mediaUpload.clearFiles()
+      this.getMedia()
     }
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      category: state => state.edit.category
+      category: state => state.edit.category,
+      detail: state => state.edit.detail
     })
   },
 
