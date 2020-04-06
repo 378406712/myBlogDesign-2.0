@@ -217,12 +217,19 @@
                   label-width="80px"
                 >
                   <el-form-item label="标题" prop="media_title">
-                    <el-input v-model="detail.media_title"></el-input>
+                    <el-input v-model="detail.file_name"></el-input>
                   </el-form-item>
                   <el-form-item label="图片描述" prop="pic_describe">
-                    <el-input type="textarea"></el-input>
+                    <el-input
+                      v-model="detail.description"
+                      type="textarea"
+                    ></el-input>
                   </el-form-item>
-                  <el-form-item label="复制链接" prop="copy_url">
+                  <el-form-item
+                    label="复制链接"
+                    v-model="detail.file"
+                    prop="copy_url"
+                  >
                     <el-input></el-input>
                   </el-form-item>
                 </el-form>
@@ -240,8 +247,9 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import Media from '@/components/media'
+import Extname from '@/utils/extname'
 export default {
   props: {
     disabled: Boolean
@@ -319,7 +327,9 @@ export default {
           size: '',
           date: '',
           pic_width: '',
-          pic_height: ''
+          pic_height: '',
+          file_name: '',
+          description: ''
         },
         colors: [
           { color: '#f56c6c', percentage: 20 },
@@ -336,6 +346,7 @@ export default {
   },
   methods: {
     ...mapActions(['GetMedia']),
+    ...mapMutations(['MEDIA_DETAIL']),
 
     addCategory() {
       this.$emit('addCategory', {
@@ -379,7 +390,9 @@ export default {
     handleOpen() {
       this.getMedia()
     },
-    handleClose() {},
+    handleClose() {
+      this.detail.file = ''
+    },
     getMedia() {
       this.GetMedia({ params: { username: this.name } })
     },
@@ -388,12 +401,16 @@ export default {
     // },
     //上传文件
     beforeUpload(file) {
+      
       const _this = this
       return new Promise((resolve, reject) => {
         const windowURL = window.URL || window.webkitURL
         const img = new Image()
         img.src = windowURL.createObjectURL(file)
         img.onload = function() {
+          _this.UploadFile.extraData.file_name = Extname(file.name)
+          _this.UploadFile.extraData.description =
+            _this.UploadFile.extraData.description
           _this.UploadFile.extraData.username = _this.name
           _this.UploadFile.extraData.media_title = file.name
           _this.UploadFile.extraData.pic_width = img.width
@@ -416,9 +433,9 @@ export default {
       this.UploadFile.percentage = Math.floor(event.percent)
     },
     handleSuccess(response, file, fileList) {
-      this.detail.file = response.file
-      console.log(this.detail.file)
       this.UploadFile.none = true
+      // this.detail.file = response[0].file
+      this.MEDIA_DETAIL(response[0])
       this.$refs.mediaUpload.clearFiles()
       this.getMedia()
     }

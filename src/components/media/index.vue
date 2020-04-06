@@ -31,7 +31,6 @@ export default {
 
     handleDetail(id) {
       this.MediaDetail({ params: { _id: id, username: this.name } })
-      this.$emit('showContent', true)
     }
   },
   computed: {

@@ -10,9 +10,7 @@ const Edit = {
     status: '',
     category: [],
     media: [],
-    detail: {
-      media_title: ''
-    }
+    detail: {}
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -26,7 +24,6 @@ const Edit = {
     },
     [MEDIA_DETAIL](state, detail) {
       state.detail = detail
-      console.log(state.detail)
     }
   },
   actions: {
@@ -73,7 +70,9 @@ const Edit = {
             commit(MEDIA_DETAIL, res.data)
             resolve()
           })
-          .catch(() => reject())
+          .catch(() => {
+            reject()
+          })
       })
     }
   }
