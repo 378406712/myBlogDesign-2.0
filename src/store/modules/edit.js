@@ -10,7 +10,8 @@ const Edit = {
     status: '',
     category: [],
     media: [],
-    detail: {}
+    detail: {},
+    id: ''
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -24,6 +25,7 @@ const Edit = {
     },
     [MEDIA_DETAIL](state, detail) {
       state.detail = detail
+      console.log(state.detail)
     }
   },
   actions: {
@@ -73,6 +75,14 @@ const Edit = {
           .catch(() => {
             reject()
           })
+      })
+    },
+    ChangeDetail({ commit }, single_media) {
+      return new Promise((resolve, reject) => {
+        Api.ChangeMedia(single_media).then(res => {
+          commit(MEDIA_DETAIL, res.data)
+          resolve()
+        })
       })
     }
   }

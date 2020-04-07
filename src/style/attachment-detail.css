@@ -24,7 +24,7 @@
   overflow: hidden;
   min-height: 60px;
   margin-bottom: 16px;
-  line-height: 18px;
+  line-height: 18px;f
   color: #666;
   border-bottom: 1px solid #ddd;
   padding-bottom: 11px;
@@ -101,4 +101,27 @@
 }
 .edit-attachment:hover {
   color: #00a0d2;
+}
+.attachment-details .settings-save-status {
+  float: right;
+  text-transform: none;
+  z-index: 10;
+}
+.attachment-details .settings-save-status .spinner {
+  margin-left: 5px;
+}
+.settings-save-status .spinner {
+  background: url(/static/image/spinner.gif) no-repeat;
+  background-size: 20px 20px;
+  float: right;
+  display: inline-block;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  vertical-align: middle;
+}
+.attachment-details .settings-save-status .saved {
+  float: right;
 }

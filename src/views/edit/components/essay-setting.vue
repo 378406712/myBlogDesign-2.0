@@ -155,85 +155,82 @@
           <Media />
           <div class="media-sidebar">
             <div v-if="detail.file">
-              <el-scrollbar
-                class="el_scroll el-media el-media-sidebar "
-                :native="false"
+              <div
+                class="media-uploader-status"
+                :style="{ display: UploadFile.none ? 'none' : 'block' }"
               >
-                <div
-                  class="media-uploader-status"
-                  :style="{ display: UploadFile.none ? 'none' : 'block' }"
-                >
-                  <h2>正上传</h2>
-                  <el-progress
-                    :percentage="UploadFile.percentage"
-                    :color="UploadFile.colors"
-                  ></el-progress>
-                  <p>{{ detail.media_title }}</p>
-                </div>
-                <div class="attachment-details save-ready">
-                  <h2>
-                    附件详情
-                  </h2>
-                  <div class="attachment-info">
-                    <div class="thumbnail">
-                      <img
-                        :src="detail.file"
-                        draggable="false"
-                        alt="图片缩略"
-                      />
+                <h2>正上传</h2>
+                <el-progress
+                  :percentage="UploadFile.percentage"
+                  :color="UploadFile.colors"
+                ></el-progress>
+                <p>{{ detail.media_title }}</p>
+              </div>
+              <div class="attachment-details save-ready">
+                <h2>
+                  附件详情
+                  <span class="settings-save-status">
+                    <span class="spinner" v-if="spinner"></span>
+                    <span class="saved" v-if="saved">已保存。</span>
+                  </span>
+                </h2>
+
+                <div class="attachment-info">
+                  <div class="thumbnail">
+                    <img :src="detail.file" draggable="false" alt="图片缩略" />
+                  </div>
+                  <div class="details">
+                    <div class="filename">
+                      {{ detail.media_title }}
                     </div>
-                    <div class="details">
-                      <div class="filename">
-                        {{ detail.media_title }}
-                      </div>
-                      <div class="uploaded">
-                        {{ detail.date }}
-                      </div>
-                      <div class="file-size">
-                        {{ detail.size }}
-                      </div>
-                      <div class="dimensions">
-                        {{ detail.pic_width }}×{{ detail.pic_height }}像素
-                      </div>
-                      <a
-                        class="edit-attachment"
-                        href="https://www.qdmmz.cn/wp-admin/post.php?post=1028&amp;action=edit&amp;image-editor"
-                        target="_blank"
-                        >编辑图像</a
-                      >
-                      <button
-                        type="button"
-                        class="button-link delete-attachment"
-                      >
-                        永久删除
-                      </button>
+                    <div class="uploaded">
+                      {{ detail.date }}
                     </div>
+                    <div class="file-size">
+                      {{ detail.size }}
+                    </div>
+                    <div class="dimensions">
+                      {{ detail.pic_width }}×{{ detail.pic_height }}像素
+                    </div>
+                    <a
+                      class="edit-attachment"
+                      href="https://www.qdmmz.cn/wp-admin/post.php?post=1028&amp;action=edit&amp;image-editor"
+                      target="_blank"
+                      >编辑图像</a
+                    >
+                    <button type="button" class="button-link delete-attachment">
+                      永久删除
+                    </button>
                   </div>
                 </div>
-                <el-form
-                  ref="detailForm"
-                  class="pic-form"
-                  label-position="right"
-                  label-width="80px"
+              </div>
+              <el-form
+                ref="detailForm"
+                class="pic-form"
+                label-position="right"
+                label-width="80px"
+              >
+                <el-form-item label="标题" prop="media_title">
+                  <el-input
+                    @change="handleTitle"
+                    v-model="detail.file_name"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="图片描述" prop="pic_describe">
+                  <el-input
+                    @change="handleDescribe"
+                    v-model="detail.description"
+                    type="textarea"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item
+                  label="复制链接"
+                  v-model="detail.file"
+                  prop="copy_url"
                 >
-                  <el-form-item label="标题" prop="media_title">
-                    <el-input v-model="detail.file_name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="图片描述" prop="pic_describe">
-                    <el-input
-                      v-model="detail.description"
-                      type="textarea"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item
-                    label="复制链接"
-                    v-model="detail.file"
-                    prop="copy_url"
-                  >
-                    <el-input></el-input>
-                  </el-form-item>
-                </el-form>
-              </el-scrollbar>
+                  <el-input v-model="detail.file" disabled></el-input>
+                </el-form-item>
+              </el-form>
             </div>
           </div>
         </el-tab-pane>
@@ -257,6 +254,8 @@ export default {
   components: { Media },
   data() {
     return {
+      spinner: false,
+      saved: false,
       /**
        * @enum
        * @param {Boolean} showPass 显示密码保护框
@@ -345,7 +344,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetMedia']),
+    ...mapActions(['GetMedia', 'ChangeDetail']),
     ...mapMutations(['MEDIA_DETAIL']),
 
     addCategory() {
@@ -392,16 +391,13 @@ export default {
     },
     handleClose() {
       this.detail.file = ''
+      this.saved = false
     },
     getMedia() {
       this.GetMedia({ params: { username: this.name } })
     },
-    // showContent() {
-
-    // },
     //上传文件
     beforeUpload(file) {
-      
       const _this = this
       return new Promise((resolve, reject) => {
         const windowURL = window.URL || window.webkitURL
@@ -427,9 +423,7 @@ export default {
     },
     handleProgress(event, file, fileList) {
       this.Special_Pic.activeName = 'mediaStore'
-
       this.UploadFile.none = false
-
       this.UploadFile.percentage = Math.floor(event.percent)
     },
     handleSuccess(response, file, fileList) {
@@ -438,6 +432,38 @@ export default {
       this.MEDIA_DETAIL(response[0])
       this.$refs.mediaUpload.clearFiles()
       this.getMedia()
+    },
+    handleDescribe(e) {
+      this.ChangeDetail({
+        id: this.detail._id,
+        description: e,
+        identify: 'description'
+      }).then(() => {
+        this.Spinner()
+      })
+    },
+    handleTitle(e) {
+      this.ChangeDetail({
+        id: this.detail._id,
+        file_name: e,
+        identify: 'file_name'
+      }).then(() => {
+        this.Spinner()
+      })
+    },
+    Spinner() {
+      return new Promise(resolve => {
+        this.spinner = true
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      }).then(() => {
+        this.spinner = false
+        this.saved = true
+        setTimeout(() => {
+          this.saved = false
+        }, 1000)
+      })
     }
   },
   computed: {

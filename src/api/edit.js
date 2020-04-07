@@ -15,4 +15,14 @@ function GetMedia(username) {
 function MediaDetail(detail) {
   return axios.get('/api/edit/media-detail', detail)
 }
-export { PostEssay, SetCategory, GetCategory, GetMedia, MediaDetail }
+function ChangeMedia(single_media) {
+  return axios.post('/api/edit/change-media', single_media)
+}
+export {
+  PostEssay,
+  SetCategory,
+  GetCategory,
+  GetMedia,
+  MediaDetail,
+  ChangeMedia
+}
