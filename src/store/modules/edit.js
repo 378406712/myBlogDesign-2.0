@@ -1,5 +1,4 @@
 import * as Api from '@/api/edit'
-//const SET_PIC = 'SET_PIC'
 const GET_STATUS = 'GET_STATUS'
 const SET_CATEGORY = 'SET_CATEGORY'
 const GET_CATEGORY = 'GET_CATEGORY'
@@ -25,7 +24,6 @@ const Edit = {
     },
     [MEDIA_DETAIL](state, detail) {
       state.detail = detail
-      console.log(state.detail)
     }
   },
   actions: {
@@ -49,7 +47,6 @@ const Edit = {
     GetCategory({ commit }, username) {
       return new Promise((resolve, reject) => {
         Api.GetCategory(username).then(res => {
-          console.log(res.data)
           commit(GET_CATEGORY, res.data)
           resolve()
         })

@@ -247,6 +247,7 @@
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import Media from '@/components/media'
 import Extname from '@/utils/extname'
+import JudgeSize from '@/utils/size'
 export default {
   props: {
     disabled: Boolean
@@ -398,6 +399,7 @@ export default {
     },
     //上传文件
     beforeUpload(file) {
+      alert(file.size)
       const _this = this
       return new Promise((resolve, reject) => {
         const windowURL = window.URL || window.webkitURL
@@ -412,8 +414,7 @@ export default {
           _this.UploadFile.extraData.pic_width = img.width
           _this.UploadFile.extraData.pic_height = img.height
           _this.UploadFile.extraData.media_title = file.name
-          _this.UploadFile.extraData.size =
-            Math.round((100 * file.size) / 1024 / 1024) / 100 + 'MB'
+          _this.UploadFile.extraData.size = JudgeSize(file.size)
           _this.UploadFile.extraData.date = _this
             .$moment()
             .format('YYYY年MM月DD日mm分')
