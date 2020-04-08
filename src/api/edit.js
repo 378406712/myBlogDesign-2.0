@@ -6,6 +6,9 @@ function PostEssay(essay) {
 function SetCategory(category) {
   return axios.post('/api/edit/set-category', category)
 }
+function ChangeMedia(single_media) {
+  return axios.post('/api/edit/change-media', single_media)
+}
 function GetCategory(category) {
   return axios.get('/api/edit/get-category', category)
 }
@@ -15,14 +18,16 @@ function GetMedia(username) {
 function MediaDetail(detail) {
   return axios.get('/api/edit/media-detail', detail)
 }
-function ChangeMedia(single_media) {
-  return axios.post('/api/edit/change-media', single_media)
+function GetDate(username) {
+  return axios.get('/api/edit/media-date', username)
 }
+
 export {
   PostEssay,
   SetCategory,
   GetCategory,
   GetMedia,
   MediaDetail,
-  ChangeMedia
+  ChangeMedia,
+  GetDate
 }

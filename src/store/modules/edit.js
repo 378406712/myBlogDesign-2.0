@@ -4,12 +4,14 @@ const SET_CATEGORY = 'SET_CATEGORY'
 const GET_CATEGORY = 'GET_CATEGORY'
 const GET_MEDIA = 'GET_MEDIA'
 const MEDIA_DETAIL = 'MEDIA_DETAIL'
+const MEDIA_DATE = 'MEDIA_DATE'
 const Edit = {
   state: {
     status: '',
     category: [],
     media: [],
     detail: {},
+    date: [],
     id: ''
   },
   mutations: {
@@ -24,6 +26,10 @@ const Edit = {
     },
     [MEDIA_DETAIL](state, detail) {
       state.detail = detail
+    },
+    [MEDIA_DATE](state, date) {
+      state.date = date
+      console.log(state.date)
     }
   },
   actions: {
@@ -52,9 +58,10 @@ const Edit = {
         })
       })
     },
-    GetMedia({ commit }, username) {
+    GetMedia({ commit }, data) {
+      console.log(data)
       return new Promise((resolve, reject) => {
-        Api.GetMedia(username)
+        Api.GetMedia(data)
           .then(res => {
             commit(GET_MEDIA, res.data.reverse())
             resolve()
@@ -78,6 +85,16 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.ChangeMedia(single_media).then(res => {
           commit(MEDIA_DETAIL, res.data)
+          resolve()
+        })
+      })
+    },
+    GetDate({ commit }, username) {
+      return new Promise((resolve, reject) => {
+        Api.GetDate(username).then(res => {
+          console.log(res.data)
+
+          commit(MEDIA_DATE, res.data)
           resolve()
         })
       })

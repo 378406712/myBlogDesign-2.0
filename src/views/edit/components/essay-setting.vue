@@ -141,8 +141,15 @@
           <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span>
           <div class="clearFix media-options">
             <div class="selectDate">
-              <el-select placeholder="请选择">
-                <el-option> </el-option>
+              <el-select v-model="select" @change="getMedia()">
+                <el-option label="全部日期" value="all"></el-option>
+                <el-option
+                  v-for="(item, index) in DateList"
+                  :key="index"
+                  :label="item"
+                  :value="item"
+                >
+                </el-option>
               </el-select>
             </div>
             <div class="searchPic">
@@ -255,8 +262,10 @@ export default {
   components: { Media },
   data() {
     return {
+      select: '全部日期',
       spinner: false,
       saved: false,
+      DateList: [],
       /**
        * @enum
        * @param {Boolean} showPass 显示密码保护框
@@ -345,7 +354,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetMedia', 'ChangeDetail']),
+    ...mapActions(['GetMedia', 'ChangeDetail', 'GetDate']),
     ...mapMutations(['MEDIA_DETAIL']),
 
     addCategory() {
@@ -394,12 +403,15 @@ export default {
       this.detail.file = ''
       this.saved = false
     },
-    getMedia() {
-      this.GetMedia({ params: { username: this.name } })
+    async getMedia() {
+      await this.GetMedia({
+        params: { username: this.name, date: this.select }
+      })
+      this.isSame(this.media)
     },
+
     //上传文件
     beforeUpload(file) {
-      alert(file.size)
       const _this = this
       return new Promise((resolve, reject) => {
         const windowURL = window.URL || window.webkitURL
@@ -418,6 +430,9 @@ export default {
           _this.UploadFile.extraData.date = _this
             .$moment()
             .format('YYYY年MM月DD日mm分')
+          _this.UploadFile.extraData.selectDate = _this
+            .$moment()
+            .format('YYYY年MM月')
           resolve()
         }
       })
@@ -452,6 +467,7 @@ export default {
         this.Spinner()
       })
     },
+
     Spinner() {
       return new Promise(resolve => {
         this.spinner = true
@@ -465,13 +481,21 @@ export default {
           this.saved = false
         }, 1000)
       })
+    },
+    isSame(media) {
+      let array = []
+      media.map(item => {
+        array.push(item.selectDate)
+      })
+      this.DateList = Array.from(new Set(array))
     }
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
       category: state => state.edit.category,
-      detail: state => state.edit.detail
+      detail: state => state.edit.detail,
+      media: state => state.edit.media
     })
   },
 
