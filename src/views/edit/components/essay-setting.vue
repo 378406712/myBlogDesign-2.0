@@ -142,7 +142,7 @@
           <div class="clearFix media-options">
             <div class="selectDate">
               <el-select v-model="select" @change="getMedia()">
-                <el-option label="全部日期" value="all"></el-option>
+                <el-option label="全部日期" value="全部日期"></el-option>
                 <el-option
                   v-for="(item, index) in DateList"
                   :key="index"
@@ -407,7 +407,8 @@ export default {
       await this.GetMedia({
         params: { username: this.name, date: this.select }
       })
-      this.isSame(this.media)
+      await this.GetDate({ params: { username: this.name } })
+      this.isSame(this.date)
     },
 
     //上传文件
@@ -482,9 +483,9 @@ export default {
         }, 1000)
       })
     },
-    isSame(media) {
+    isSame(date) {
       let array = []
-      media.map(item => {
+      date.map(item => {
         array.push(item.selectDate)
       })
       this.DateList = Array.from(new Set(array))
@@ -495,7 +496,8 @@ export default {
     ...mapState({
       category: state => state.edit.category,
       detail: state => state.edit.detail,
-      media: state => state.edit.media
+      media: state => state.edit.media,
+      date: state => state.edit.date
     })
   },
 

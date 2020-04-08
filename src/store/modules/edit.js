@@ -92,8 +92,6 @@ const Edit = {
     GetDate({ commit }, username) {
       return new Promise((resolve, reject) => {
         Api.GetDate(username).then(res => {
-          console.log(res.data)
-
           commit(MEDIA_DATE, res.data)
           resolve()
         })
