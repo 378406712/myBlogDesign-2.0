@@ -154,8 +154,11 @@
             </div>
             <div class="searchPic">
               <el-input
+                @select="handleSelect"
+                @input="handleSearch"
                 class="searchPic-input"
                 placeholder="请输入内容"
+                v-model="search"
               ></el-input>
             </div>
           </div>
@@ -354,7 +357,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetMedia', 'ChangeDetail', 'GetDate']),
+    ...mapActions(['GetMedia', 'ChangeDetail', 'GetDate', 'SearchMedia']),
     ...mapMutations(['MEDIA_DETAIL']),
 
     addCategory() {
@@ -488,8 +491,18 @@ export default {
       date.map(item => {
         array.push(item.selectDate)
       })
-      this.DateList = Array.from(new Set(array))
-    }
+      this.DateList = Array.from(new Set(array)).reverse()
+    },
+    handleSearch(item) {
+      this.SearchMedia({
+        params: {
+          username: this.name,
+          keywords: item
+        }
+      })
+      console.log(item)
+    },
+    handleSelect() {}
   },
   computed: {
     ...mapGetters(['name']),

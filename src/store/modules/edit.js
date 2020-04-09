@@ -29,7 +29,6 @@ const Edit = {
     },
     [MEDIA_DATE](state, date) {
       state.date = date
-      console.log(state.date)
     }
   },
   actions: {
@@ -59,7 +58,6 @@ const Edit = {
       })
     },
     GetMedia({ commit }, data) {
-      console.log(data)
       return new Promise((resolve, reject) => {
         Api.GetMedia(data)
           .then(res => {
@@ -93,6 +91,14 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.GetDate(username).then(res => {
           commit(MEDIA_DATE, res.data)
+          resolve()
+        })
+      })
+    },
+    SearchMedia({commit},keywords){
+      return new Promise((resolve,reject)=>{
+        Api.SearchMedia(keywords).then((res)=>{
+          commit('GET_MEDIA',res.data)
           resolve()
         })
       })

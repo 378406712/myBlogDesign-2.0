@@ -10,7 +10,7 @@
         <div class="attachment-preview">
           <div class="thumbnail">
             <div class="centered">
-              <img :src="item.file" draggable="false" alt="" />
+              <img :src="item.file" draggable="false" alt="特色图片" />
             </div>
           </div>
         </div>
