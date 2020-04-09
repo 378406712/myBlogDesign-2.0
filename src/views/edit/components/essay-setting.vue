@@ -154,7 +154,6 @@
             </div>
             <div class="searchPic">
               <el-input
-                @select="handleSelect"
                 @input="handleSearch"
                 class="searchPic-input"
                 placeholder="请输入内容"
@@ -208,7 +207,11 @@
                       target="_blank"
                       >编辑图像</a
                     >
-                    <button type="button" class="button-link delete-attachment">
+                    <button
+                      @click="handleRemove"
+                      type="button"
+                      class="button-link delete-attachment"
+                    >
                       永久删除
                     </button>
                   </div>
@@ -258,6 +261,7 @@ import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import Media from '@/components/media'
 import Extname from '@/utils/extname'
 import JudgeSize from '@/utils/size'
+import { Msg } from '@/utils/message'
 export default {
   props: {
     disabled: Boolean
@@ -357,7 +361,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetMedia', 'ChangeDetail', 'GetDate', 'SearchMedia']),
+    ...mapActions([
+      'GetMedia',
+      'ChangeDetail',
+      'GetDate',
+      'SearchMedia',
+      'RemoveMedia'
+    ]),
     ...mapMutations(['MEDIA_DETAIL']),
 
     addCategory() {
@@ -404,6 +414,7 @@ export default {
     },
     handleClose() {
       this.detail.file = ''
+      this.search = ''
       this.saved = false
     },
     async getMedia() {
@@ -500,9 +511,16 @@ export default {
           keywords: item
         }
       })
-      console.log(item)
     },
-    handleSelect() {}
+    async handleRemove() {
+      await this.RemoveMedia({ username: this.name, _id: this.id }).then(() => {
+        console.log(this.status)
+        if (this.status === 'SUCCESS') {
+          return Msg('删除成功', 'success')
+        } else if (this.status === 'ERROR') return Msg('删除失败', 'error')
+      })
+      await this.getMedia()
+    }
   },
   computed: {
     ...mapGetters(['name']),
@@ -510,7 +528,9 @@ export default {
       category: state => state.edit.category,
       detail: state => state.edit.detail,
       media: state => state.edit.media,
-      date: state => state.edit.date
+      date: state => state.edit.date,
+      id: state => state.edit.id,
+      status: state => state.edit.status
     })
   },
 

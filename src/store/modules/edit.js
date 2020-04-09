@@ -5,6 +5,7 @@ const GET_CATEGORY = 'GET_CATEGORY'
 const GET_MEDIA = 'GET_MEDIA'
 const MEDIA_DETAIL = 'MEDIA_DETAIL'
 const MEDIA_DATE = 'MEDIA_DATE'
+const MEDIA_ID = 'MEDIA_ID'
 const Edit = {
   state: {
     status: '',
@@ -29,6 +30,9 @@ const Edit = {
     },
     [MEDIA_DATE](state, date) {
       state.date = date
+    },
+    [MEDIA_ID](state, id) {
+      state.id = id
     }
   },
   actions: {
@@ -90,15 +94,24 @@ const Edit = {
     GetDate({ commit }, username) {
       return new Promise((resolve, reject) => {
         Api.GetDate(username).then(res => {
-          commit(MEDIA_DATE, res.data)
+          commit(GET_STATUS, res.data)
           resolve()
         })
       })
     },
-    SearchMedia({commit},keywords){
-      return new Promise((resolve,reject)=>{
-        Api.SearchMedia(keywords).then((res)=>{
-          commit('GET_MEDIA',res.data)
+    SearchMedia({ commit }, keywords) {
+      return new Promise((resolve, reject) => {
+        Api.SearchMedia(keywords).then(res => {
+          commit('GET_MEDIA', res.data)
+          resolve()
+        })
+      })
+    },
+    RemoveMedia({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        Api.RemoveMedia(id).then(res => {
+          commit(GET_STATUS, res.data.status)
+
           resolve()
         })
       })

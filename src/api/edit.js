@@ -9,6 +9,9 @@ function SetCategory(category) {
 function ChangeMedia(single_media) {
   return axios.post('/api/edit/change-media', single_media)
 }
+function RemoveMedia(id) {
+  return axios.post('/api/edit/media-remove', id)
+}
 function GetCategory(category) {
   return axios.get('/api/edit/get-category', category)
 }
@@ -33,5 +36,6 @@ export {
   MediaDetail,
   ChangeMedia,
   GetDate,
-  SearchMedia
+  SearchMedia,
+  RemoveMedia
 }

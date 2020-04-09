@@ -24,13 +24,15 @@
   </ul>
 </template>
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   methods: {
     ...mapActions(['MediaDetail']),
+    ...mapMutations(['MEDIA_ID']),
 
-    handleDetail(id) {
-      this.MediaDetail({ params: { _id: id, username: this.name } })
+    async handleDetail(id) {
+      await this.MediaDetail({ params: { _id: id, username: this.name } })
+      this.MEDIA_ID(id)
     }
   },
   computed: {
