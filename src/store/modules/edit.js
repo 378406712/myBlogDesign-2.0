@@ -27,6 +27,7 @@ const Edit = {
     },
     [MEDIA_DETAIL](state, detail) {
       state.detail = detail
+      state.id = detail._id
     },
     [MEDIA_DATE](state, date) {
       state.date = date
@@ -111,7 +112,7 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.RemoveMedia(id).then(res => {
           commit(GET_STATUS, res.data.status)
-
+          commit(MEDIA_DETAIL, {})
           resolve()
         })
       })

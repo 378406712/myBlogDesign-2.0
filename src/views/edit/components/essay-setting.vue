@@ -111,31 +111,32 @@
       <el-tabs v-model="Special_Pic.activeName" type="border-card">
         <el-tab-pane name="uploadDocs">
           <span slot="label"><i class="el-icon-upload"></i> 上传文件</span>
-
-          <div class="upload-ui">
-            <h2>
-              拖文件到任何地方来上传
-            </h2>
-            <p>或</p>
-            <el-upload
-              action="/api/edit/media"
-              multiple
-              :limit="1"
-              ref="mediaUpload"
-              :data="UploadFile.extraData"
-              :show-file-list="false"
-              :on-progress="handleProgress"
-              :on-success="handleSuccess"
-              :before-upload="beforeUpload"
-            >
+          <el-upload
+            action="/api/edit/media"
+            multiple
+            :limit="1"
+            ref="mediaUpload"
+            :data="UploadFile.extraData"
+            :show-file-list="false"
+            :on-progress="handleProgress"
+            :on-success="handleSuccess"
+            :before-upload="beforeUpload"
+            class="fullUpload"
+            drag
+          >
+            <div class="upload-ui">
+              <h2>
+                拖文件到任何地方来上传
+              </h2>
+              <p>或</p>
               <el-button>点击上传</el-button>
-            </el-upload>
-          </div>
-          <div class="post-upload-ui">
-            <p class="max-upload-size">
-              只能上传jpg/png文件，且不超过500kb
-            </p>
-          </div>
+            </div>
+            <div class="post-upload-ui">
+              <p class="max-upload-size">
+                只能上传jpg/png文件，且不超过500kb
+              </p>
+            </div>
+          </el-upload>
         </el-tab-pane>
         <el-tab-pane name="mediaStore" class="media-store">
           <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span>
@@ -261,7 +262,7 @@ import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import Media from '@/components/media'
 import Extname from '@/utils/extname'
 import JudgeSize from '@/utils/size'
-import { Msg } from '@/utils/message'
+import { Msg, ComfirmMsg } from '@/utils/message'
 export default {
   props: {
     disabled: Boolean
@@ -459,7 +460,7 @@ export default {
     },
     handleSuccess(response, file, fileList) {
       this.UploadFile.none = true
-      // this.detail.file = response[0].file
+      // this.MEDIA_ID({id:this.})
       this.MEDIA_DETAIL(response[0])
       this.$refs.mediaUpload.clearFiles()
       this.getMedia()
@@ -512,14 +513,17 @@ export default {
         }
       })
     },
-    async handleRemove() {
-      await this.RemoveMedia({ username: this.name, _id: this.id }).then(() => {
-        console.log(this.status)
-        if (this.status === 'SUCCESS') {
-          return Msg('删除成功', 'success')
-        } else if (this.status === 'ERROR') return Msg('删除失败', 'error')
-      })
-      await this.getMedia()
+    handleRemove() {
+      ComfirmMsg()
+        .then(() => {
+          this.RemoveMedia({ username: this.name, _id: this.id }).then(() => {
+            if (this.status === 'SUCCESS') {
+              return Msg('删除成功', 'success')
+            } else if (this.status === 'ERROR') return Msg('删除失败', 'error')
+          })
+          this.getMedia()
+        })
+        .catch(() => Msg('已取消删除', 'info'))
     }
   },
   computed: {
@@ -547,6 +551,7 @@ export default {
 padding-right:10px
 }
 //媒体库
+
 .media-sidebar {
     position: absolute;
     top: 0;
@@ -588,6 +593,30 @@ padding-right:10px
 
 
 //上传文件
+
+.fullUpload{
+  position:absolute
+  width:100%;
+  height:100%;
+  left:0;
+  top:0;
+  box-sizing:border-box!important
+}
+.fullUpload >>> .el-upload {
+  width:100%;
+  height:100%;
+
+
+}
+.fullUpload >>> .el-upload-dragger{
+ width:100%;
+  height:100%;
+  border:2px dashed transparent;
+
+}
+ >>> .is-dragover{
+   border:2px dashed #409eff !important
+}
 .none{
   display:none
 }

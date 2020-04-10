@@ -139,7 +139,6 @@ export default {
       'deleteDevices',
       'BatchDeleteDevices'
     ]),
-
     userInfo() {
       this.getInfo({ params: { username: this.name } })
     },
@@ -211,7 +210,7 @@ export default {
     },
     /**
      * 获取表格数据
-     * @clss query
+     * @class query
      */
     query() {
       this.getDevieces(this.name).then(() => {
@@ -249,7 +248,7 @@ export default {
   padding-left: 20px;
 }
 .card-player {
-  padding: 0; 
+  padding: 0;
   background-position: 160px 0px;
 }
 .playerList {
