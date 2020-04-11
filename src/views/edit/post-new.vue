@@ -13,6 +13,7 @@
         <el-upload
           id="img-upload"
           action="/api/edit/media"
+          accept="image/*"
           :multiple="false"
           :show-file-list="false"
           :on-success="richUploadSuccess"

@@ -23,21 +23,26 @@
   </a>
 </p>
 
-
 ## 预览
+
 在线体验：
 
 ## 简介
-`vue-lzw` 是一个企业级管理二次构建的后台博客发布以及管理项目，基于 Vue 和 ElementUI 构建。它使用了最新的前端技术栈，内置了i18n国际化解决方案，支持多语言，动态路由，权限验证，登录注册，等很多功能特性。
+
+`vue-lzw` 是一个企业级管理二次构建的后台博客发布以及管理项目，基于 Vue 和 ElementUI 构建。它使用了最新的前端技术栈，内置了 i18n 国际化解决方案，支持多语言，动态路由，权限验证，登录注册，等很多功能特性。
 
 同时，它也是一个很好的学习项目，包含了一些常见问题的解决方案，比如：数据可视化，表单表格，导入导出，自定义组件，自定义指令，富文本，换肤等等。
 
+<a href="https://github.com/378406712/vue-cms">原项目</a>
+感谢大佬搭的架子
+
 ## 写在前面
+
 请确保你安装了 [node](https://nodejs.org/en/) 和 [git](https://git-scm.com/)，与此同时，你应该对 [Vue](https://cn.vuejs.org/v2/guide/)、[Vuex](https://vuex.vuejs.org/zh/)、[Vue Router](https://router.vuejs.org/zh/)、[ES2015+](http://es6.ruanyifeng.com/)、[ElementUI](http://element-cn.eleme.io/#/zh-CN) 有所了解。我们的请求有使用 [Mock.js](https://github.com/nuysoft/Mock/wiki/Getting-Started) 模拟，也有使用线上真实的接口数据，提前了解和学习这些知识会对使用本项目有很大的帮助。
 
 ## Build Setup
 
-``` bash
+```bash
 # 克隆项目
 git clone https://github.com/378406712/myBlogDesign-2.0.git
 
@@ -69,6 +74,7 @@ npm run build --report
 ```
 
 ## 功能
+
 ```
 - 登录/注销
 - 权限验证
@@ -108,14 +114,13 @@ npm run build --report
 
 <img style="display:none" src="https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/alipay-wxpay.png" alt="donate">
 
-
 ## Browsers support
 
 Modern browsers and Internet Explorer 10+.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IE10, IE11, Edge                                                                                                                                                                                                | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               |
 
 ## License
 
