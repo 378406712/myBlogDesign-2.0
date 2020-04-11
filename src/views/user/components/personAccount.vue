@@ -90,6 +90,7 @@
                 list-type="picture-card"
                 :limit="1"
                 :before-upload="beforeupload"
+                accept="image/*"
               >
                 <i class="showPic el-icon-plus"></i>
               </el-upload>
@@ -147,10 +148,8 @@ export default {
     //阻止upload的自动上传，进行再操作
     beforeupload(file) {
       //创建临时的路径来展示图片
-      const reg = /^image\/(jpg|gif|png|jpeg)/i
-      const isPic = reg.test(file.type)
       const isLt3M = file.size / 1024 / 1024 < 3
-      if (isPic && isLt3M) {
+      if (isLt3M) {
         const windowURL = window.URL || window.webkitURL
         this.ruleForm.url = windowURL.createObjectURL(file)
         this.SET_AVATAR(this.ruleForm.url)
@@ -158,9 +157,8 @@ export default {
         this.param.append('file', file, file.name)
         return false
       }
-      if (!isPic) Msg('上传头像图片只能是 JPG|GIF|PNG|JPEG 格式!', 'error')
       if (!isLt3M) Msg('上传头像图片大小不能超过 3MB!', 'error')
-      return isPic && isLt3M
+      return isLt3M
     },
     //设置个人资料
     setPersonal() {

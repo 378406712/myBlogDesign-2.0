@@ -91,8 +91,39 @@
             @click="Special_Pic.showDialog = true"
             type="button"
             class="editor-post-featured-image__toggle"
+            v-if="!Special_Pic.special_bg"
           >
             设置特色图片
+          </button>
+
+          <button
+            v-if="Special_Pic.special_bg"
+            type="button"
+            class="components-button editor-post-featured-image__preview"
+            aria-label="编辑或更新此图像"
+            @click="Special_Pic.showDialog = true"
+          >
+            <div class="components-responsive-wrapper">
+              <div style="padding-bottom: 100%;"></div>
+              <img
+                :src="Special_Pic.special_bg"
+                class="components-responsive-wrapper__content"
+              />
+            </div></button
+          ><el-button
+            @click="Special_Pic.showDialog = true"
+            v-if="Special_Pic.special_bg"
+            style="margin:10px"
+          >
+            更换图像</el-button
+          ><button
+            v-if="Special_Pic.special_bg"
+            type="button"
+            class="components-button is-link is-destructive"
+            style="margin:10px"
+            @click="Special_Pic.special_bg = ''"
+          >
+            取消特色图片
           </button>
         </div>
       </el-collapse-item>
@@ -114,6 +145,7 @@
           <el-upload
             action="/api/edit/media"
             multiple
+            accept="image/*"
             :limit="1"
             ref="mediaUpload"
             :data="UploadFile.extraData"
@@ -133,7 +165,7 @@
             </div>
             <div class="post-upload-ui">
               <p class="max-upload-size">
-                只能上传jpg/png文件，且不超过500kb
+                只能上传jpg/png等图片文件，且不超过5Mb
               </p>
             </div>
           </el-upload>
@@ -162,9 +194,9 @@
               ></el-input>
             </div>
           </div>
-          <Media />
+          <Media ref="media" />
           <div class="media-sidebar">
-            <div v-if="detail.file">
+            <div v-if="id">
               <div
                 class="media-uploader-status"
                 :style="{ display: UploadFile.none ? 'none' : 'block' }"
@@ -250,7 +282,7 @@
         </el-tab-pane>
       </el-tabs>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="centerDialogVisible = false"
+        <el-button type="primary" :disabled="!id" @click="selectSpecial"
           >选 择</el-button
         >
       </span>
@@ -289,8 +321,8 @@ export default {
         essayPassword: '',
         radioVisible: 'public',
         showVisible: '公开',
-        keepTop: '',
-        reCheck: '',
+        keepTop: false,
+        reCheck: false,
         visible: [
           { status: 'public', info: '所有人可见。', title: '公开' },
           {
@@ -322,7 +354,8 @@ export default {
        */
       Special_Pic: {
         showDialog: false,
-        activeName: 'uploadDocs'
+        activeName: 'uploadDocs',
+        special_bg: ''
       },
       /**
        * @enum
@@ -369,14 +402,19 @@ export default {
       'SearchMedia',
       'RemoveMedia'
     ]),
-    ...mapMutations(['MEDIA_DETAIL']),
+    ...mapMutations(['MEDIA_DETAIL', 'MEDIA_ID']),
 
     addCategory() {
-      this.$emit('addCategory', {
-        username: this.name,
-        category: this.Classify_Category.createCategory
-      })
-      this.Classify_Category.createCategory = ''
+      const { createCategory } = this.Classify_Category
+      if (createCategory !== '') {
+        this.$emit('addCategory', {
+          username: this.name,
+          category: createCategory
+        })
+        this.Classify_Category.createCategory = ''
+      } else {
+        Msg('目录不能为空', 'error')
+      }
     },
     toPublish() {
       const {
@@ -385,13 +423,16 @@ export default {
         keepTop,
         reCheck
       } = this.Status_Visible
+
       const { checkCategory } = this.Classify_Category
+      const { special_bg } = this.Special_Pic
       this.$emit('toPublish', {
         radioVisible,
         essayPassword,
         keepTop,
         reCheck,
-        checkCategory
+        checkCategory,
+        special_bg
       })
     },
     VisibleChange(data) {
@@ -427,30 +468,36 @@ export default {
     },
     //上传文件
     beforeUpload(file) {
+      const isLt3M = file.size / 1024 / 1024 < 5
       const _this = this
-      return new Promise((resolve, reject) => {
-        const windowURL = window.URL || window.webkitURL
-        const img = new Image()
-        img.src = windowURL.createObjectURL(file)
-        img.onload = function() {
-          _this.UploadFile.extraData.file_name = Extname(file.name)
-          _this.UploadFile.extraData.description =
-            _this.UploadFile.extraData.description
-          _this.UploadFile.extraData.username = _this.name
-          _this.UploadFile.extraData.media_title = file.name
-          _this.UploadFile.extraData.pic_width = img.width
-          _this.UploadFile.extraData.pic_height = img.height
-          _this.UploadFile.extraData.media_title = file.name
-          _this.UploadFile.extraData.size = JudgeSize(file.size)
-          _this.UploadFile.extraData.date = _this
-            .$moment()
-            .format('YYYY年MM月DD日mm分')
-          _this.UploadFile.extraData.selectDate = _this
-            .$moment()
-            .format('YYYY年MM月')
-          resolve()
-        }
-      })
+      if (isLt3M) {
+        return new Promise((resolve, reject) => {
+          const windowURL = window.URL || window.webkitURL
+          const img = new Image()
+          img.src = windowURL.createObjectURL(file)
+          img.onload = function() {
+            _this.UploadFile.extraData.file_name = Extname(file.name)
+            _this.UploadFile.extraData.description =
+              _this.UploadFile.extraData.description
+            _this.UploadFile.extraData.username = _this.name
+            _this.UploadFile.extraData.media_title = file.name
+            _this.UploadFile.extraData.pic_width = img.width
+            _this.UploadFile.extraData.pic_height = img.height
+            _this.UploadFile.extraData.media_title = file.name
+            _this.UploadFile.extraData.size = JudgeSize(file.size)
+            _this.UploadFile.extraData.date = _this
+              .$moment()
+              .format('YYYY年MM月DD日mm分')
+            _this.UploadFile.extraData.selectDate = _this
+              .$moment()
+              .format('YYYY年MM月')
+            resolve()
+          }
+        })
+      } else {
+        Msg('上传头像图片大小不能超过 3MB!', 'error')
+        return isLt3M
+      }
     },
     handleProgress(event, file, fileList) {
       this.Special_Pic.activeName = 'mediaStore'
@@ -459,10 +506,11 @@ export default {
     },
     handleSuccess(response, file, fileList) {
       this.UploadFile.none = true
-      // this.MEDIA_ID({id:this.})
       this.MEDIA_DETAIL(response[0])
+      this.MEDIA_ID(response[0]._id)
       this.$refs.mediaUpload.clearFiles()
       this.getMedia()
+      this.$refs.media.callMethod()
     },
     handleDescribe(e) {
       this.ChangeDetail({
@@ -482,7 +530,6 @@ export default {
         this.Spinner()
       })
     },
-
     Spinner() {
       return new Promise(resolve => {
         this.spinner = true
@@ -498,7 +545,6 @@ export default {
       })
     },
     isSame(date) {
-      console.log(date)
       let array = []
       date.map(item => {
         array.push(item.selectDate)
@@ -524,6 +570,10 @@ export default {
           this.getMedia()
         })
         .catch(() => Msg('已取消删除', 'info'))
+    },
+    selectSpecial() {
+      this.Special_Pic.special_bg = this.detail.file
+      this.Special_Pic.showDialog = false
     }
   },
   computed: {
@@ -536,14 +586,9 @@ export default {
       id: state => state.edit.id,
       status: state => state.edit.status
     })
-  },
-
-  filters: {
-    filterCategory(value) {}
   }
 }
 </script>
-
 <style lang="stylus" scoped>
 //附件详情
 @import url('../../../style/attachment-detail.css');

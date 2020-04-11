@@ -4,7 +4,11 @@
       <li
         v-for="item in media"
         :key="item._id"
-        class="attachment save-ready"
+        :class="
+          details === item._id
+            ? 'attachment save-ready details'
+            : 'attachment save-ready'
+        "
         @click="handleDetail(item._id)"
       >
         <div class="attachment-preview">
@@ -14,9 +18,15 @@
             </div>
           </div>
         </div>
-
-        <button type="button" class="check" tabindex="-1">
-          <span class="media-modal-icon"></span
+        <button
+          type="button"
+          :class="check === item._id ? 'check' : 'check none'"
+        >
+          <span
+            @mouseover="minus = !minus"
+            @mouseleave="minus = !minus"
+            :class="minus ? ' media-modal-icon minus' : 'media-modal-icon'"
+          ></span
           ><span class="screen-reader-text">取消选择</span>
         </button>
       </li>
@@ -26,18 +36,39 @@
 <script>
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
+  data() {
+    return {
+      details: false,
+      check: false,
+      minus: false
+    }
+  },
   methods: {
     ...mapActions(['MediaDetail']),
     ...mapMutations(['MEDIA_ID']),
 
     async handleDetail(id) {
+      if (this.id === id) {
+        this.MEDIA_ID()
+        this.check = ''
+        this.details = ''
+        return
+      }
       await this.MediaDetail({ params: { _id: id, username: this.name } })
       this.MEDIA_ID(id)
+      this.details = id
+      this.check = id
+    },
+    callMethod() {
+      //父组件调用该方法，改变图片左上角样式
+      this.details = this.id
+      this.check = this.id
     }
   },
   computed: {
     ...mapState({
-      media: state => state.edit.media
+      media: state => state.edit.media,
+      id: state => state.edit.id
     }),
     ...mapGetters(['name'])
   }
@@ -45,10 +76,16 @@ export default {
 </script>
 
 <style scoped>
+.none {
+  display: none;
+}
+.minus {
+  background-position: -60px 0 !important;
+}
 .pic-list {
   position: absolute;
   top: 50px;
-  left: -15px;
+  left: -10px;
   right: 300px;
   bottom: 0;
   overflow: auto;
@@ -122,27 +159,29 @@ export default {
   transform: translate(-50%, -50%);
 }
 .attachment .check {
-  display: none;
   height: 24px;
   width: 24px;
   padding: 0;
   border: 0;
   position: absolute;
   z-index: 10;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: 1px;
   outline: 0;
   background: #eee;
   cursor: pointer;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
+  background-color: #0073aa;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #0073aa;
 }
 .attachment .check .media-modal-icon {
   display: block;
-  background-position: -1px 0;
+  background-position: -21px 0;
+
   height: 15px;
   width: 15px;
   margin: 5px;
 }
+
 .media-modal-icon {
   background-image: url(http://www.qdmmz.cn/wp-includes/images/uploader-icons.png);
   background-repeat: no-repeat;
@@ -159,6 +198,10 @@ export default {
   position: absolute;
   width: 1px;
   word-wrap: normal !important;
+}
+.details {
+  /* box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #0073aa; */
+  box-shadow: inset 0 0 2px 3px #fff, inset 0 0 0 7px #5b9dd9;
 }
 
 .el-media >>> .el-scrollbar__bar.is-vertical {

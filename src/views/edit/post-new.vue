@@ -119,8 +119,8 @@ export default {
        * 以及，图片上传成功后的路径
        * 将路径赋值给 imgUrl
        */
-      if (response.file) {
-        let imgUrl = response.file
+      if (response[0].file) {
+        let imgUrl = response[0].file
         // 获取光标所在位置
         let length = this.quill.getSelection().index
         // 插入图片，res为服务器返回的图片链接地址
@@ -192,11 +192,7 @@ export default {
     },
     toPublish(visiable) {
       const EssayData = {
-        keepTop: visiable.keepTop,
-        reCheck: visiable.reCheck,
-        category: visiable.checkCategory,
-        essayPassword: visiable.essayPassword,
-        essayStatus: visiable.radioVisible,
+        ...visiable,
         title: this.title,
         essay: this.content,
         username: this.name

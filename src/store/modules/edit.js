@@ -31,7 +31,6 @@ const Edit = {
     },
     [MEDIA_DATE](state, date) {
       state.date = date
-      console.log(date)
     },
     [MEDIA_ID](state, id) {
       state.id = id
