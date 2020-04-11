@@ -425,7 +425,6 @@ export default {
       await this.GetDate({ params: { username: this.name } })
       this.isSame(this.date)
     },
-
     //上传文件
     beforeUpload(file) {
       const _this = this
@@ -499,6 +498,7 @@ export default {
       })
     },
     isSame(date) {
+      console.log(date)
       let array = []
       date.map(item => {
         array.push(item.selectDate)
@@ -605,8 +605,6 @@ padding-right:10px
 .fullUpload >>> .el-upload {
   width:100%;
   height:100%;
-
-
 }
 .fullUpload >>> .el-upload-dragger{
  width:100%;

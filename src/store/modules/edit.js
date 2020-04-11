@@ -31,6 +31,7 @@ const Edit = {
     },
     [MEDIA_DATE](state, date) {
       state.date = date
+      console.log(date)
     },
     [MEDIA_ID](state, id) {
       state.id = id
@@ -95,7 +96,7 @@ const Edit = {
     GetDate({ commit }, username) {
       return new Promise((resolve, reject) => {
         Api.GetDate(username).then(res => {
-          commit(GET_STATUS, res.data)
+          commit(MEDIA_DATE, res.data)
           resolve()
         })
       })
