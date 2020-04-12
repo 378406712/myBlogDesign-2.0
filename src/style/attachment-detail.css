@@ -207,3 +207,156 @@ img {
   transition-duration: 0.05s;
   transition-timing-function: ease-in-out;
 }
+.pic-form {
+  padding-right: 10px;
+}
+/* 媒体库 */
+
+.media-sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  padding: 0 16px 0;
+  z-index: 75;
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+
+  overflow: auto;
+}
+.selectDate {
+  float: left;
+}
+.searchPic {
+  max-width: 33%;
+  float: right;
+}
+.media-store {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.media-options {
+  position: absolute;
+  top: 0;
+  left: -15px;
+  right: 300px;
+  z-index: 100;
+  height: 60px;
+  padding: 0 16px;
+  border: 0 solid #ddd;
+  overflow: hidden;
+}
+
+/* 上传文件 */
+
+.fullUpload {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  box-sizing: border-box !important;
+}
+.fullUpload >>> .el-upload {
+  width: 100%;
+  height: 100%;
+}
+.fullUpload >>> .el-upload-dragger {
+  width: 100%;
+  height: 100%;
+  border: 2px dashed transparent;
+}
+>>> .is-dragover {
+  border: 2px dashed #409eff !important;
+}
+.none {
+  display: none;
+}
+.max-upload-size,
+.upload-ui {
+  text-align: center;
+}
+.upload-ui {
+  margin-top: 10%;
+}
+.special-title {
+  font-size: 22px;
+}
+.el-collapse {
+  border-top: 0px;
+}
+>>> .el-tabs__content {
+  height: 420px;
+}
+>>> .el-dialog__body {
+  padding: 0px 20px;
+}
+>>> .el-dialog__header {
+  padding: 0 0 20px 20px;
+}
+>>> .el-popover {
+  right: 100% !important;
+}
+>>> .el-popover__title {
+  font-weight: 600;
+  font-size: 13px;
+}
+>>> .el-radio__label {
+  font-weight: 600;
+  font-size: 13px;
+}
+.visible-info {
+  margin-top: 0;
+  margin-left: 27px;
+}
+.editor-post-featured-image__toggle {
+  width: 100%;
+  border: 1px dashed #a2aab2;
+  background-color: #edeff0;
+  line-height: 20px;
+  padding: 8px 0;
+  text-align: center;
+}
+.editor-post-featured-image__toggle:hover {
+  background-color: #f8f9f9;
+}
+.editor-post {
+  margin-top: 12px;
+}
+.is-link {
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  outline: none;
+  text-align: left;
+  color: #0073aa;
+  text-decoration: underline;
+  transition-property: border, background, color;
+  transition-duration: 0.05s;
+  transition-timing-function: ease-in-out;
+}
+.is-link:hover {
+  color: #00a0d2;
+}
+.category {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.select {
+  margin-top: 5px;
+}
+.units {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+>>> .el-collapse-item__header {
+  font-weight: bold;
+}

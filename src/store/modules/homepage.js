@@ -1,6 +1,6 @@
 import * as Api from '@/api/homepage'
 import { CodeToText } from 'element-china-area-data'
-import { MUSIC } from '@/helper/const'
+import { MUSIC } from '@/helper/const-music'
 const GET_DEVICES = 'GET_DEVICES'
 const GET_MUSIU = 'GET_MUSIC'
 const SET_PAGES = 'SET_PAGES'

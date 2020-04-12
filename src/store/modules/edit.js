@@ -6,14 +6,20 @@ const GET_MEDIA = 'GET_MEDIA'
 const MEDIA_DETAIL = 'MEDIA_DETAIL'
 const MEDIA_DATE = 'MEDIA_DATE'
 const MEDIA_ID = 'MEDIA_ID'
+const SPECIAL_BG = 'SPECIAL_BG'
+const SHOW_DIALOG = 'SHOW_DIALOG'
+const TEMP_DIR = 'TEMP_DIR'
 const Edit = {
   state: {
     status: '',
     category: [],
     media: [],
     detail: {},
+    tempDir: {},
     date: [],
-    id: ''
+    id: '',
+    showDialog: false,
+    special_bg: false
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -34,6 +40,15 @@ const Edit = {
     },
     [MEDIA_ID](state, id) {
       state.id = id
+    },
+    [SPECIAL_BG](state, bg) {
+      state.special_bg = bg
+    },
+    [SHOW_DIALOG](state, dialog) {
+      state.showDialog = dialog
+    },
+    [TEMP_DIR](state, tempDir) {
+      state.tempDir = tempDir
     }
   },
   actions: {
@@ -47,11 +62,7 @@ const Edit = {
     },
     SetCategory({}, CategoryData) {
       return new Promise((resolve, reject) => {
-        Api.SetCategory(CategoryData).then(res => {
-          console.log(res.data.status)
-          // commit(SET_CATEGORY, res.data)
-          resolve()
-        })
+        Api.SetCategory(CategoryData).then(() => resolve())
       })
     },
     GetCategory({ commit }, username) {

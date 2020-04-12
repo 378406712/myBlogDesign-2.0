@@ -5,7 +5,7 @@
         v-for="item in media"
         :key="item._id"
         :class="
-          details === item._id
+          id === item._id
             ? 'attachment save-ready details'
             : 'attachment save-ready'
         "
@@ -18,10 +18,7 @@
             </div>
           </div>
         </div>
-        <button
-          type="button"
-          :class="check === item._id ? 'check' : 'check none'"
-        >
+        <button type="button" :class="id === item._id ? 'check' : 'check none'">
           <span
             @mouseover="minus = !minus"
             @mouseleave="minus = !minus"
@@ -38,8 +35,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      details: false,
-      check: false,
+      check: '',
       minus: false
     }
   },
@@ -51,18 +47,12 @@ export default {
       if (this.id === id) {
         this.MEDIA_ID()
         this.check = ''
-        this.details = ''
+
         return
+      } else {
+        await this.MediaDetail({ params: { _id: id, username: this.name } })
+        this.MEDIA_ID(id)
       }
-      await this.MediaDetail({ params: { _id: id, username: this.name } })
-      this.MEDIA_ID(id)
-      this.details = id
-      this.check = id
-    },
-    callMethod() {
-      //父组件调用该方法，改变图片左上角样式
-      this.details = this.id
-      this.check = this.id
     }
   },
   computed: {
@@ -183,7 +173,7 @@ export default {
 }
 
 .media-modal-icon {
-  background-image: url(http://www.qdmmz.cn/wp-includes/images/uploader-icons.png);
+  background-image: url(/static/image/uploader-icons.png);
   background-repeat: no-repeat;
 }
 .screen-reader-text {
