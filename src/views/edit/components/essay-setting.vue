@@ -52,16 +52,22 @@
       <el-collapse-item title="分类目录" name="2">
         <div>
           <div>搜索分类目录</div>
-          <el-input placeholder="请输入内容" v-model="search">
+          <el-input
+            placeholder="请输入目录查询"
+            @input="handleSearch"
+            v-model="search"
+          >
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
         </div>
         <el-card v-if="category.length" class="box-card category">
-          <div v-for="(item, index) in category" :key="index" class="select">
-            <el-checkbox-group v-model="Classify_Category.checkCategory">
-              <el-checkbox :label="item.category"></el-checkbox>
-            </el-checkbox-group>
-          </div>
+          <el-checkbox-group
+            v-model="Classify_Category.checkCategory"
+            v-for="(item, index) in category"
+            :key="index"
+          >
+            <el-checkbox :label="item.category" :checked="check.check"></el-checkbox>
+          </el-checkbox-group>
         </el-card>
         <button
           type="button"
@@ -130,7 +136,7 @@
   </div>
 </template>
 <script>
-import { mapMutations, mapGetters, mapState } from 'vuex'
+import { mapActions, mapMutations, mapGetters, mapState } from 'vuex'
 import SpecialPic from './components/special-pic'
 import { Msg } from '@/utils/message'
 import { EssaySettingData } from '@/helper/const-essay-setting'
@@ -145,6 +151,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['SearchCategory']),
     ...mapMutations(['SPECIAL_BG', 'SHOW_DIALOG', 'MEDIA_ID']),
     changeSpecial() {
       this.SPECIAL_BG('')
@@ -196,13 +203,22 @@ export default {
           this.Status_Visible.showPass = true
           break
       }
+    },
+    handleSearch(item) {
+      this.SearchCategory({
+        params: {
+          username: this.name,
+          keywords: item
+        }
+      })
     }
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
       category: state => state.edit.category,
-      special_bg: state => state.edit.special_bg
+      special_bg: state => state.edit.special_bg,
+      check: state => state.edit.check
     })
   }
 }

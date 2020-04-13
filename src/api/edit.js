@@ -27,6 +27,9 @@ function GetDate(username) {
 function SearchMedia(keywords) {
   return axios.get('/api/edit/media-search', keywords)
 }
+function SearchCategory(keywords) {
+  return axios.get('/api/edit/category-search', keywords)
+}
 
 export {
   PostEssay,
@@ -37,5 +40,6 @@ export {
   ChangeMedia,
   GetDate,
   SearchMedia,
-  RemoveMedia
+  RemoveMedia,
+  SearchCategory
 }

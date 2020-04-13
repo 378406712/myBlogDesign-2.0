@@ -1,6 +1,5 @@
 import * as Api from '@/api/edit'
 const GET_STATUS = 'GET_STATUS'
-const SET_CATEGORY = 'SET_CATEGORY'
 const GET_CATEGORY = 'GET_CATEGORY'
 const GET_MEDIA = 'GET_MEDIA'
 const MEDIA_DETAIL = 'MEDIA_DETAIL'
@@ -8,7 +7,8 @@ const MEDIA_DATE = 'MEDIA_DATE'
 const MEDIA_ID = 'MEDIA_ID'
 const SPECIAL_BG = 'SPECIAL_BG'
 const SHOW_DIALOG = 'SHOW_DIALOG'
-const TEMP_DIR = 'TEMP_DIR'
+const CATEGORY_CHECK = 'CATEGORY_CHECK'
+
 const Edit = {
   state: {
     status: '',
@@ -19,7 +19,8 @@ const Edit = {
     date: [],
     id: '',
     showDialog: false,
-    special_bg: false
+    special_bg: false,
+    check: ''
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -47,8 +48,8 @@ const Edit = {
     [SHOW_DIALOG](state, dialog) {
       state.showDialog = dialog
     },
-    [TEMP_DIR](state, tempDir) {
-      state.tempDir = tempDir
+    [CATEGORY_CHECK](state, check) {
+      state.check = check
     }
   },
   actions: {
@@ -60,9 +61,13 @@ const Edit = {
         })
       })
     },
-    SetCategory({}, CategoryData) {
+    SetCategory({ commit }, CategoryData) {
       return new Promise((resolve, reject) => {
-        Api.SetCategory(CategoryData).then(() => resolve())
+        Api.SetCategory(CategoryData).then(res => {
+          console.log(res)
+            commit(CATEGORY_CHECK, res.data)
+          resolve()
+        })
       })
     },
     GetCategory({ commit }, username) {
@@ -124,6 +129,14 @@ const Edit = {
         Api.RemoveMedia(id).then(res => {
           commit(GET_STATUS, res.data.status)
           commit(MEDIA_DETAIL, {})
+          resolve()
+        })
+      })
+    },
+    SearchCategory({ commit }, keywords) {
+      return new Promise((resolve, reject) => {
+        Api.SearchCategory(keywords).then(res => {
+          commit(GET_CATEGORY, res.data)
           resolve()
         })
       })
