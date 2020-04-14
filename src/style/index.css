@@ -56,6 +56,7 @@ a:active {
   outline: none;
 }
 
+
 ul,
 li {
   list-style: none;
@@ -102,10 +103,6 @@ span i {
 p {
   /* margin: 0; */
   cursor: url(/static/cur/texto.cur), auto;
-}
-
-.components-container {
-  margin: 20px 30px;
 }
 
 li {

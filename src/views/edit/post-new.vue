@@ -1,5 +1,5 @@
 <template>
-  <div class="components-container main-container">
+  <div class="grey-bg">
     <h2>新增文章</h2>
     <el-row :gutter="20">
       <el-col :span="18">
@@ -265,5 +265,10 @@ export default {
 /* 内容返显 */
 .ql-editor {
   margin-bottom: 50px;
+}.grey-bg {
+  padding: 30px 30px 0px 20px;
+}
+h2{
+  margin-top: 0;
 }
 </style>
