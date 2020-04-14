@@ -66,7 +66,10 @@
             v-for="(item, index) in category"
             :key="index"
           >
-            <el-checkbox :label="item.category" :checked="check.check"></el-checkbox>
+            <el-checkbox
+              :label="item.category"
+              :checked="check.check"
+            ></el-checkbox>
           </el-checkbox-group>
         </el-card>
         <button
@@ -162,7 +165,10 @@ export default {
       if (createCategory !== '') {
         this.$emit('addCategory', {
           username: this.name,
-          category: createCategory
+          category: createCategory,
+          alias: createCategory.toLowerCase(),
+          desc: '—',
+          pic: 'http://localhost:3001/random/1.jpg'
         })
         this.Classify_Category.createCategory = ''
       } else {

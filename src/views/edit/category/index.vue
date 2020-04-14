@@ -1,7 +1,7 @@
 <template>
-  <div class="grey-bg components-container">
+  <div class="grey-bg components-container" >
     <h2>分类目录</h2>
-    <el-form>
+    <el-form >
       <el-form-item>
         <p class="search-box">
           <el-input style="width:auto" size="mini"></el-input>
@@ -9,7 +9,7 @@
         </p>
       </el-form-item>
     </el-form>
-    <el-row :gutter="20">
+    <el-row  :gutter="20">
       <el-col :span="8">
         <CategoryForm />
       </el-col>
@@ -34,7 +34,7 @@ export default {
 <style lang="stylus" scoped>
 .grey-bg {
   background: #f1f1f1;
-  padding: 30px 30px 0px 20px;
+  padding: 30px 30px 60px 20px;
 }
 h2{
   margin-top: 0

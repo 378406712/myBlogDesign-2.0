@@ -2,18 +2,21 @@
   <div>
     <Operation />
     <el-table
-      :data="tableData"
+      :data="category"
       @selection-change="handleChange"
       :row-class-name="tableRowClassName"
-      border
       style="width: 100%"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="picture" label="图像"></el-table-column>
-      <el-table-column prop="name" label="名称" width="180"></el-table-column>
-      <el-table-column prop="description" label="图像描述"></el-table-column>
-      <el-table-column prop="alias" label="别名"></el-table-column>
-      <el-table-column prop="sum" label="总数"></el-table-column>
+      <el-table-column style=" line-height: 0" prop="pic" label="图像">
+        <template slot-scope="scope">
+          <img :src="scope.row.pic" style="width: 50px;height: 50px" />
+        </template>
+      </el-table-column>
+      <el-table-column sortable prop="category" label="名称"></el-table-column>
+      <el-table-column sortable prop="desc" label="图像描述"></el-table-column>
+      <el-table-column sortable prop="alias" label="别名"></el-table-column>
+      <el-table-column sortable prop="sum" label="总数"></el-table-column>
     </el-table>
     <Operation />
   </div>
@@ -21,52 +24,48 @@
 
 <script>
 import Operation from './components/operation'
+import { mapActions, mapGetters, mapState } from 'vuex'
+
 export default {
-  components:{
+  components: {
     Operation
   },
   props: {},
 
   data() {
-    return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }
-      ]
-    }
+    return {}
   },
   methods: {
+    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory']),
+
     tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 === 1) return 'warning-row'
+      if (rowIndex % 2 === 1) 'warning-row'
       else {
         return 'success-row'
       }
       return ''
     },
-    handleChange() {}
+    handleChange() {},
+    getCategory() {
+      this.GetCategory({ params: { username: this.name } })
+    }
+  },
+  mounted() {
+    this.getCategory()
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({
+      category: state => state.edit.category
+    })
   }
 }
 </script>
 
 <style scoped>
+.el-table_1_column_2 {
+  line-height: 0;
+}
 .el-table__row {
   width: 100%;
 }
@@ -77,10 +76,10 @@ export default {
   text-align: center !important;
 }
 .el-table .warning-row {
-  background: #f9f9f9;
+  background: #fff;
 }
 
 .el-table .success-row {
-  background: #fff;
+  background: #f9f9f9;
 }
 </style>

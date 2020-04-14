@@ -1,55 +1,32 @@
 <template>
-  <el-form label-position="top" ref="form" :model="form" label-width="80px">
+  <el-form
+    :rules="form.rules"
+    label-position="top"
+    ref="CategoryForm"
+    :model="form"
+    label-width="80px"
+  >
     <p class="form-title">添加新分类目录</p>
-    <el-form-item label="活动名称">
+    <el-form-item label="名称" prop="name">
       <el-input v-model="form.name"></el-input>
     </el-form-item>
-    <el-form-item label="活动区域">
-      <el-select v-model="form.region" placeholder="请选择活动区域">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
+    <el-form-item label="别名" prop="alias">
+      <el-input v-model="form.alias"></el-input>
     </el-form-item>
-    <el-form-item label="活动时间">
-      <el-col :span="11">
-        <el-date-picker
-          type="date"
-          placeholder="选择日期"
-          v-model="form.date1"
-          style="width: 100%;"
-        ></el-date-picker>
-      </el-col>
-      <el-col class="line" :span="2">-</el-col>
-      <el-col :span="11">
-        <el-time-picker
-          placeholder="选择时间"
-          v-model="form.date2"
-          style="width: 100%;"
-        ></el-time-picker>
-      </el-col>
+    <el-form-item label="图像描述" prop="desc">
+      <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
     </el-form-item>
-    <el-form-item label="即时配送">
-      <el-switch v-model="form.delivery"></el-switch>
-    </el-form-item>
-    <el-form-item label="活动性质">
-      <el-checkbox-group v-model="form.type">
-        <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-        <el-checkbox label="地推活动" name="type"></el-checkbox>
-        <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-        <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="特殊资源">
-      <el-radio-group v-model="form.resource">
-        <el-radio label="线上品牌商赞助"></el-radio>
-        <el-radio label="线下场地免费"></el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="活动形式">
-      <el-input type="textarea" v-model="form.desc"></el-input>
+    <el-form-item label="分类/标签图像" prop="url" class="mb-15">
+      <el-input v-model="form.url" class="mb-5"></el-input>
+      <el-button>添加图像</el-button>
     </el-form-item>
     <el-form-item>
-      <el-button>取消</el-button>
+      <el-button
+        @click="onSubmit('CategoryForm')"
+        type="warning"
+        class="text-shadow"
+        >添加新分类目录</el-button
+      >
     </el-form-item>
   </el-form>
 </template>
@@ -60,14 +37,22 @@ export default {
     return {
       form: {
         name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        alias: '',
+        desc: '',
+        url: '',
+        rules: {
+          name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        }
       }
+    }
+  },
+  methods: {
+    onSubmit() {
+      this.$refs.CategoryForm.validate(valid => {
+        if (valid) {
+          alert('123')
+        }
+      })
     }
   }
 }
@@ -77,5 +62,27 @@ export default {
 .form-title {
   font-size: 18px;
   margin: 0 !important;
+}
+.el-form--label-top >>> .el-form-item__label {
+  padding: 0;
+}
+.mb-5 {
+  margin-bottom: 5px;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.text-shadow {
+  text-shadow: 0 -1px 1px #bd831f, 1px 0 1px #bd831f, 0 1px 1px #bd831f,
+    -1px 0 1px #bd831f;
+}
+>>> .el-form-item__label {
+  color: #23282d;
+  font-weight: 400;
+  text-shadow: none;
+  vertical-align: baseline;
+}
+>>> .el-form-item{
+margin-bottom: 10px;
 }
 </style>
