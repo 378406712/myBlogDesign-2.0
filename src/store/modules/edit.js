@@ -64,7 +64,6 @@ const Edit = {
     CategoryCount({ commit }, CategoryData) {
       return new Promise((resolve, reject) => {
         Api.CategoryCount(CategoryData).then(res => {
-          console.log(res.data)
           commit(GET_CATEGORY, res.data)
           resolve()
         })
@@ -82,7 +81,6 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.GetCategory(username).then(res => {
           commit(GET_CATEGORY, res.data)
-          console.log(res.data)
           resolve()
         })
       })
@@ -126,6 +124,7 @@ const Edit = {
       })
     },
     SearchMedia({ commit }, keywords) {
+      console.log(keywords)
       return new Promise((resolve, reject) => {
         Api.SearchMedia(keywords).then(res => {
           commit('GET_MEDIA', res.data)

@@ -1,15 +1,20 @@
 <template>
-  <div class="grey-bg components-container" >
+  <div class="grey-bg components-container">
     <h2>分类目录</h2>
-    <el-form >
+    <el-form>
       <el-form-item>
         <p class="search-box">
-          <el-input style="width:auto" size="mini"></el-input>
-          <el-button size="mini">搜索分类目录</el-button>
+          <el-input
+            style="width:auto"
+            v-model="searchCategory"
+            @blur="handleSearch"
+            size="mini"
+          ></el-input>
+          <el-button size="mini" @click="handleSearch">搜索分类目录</el-button>
         </p>
       </el-form-item>
     </el-form>
-    <el-row  :gutter="20">
+    <el-row :gutter="20">
       <el-col :span="8">
         <CategoryForm />
       </el-col>
@@ -22,11 +27,30 @@
 <script>
 import CategoryForm from './components/category-form'
 import CategoryTable from './components/category-table'
+import { mapActions, mapGetters, mapState } from 'vuex'
+
 export default {
   name: 'category',
   components: { CategoryForm, CategoryTable },
   data() {
-    return {}
+    return {
+      searchCategory: ''
+    }
+  },
+  methods: {
+    ...mapActions(['SearchCategory']),
+    handleSearch() {
+      this.SearchCategory({
+        params: {
+          username: this.name,
+          keywords: this.searchCategory
+        }
+      })
+    }
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({})
   }
 }
 </script>

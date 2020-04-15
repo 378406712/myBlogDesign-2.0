@@ -55,8 +55,9 @@ export default {
     }
   },
   mounted() {
+    
     this.getCategory()
-    console.log('123')
+
   },
   computed: {
     ...mapGetters(['name']),
