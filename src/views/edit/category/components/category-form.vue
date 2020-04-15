@@ -76,13 +76,13 @@ export default {
   text-shadow: 0 -1px 1px #bd831f, 1px 0 1px #bd831f, 0 1px 1px #bd831f,
     -1px 0 1px #bd831f;
 }
->>> .el-form-item__label {
+>>> .el-form-item  .el-form-item__label {
   color: #23282d;
   font-weight: 400;
   text-shadow: none;
   vertical-align: baseline;
 }
->>> .el-form-item{
-margin-bottom: 10px;
+>>> .el-form-item {
+  margin-bottom: 10px;
 }
 </style>

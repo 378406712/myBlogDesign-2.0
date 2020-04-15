@@ -1,8 +1,8 @@
-import * as Api from '@/api/edit'
+import * as Api from '@/api/category'
 
-const Edit = {
+const Category = {
   state: {},
   mutations: {},
   actions: {}
 }
-export default Edit
+export default Category

@@ -61,10 +61,19 @@ const Edit = {
         })
       })
     },
+    CategoryCount({ commit }, CategoryData) {
+      return new Promise((resolve, reject) => {
+        Api.CategoryCount(CategoryData).then(res => {
+          console.log(res.data)
+          commit(GET_CATEGORY, res.data)
+          resolve()
+        })
+      })
+    },
     SetCategory({ commit }, CategoryData) {
       return new Promise((resolve, reject) => {
         Api.SetCategory(CategoryData).then(res => {
-            commit(CATEGORY_CHECK, res.data)
+          commit(CATEGORY_CHECK, res.data)
           resolve()
         })
       })
@@ -73,6 +82,7 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.GetCategory(username).then(res => {
           commit(GET_CATEGORY, res.data)
+          console.log(res.data)
           resolve()
         })
       })

@@ -102,7 +102,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory']),
+    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory', 'CategoryCount']),
     async addCategory(category) {
       await this.SetCategory(category)
       this.getCategory()
@@ -201,6 +201,7 @@ export default {
       this.PostEssay(EssayData)
         .then(() => {
           if (this.status === 'SUCCESS') {
+            this.CategoryCount(EssayData)
             this.publish = '更新'
             return Msg('发布成功', 'success')
           } else if (this.status === 'ERROR') return Msg('发布失败', 'error')

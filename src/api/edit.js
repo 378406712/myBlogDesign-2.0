@@ -3,6 +3,9 @@ import axios from 'axios'
 function PostEssay(essay) {
   return axios.post('/api/edit/post-new', essay)
 }
+function CategoryCount(essay) {
+  return axios.post('/api/edit/category-count', essay)
+}
 function SetCategory(category) {
   return axios.post('/api/edit/set-category', category)
 }
@@ -33,6 +36,7 @@ function SearchCategory(keywords) {
 
 export {
   PostEssay,
+  CategoryCount,
   SetCategory,
   GetCategory,
   GetMedia,

@@ -1,3 +1,5 @@
 import axios from 'axios'
-
-export {}
+function CategoryCount(essay) {
+    return axios.post('/api/edit/category-count', essay)
+  }
+export {CategoryCount}
