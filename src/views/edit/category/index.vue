@@ -19,7 +19,7 @@
         <CategoryForm />
       </el-col>
       <el-col :span="16">
-        <CategoryTable />
+        <CategoryTable  />
       </el-col>
     </el-row>
   </div>

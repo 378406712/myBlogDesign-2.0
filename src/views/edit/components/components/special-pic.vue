@@ -45,8 +45,12 @@
         <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span>
         <div class="clearFix media-options">
           <div class="selectDate">
-            <el-select v-model="select" @change="getMedia()">
-              <el-option label="全部日期" value="全部日期"></el-option>
+            <el-select
+              v-model="select"
+              placeholder="全部日期"
+              @change="getMedia()"
+            >
+              <el-option label="全部日期" value="all"></el-option>
               <el-option
                 v-for="(item, index) in DateList"
                 :key="index"

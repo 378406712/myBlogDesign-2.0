@@ -7,6 +7,7 @@ import language from './modules/language'
 import permission from './modules/permission'
 import account from './modules/user/account'
 import edit from './modules/edit'
+import category from './modules/essay/category'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     language,
     permission,
     account,
-    edit
+    edit,
+    category
   }
 })

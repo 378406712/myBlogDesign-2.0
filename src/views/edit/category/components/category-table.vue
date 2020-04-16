@@ -8,9 +8,9 @@
       style="width: 100%"
     >
       <el-table-column type="selection" width="45"></el-table-column>
-      <el-table-column style=" line-height: 0" prop="pic" label="图像">
+      <el-table-column prop="pic" label="图像">
         <template slot-scope="scope">
-          <img :src="scope.row.pic" style="width: 54px;height: 50px" />
+          <img :src="scope.row.pic" style="width: 50px;height: 50px" />
         </template>
       </el-table-column>
       <el-table-column sortable prop="category" label="名称">
@@ -28,7 +28,7 @@
 
 <script>
 import Operation from './components/operation'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -40,7 +40,8 @@ export default {
     return {}
   },
   methods: {
-    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory']),
+    ...mapActions(['GetCategory']),
+    ...mapMutations(['SET_SELECTION']),
 
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) 'warning-row'
@@ -49,15 +50,15 @@ export default {
       }
       return ''
     },
-    handleChange() {},
+    handleChange(val) {
+      this.SET_SELECTION(val)
+    },
     getCategory() {
       this.GetCategory({ params: { username: this.name } })
     }
   },
   mounted() {
-    
     this.getCategory()
-
   },
   computed: {
     ...mapGetters(['name']),

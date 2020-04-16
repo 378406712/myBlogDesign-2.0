@@ -60,7 +60,7 @@
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
         </div>
-        <el-card v-if="category.length" class="box-card category">
+        <el-card class="box-card category">
           <el-checkbox-group
             v-model="Classify_Category.checkCategory"
             v-for="(item, index) in category"
@@ -176,20 +176,10 @@ export default {
       }
     },
     toPublish() {
-      const {
-        radioVisible,
-        essayPassword,
-        keepTop,
-        reCheck
-      } = this.Status_Visible
-
       const { checkCategory } = this.Classify_Category
       const { special_bg } = this
       this.$emit('toPublish', {
-        radioVisible,
-        essayPassword,
-        keepTop,
-        reCheck,
+        ...this.Status_Visible,
         checkCategory,
         special_bg
       })

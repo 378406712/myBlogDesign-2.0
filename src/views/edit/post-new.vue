@@ -191,13 +191,14 @@ export default {
        */
       quill.on('editor-change', this.onEditorChange)
     },
-    toPublish(visiable) {
+    async toPublish(visiable) {
       const EssayData = {
         ...visiable,
         title: this.title,
         essay: this.content,
         username: this.name
       }
+      console.log(EssayData)
       this.PostEssay(EssayData)
         .then(() => {
           if (this.status === 'SUCCESS') {
@@ -214,10 +215,20 @@ export default {
     },
     getCategory() {
       this.GetCategory({ params: { username: this.name } })
+    },
+    unClassify() {
+      this.SetCategory({
+        username: this.name,
+        category: '未分类',
+        alias: '未分类',
+        desc: '—',
+        pic: 'http://localhost:3001/random/2.jpg'
+      })
     }
   },
   mounted() {
     this.initQuill()
+    this.unClassify()
     this.getCategory()
   },
   computed: {

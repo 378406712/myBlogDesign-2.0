@@ -2,7 +2,7 @@
  * @file special-pic
  */
 export const SpecialPicData = {
-  select: '全部日期',
+  select: 'all',
   spinner: false,
   saved: false,
   DateList: [],
