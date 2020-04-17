@@ -5,4 +5,7 @@ function CategoryCount(essay) {
 function BatchDeleteCategory(key) {
   return axios.post('/api/category/BatchDeleteCategory', key)
 }
-export { CategoryCount, BatchDeleteCategory }
+function GetEssay(username) {
+  return axios.get('/api/category/get-essay', username)
+}
+export { CategoryCount, GetEssay, BatchDeleteCategory }

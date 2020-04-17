@@ -44,16 +44,25 @@ export default {
      */
     BatchDelete() {
       if (this.operation === 'delete' && this.selection) {
-        const data = []
+        const data = [] //id
+        const payload = [] //目录名
         this.selection.map(item => {
           Object.getOwnPropertyNames(item).forEach(function(key) {
             if (key == '_id') {
               data.push(item[key])
+            } else if (key == 'category') {
+              payload.push(item[key])
             }
           })
         })
-        const param = { username: this.name, _id: JSON.stringify(data) }
-        this.BatchDeleteCategory(param)
+        const param = {
+          username: this.name,
+          _id: JSON.stringify(data),
+          category: payload
+        }
+        this.BatchDeleteCategory(param).then(() => {
+          this.$emit('getCategory')
+        })
       }
     }
   },

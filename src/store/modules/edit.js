@@ -81,6 +81,7 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.GetCategory(username).then(res => {
           commit(GET_CATEGORY, res.data)
+          console.log(res.data)
           resolve()
         })
       })

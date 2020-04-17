@@ -1,13 +1,14 @@
 <template>
   <div>
-    <Operation />
+    <Operation v-on:getCategory="getCategory" />
     <el-table
       :data="category"
       @selection-change="handleChange"
       :row-class-name="tableRowClassName"
       style="width: 100%"
     >
-      <el-table-column type="selection" width="45"></el-table-column>
+      <el-table-column :selectable="selectable" type="selection" width="45">
+      </el-table-column>
       <el-table-column prop="pic" label="图像">
         <template slot-scope="scope">
           <img :src="scope.row.pic" style="width: 50px;height: 50px" />
@@ -20,9 +21,15 @@
       </el-table-column>
       <el-table-column sortable prop="desc" label="图像描述"></el-table-column>
       <el-table-column sortable prop="alias" label="别名"></el-table-column>
-      <el-table-column sortable prop="sum" label="总数"></el-table-column>
+      <el-table-column sortable prop="sum" label="总数">
+        <template slot-scope="scope">
+          <a href="#" @click="EssayDetail(scope.row.category)">{{
+            scope.row.sum
+          }}</a>
+        </template>
+      </el-table-column>
     </el-table>
-    <Operation />
+    <Operation v-on:getCategory="getCategory" />
   </div>
 </template>
 
@@ -40,7 +47,7 @@ export default {
     return {}
   },
   methods: {
-    ...mapActions(['GetCategory']),
+    ...mapActions(['GetCategory', 'GetEssay']),
     ...mapMutations(['SET_SELECTION']),
 
     tableRowClassName({ row, rowIndex }) {
@@ -54,7 +61,22 @@ export default {
       this.SET_SELECTION(val)
     },
     getCategory() {
+      console.log('触发了')
       this.GetCategory({ params: { username: this.name } })
+    },
+    EssayDetail(data) {
+      this.GetEssay({
+        params: {
+          username: this.name,
+          checkCategory: data
+        }
+      })
+    },
+    selectable(row, index) {
+      if (row.category !== '未分类') return true
+      else {
+        return false
+      }
     }
   },
   mounted() {
