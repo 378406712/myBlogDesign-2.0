@@ -33,6 +33,9 @@ function SearchMedia(keywords) {
 function SearchCategory(keywords) {
   return axios.get('/api/edit/category-search', keywords)
 }
+function CategoryCountAll(username) {
+  return axios.post('/api/edit/category-count-all', username)
+}
 
 export {
   PostEssay,
@@ -45,5 +48,6 @@ export {
   GetDate,
   SearchMedia,
   RemoveMedia,
-  SearchCategory
+  SearchCategory,
+  CategoryCountAll
 }

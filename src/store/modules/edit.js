@@ -149,6 +149,13 @@ const Edit = {
           resolve()
         })
       })
+    },
+    AllCategoryCount({ commit }, username) {
+      return new Promise((resolve, reject) => {
+        Api.CategoryCountAll(username).then(res => {
+          commit(GET_CATEGORY, res.data)
+        })
+      })
     }
   }
 }

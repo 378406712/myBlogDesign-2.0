@@ -37,12 +37,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['BatchDeleteCategory']),
+    ...mapActions(['BatchDeleteCategory', 'AllCategoryCount']),
     /**
      * 删除多条
      * @class BatchDelete
      */
-    BatchDelete() {
+    async BatchDelete() {
       if (this.operation === 'delete' && this.selection) {
         const data = [] //id
         const payload = [] //目录名
@@ -60,9 +60,9 @@ export default {
           _id: JSON.stringify(data),
           category: payload
         }
-        this.BatchDeleteCategory(param).then(() => {
-          this.$emit('getCategory')
-        })
+        await this.BatchDeleteCategory(param)
+       
+        this.$emit('getCategory')
       }
     }
   },

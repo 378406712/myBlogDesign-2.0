@@ -176,11 +176,16 @@ export default {
       }
     },
     toPublish() {
-      const { checkCategory } = this.Classify_Category
+      let { checkCategory } = this.Classify_Category
+
+      if (!checkCategory.length) {
+        checkCategory.push('未分类')
+      }
+      console.log(checkCategory)
       const { special_bg } = this
       this.$emit('toPublish', {
         ...this.Status_Visible,
-        checkCategory,
+        checkCategory: checkCategory,
         special_bg
       })
     },

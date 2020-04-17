@@ -47,7 +47,7 @@ export default {
     return {}
   },
   methods: {
-    ...mapActions(['GetCategory', 'GetEssay']),
+    ...mapActions(['GetCategory', 'GetEssay', 'AllCategoryCount']),
     ...mapMutations(['SET_SELECTION']),
 
     tableRowClassName({ row, rowIndex }) {
@@ -60,9 +60,9 @@ export default {
     handleChange(val) {
       this.SET_SELECTION(val)
     },
-    getCategory() {
-      console.log('触发了')
-      this.GetCategory({ params: { username: this.name } })
+    async getCategory() {
+      await this.GetCategory({ params: { username: this.name } })
+      this.AllCategoryCount({ username: this.name })
     },
     EssayDetail(data) {
       this.GetEssay({

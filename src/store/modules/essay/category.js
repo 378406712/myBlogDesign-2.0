@@ -18,8 +18,7 @@ const Category = {
     BatchDeleteCategory({ commit }, key) {
       return new Promise((resolve, reject) => {
         Api.BatchDeleteCategory(key)
-          .then(res => {
-            console.log(res.data)
+          .then(() => {
             resolve()
           })
           .catch(err => reject(err))
@@ -29,7 +28,6 @@ const Category = {
       return new Promise((resolve, reject) => {
         Api.GetEssay(keywords)
           .then(res => {
-            console.log(res.data)
             commit('ESSAY_LIST', res.data)
             resolve()
           })
