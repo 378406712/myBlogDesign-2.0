@@ -20,7 +20,7 @@ const Edit = {
     id: '',
     showDialog: false,
     special_bg: false,
-    check: ''
+    check: false
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -49,7 +49,8 @@ const Edit = {
       state.showDialog = dialog
     },
     [CATEGORY_CHECK](state, check) {
-      state.check = check
+      state.check= check
+      console.log(check)
     }
   },
   actions: {
@@ -81,7 +82,6 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.GetCategory(username).then(res => {
           commit(GET_CATEGORY, res.data)
-          console.log(res.data)
           resolve()
         })
       })

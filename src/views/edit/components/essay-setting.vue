@@ -68,7 +68,7 @@
           >
             <el-checkbox
               :label="item.category"
-              :checked="check.check"
+              :checked="check._id === item._id && check.category !== '未分类'"
             ></el-checkbox>
           </el-checkbox-group>
         </el-card>
@@ -177,17 +177,18 @@ export default {
     },
     toPublish() {
       let { checkCategory } = this.Classify_Category
-
       if (!checkCategory.length) {
         checkCategory.push('未分类')
       }
-      console.log(checkCategory)
+      alert(checkCategory)
       const { special_bg } = this
       this.$emit('toPublish', {
         ...this.Status_Visible,
         checkCategory: checkCategory,
         special_bg
       })
+      this.Classify_Category.checkCategory = []
+      console.log(this.Classify_Category.checkCategory)
     },
     VisibleChange(data) {
       switch (data) {

@@ -61,7 +61,7 @@ export default {
           category: payload
         }
         await this.BatchDeleteCategory(param)
-       
+        
         this.$emit('getCategory')
       }
     }

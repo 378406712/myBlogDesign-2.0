@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     ...mapActions(['GetCategory', 'GetEssay', 'AllCategoryCount']),
-    ...mapMutations(['SET_SELECTION']),
+    ...mapMutations(['SET_SELECTION', 'CATEGORY_CHECK']),
 
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) 'warning-row'
@@ -63,6 +63,7 @@ export default {
     async getCategory() {
       await this.GetCategory({ params: { username: this.name } })
       this.AllCategoryCount({ username: this.name })
+      this.CATEGORY_CHECK({})
     },
     EssayDetail(data) {
       this.GetEssay({
