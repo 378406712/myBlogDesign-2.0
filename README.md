@@ -103,6 +103,9 @@ npm run build --report
 ![image](https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/register.png)
 ![image](https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/homepage.png)
 ![image](https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/profile.png)
+![image](https://github.com/378406712/myBlogDesign-2.0/blob/master/resource/introduction.png)
+![image](https://github.com/378406712/myBlogDesign-2.0/blob//master/resource/post-new.png)
+![image](https://github.com/378406712/myBlogDesign-2.0/blob//master/resource/category.png)
 
 ## Online Demo
 
