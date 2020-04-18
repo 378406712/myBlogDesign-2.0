@@ -188,7 +188,6 @@ export default {
         special_bg
       })
       this.Classify_Category.checkCategory = []
-      console.log(this.Classify_Category.checkCategory)
     },
     VisibleChange(data) {
       switch (data) {

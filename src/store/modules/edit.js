@@ -50,7 +50,6 @@ const Edit = {
     },
     [CATEGORY_CHECK](state, check) {
       state.check= check
-      console.log(check)
     }
   },
   actions: {
@@ -125,7 +124,6 @@ const Edit = {
       })
     },
     SearchMedia({ commit }, keywords) {
-      console.log(keywords)
       return new Promise((resolve, reject) => {
         Api.SearchMedia(keywords).then(res => {
           commit('GET_MEDIA', res.data)
