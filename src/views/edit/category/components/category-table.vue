@@ -63,10 +63,9 @@ export default {
       this.SET_SELECTION(val)
     },
     async getCategory() {
+      console.log('收到')
       await this.GetCategory({ params: { username: this.name } })
-      console.log(1)
       this.AllCategoryCount({ username: this.name })
-        console.log(2)
       this.CATEGORY_CHECK({})
     },
     EssayDetail(data) {

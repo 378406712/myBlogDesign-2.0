@@ -102,10 +102,12 @@ const Edit = {
     },
     SetCategory({ commit }, CategoryData) {
       return new Promise((resolve, reject) => {
-        Api.SetCategory(CategoryData).then(res => {
-          commit(CATEGORY_CHECK, res.data)
-          resolve()
-        })
+        Api.SetCategory(CategoryData)
+          .then(res => {
+            commit(CATEGORY_CHECK, res.data)
+            resolve()
+          })
+          .catch(() => reject())
       })
     },
     GetCategory({ commit }, username) {

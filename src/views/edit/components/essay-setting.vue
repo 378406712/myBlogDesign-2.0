@@ -181,7 +181,6 @@ export default {
       if (!checkCategory.length) {
         checkCategory.push('未分类')
       }
-      alert(checkCategory)
       const { special_bg } = this
       this.$emit('toPublish', {
         ...this.Status_Visible,

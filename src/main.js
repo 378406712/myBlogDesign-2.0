@@ -25,6 +25,9 @@ import './icons'
 // 全局 Mock 接口
 //import './mock'
 import moment from 'moment' //导入文件
+//loadsh
+// import _ from 'lodash'
+// Vue.prototype._ = _
 
 Vue.prototype.$moment = moment //赋值使用
 Vue.use(VueSwal)

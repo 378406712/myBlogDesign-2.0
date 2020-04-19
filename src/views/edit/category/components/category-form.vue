@@ -1,14 +1,14 @@
 <template>
   <el-form
-    :rules="form.rules"
+    :rules="rules"
     label-position="top"
     ref="CategoryForm"
     :model="form"
     label-width="80px"
   >
     <p class="form-title">添加新分类目录</p>
-    <el-form-item label="名称" prop="name">
-      <el-input v-model="form.name"></el-input>
+    <el-form-item label="名称" prop="category">
+      <el-input v-model="form.category"></el-input>
     </el-form-item>
     <el-form-item label="别名" prop="alias">
       <el-input v-model="form.alias"></el-input>
@@ -32,28 +32,52 @@
 </template>
 
 <script>
+let _ = require('lodash')
+import { mapActions, mapGetters, mapState } from 'vuex'
+import { Msg } from '@/utils/message'
 export default {
   data() {
     return {
       form: {
-        name: '',
+        category: '',
         alias: '',
         desc: '',
-        url: '',
-        rules: {
-          name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
-        }
+        // url: '',
+        sum: 0
+      },
+      rules: {
+        category: [{ required: true, message: '请输入目录', trigger: 'blur' }]
       }
     }
   },
   methods: {
-    onSubmit() {
+    ...mapActions(['SetCategory']),
+
+    async onSubmit() {
       this.$refs.CategoryForm.validate(valid => {
         if (valid) {
-          alert('123')
+          if (this.form.desc === '') this.form.desc = '—'
+          if (this.form.alias === '') {
+            this.form.alias = this.form.category.toLowerCase()
+          }
+          this.SetCategory({
+            ...this.form,
+            username: this.name,
+            pic: `http://localhost:3001/random/${_.random(1, 8)}.jpg `
+          })
+            .then(() => {
+              Msg('目录创建成功', 'success')
+              this.$emit('getCategory')
+              this.$refs.CategoryForm.resetFields()
+            })
+            .catch(() => Msg('网络可能有点问题', 'error'))
         }
       })
     }
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({})
   }
 }
 </script>
@@ -76,7 +100,7 @@ export default {
   text-shadow: 0 -1px 1px #bd831f, 1px 0 1px #bd831f, 0 1px 1px #bd831f,
     -1px 0 1px #bd831f;
 }
->>> .el-form-item  .el-form-item__label {
+>>> .el-form-item .el-form-item__label {
   color: #23282d;
   font-weight: 400;
   text-shadow: none;

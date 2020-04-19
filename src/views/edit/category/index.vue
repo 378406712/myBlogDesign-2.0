@@ -16,10 +16,10 @@
     </el-form>
     <el-row :gutter="20">
       <el-col :span="8">
-        <CategoryForm />
+        <CategoryForm v-on:getCategory="getCategory" />
       </el-col>
       <el-col :span="16">
-        <CategoryTable  />
+        <CategoryTable ref="tableComponent" />
       </el-col>
     </el-row>
   </div>
@@ -46,6 +46,9 @@ export default {
           keywords: this.searchCategory
         }
       })
+    },
+    getCategory() {
+      this.$refs.tableComponent.getCategory()
     }
   },
   computed: {
