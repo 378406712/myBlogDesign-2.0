@@ -88,7 +88,6 @@
               :total="total"
               :size="size"
               :page="page"
-              
               v-on:sizeValue="sizeValue"
               v-on:pageValue="pageValue"
             />

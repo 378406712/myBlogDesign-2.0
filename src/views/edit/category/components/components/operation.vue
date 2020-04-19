@@ -15,11 +15,12 @@
           >应用</el-button
         >
         <Pagination
-          class="none"
           style="float:right"
-          :total="1"
-          :size="1"
-          :page="1"
+          :total="totals"
+          :size="sizes"
+          :page="pages"
+          v-on:sizeValue="sizeValue"
+          v-on:pageValue="pageValue"
         />
       </p>
     </el-form-item>
@@ -28,7 +29,7 @@
 
 <script>
 import Pagination from '@/components/pagination'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 export default {
   components: { Pagination },
   data() {
@@ -37,6 +38,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SET_PAGES_C', 'SET_SIZES_C']),
     ...mapActions(['BatchDeleteCategory', 'AllCategoryCount']),
     /**
      * 删除多条
@@ -61,14 +63,25 @@ export default {
           category: payload
         }
         await this.BatchDeleteCategory(param)
-        
+
         this.$emit('getCategory')
       }
+    },
+    pageValue(pageValue) {
+      this.SET_PAGES_C(pageValue)
+      this.$emit('getCategory')
+    },
+    sizeValue(sizeValue) {
+      this.SET_SIZES_C(sizeValue)
+      this.$emit('getCategory')
     }
   },
   computed: {
     ...mapState({
-      selection: state => state.category.selection
+      selection: state => state.category.selection,
+      pages: state => state.edit.pages,
+      sizes: state => state.edit.sizes,
+      totals: state => state.edit.totals
     }),
     ...mapGetters(['name'])
   }

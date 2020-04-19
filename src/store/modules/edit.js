@@ -8,11 +8,15 @@ const MEDIA_ID = 'MEDIA_ID'
 const SPECIAL_BG = 'SPECIAL_BG'
 const SHOW_DIALOG = 'SHOW_DIALOG'
 const CATEGORY_CHECK = 'CATEGORY_CHECK'
-
+const GET_CATEGORY_C = 'GET_CATEGORY_C'
+const SET_PAGES_C = 'SET_PAGES_C'
+const SET_SIZES_C = 'SET_SIZES_C'
+const SET_TOTALS_C = 'SET_TOTALS_C'
 const Edit = {
   state: {
     status: '',
     category: [],
+    category_c: [],
     media: [],
     detail: {},
     tempDir: {},
@@ -20,7 +24,10 @@ const Edit = {
     id: '',
     showDialog: false,
     special_bg: false,
-    check: false
+    check: false,
+    pages: 1,
+    sizes: 8,
+    totals: 0
   },
   mutations: {
     [GET_STATUS](state, status) {
@@ -28,6 +35,21 @@ const Edit = {
     },
     [GET_CATEGORY](state, category) {
       state.category = category
+    },
+    [GET_CATEGORY_C](state, category) {
+      //先判断slice后的数组长度是否为0，是，则将pages-1，返回新的state.category
+      //这里的pages已经变更
+      let data = category.slice(
+        state.sizes * (state.pages - 1),
+        state.sizes * state.pages
+      )
+      if (data.length === 0) {
+        state.pages -= 1
+      }
+      state.category_c = category.slice(
+        state.sizes * (state.pages - 1),
+        state.sizes * state.pages
+      )
     },
     [GET_MEDIA](state, media) {
       state.media = media
@@ -49,7 +71,16 @@ const Edit = {
       state.showDialog = dialog
     },
     [CATEGORY_CHECK](state, check) {
-      state.check= check
+      state.check = check
+    },
+    [SET_PAGES_C](state, pages) {
+      state.pages = pages
+    },
+    [SET_SIZES_C](state, sizes) {
+      state.sizes = sizes
+    },
+    [SET_TOTALS_C](state, totals) {
+      state.totals = totals
     }
   },
   actions: {
@@ -64,7 +95,7 @@ const Edit = {
     CategoryCount({ commit }, CategoryData) {
       return new Promise((resolve, reject) => {
         Api.CategoryCount(CategoryData).then(res => {
-          commit(GET_CATEGORY, res.data)
+          commit(GET_CATEGORY_C, res.data)
           resolve()
         })
       })
@@ -81,6 +112,8 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.GetCategory(username).then(res => {
           commit(GET_CATEGORY, res.data)
+          commit(GET_CATEGORY_C, res.data)
+          commit(SET_TOTALS_C, res.data.length)
           resolve()
         })
       })
@@ -152,6 +185,7 @@ const Edit = {
       return new Promise((resolve, reject) => {
         Api.CategoryCountAll(username).then(res => {
           commit(GET_CATEGORY, res.data)
+          commit(GET_CATEGORY_C, res.data)
         })
       })
     }

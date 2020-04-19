@@ -44,7 +44,9 @@ export default {
   props: {},
 
   data() {
-    return {}
+    return {
+      total: 0
+    }
   },
   methods: {
     ...mapActions(['GetCategory', 'GetEssay', 'AllCategoryCount']),
@@ -62,7 +64,9 @@ export default {
     },
     async getCategory() {
       await this.GetCategory({ params: { username: this.name } })
+      console.log(1)
       this.AllCategoryCount({ username: this.name })
+        console.log(2)
       this.CATEGORY_CHECK({})
     },
     EssayDetail(data) {
@@ -78,15 +82,24 @@ export default {
       else {
         return false
       }
+    },
+    pageValue(pageValue) {
+      this.SET_PAGES(pageValue)
+      this.getCategory()
+    },
+    sizeValue(sizeValue) {
+      this.SET_SIZES(sizeValue)
+      this.getCategory()
     }
   },
   mounted() {
-    this.getCategory()
+    this.getCategory().then(() => (this.total = this.totals))
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      category: state => state.edit.category
+      category: state => state.edit.category_c,
+      totals: state => state.edit.totals
     })
   }
 }

@@ -168,7 +168,8 @@ export default {
           category: createCategory,
           alias: createCategory.toLowerCase(),
           desc: '—',
-          pic: 'http://localhost:3001/random/1.jpg'
+          pic: 'http://localhost:3001/random/1.jpg',
+          sum: 0
         })
         this.Classify_Category.createCategory = ''
       } else {
