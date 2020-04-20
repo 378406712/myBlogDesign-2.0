@@ -38,9 +38,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['SearchCategory']),
+    ...mapActions(['SearchCategory_c']),
     handleSearch() {
-      this.SearchCategory({
+      this.SearchCategory_c({
         params: {
           username: this.name,
           keywords: this.searchCategory

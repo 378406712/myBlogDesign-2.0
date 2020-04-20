@@ -190,6 +190,14 @@ const Edit = {
           commit(GET_CATEGORY_C, res.data)
         })
       })
+    },
+    SearchCategory_c({ commit }, keywords) {
+      return new Promise((resolve, reject) => {
+        Api.SearchCategory(keywords).then(res => {
+          commit(GET_CATEGORY_C, res.data)
+          resolve()
+        })
+      })
     }
   }
 }
