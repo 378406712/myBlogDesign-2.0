@@ -50,7 +50,7 @@ import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 import { ImageDrop } from 'quill-image-drop-module'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import { Msg } from '@/utils/message'
+import { Msg, ComfirmMsg } from '@/utils/message'
 import EssaySetting from './components/essay-setting'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
@@ -240,6 +240,18 @@ export default {
   beforeDestroy() {
     this.quill = null
     delete this.quill
+  },
+  beforeRouteLeave(to, from, next) {
+    if (!this.disabled) {
+      ComfirmMsg('当前页面数据未保存，确定离开?')
+        .then(() => next())
+        .catch(() => {
+          Msg('已取消删除', 'info')
+          next(false)
+        })
+    } else {
+      next()
+    }
   }
 }
 </script>
@@ -253,7 +265,7 @@ export default {
   width: 100%;
   padding: 15px 20px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  line-height: 2;
+  // line-height: 2;
 }
 
 .font {

@@ -17,8 +17,8 @@
       <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
     </el-form-item>
     <el-form-item label="分类/标签图像" prop="url" class="mb-15">
-      <el-input v-model="form.url" class="mb-5"></el-input>
-      <el-button>添加图像</el-button>
+      <el-input v-model="special_bg" class="mb-5"></el-input>
+      <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
     </el-form-item>
     <el-form-item>
       <el-button
@@ -28,17 +28,17 @@
         >添加新分类目录</el-button
       >
     </el-form-item>
-    <Media/>
+    <Media />
   </el-form>
 </template>
 
 <script>
 let _ = require('lodash')
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapMutations, mapGetters, mapState } from 'vuex'
 import { Msg } from '@/utils/message'
 import Media from '@/components/media'
 export default {
-  components:{Media},
+  components: { Media },
   data() {
     return {
       form: {
@@ -55,6 +55,7 @@ export default {
   },
   methods: {
     ...mapActions(['SetCategory']),
+    ...mapMutations(['SHOW_DIALOG']),
 
     async onSubmit() {
       this.$refs.CategoryForm.validate(valid => {
@@ -80,12 +81,16 @@ export default {
   },
   computed: {
     ...mapGetters(['name']),
-    ...mapState({})
+    ...mapState({
+      special_bg: state => state.edit.special_bg
+    })
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="stylus" scoped>
+>>> .el-dialog__header {
+}
 .form-title {
   font-size: 18px;
   margin: 0 !important;

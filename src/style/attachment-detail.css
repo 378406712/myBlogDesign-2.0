@@ -295,7 +295,7 @@ img {
   padding: 0px 20px;
 }
 >>> .el-dialog__header {
-  padding: 0 0 20px 20px;
+  padding:20px;
 }
 >>> .el-popover {
   right: 100% !important;

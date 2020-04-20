@@ -135,19 +135,21 @@
         </div>
       </el-collapse-item>
     </el-collapse>
-    <SpecialPic />
+    <Media />
   </div>
 </template>
 <script>
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex'
-import SpecialPic from '@/components/media'
+import Media from '@/components/media'
 import { Msg } from '@/utils/message'
 import { EssaySettingData } from '@/helper/const-essay-setting'
+import Onbeforeunload from '@/utils/onbeforeunload'
+
 export default {
   props: {
     disabled: Boolean
   },
-  components: { SpecialPic },
+  components: { Media },
   data() {
     return {
       ...EssaySettingData
@@ -219,8 +221,16 @@ export default {
     ...mapState({
       category: state => state.edit.category,
       special_bg: state => state.edit.special_bg,
-      check: state => state.edit.check
+      check: state => state.edit.check,
+      showDialog: state => state.edit.showDialog
     })
+  },
+  watch: {
+    disabled: function(e) {
+      if (!e) {
+        Onbeforeunload(this, '/edit/post-new')
+      }
+    }
   }
 }
 </script>

@@ -63,6 +63,8 @@ p {
   font-weight: 300;
   line-height: 1.4;
   max-width: 26em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 a {
   text-decoration: none;

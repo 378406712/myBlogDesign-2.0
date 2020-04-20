@@ -1,27 +1,29 @@
 <template>
   <div class="main-app">
     <transition name="fade" enter-active-class="animated fadeIn" mode="out-in">
-      <keep-alive>
+      <keep-alive v-if="key !== '/edit/post-new'">
         <router-view :key="key"></router-view>
       </keep-alive>
+      <router-view v-else :key="key"></router-view>
     </transition>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'app-main',
-    data() {
-      return {
-        desc: '这里是右侧主界面'
-      }
-    },
-    computed: {
-      key() {
-        return this.$route.path
-      }
+export default {
+  name: 'app-main',
+  data() {
+    return {
+      desc: '这里是右侧主界面'
+    }
+  },
+
+  computed: {
+    key() {
+      return this.$route.path
     }
   }
+}
 </script>
 
 <style scoped lang="stylus">

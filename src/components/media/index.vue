@@ -335,6 +335,9 @@ export default {
       showDialog: state => state.edit.showDialog,
       special_bg: state => state.edit.special_bg
     })
+  },
+  beforeDestroy() {
+    this.SHOW_DIALOG(false)
   }
 }
 </script>
