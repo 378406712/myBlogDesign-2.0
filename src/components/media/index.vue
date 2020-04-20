@@ -1,200 +1,343 @@
 <template>
-  <ul class="pic-list cleanFix">
-    <el-scrollbar class="el_scroll el-media" :native="false">
-      <li
-        v-for="item in media"
-        :key="item._id"
-        :class="
-          id === item._id
-            ? 'attachment save-ready details'
-            : 'attachment save-ready'
-        "
-        @click="handleDetail(item._id)"
-      >
-        <div class="attachment-preview">
-          <div class="thumbnail">
-            <div class="centered">
-              <img :src="item.file" draggable="false" alt="特色图片" />
-            </div>
+  <el-dialog
+    top="3%"
+    @open="handleOpen"
+    @close="handleClose"
+    custom-class="special-bg"
+    :visible="showDialog"
+    width="95%"
+  >
+    <div slot="title" class="special-title">
+      <span>特色图片</span>
+    </div>
+    <el-tabs v-model="Special_Pic.activeName" type="border-card">
+      <el-tab-pane name="uploadDocs">
+        <span slot="label"><i class="el-icon-upload"></i> 上传文件</span>
+        <el-upload
+          action="/api/edit/media"
+          multiple
+          accept="image/*"
+          :limit="1"
+          ref="mediaUpload"
+          :data="UploadFile.extraData"
+          :show-file-list="false"
+          :on-progress="handleProgress"
+          :on-success="handleSuccess"
+          :before-upload="beforeUpload"
+          class="fullUpload"
+          drag
+        >
+          <div class="upload-ui">
+            <h2>
+              拖文件到任何地方来上传
+            </h2>
+            <p>或</p>
+            <el-button>点击上传</el-button>
+          </div>
+          <div class="post-upload-ui">
+            <p class="max-upload-size">
+              只能上传jpg/png等图片文件，且不超过5Mb
+            </p>
+          </div>
+        </el-upload>
+      </el-tab-pane>
+      <el-tab-pane name="mediaStore" class="media-store">
+        <span slot="label"><i class="el-icon-camera-solid"></i> 媒体库</span>
+        <div class="clearFix media-options">
+          <div class="selectDate">
+            <el-select
+              v-model="select"
+              placeholder="全部日期"
+              @change="getMedia()"
+            >
+              <el-option label="全部日期" value="all"></el-option>
+              <el-option
+                v-for="(item, index) in DateList"
+                :key="index"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+          </div>
+          <div class="searchPic">
+            <el-input
+              @input="handleSearch"
+              class="searchPic-input"
+              placeholder="请输入内容"
+              v-model="search"
+            ></el-input>
           </div>
         </div>
-        <button type="button" :class="id === item._id ? 'check' : 'check none'">
-          <span
-            @mouseover="minus = !minus"
-            @mouseleave="minus = !minus"
-            :class="minus ? ' media-modal-icon minus' : 'media-modal-icon'"
-          ></span
-          ><span class="screen-reader-text">取消选择</span>
-        </button>
-      </li>
-    </el-scrollbar>
-  </ul>
+        <Media @selectId="selectId" />
+        <div class="media-sidebar">
+          <div v-if="id">
+            <div
+              class="media-uploader-status"
+              :style="{ display: UploadFile.none ? 'none' : 'block' }"
+            >
+              <h2>正上传</h2>
+              <el-progress
+                :percentage="UploadFile.percentage"
+                :color="UploadFile.colors"
+              ></el-progress>
+              <p>{{ detail.media_title }}</p>
+            </div>
+            <div class="attachment-details save-ready">
+              <h2>
+                附件详情
+                <span class="settings-save-status">
+                  <span class="spinner" v-if="spinner"></span>
+                  <span class="saved" v-if="saved">已保存。</span>
+                </span>
+              </h2>
+
+              <div class="attachment-info">
+                <div class="thumbnail">
+                  <img :src="detail.file" draggable="false" alt="图片缩略" />
+                </div>
+                <div class="details">
+                  <div class="filename">
+                    {{ detail.media_title }}
+                  </div>
+                  <div class="uploaded">
+                    {{ detail.date }}
+                  </div>
+                  <div class="file-size">
+                    {{ detail.size }}
+                  </div>
+                  <div class="dimensions">
+                    {{ detail.pic_width }}×{{ detail.pic_height }}像素
+                  </div>
+                  <a
+                    class="edit-attachment"
+                    href="https://www.qdmmz.cn/wp-admin/post.php?post=1028&amp;action=edit&amp;image-editor"
+                    target="_blank"
+                    >编辑图像</a
+                  >
+                  <button
+                    @click="handleRemove"
+                    type="button"
+                    class="button-link delete-attachment"
+                  >
+                    永久删除
+                  </button>
+                </div>
+              </div>
+            </div>
+            <el-form
+              ref="detailForm"
+              class="pic-form"
+              label-position="right"
+              label-width="80px"
+            >
+              <el-form-item label="标题" prop="media_title">
+                <el-input
+                  @change="handleTitle"
+                  v-model="detail.file_name"
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="图片描述" prop="pic_describe">
+                <el-input
+                  @change="handleDescribe"
+                  v-model="detail.description"
+                  type="textarea"
+                ></el-input>
+              </el-form-item>
+              <el-form-item
+                label="复制链接"
+                v-model="detail.file"
+                prop="copy_url"
+              >
+                <el-input v-model="detail.file" disabled></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" :disabled="!id" @click="selectSpecial"
+        >选 择</el-button
+      >
+    </span>
+  </el-dialog>
 </template>
+
 <script>
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import Media from './components/media.vue'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
+import Extname from '@/utils/extname'
+import { Msg, ComfirmMsg } from '@/utils/message'
+import JudgeSize from '@/utils/size'
+import { SpecialPicData } from '@/helper/const-essay-special'
 export default {
+  components: { Media },
   data() {
     return {
-      check: '',
-      minus: false
+      ...SpecialPicData,
+      select_id: '',
+      check_id: ''
     }
   },
   methods: {
-    ...mapActions(['MediaDetail']),
-    ...mapMutations(['MEDIA_ID']),
+    ...mapActions([
+      'GetMedia',
+      'ChangeDetail',
+      'GetDate',
+      'SearchMedia',
+      'RemoveMedia'
+    ]),
+    ...mapMutations(['MEDIA_DETAIL', 'MEDIA_ID', 'SPECIAL_BG', 'SHOW_DIALOG']),
+    handleOpen() {
+      if (this.special_bg.length) this.MEDIA_ID(this.check_id)
 
-    async handleDetail(id) {
-      if (this.id === id) {
-        this.MEDIA_ID()
-        this.check = ''
-
-        return
-      } else {
-        await this.MediaDetail({ params: { _id: id, username: this.name } })
-        this.MEDIA_ID(id)
+      this.getMedia()
+    },
+    handleClose() {
+      if (this.special_bg.length === 0 || !this.special_bg.length) {
+        this.MEDIA_DETAIL('')
       }
+      this.SHOW_DIALOG(false)
+      this.search = ''
+      this.saved = false
+    },
+    async getMedia() {
+      await this.GetMedia({
+        params: { username: this.name, date: this.select }
+      })
+      await this.GetDate({ params: { username: this.name } })
+      this.isSame(this.date)
+    },
+    //上传文件
+    beforeUpload(file) {
+      const isLt3M = file.size / 1024 / 1024 < 5
+      const _this = this
+      if (isLt3M) {
+        return new Promise((resolve, reject) => {
+          const windowURL = window.URL || window.webkitURL
+          const img = new Image()
+          img.src = windowURL.createObjectURL(file)
+          img.onload = function() {
+            _this.UploadFile.extraData.file_name = Extname(file.name)
+            _this.UploadFile.extraData.description =
+              _this.UploadFile.extraData.description
+            _this.UploadFile.extraData.username = _this.name
+            _this.UploadFile.extraData.media_title = file.name
+            _this.UploadFile.extraData.pic_width = img.width
+            _this.UploadFile.extraData.pic_height = img.height
+            _this.UploadFile.extraData.media_title = file.name
+            _this.UploadFile.extraData.size = JudgeSize(file.size)
+            _this.UploadFile.extraData.date = _this
+              .$moment()
+              .format('YYYY年MM月DD日mm分')
+            _this.UploadFile.extraData.selectDate = _this
+              .$moment()
+              .format('YYYY年MM月')
+            resolve()
+          }
+        })
+      } else {
+        Msg('上传头像图片大小不能超过 3MB!', 'error')
+        return isLt3M
+      }
+    },
+    handleProgress(event, file, fileList) {
+      this.Special_Pic.activeName = 'mediaStore'
+      this.UploadFile.none = false
+      this.UploadFile.percentage = Math.floor(event.percent)
+    },
+    handleSuccess(response, file, fileList) {
+      this.UploadFile.none = true
+      this.MEDIA_DETAIL(response[0])
+      this.MEDIA_ID(response[0]._id)
+      this.getMedia()
+      this.$refs.mediaUpload.clearFiles()
+    },
+    handleDescribe(e) {
+      this.ChangeDetail({
+        id: this.detail._id,
+        description: e,
+        identify: 'description'
+      }).then(() => {
+        this.Spinner()
+      })
+    },
+    handleTitle(e) {
+      this.ChangeDetail({
+        id: this.detail._id,
+        file_name: e,
+        identify: 'file_name'
+      }).then(() => {
+        this.Spinner()
+      })
+    },
+    Spinner() {
+      return new Promise(resolve => {
+        this.spinner = true
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      }).then(() => {
+        this.spinner = false
+        this.saved = true
+        setTimeout(() => {
+          this.saved = false
+        }, 1000)
+      })
+    },
+    isSame(date) {
+      let array = []
+      date.map(item => {
+        array.push(item.selectDate)
+      })
+      this.DateList = Array.from(new Set(array)).reverse()
+    },
+    handleSearch(item) {
+      this.SearchMedia({
+        params: {
+          username: this.name,
+          keywords: item
+        }
+      })
+    },
+    handleRemove() {
+      ComfirmMsg()
+        .then(() => {
+          this.RemoveMedia({ username: this.name, _id: this.id }).then(() => {
+            if (this.status === 'SUCCESS') {
+              this.SPECIAL_BG('')
+              return Msg('删除成功', 'success')
+            } else if (this.status === 'ERROR') return Msg('删除失败', 'error')
+          })
+          this.getMedia()
+        })
+        .catch(() => Msg('已取消删除', 'info'))
+    },
+    selectSpecial() {
+      this.SPECIAL_BG(this.detail.file)
+      this.SHOW_DIALOG(false)
+      this.MEDIA_ID(this.select_id)
+      this.check_id = this.select_id
+    },
+    selectId(val) {
+      this.select_id = val
     }
   },
   computed: {
+    ...mapGetters(['name']),
     ...mapState({
+      detail: state => state.edit.detail,
       media: state => state.edit.media,
-      id: state => state.edit.id
-    }),
-    ...mapGetters(['name'])
+      date: state => state.edit.date,
+      id: state => state.edit.id,
+      status: state => state.edit.status,
+      showDialog: state => state.edit.showDialog,
+      special_bg: state => state.edit.special_bg
+    })
   }
 }
 </script>
-
 <style scoped>
-.none {
-  display: none;
-}
-.minus {
-  background-position: -60px 0 !important;
-}
-.pic-list {
-  position: absolute;
-  top: 50px;
-  left: -10px;
-  right: 300px;
-  bottom: 0;
-  overflow: auto;
-  outline: 0;
-  margin: 0;
-  padding: 2px 8px 0;
-}
-.attachment {
-  width: 14.28%;
-  position: relative;
-  float: left;
-  padding: 8px;
-  margin: 0;
-  color: #444;
-  cursor: pointer;
-  list-style: none;
-  text-align: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  /* width: 25%; */
-  box-sizing: border-box;
-}
-.attachment-preview {
-  position: relative;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-  background: #eee;
-  cursor: pointer;
-}
-.attachment-preview:before {
-  content: '';
-  display: block;
-  padding-top: 100%;
-}
-.attachment .thumbnail {
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 1;
-  transition: opacity 0.1s;
-}
-.attachment .thumbnail .centered {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: translate(50%, 50%);
-}
-.attachment .thumbnail:after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-.attachment .thumbnail .centered img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-height: 100%;
-  transform: translate(-50%, -50%);
-}
-.attachment .check {
-  height: 24px;
-  width: 24px;
-  padding: 0;
-  border: 0;
-  position: absolute;
-  z-index: 10;
-  top: 2px;
-  right: 1px;
-  outline: 0;
-  background: #eee;
-  cursor: pointer;
-  background-color: #0073aa;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #0073aa;
-}
-.attachment .check .media-modal-icon {
-  display: block;
-  background-position: -21px 0;
-
-  height: 15px;
-  width: 15px;
-  margin: 5px;
-}
-
-.media-modal-icon {
-  background-image: url(/static/image/uploader-icons.png);
-  background-repeat: no-repeat;
-}
-.screen-reader-text {
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-  word-wrap: normal !important;
-}
-.details {
-  /* box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #0073aa; */
-  box-shadow: inset 0 0 2px 3px #fff, inset 0 0 0 7px #5b9dd9;
-}
-
-.el-media >>> .el-scrollbar__bar.is-vertical {
-  margin-top: 6px;
-}
+@import url('../../style/attachment-detail.css');
 </style>

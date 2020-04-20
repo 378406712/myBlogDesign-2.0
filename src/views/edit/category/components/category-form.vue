@@ -28,6 +28,7 @@
         >添加新分类目录</el-button
       >
     </el-form-item>
+    <Media/>
   </el-form>
 </template>
 
@@ -35,7 +36,9 @@
 let _ = require('lodash')
 import { mapActions, mapGetters, mapState } from 'vuex'
 import { Msg } from '@/utils/message'
+import Media from '@/components/media'
 export default {
+  components:{Media},
   data() {
     return {
       form: {

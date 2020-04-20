@@ -140,7 +140,7 @@
 </template>
 <script>
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex'
-import SpecialPic from './components/special-pic'
+import SpecialPic from '@/components/media'
 import { Msg } from '@/utils/message'
 import { EssaySettingData } from '@/helper/const-essay-setting'
 export default {
@@ -225,5 +225,5 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-@import url('../../../style/attachment-detail.css')
+@import url('../../../../style/attachment-detail.css')
 </style>

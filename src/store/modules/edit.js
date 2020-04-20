@@ -64,6 +64,7 @@ const Edit = {
     [MEDIA_ID](state, id) {
       state.id = id
     },
+
     [SPECIAL_BG](state, bg) {
       state.special_bg = bg
     },

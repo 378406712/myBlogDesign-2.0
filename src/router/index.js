@@ -138,7 +138,7 @@ export const constantRouterMap = [
       {
         path: 'post-new',
         name: 'post-new',
-        component: () => import('@/views/edit/post-new'),
+        component: () => import('@/views/edit/post-new/index'),
         meta: { icon: 'svg-type', title: '写文章' }
       },
       {
