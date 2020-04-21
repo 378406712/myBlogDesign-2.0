@@ -11,5 +11,14 @@ function GetCategory(category) {
 function SetCategory(category) {
   return axios.post('/api/edit/set-category', category)
 }
+function GetCategoryDetail(id) {
+  return axios.get('/api/category/get-categoryDetail', id)
+}
 
-export { GetEssay, BatchDeleteCategory, GetCategory, SetCategory }
+export {
+  GetEssay,
+  BatchDeleteCategory,
+  GetCategory,
+  SetCategory,
+  GetCategoryDetail
+}

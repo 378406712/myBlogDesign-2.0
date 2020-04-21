@@ -24,8 +24,9 @@
       <p class="description">描述只会在一部分主题中显示。</p>
     </el-form-item>
     <el-form-item label="分类/标签图像" prop="special_bg" class="mb-15">
-      <img v-if="!addOrUpdate" class="taxonomy-image" :src="special_bg" />
-      <el-input v-model="special_bg" class="mb-5"></el-input>
+      <img v-if="!addOrUpdate" class="taxonomy-image" :src="form.pic" />
+      <el-input v-if="!addOrUpdate" v-model="form.pic" class="mb-5"></el-input>
+      <el-input v-else v-model="special_bg" class="mb-5"></el-input>
       <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
       <el-button v-if="!addOrUpdate" type="danger">删除图像</el-button>
     </el-form-item>
@@ -71,19 +72,13 @@ export default {
   },
   data() {
     return {
-      form: {
-        category: '',
-        alias: '',
-        desc: '',
-        sum: 0
-      },
       rules: {
         category: [{ required: true, message: '请输入目录', trigger: 'blur' }]
       }
     }
   },
   methods: {
-    ...mapActions(['SetCategory']),
+    ...mapActions(['SetCategory', 'GetCategoryDetail']),
     ...mapMutations(['SHOW_DIALOG', 'SPECIAL_BG']),
 
     async onSubmit() {
@@ -115,18 +110,34 @@ export default {
             .catch(() => Msg('网络可能有点问题', 'error'))
         }
       })
+    },
+    CategoryDetail() {
+      this.GetCategoryDetail({
+        params: {
+          _id: this.$route.params.id
+        }
+      })
     }
+  },
+  mounted() {
+    this.CategoryDetail()
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      special_bg: state => state.edit.special_bg
+      special_bg: state => state.edit.special_bg,
+      form: state => state.category.detail
     })
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+.taxonomy-image {
+    border: 1px solid #eee;
+    max-width: 300px;
+    max-height: 300px;
+}
 #delete-link {
     line-height: 2.1;
     vertical-align: middle;

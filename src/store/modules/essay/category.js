@@ -5,6 +5,7 @@ const SET_PAGES_C = 'SET_PAGES_C'
 const SET_SIZES_C = 'SET_SIZES_C'
 const SET_TOTALS_C = 'SET_TOTALS_C'
 const GET_CATEGORY_C = 'GET_CATEGORY_C'
+const GET_CATEGORY_DETAIL = 'GET_CATEGORY_DETAIL'
 const Category = {
   state: {
     category: [],
@@ -12,7 +13,13 @@ const Category = {
     essayList: [],
     pages: 1,
     sizes: 8,
-    totals: 0
+    totals: 0,
+    detail: {
+      category: '',
+      alias: '',
+      desc: '',
+      sum: 0
+    }
   },
   mutations: {
     [SET_SELECTION](state, selection) {
@@ -44,6 +51,10 @@ const Category = {
     },
     [SET_TOTALS_C](state, totals) {
       state.totals = totals
+    },
+    [GET_CATEGORY_DETAIL](state, detail) {
+      console.log(detail)
+      state.detail = detail
     }
   },
   actions: {
@@ -81,6 +92,16 @@ const Category = {
           commit(SET_TOTALS_C, res.data.length)
           resolve()
         })
+      })
+    },
+    GetCategoryDetail({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        Api.GetCategoryDetail(id)
+          .then(res => {
+            commit('GET_CATEGORY_DETAIL', res.data)
+            resolve()
+          })
+          .catch(() => reject())
       })
     }
   }

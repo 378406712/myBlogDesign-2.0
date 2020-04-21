@@ -26,8 +26,7 @@ export default {
       label_width: '200px'
     }
   },
-  methods: {},
-  computed: {}
+  methods: {}
 }
 </script>
 
