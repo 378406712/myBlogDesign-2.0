@@ -16,7 +16,14 @@
     </el-form>
     <el-row :gutter="20">
       <el-col :span="8">
-        <CategoryForm v-on:getCategory="getCategory" />
+        <CategoryForm
+          :title="title"
+          :label_width="label_width"
+          :label_position="label_position"
+          :showMessage="true"
+          :addOrUpdate="true"
+          v-on:getCategory="getCategory"
+        />
       </el-col>
       <el-col :span="16">
         <CategoryTable ref="tableComponent" />
@@ -34,7 +41,10 @@ export default {
   components: { CategoryForm, CategoryTable },
   data() {
     return {
-      searchCategory: ''
+      searchCategory: '',
+      label_position: 'top',
+      title: true,
+      label_width: '80px'
     }
   },
   methods: {
@@ -70,9 +80,7 @@ h2{
   float: right;
   margin: 0;
 }
-.inlineBlock {
-  display: inline-block;
-}
+
 >>> .el-form-item {
   margin-bottom:0
 }

@@ -1,33 +1,55 @@
 <template>
   <el-form
     :rules="rules"
-    label-position="top"
+    :label-position="label_position"
     ref="CategoryForm"
     :model="form"
-    label-width="80px"
+    :label-width="label_width"
+    :show-message="showMessage"
+    :hide-required-asterisk="true"
   >
-    <p class="form-title">添加新分类目录</p>
+    <p v-if="title" class="form-title">添加新分类目录</p>
     <el-form-item label="名称" prop="category">
       <el-input v-model="form.category"></el-input>
+      <p class="description">这将是它在站点上显示的名字。</p>
     </el-form-item>
     <el-form-item label="别名" prop="alias">
       <el-input v-model="form.alias"></el-input>
+      <p class="description">
+        “别名”是在URL中使用的别称，它可以令URL更美观。
+      </p>
     </el-form-item>
     <el-form-item label="图像描述" prop="desc">
       <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
+      <p class="description">描述只会在一部分主题中显示。</p>
     </el-form-item>
-    <el-form-item label="分类/标签图像" prop="url" class="mb-15">
+    <el-form-item label="分类/标签图像" prop="special_bg" class="mb-15">
+      <img v-if="!addOrUpdate" class="taxonomy-image" :src="special_bg" />
       <el-input v-model="special_bg" class="mb-5"></el-input>
       <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
+      <el-button v-if="!addOrUpdate" type="danger">删除图像</el-button>
     </el-form-item>
     <el-form-item>
       <el-button
         @click="onSubmit('CategoryForm')"
         type="warning"
         class="text-shadow"
+        v-if="addOrUpdate"
+        style="marginTop:10px"
         >添加新分类目录</el-button
       >
     </el-form-item>
+    <el-button
+      @click="onSubmit('CategoryForm')"
+      type="warning"
+      size="mini"
+      class="text-shadow"
+      v-if="!addOrUpdate"
+      >更新</el-button
+    >
+    <span v-if="!addOrUpdate" id="delete-link">
+      <a class="delete" href="">删除</a>
+    </span>
     <Media />
   </el-form>
 </template>
@@ -38,14 +60,21 @@ import { mapActions, mapMutations, mapGetters, mapState } from 'vuex'
 import { Msg } from '@/utils/message'
 import Media from '@/components/media'
 export default {
+  name: 'category-form',
   components: { Media },
+  props: {
+    label_position: String,
+    label_width: String,
+    title: Boolean,
+    showMessage: Boolean,
+    addOrUpdate: Boolean
+  },
   data() {
     return {
       form: {
         category: '',
         alias: '',
         desc: '',
-        // url: '',
         sum: 0
       },
       rules: {
@@ -55,7 +84,7 @@ export default {
   },
   methods: {
     ...mapActions(['SetCategory']),
-    ...mapMutations(['SHOW_DIALOG']),
+    ...mapMutations(['SHOW_DIALOG', 'SPECIAL_BG']),
 
     async onSubmit() {
       this.$refs.CategoryForm.validate(valid => {
@@ -64,13 +93,22 @@ export default {
           if (this.form.alias === '') {
             this.form.alias = this.form.category.toLowerCase()
           }
+          if (this.special_bg === '') {
+            this.form.pic = `http://localhost:3001/random/${_.random(
+              1,
+              8
+            )}.jpg `
+          } else {
+            this.form.pic = this.special_bg
+          }
+          console.log(this.special_bg)
           this.SetCategory({
             ...this.form,
-            username: this.name,
-            pic: `http://localhost:3001/random/${_.random(1, 8)}.jpg `
+            username: this.name
           })
             .then(() => {
               Msg('目录创建成功', 'success')
+              this.SPECIAL_BG('')
               this.$emit('getCategory')
               this.$refs.CategoryForm.resetFields()
             })
@@ -89,6 +127,23 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+#delete-link {
+    line-height: 2.1;
+    vertical-align: middle;
+    text-align: left;
+    margin-left: 8px;
+    font-size: 13px;
+}
+ #delete-link a.delete{
+   color: #a00;
+ }
+  #delete-link a.delete:hover{
+  color: #dc3232;
+    border: none;
+ }
+>>> .el-form-item__error{
+  padding:0!important
+}
 >>> .el-dialog__header {
 }
 .form-title {
@@ -114,7 +169,14 @@ export default {
   text-shadow: none;
   vertical-align: baseline;
 }
->>> .el-form-item {
-  margin-bottom: 10px;
+
+.description{
+  margin:0 !important;
+  font-size: 13px;
+  margin: 2px 0 5px;
+  color: #666;
+}
+>>>.el-form-item__error{
+  top:90%!important
 }
 </style>
