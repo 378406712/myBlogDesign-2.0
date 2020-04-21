@@ -172,6 +172,9 @@ import { Msg, ComfirmMsg } from '@/utils/message'
 import JudgeSize from '@/utils/size'
 import { SpecialPicData } from '@/helper/const-essay-special'
 export default {
+  props: {
+    target: String
+  },
   components: { Media },
   data() {
     return {
@@ -188,7 +191,13 @@ export default {
       'SearchMedia',
       'RemoveMedia'
     ]),
-    ...mapMutations(['MEDIA_DETAIL', 'MEDIA_ID', 'SPECIAL_BG', 'SHOW_DIALOG']),
+    ...mapMutations([
+      'MEDIA_DETAIL',
+      'MEDIA_ID',
+      'SPECIAL_BG',
+      'SHOW_DIALOG',
+      'CATEGORY_PIC'
+    ]),
     handleOpen() {
       if (this.special_bg.length) this.MEDIA_ID(this.check_id)
 
@@ -315,7 +324,8 @@ export default {
         .catch(() => Msg('已取消删除', 'info'))
     },
     selectSpecial() {
-      this.SPECIAL_BG(this.detail.file)
+      if (this.target === 'Essay') this.SPECIAL_BG(this.detail.file)
+      else if (this.target === 'Category') this.CATEGORY_PIC(this.detail.file)
       this.SHOW_DIALOG(false)
       this.MEDIA_ID(this.select_id)
       this.check_id = this.select_id

@@ -135,7 +135,7 @@
         </div>
       </el-collapse-item>
     </el-collapse>
-    <Media />
+    <Media target="Essay" />
   </div>
 </template>
 <script>

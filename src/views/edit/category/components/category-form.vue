@@ -51,7 +51,7 @@
     <span v-if="!addOrUpdate" id="delete-link">
       <a class="delete" href="">删除</a>
     </span>
-    <Media />
+    <Media target="Category" />
   </el-form>
 </template>
 

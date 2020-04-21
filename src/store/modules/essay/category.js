@@ -6,6 +6,7 @@ const SET_SIZES_C = 'SET_SIZES_C'
 const SET_TOTALS_C = 'SET_TOTALS_C'
 const GET_CATEGORY_C = 'GET_CATEGORY_C'
 const GET_CATEGORY_DETAIL = 'GET_CATEGORY_DETAIL'
+const CATEGORY_PIC = 'CATEGORY_PIC'
 const Category = {
   state: {
     category: [],
@@ -18,6 +19,7 @@ const Category = {
       category: '',
       alias: '',
       desc: '',
+      pic: '',
       sum: 0
     }
   },
@@ -55,6 +57,9 @@ const Category = {
     [GET_CATEGORY_DETAIL](state, detail) {
       console.log(detail)
       state.detail = detail
+    },
+    [CATEGORY_PIC](state, pic) {
+      state.detail.pic = pic
     }
   },
   actions: {
