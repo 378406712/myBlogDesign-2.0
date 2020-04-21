@@ -49,7 +49,7 @@ import 'quill/dist/quill.snow.css'
 import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 import { ImageDrop } from 'quill-image-drop-module'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import { Msg, ComfirmMsg } from '@/utils/message'
 import EssaySetting from './components/essay-setting'
 Quill.register('modules/imageResize', ImageResize)
@@ -102,6 +102,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SPECIAL_BG']),
     ...mapActions(['PostEssay', 'SetCategory', 'GetCategory', 'CategoryCount']),
     async addCategory(category) {
       await this.SetCategory(category)
@@ -244,12 +245,16 @@ export default {
   beforeRouteLeave(to, from, next) {
     if (!this.disabled) {
       ComfirmMsg('当前页面数据未保存，确定离开?')
-        .then(() => next())
+        .then(() => {
+          this.SPECIAL_BG('')
+          next()
+        })
         .catch(() => {
           Msg('已取消删除', 'info')
           next(false)
         })
     } else {
+      this.SPECIAL_BG('')
       next()
     }
   }

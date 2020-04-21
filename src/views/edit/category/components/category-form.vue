@@ -10,7 +10,7 @@
   >
     <p v-if="title" class="form-title">添加新分类目录</p>
     <el-form-item label="名称" prop="category">
-      <el-input v-model="form.category"></el-input>
+      <el-input v-model="form.category" :disabled="!addOrUpdate"></el-input>
       <p class="description">这将是它在站点上显示的名字。</p>
     </el-form-item>
     <el-form-item label="别名" prop="alias">
@@ -26,7 +26,7 @@
     <el-form-item label="分类/标签图像" prop="special_bg" class="mb-15">
       <img v-if="!addOrUpdate" class="taxonomy-image" :src="form.pic" />
       <el-input v-if="!addOrUpdate" v-model="form.pic" class="mb-5"></el-input>
-      <el-input v-else v-model="special_bg" class="mb-5"></el-input>
+      <el-input v-if="addOrUpdate" v-model="special_bg" class="mb-5"></el-input>
       <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
       <el-button v-if="!addOrUpdate" type="danger">删除图像</el-button>
     </el-form-item>
@@ -41,7 +41,7 @@
       >
     </el-form-item>
     <el-button
-      @click="onSubmit('CategoryForm')"
+      @click="upDateCategory"
       type="warning"
       size="mini"
       class="text-shadow"
@@ -51,7 +51,7 @@
     <span v-if="!addOrUpdate" id="delete-link">
       <a class="delete" href="">删除</a>
     </span>
-    <Media target="Category" />
+    <Media :target="target" />
   </el-form>
 </template>
 
@@ -68,7 +68,8 @@ export default {
     label_width: String,
     title: Boolean,
     showMessage: Boolean,
-    addOrUpdate: Boolean
+    addOrUpdate: Boolean,
+    target: String
   },
   data() {
     return {
@@ -117,7 +118,8 @@ export default {
           _id: this.$route.params.id
         }
       })
-    }
+    },
+    upDateCategory() {}
   },
   mounted() {
     this.CategoryDetail()
@@ -125,9 +127,17 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      special_bg: state => state.edit.special_bg,
-      form: state => state.category.detail
-    })
+      form: state => state.category.detail,
+      category: state => state.category.category
+    }),
+    special_bg: {
+      get() {
+        return this.$store.state.edit.special_bg
+      },
+      set(val) {
+        this.$store.state.edit.special_bg = val
+      }
+    }
   }
 }
 </script>
@@ -173,6 +183,7 @@ export default {
 .text-shadow {
   text-shadow: 0 -1px 1px #bd831f, 1px 0 1px #bd831f, 0 1px 1px #bd831f,
     -1px 0 1px #bd831f;
+        box-shadow: 0 1px 0 #bd831f;
 }
 >>> .el-form-item .el-form-item__label {
   color: #23282d;
