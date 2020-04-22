@@ -19,11 +19,6 @@
         <CategoryForm
           ref="categoryForm"
           target="Essay"
-          :title="title"
-          :label_width="label_width"
-          :label_position="label_position"
-          :showMessage="true"
-          :addOrUpdate="true"
           v-on:getCategory="getCategory"
         />
       </el-col>
@@ -68,16 +63,6 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({})
-  },
-
-  beforeRouteEnter(to, from, next) {
-    //this.$refs.categoryForm.clearForm()
-    //this.CATEGORY_PIC('')
-    next(vm => {
-      vm.$refs.categoryForm.clearForm()
-      vm.CATEGORY_PIC('')
-      console.log(vm)
-    })
   }
 }
 </script>

@@ -6,7 +6,6 @@ const GET_CATEGORY_DETAIL = 'GET_CATEGORY_DETAIL'
 const CATEGORY_PIC = 'CATEGORY_PIC'
 const Category = {
   state: {
-    category: [],
     selection: [],
     essayList: [],
 

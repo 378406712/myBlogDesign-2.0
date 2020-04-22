@@ -1,14 +1,18 @@
 <template>
   <el-form
     :rules="rules"
-    ref="CategoryForm"
+    :label-position="label_position"
+    ref="DetailForm"
     :model="form"
-    :show-message="true"
+    :label-width="label_width"
+    :show-message="showMessage"
     :hide-required-asterisk="true"
   >
-    <p class="form-title">添加新分类目录</p>
     <el-form-item label="名称" prop="category">
-      <el-input v-model="form.category"></el-input>
+      <el-input
+        v-model="form.category"
+        :disabled="form.category === '未分类'"
+      ></el-input>
       <p class="description">这将是它在站点上显示的名字。</p>
     </el-form-item>
     <el-form-item label="别名" prop="alias">
@@ -22,47 +26,49 @@
       <p class="description">描述只会在一部分主题中显示。</p>
     </el-form-item>
     <el-form-item label="分类/标签图像" prop="pic" class="mb-15">
+      <img class="taxonomy-image" :src="form.pic" />
       <el-input v-model="form.pic" class="mb-5"></el-input>
       <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
+      <el-button type="danger">删除图像</el-button>
     </el-form-item>
-    <el-form-item>
-      <el-button
-        @click="onSubmit('CategoryForm')"
-        type="warning"
-        class="text-shadow"
-        style="marginTop:10px"
-        >添加新分类目录</el-button
-      >
-    </el-form-item>
-    <Media v-on:PropPic="picData" target="CategoryForm" />
+    <el-button
+      @click="upDateCategory"
+      type="warning"
+      size="mini"
+      class="text-shadow"
+      >更新</el-button
+    >
+    <span id="delete-link">
+      <a class="delete" href="">删除</a>
+    </span>
+    <Media target="DetailForm" />
   </el-form>
 </template>
 
 <script>
 let _ = require('lodash')
-import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapGetters, mapState } from 'vuex'
 import { Msg } from '@/utils/message'
 import Media from '@/components/media'
 export default {
   name: 'category-form',
   components: { Media },
+  props: {
+    label_position: String,
+    label_width: String,
+    title: Boolean,
+    showMessage: Boolean
+  },
   data() {
     return {
-      form: {
-        category: '',
-        alias: '',
-        desc: '',
-        pic: '',
-        sum: 0
-      },
       rules: {
         category: [{ required: true, message: '请输入目录', trigger: 'blur' }]
       }
     }
   },
   methods: {
-    ...mapActions(['SetCategory']),
-    ...mapMutations(['SHOW_DIALOG']),
+    ...mapActions(['SetCategory', 'GetCategoryDetail', 'updateCategory']),
+    ...mapMutations(['SHOW_DIALOG', 'CATEGORY_PIC']),
     baseJudge() {
       this.form.desc === '' ? (this.form.desc = '—') : this.form.desc
       this.form.alias === ''
@@ -73,37 +79,67 @@ export default {
         ? (this.form.pic = `http://localhost:3001/random/${_.random(1, 8)}.jpg`)
         : this.form.pic
     },
-    async onSubmit() {
-      this.$refs.CategoryForm.validate(valid => {
+    CategoryDetail() {
+      this.GetCategoryDetail({
+        params: {
+          _id: this.$route.params.id
+        }
+      })
+    },
+    upDateCategory() {
+      this.$refs.DetailForm.validate(valid => {
         if (valid) {
           this.baseJudge()
-          this.SetCategory({
+          this.updateCategory({
             ...this.form,
             username: this.name
           })
             .then(() => {
-              this.clearForm()
+              Msg('目录更新成功', 'success')
+
               this.$emit('getCategory')
-              Msg('目录创建成功', 'success')
             })
             .catch(() => Msg('网络可能有点问题', 'error'))
         }
       })
     },
-    picData(pic) {
-      this.form.pic = pic
-    },
     clearForm() {
       this.$refs.CategoryForm.resetFields()
+      console.log(999999)
     }
   },
+  mounted() {
+    this.CategoryDetail()
+  },
   computed: {
-    ...mapGetters(['name'])
+    ...mapGetters(['name']),
+    ...mapState({
+      form: state => state.category.detail
+    })
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+.taxonomy-image {
+    border: 1px solid #eee;
+    max-width: 300px;
+    max-height: 300px;
+}
+#delete-link {
+    line-height: 2.1;
+    vertical-align: middle;
+    text-align: left;
+    margin-left: 8px;
+    font-size: 13px;
+}
+ #delete-link a.delete{
+   color: #a00;
+ }
+  #delete-link a.delete:hover{
+  color: #dc3232;
+    border: none;
+ }
 >>> .el-form-item__error{
   padding:0!important
 }
@@ -139,5 +175,8 @@ export default {
   font-size: 13px;
   margin: 2px 0 5px;
   color: #666;
+}
+>>>.el-form-item__error{
+  top:90%!important
 }
 </style>

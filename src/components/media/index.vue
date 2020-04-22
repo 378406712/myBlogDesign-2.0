@@ -325,8 +325,10 @@ export default {
     },
     selectSpecial() {
       console.log(this.target)
-      if (this.target === 'Essay') this.SPECIAL_BG(this.detail.file)
-      else if (this.target === 'Category') {
+      // if (this.target === 'Essay') this.SPECIAL_BG(this.detail.file)
+      if (this.target === 'CategoryForm') {
+        this.$emit('PropPic', this.detail.file)
+      } else if (this.target === 'DetailForm') {
         this.CATEGORY_PIC(this.detail.file)
       }
       this.SHOW_DIALOG(false)

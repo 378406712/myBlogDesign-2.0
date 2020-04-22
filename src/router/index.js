@@ -158,7 +158,7 @@ export const constantRouterMap = [
         hidden: true,
         name: 'alter-category',
         component: () =>
-          import('@/views/edit/category/components/components/alter-category'),
+          import('@/views/edit/category-detail/index'),
         meta: { icon: 'svg-category', title: '编辑分类目录' }
       }
     ]

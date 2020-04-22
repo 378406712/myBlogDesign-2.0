@@ -2,7 +2,7 @@
   <div class="grey-bg components-container">
     <div class="alter-category">
       <h2>编辑分类目录</h2>
-      <CategoryForm
+      <DetailForm
         :title="title"
         :label_width="label_width"
         :showMessage="false"
@@ -13,14 +13,11 @@
   </div>
 </template>
 <script>
-import CategoryForm from '../category-form'
-import Onbeforeunload from '@/utils/onbeforeunload'
-import { mapMutations } from 'vuex'
-
+import DetailForm from './components/detail-form'
 export default {
   name: 'alter-category',
   components: {
-    CategoryForm
+    DetailForm
   },
   data() {
     return {
@@ -29,16 +26,8 @@ export default {
       label_width: '200px'
     }
   },
-  methods: {
-    ...mapMutations(['CATEGORY_PIC'])
-  },
-  watch: {
-    $route(now, old) {
-      if (now.name === 'alter-category') {
-        this.$refs.alterForm.CategoryDetail()
-      }
-    }
-  }
+
+ 
 }
 </script>
 
@@ -60,10 +49,7 @@ export default {
 h2{
   margin-top: 0
 }
-.search-box {
-  float: right;
-  margin: 0;
-}>>> .el-form-item {
+>>> .el-form-item {
   margin-bottom:0
 }
 </style>
