@@ -13,9 +13,9 @@ const Category = {
       category: '',
       alias: '',
       desc: '',
-      pic: '',
       sum: 0
-    }
+    },
+    detail_pic: ''
   },
   mutations: {
     [SET_SELECTION](state, selection) {
@@ -29,7 +29,7 @@ const Category = {
       state.detail = detail
     },
     [CATEGORY_PIC](state, pic) {
-      state.detail.pic = pic
+      state.detail_pic = pic
     }
   },
   actions: {
@@ -58,6 +58,7 @@ const Category = {
         Api.GetCategoryDetail(id)
           .then(res => {
             commit('GET_CATEGORY_DETAIL', res.data)
+            commit('CATEGORY_PIC', res.data.pic)
             resolve()
           })
           .catch(() => reject())

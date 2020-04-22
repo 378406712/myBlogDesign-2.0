@@ -25,11 +25,11 @@
       <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
       <p class="description">描述只会在一部分主题中显示。</p>
     </el-form-item>
-    <el-form-item label="分类/标签图像" prop="pic" class="mb-15">
-      <img class="taxonomy-image" :src="form.pic" />
-      <el-input v-model="form.pic" class="mb-5"></el-input>
+    <el-form-item label="分类/标签图像" prop="detail_pic" class="mb-15">
+      <img class="taxonomy-image" :src="detail_pic" />
+      <el-input v-model="detail_pic" class="mb-5"></el-input>
       <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
-      <el-button type="danger">删除图像</el-button>
+      <el-button @click="deletePic" type="danger">删除图像</el-button>
     </el-form-item>
     <el-button
       @click="upDateCategory"
@@ -75,9 +75,11 @@ export default {
         ? (this.form.alias = this.form.category.toLowerCase())
         : this.form.alias
 
-      this.form.pic === ''
-        ? (this.form.pic = `http://localhost:3001/random/${_.random(1, 8)}.jpg`)
-        : this.form.pic
+      this.detail_pic === ''
+        ? this.CATEGORY_PIC(
+            `http://localhost:3001/random/${_.random(1, 8)}.jpg`
+          )
+        : this.detail_pic
     },
     CategoryDetail() {
       this.GetCategoryDetail({
@@ -92,7 +94,8 @@ export default {
           this.baseJudge()
           this.updateCategory({
             ...this.form,
-            username: this.name
+            username: this.name,
+            pic: this.detail_pic
           })
             .then(() => {
               Msg('目录更新成功', 'success')
@@ -105,7 +108,9 @@ export default {
     },
     clearForm() {
       this.$refs.CategoryForm.resetFields()
-      console.log(999999)
+    },
+    deletePic() {
+      this.CATEGORY_PIC('')
     }
   },
   mounted() {
@@ -114,7 +119,8 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      form: state => state.category.detail
+      form: state => state.category.detail,
+      detail_pic: state => state.category.detail_pic
     })
   }
 }
