@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column sortable prop="category" label="名称">
         <template slot-scope="scope">
-          <router-link :to="'/edit/alter-category/' + scope.row._id">
+          <router-link :to="'/edit/category/detail/' + scope.row._id">
             {{ scope.row.category }}</router-link
           >
         </template>
@@ -65,7 +65,6 @@ export default {
       this.SET_SELECTION(val)
     },
     async getCategory() {
-      console.log('收到')
       await this.GetCategory({ params: { username: this.name } })
       this.AllCategoryCount({ username: this.name })
       this.CATEGORY_CHECK({})

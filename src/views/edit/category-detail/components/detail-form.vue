@@ -99,7 +99,7 @@ export default {
           })
             .then(() => {
               Msg('目录更新成功', 'success')
-
+              
               this.$emit('getCategory')
             })
             .catch(() => Msg('网络可能有点问题', 'error'))
