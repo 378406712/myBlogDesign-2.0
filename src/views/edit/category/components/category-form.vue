@@ -91,7 +91,6 @@ export default {
       this.form.pic === ''
         ? (this.form.pic = `http://localhost:3001/random/${_.random(1, 8)}.jpg`)
         : this.form.pic
-      console.log(this.form.pic)
     },
     async onSubmit() {
       this.$refs.CategoryForm.validate(valid => {
@@ -102,17 +101,17 @@ export default {
             username: this.name
           })
             .then(() => {
-              Msg('目录创建成功', 'success')
               this.CATEGORY_PIC('')
-
-              this.$emit('getCategory')
               this.$refs.CategoryForm.resetFields()
+              this.$emit('getCategory')
+              Msg('目录创建成功', 'success')
             })
             .catch(() => Msg('网络可能有点问题', 'error'))
         }
       })
     },
     CategoryDetail() {
+       console.log(888888)
       this.GetCategoryDetail({
         params: {
           _id: this.$route.params.id
@@ -129,13 +128,16 @@ export default {
           })
             .then(() => {
               Msg('目录更新成功', 'success')
-              this.CATEGORY_PIC('')
+
               this.$emit('getCategory')
-              this.$refs.CategoryForm.resetFields()
             })
             .catch(() => Msg('网络可能有点问题', 'error'))
         }
       })
+    },
+    clearForm() {
+      this.$refs.CategoryForm.resetFields()
+      console.log(999999)
     }
   },
   mounted() {

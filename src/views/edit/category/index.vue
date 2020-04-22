@@ -17,6 +17,7 @@
     <el-row :gutter="20">
       <el-col :span="8">
         <CategoryForm
+          ref="categoryForm"
           target="Essay"
           :title="title"
           :label_width="label_width"
@@ -35,11 +36,12 @@
 <script>
 import CategoryForm from './components/category-form'
 import CategoryTable from './components/category-table'
-import { mapActions, mapGetters, mapState,mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'category',
   components: { CategoryForm, CategoryTable },
+
   data() {
     return {
       searchCategory: '',
@@ -49,8 +51,8 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['CATEGORY_PIC']),
     ...mapActions(['SearchCategory_c']),
-    ...mapMutations(['SPECIAL_BG']),
     handleSearch() {
       this.SearchCategory_c({
         params: {
@@ -67,9 +69,15 @@ export default {
     ...mapGetters(['name']),
     ...mapState({})
   },
-  beforeRouteLeave(to, from, next) {
-    this.SPECIAL_BG('')
-    next()
+
+  beforeRouteEnter(to, from, next) {
+    //this.$refs.categoryForm.clearForm()
+    //this.CATEGORY_PIC('')
+    next(vm => {
+      vm.$refs.categoryForm.clearForm()
+      vm.CATEGORY_PIC('')
+      console.log(vm)
+    })
   }
 }
 </script>

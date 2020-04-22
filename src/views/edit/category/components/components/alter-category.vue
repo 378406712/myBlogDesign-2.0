@@ -7,13 +7,16 @@
         :label_width="label_width"
         :showMessage="false"
         :label_position="label_position"
+        ref="alterForm"
       />
     </div>
   </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
 import CategoryForm from '../category-form'
+import Onbeforeunload from '@/utils/onbeforeunload'
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'alter-category',
   components: {
@@ -26,7 +29,16 @@ export default {
       label_width: '200px'
     }
   },
-  methods: {}
+  methods: {
+    ...mapMutations(['CATEGORY_PIC'])
+  },
+  watch: {
+    $route(now, old) {
+      if (now.name === 'alter-category') {
+        this.$refs.alterForm.CategoryDetail()
+      }
+    }
+  }
 }
 </script>
 

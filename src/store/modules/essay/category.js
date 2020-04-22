@@ -27,12 +27,10 @@ const Category = {
     },
 
     [GET_CATEGORY_DETAIL](state, detail) {
-      console.log(detail)
       state.detail = detail
     },
     [CATEGORY_PIC](state, pic) {
       state.detail.pic = pic
-      console.log(pic)
     }
   },
   actions: {
@@ -66,11 +64,11 @@ const Category = {
           .catch(() => reject())
       })
     },
-    updateCategory({commit},data){
+    updateCategory({ commit }, data) {
       return new Promise((resolve, reject) => {
         Api.alterCategory(data)
           .then(res => {
-          //  commit('GET_CATEGORY_DETAIL', res.data)
+            commit('GET_CATEGORY_DETAIL', res.data)
             resolve()
           })
           .catch(() => reject())
