@@ -32,6 +32,7 @@ const Category = {
     },
     [CATEGORY_PIC](state, pic) {
       state.detail.pic = pic
+      console.log(pic)
     }
   },
   actions: {
@@ -55,12 +56,21 @@ const Category = {
           .catch(err => reject(err))
       })
     },
-
     GetCategoryDetail({ commit }, id) {
       return new Promise((resolve, reject) => {
         Api.GetCategoryDetail(id)
           .then(res => {
             commit('GET_CATEGORY_DETAIL', res.data)
+            resolve()
+          })
+          .catch(() => reject())
+      })
+    },
+    updateCategory({commit},data){
+      return new Promise((resolve, reject) => {
+        Api.alterCategory(data)
+          .then(res => {
+          //  commit('GET_CATEGORY_DETAIL', res.data)
             resolve()
           })
           .catch(() => reject())

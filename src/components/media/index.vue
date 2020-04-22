@@ -324,8 +324,11 @@ export default {
         .catch(() => Msg('已取消删除', 'info'))
     },
     selectSpecial() {
+      console.log(this.target)
       if (this.target === 'Essay') this.SPECIAL_BG(this.detail.file)
-      else if (this.target === 'Category') this.CATEGORY_PIC(this.detail.file)
+      else if (this.target === 'Category') {
+        this.CATEGORY_PIC(this.detail.file)
+      }
       this.SHOW_DIALOG(false)
       this.MEDIA_ID(this.select_id)
       this.check_id = this.select_id

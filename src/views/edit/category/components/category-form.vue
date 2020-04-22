@@ -10,7 +10,10 @@
   >
     <p v-if="title" class="form-title">添加新分类目录</p>
     <el-form-item label="名称" prop="category">
-      <el-input v-model="form.category" :disabled="!addOrUpdate"></el-input>
+      <el-input
+        v-model="form.category"
+        :disabled="form.category === '未分类'"
+      ></el-input>
       <p class="description">这将是它在站点上显示的名字。</p>
     </el-form-item>
     <el-form-item label="别名" prop="alias">
@@ -25,8 +28,7 @@
     </el-form-item>
     <el-form-item label="分类/标签图像" prop="special_bg" class="mb-15">
       <img v-if="!addOrUpdate" class="taxonomy-image" :src="form.pic" />
-      <el-input v-if="!addOrUpdate" v-model="form.pic" class="mb-5"></el-input>
-      <el-input v-if="addOrUpdate" v-model="special_bg" class="mb-5"></el-input>
+      <el-input v-model="form.pic" class="mb-5"></el-input>
       <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
       <el-button v-if="!addOrUpdate" type="danger">删除图像</el-button>
     </el-form-item>
@@ -51,7 +53,7 @@
     <span v-if="!addOrUpdate" id="delete-link">
       <a class="delete" href="">删除</a>
     </span>
-    <Media :target="target" />
+    <Media target="Category" />
   </el-form>
 </template>
 
@@ -68,8 +70,7 @@ export default {
     label_width: String,
     title: Boolean,
     showMessage: Boolean,
-    addOrUpdate: Boolean,
-    target: String
+    addOrUpdate: Boolean
   },
   data() {
     return {
@@ -79,32 +80,31 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['SetCategory', 'GetCategoryDetail']),
-    ...mapMutations(['SHOW_DIALOG', 'SPECIAL_BG']),
+    ...mapActions(['SetCategory', 'GetCategoryDetail', 'updateCategory']),
+    ...mapMutations(['SHOW_DIALOG', 'CATEGORY_PIC']),
+    baseJudge() {
+      this.form.desc === '' ? (this.form.desc = '—') : this.form.desc
+      this.form.alias === ''
+        ? (this.form.alias = this.form.category.toLowerCase())
+        : this.form.alias
 
+      this.form.pic === ''
+        ? (this.form.pic = `http://localhost:3001/random/${_.random(1, 8)}.jpg`)
+        : this.form.pic
+      console.log(this.form.pic)
+    },
     async onSubmit() {
       this.$refs.CategoryForm.validate(valid => {
         if (valid) {
-          if (this.form.desc === '') this.form.desc = '—'
-          if (this.form.alias === '') {
-            this.form.alias = this.form.category.toLowerCase()
-          }
-          if (this.special_bg === '') {
-            this.form.pic = `http://localhost:3001/random/${_.random(
-              1,
-              8
-            )}.jpg `
-          } else {
-            this.form.pic = this.special_bg
-          }
-          console.log(this.special_bg)
+          this.baseJudge()
           this.SetCategory({
             ...this.form,
             username: this.name
           })
             .then(() => {
               Msg('目录创建成功', 'success')
-              this.SPECIAL_BG('')
+              this.CATEGORY_PIC('')
+
               this.$emit('getCategory')
               this.$refs.CategoryForm.resetFields()
             })
@@ -119,7 +119,24 @@ export default {
         }
       })
     },
-    upDateCategory() {}
+    upDateCategory() {
+      this.$refs.CategoryForm.validate(valid => {
+        if (valid) {
+          this.baseJudge()
+          this.updateCategory({
+            ...this.form,
+            username: this.name
+          })
+            .then(() => {
+              Msg('目录更新成功', 'success')
+              this.CATEGORY_PIC('')
+              this.$emit('getCategory')
+              this.$refs.CategoryForm.resetFields()
+            })
+            .catch(() => Msg('网络可能有点问题', 'error'))
+        }
+      })
+    }
   },
   mounted() {
     this.CategoryDetail()

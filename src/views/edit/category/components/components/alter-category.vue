@@ -7,7 +7,6 @@
         :label_width="label_width"
         :showMessage="false"
         :label_position="label_position"
-        target="Category"
       />
     </div>
   </div>

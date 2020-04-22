@@ -199,7 +199,6 @@ export default {
         essay: this.content,
         username: this.name
       }
-      console.log(EssayData)
       this.PostEssay(EssayData)
         .then(() => {
           if (this.status === 'SUCCESS') {
