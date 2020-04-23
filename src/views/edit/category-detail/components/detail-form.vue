@@ -66,13 +66,15 @@ export default {
       _.forEach(this.category, function(value, key) {
         existCategory.push(value.category)
       })
-      if (existCategory.includes(value)) {
+
+      if (existCategory.includes(value) && this.base_detail !== value) {
         cb(new Error('目录已存在'))
       } else {
         cb()
       }
     }
     return {
+      initName: '',
       rules: {
         category: [
           { required: true, message: '请输入目录', trigger: 'blur' },
@@ -121,7 +123,7 @@ export default {
             .then(() => {
               Msg('目录更新成功', 'success')
 
-              // this.$emit('getCategory')
+              this.$emit('getCategory')
             })
             .catch(() => Msg('网络可能有点问题', 'error'))
         }
@@ -136,14 +138,16 @@ export default {
   },
   mounted() {
     this.CategoryDetail()
-    this.getCategory(this.GetCategory, { params: { username: this.name } }) //混入  
+
+    this.getCategory(this.GetCategory, { params: { username: this.name } }) //混入
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
       form: state => state.category.detail,
       detail_pic: state => state.category.detail_pic,
-      category: state => state.edit.category_c
+      category: state => state.edit.category_c,
+      base_detail: state => state.category.base_detail
     })
   }
 }

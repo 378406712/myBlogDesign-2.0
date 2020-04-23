@@ -4,10 +4,13 @@ const ESSAY_LIST = 'ESSAY_LIST'
 
 const GET_CATEGORY_DETAIL = 'GET_CATEGORY_DETAIL'
 const CATEGORY_PIC = 'CATEGORY_PIC'
+const Base_CATEGORY = 'Base_CATEGORY'
+
 const Category = {
   state: {
     selection: [],
     essayList: [],
+    base_detail: '',
 
     detail: {
       category: '',
@@ -30,6 +33,9 @@ const Category = {
     },
     [CATEGORY_PIC](state, pic) {
       state.detail_pic = pic
+    },
+    [Base_CATEGORY](state, base_detail) {
+      state.base_detail = base_detail
     }
   },
   actions: {
@@ -59,6 +65,7 @@ const Category = {
           .then(res => {
             commit('GET_CATEGORY_DETAIL', res.data)
             commit('CATEGORY_PIC', res.data.pic)
+            commit('Base_CATEGORY', res.data.category)
             resolve()
           })
           .catch(() => reject())

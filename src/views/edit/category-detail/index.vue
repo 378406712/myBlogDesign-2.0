@@ -1,8 +1,8 @@
 <template>
   <div class="grey-bg components-container">
     <h2>编辑分类目录</h2>
-    <div v-if="success" id="message" class="notice notice-success">
-      <p><strong>分类已更新。</strong></p>
+    <div id="message" class="notice notice-success">
+      <p v-if="success"><strong>分类已更新。</strong></p>
       <p>
         <a href="/edit/category"> ← 返回分类 </a>
       </p>
