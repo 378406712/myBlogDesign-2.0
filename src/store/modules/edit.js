@@ -191,6 +191,7 @@ const Edit = {
         Api.CategoryCountAll(username).then(res => {
           commit(GET_CATEGORY, res.data)
           commit(GET_CATEGORY_C, res.data)
+          resolve()
         })
       })
     },

@@ -123,7 +123,9 @@ export default {
             .then(() => {
               Msg('目录更新成功', 'success')
 
-              this.$emit('getCategory')
+              this.getCategory(this.GetCategory, {
+                params: { username: this.name }
+              }) //混入
             })
             .catch(() => Msg('网络可能有点问题', 'error'))
         }

@@ -4,7 +4,7 @@
     <div id="message" class="notice notice-success">
       <p v-if="success"><strong>分类已更新。</strong></p>
       <p>
-        <a href="/edit/category"> ← 返回分类 </a>
+        <router-link to="/edit/category"> ← 返回分类 </router-link>
       </p>
     </div>
     <div class="alter-category">
@@ -40,8 +40,7 @@ export default {
     ...mapMutations(['CATEGORY_CHECK']),
     async getCategory() {
       this.success = true
-      document.body.scrollTop = document.documentElement.scrollTop = 0
-  
+
       await this.GetCategory({ params: { username: this.name } })
       this.AllCategoryCount({ username: this.name })
       this.CATEGORY_CHECK({})
