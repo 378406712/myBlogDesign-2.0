@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column sortable prop="category" label="名称">
         <template slot-scope="scope">
-          <router-link :to="'/edit/category/detail/' + scope.row._id">
+          <router-link :to="'/edit/category-detail/' + scope.row._id">
             {{ scope.row.category }}</router-link
           >
         </template>

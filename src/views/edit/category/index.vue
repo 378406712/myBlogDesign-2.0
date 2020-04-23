@@ -7,7 +7,6 @@
           <el-input
             style="width:auto"
             v-model="searchCategory"
-            @blur="handleSearch"
             size="mini"
           ></el-input>
           <el-button size="mini" @click="handleSearch">搜索分类目录</el-button>

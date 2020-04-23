@@ -1,7 +1,6 @@
 import * as Api from '@/api/category'
 const SET_SELECTION = 'SET_SELECTION'
 const ESSAY_LIST = 'ESSAY_LIST'
-
 const GET_CATEGORY_DETAIL = 'GET_CATEGORY_DETAIL'
 const CATEGORY_PIC = 'CATEGORY_PIC'
 const Base_CATEGORY = 'Base_CATEGORY'

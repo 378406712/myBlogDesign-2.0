@@ -43,13 +43,15 @@ const Edit = {
         state.sizes * (state.pages - 1),
         state.sizes * state.pages
       )
-      if (data.length === 0) {
-        state.pages -= 1
-      }
+
       state.category_c = category.slice(
         state.sizes * (state.pages - 1),
         state.sizes * state.pages
       )
+      if (data.length === 0) {
+        state.pages -= 1
+        state.category_c = category
+      }
     },
     [GET_MEDIA](state, media) {
       state.media = media
@@ -193,7 +195,6 @@ const Edit = {
       })
     },
     SearchCategory_c({ commit }, keywords) {
-      console.log(keywords)
       return new Promise((resolve, reject) => {
         Api.SearchCategory(keywords).then(res => {
           commit(GET_CATEGORY_C, res.data)
