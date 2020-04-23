@@ -3,7 +3,7 @@ export default {
     name: '刘'
   },
   login: {
-    title: 'Clover博客系统',
+    title: 'Clover 博客系统',
     account: '账号',
     password: '密码',
     remember: '记住密码',
@@ -27,6 +27,7 @@ export default {
     logOut: '退出登录'
   },
   introduction: {
-    item1: '有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法'
+    item1:
+      '有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法'
   }
 }

@@ -5,8 +5,7 @@
     ref="DetailForm"
     :model="form"
     :label-width="label_width"
-    :show-message="showMessage"
-    :hide-required-asterisk="true"
+    :hide-required-asterisk="false"
   >
     <el-form-item label="名称" prop="category">
       <el-input
@@ -50,8 +49,10 @@ let _ = require('lodash')
 import { mapActions, mapMutations, mapGetters, mapState } from 'vuex'
 import { Msg } from '@/utils/message'
 import Media from '@/components/media'
+import { mixins } from '@/mixin/index'
 export default {
   name: 'category-form',
+  mixins: [mixins],
   components: { Media },
   props: {
     label_position: String,
@@ -60,14 +61,34 @@ export default {
     showMessage: Boolean
   },
   data() {
+    const validCategoryName = (rule, value, cb) => {
+      const existCategory = []
+      _.forEach(this.category, function(value, key) {
+        existCategory.push(value.category)
+      })
+      if (existCategory.includes(value)) {
+        cb(new Error('目录已存在'))
+      } else {
+        cb()
+      }
+    }
     return {
       rules: {
-        category: [{ required: true, message: '请输入目录', trigger: 'blur' }]
+        category: [
+          { required: true, message: '请输入目录', trigger: 'blur' },
+          { required: true, trigger: 'blur', validator: validCategoryName },
+          { required: true, trigger: 'change', validator: validCategoryName }
+        ]
       }
     }
   },
   methods: {
-    ...mapActions(['SetCategory', 'GetCategoryDetail', 'updateCategory']),
+    ...mapActions([
+      'SetCategory',
+      'GetCategory',
+      'GetCategoryDetail',
+      'updateCategory'
+    ]),
     ...mapMutations(['SHOW_DIALOG', 'CATEGORY_PIC']),
     baseJudge() {
       this.form.desc === '' ? (this.form.desc = '—') : this.form.desc
@@ -99,8 +120,8 @@ export default {
           })
             .then(() => {
               Msg('目录更新成功', 'success')
-              
-              this.$emit('getCategory')
+
+              // this.$emit('getCategory')
             })
             .catch(() => Msg('网络可能有点问题', 'error'))
         }
@@ -115,12 +136,14 @@ export default {
   },
   mounted() {
     this.CategoryDetail()
+    this.getCategory(this.GetCategory, { params: { username: this.name } }) //混入  
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
       form: state => state.category.detail,
-      detail_pic: state => state.category.detail_pic
+      detail_pic: state => state.category.detail_pic,
+      category: state => state.edit.category_c
     })
   }
 }
