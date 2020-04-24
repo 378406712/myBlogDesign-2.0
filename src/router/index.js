@@ -34,12 +34,7 @@ export const constantRouterMap = [
       title: '注册'
     }
   },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
-  },
+ 
   {
     path: '/',
     hidden: false,
@@ -178,7 +173,26 @@ export const constantRouterMap = [
         meta: { icon: 'thumb', title: '拖拽' }
       }
     ]
-  }
+  },
+  {
+    
+    path:'*',
+    name: '404',
+    component: Layout,
+    hidden: true,
+    redirect:'404',
+    meta: {
+      title: '404'
+    },
+    children: [
+      {
+        path: '404',
+        name: 'err0r',
+        component: () => import('@/views/error-page/index'),
+        meta: { icon: 'svg-aperture', title: '404' }
+      }
+    ]
+  },
 ]
 
 export default new Router({
@@ -269,5 +283,5 @@ export const asyncRouterMap = [
       }
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+
 ]

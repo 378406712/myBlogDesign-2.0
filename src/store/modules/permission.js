@@ -24,7 +24,7 @@ const permission = {
   mutations: {
     [SET_ROUTERS](state, routers) {
       state.addRouters = routers
-      state.routers = constantRouterMap.concat(routers)
+      state.routers = constantRouterMap.concat(routers)//加入权限路由表
     }
   },
   actions: {
