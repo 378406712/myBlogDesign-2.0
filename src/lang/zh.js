@@ -18,6 +18,12 @@ export default {
     again_pass: '再次输入',
     register: '注册'
   },
+  error: {
+    title: 'Oh no!!',
+    line1: '你查找的页面去了火星',
+    line2: '重新输入链接或返回',
+    back: '返 回 上 一 级'
+  },
   navbar: {
     title: '后台管理系统',
     screenfull: '全屏',

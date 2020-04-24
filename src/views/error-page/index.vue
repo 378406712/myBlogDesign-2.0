@@ -1,29 +1,43 @@
 <template>
-<div>
+  <div class="error404">
     <div class="mars"></div>
-    <img src="https://mars-404.templateku.co/img/404.svg" class="logo-404" />
-    <img src="https://mars-404.templateku.co/img/meteor.svg" class="meteor" />
-    <p class="title">Oh no!!</p>
+    <img src="/static/image/beautify/404.svg" class="logo-404" />
+    <img src="/static/image/beautify/meteor.svg" class="meteor" />
+    <p class="title">{{ $t('error.title') }}</p>
     <p class="subtitle">
-        You’re either misspelling the URL <br /> or requesting a page that's no longer here.
+      {{ $t('error.line1') }}
     </p>
+    <p class="subtitle subtitle2">{{ $t('error.line2') }}</p>
     <div align="center">
-        <a class="btn-back" href="#">Back to previous page</a>
+      <router-link class="btn-back" :to="path">{{
+        $t('error.back')
+      }}</router-link>
     </div>
-    <img src="https://mars-404.templateku.co/img/astronaut.svg" class="astronaut" />
-    <img src="https://mars-404.templateku.co/img/spaceship.svg" class="spaceship" />
-
-</div>
+    <img src="/static/image/beautify/astronaut.svg" class="astronaut" />
+    <img src="/static/image/beautify/spaceship.svg" class="spaceship" />
+  </div>
 </template>
 
 <script>
 export default {
-
+  data() {
+    return {
+      path: '/404'
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+    next(vm => {
+      vm.path = from.path
+    })
+  }
 }
 </script>
 
-<style  scoped>
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,600,700");
+<style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700');
 @keyframes floating {
   from {
     transform: translateY(0px);
@@ -35,16 +49,15 @@ export default {
     transform: translateY(0px);
   }
 }
-html {
-  height: 100%;
-}
 
-body {
-  background-image: url("https://mars-404.templateku.co/img/star.svg"), linear-gradient(to bottom, #05007A, #4D007D);
-  height: 100%;
+.error404 {
+  background-image: url('/static/image/beautify/star.svg'),
+    linear-gradient(to bottom, #05007a, #4d007d);
   margin: 0;
+  height: 41rem;
   background-attachment: fixed;
   overflow: hidden;
+  position: relative;
 }
 
 .mars {
@@ -53,7 +66,7 @@ body {
   bottom: 0;
   position: absolute;
   height: 27vmin;
-  background: url("https://mars-404.templateku.co/img/mars.svg") no-repeat bottom center;
+  background: url('/static/image/beautify/mars.svg') no-repeat bottom center;
   background-size: cover;
 }
 
@@ -63,7 +76,7 @@ body {
   margin-right: auto;
   left: 0;
   right: 0;
-  top: 16vmin;
+  top: 8vmin;
   width: 30vmin;
 }
 @media (max-width: 480px) and (min-width: 320px) {
@@ -80,11 +93,11 @@ body {
 
 .title {
   color: white;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 600;
   text-align: center;
   font-size: 5vmin;
-  margin-top: 31vmin;
+  margin-top: 25vmin;
 }
 @media (max-width: 480px) and (min-width: 320px) {
   .title {
@@ -94,12 +107,15 @@ body {
 
 .subtitle {
   color: white;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 400;
   text-align: center;
   font-size: 3.5vmin;
   margin-top: -1vmin;
   margin-bottom: 9vmin;
+}
+.subtitle2 {
+  margin-top: -6vmin;
 }
 
 .btn-back {
@@ -107,13 +123,13 @@ body {
   color: white;
   height: 5vmin;
   padding: 12px;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   text-decoration: none;
   border-radius: 5px;
 }
 .btn-back:hover {
   background: white;
-  color: #4D007D;
+  color: #4d007d;
 }
 @media (max-width: 480px) and (min-width: 320px) {
   .btn-back {
@@ -145,6 +161,4 @@ body {
     bottom: 18vmin;
   }
 }
-
-
 </style>
