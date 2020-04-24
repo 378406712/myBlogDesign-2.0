@@ -96,6 +96,9 @@ function removeClass(ele, cls) {
     const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
     ele.className = ele.className.replace(reg, ' ')
   }
+  else if(!cls){
+    ele.className =''
+  }
 }
 
 /**

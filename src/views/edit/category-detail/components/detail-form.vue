@@ -122,7 +122,8 @@ export default {
           })
             .then(() => {
               Msg('目录更新成功', 'success')
-
+              this.$emit('UpdateSuccess', true)
+               document.body.scrollTop = document.documentElement.scrollTop = 0
               this.getCategory(this.GetCategory, {
                 params: { username: this.name }
               }) //混入

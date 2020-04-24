@@ -15,6 +15,7 @@
         :label_position="label_position"
         ref="alterForm"
         v-on:getCategory="getCategory"
+        v-on:UpdateSuccess="UpdateSuccess"
       />
     </div>
   </div>
@@ -39,11 +40,13 @@ export default {
     ...mapActions(['GetCategory', 'AllCategoryCount']),
     ...mapMutations(['CATEGORY_CHECK']),
     async getCategory() {
-      this.success = true
-
       await this.GetCategory({ params: { username: this.name } })
       this.AllCategoryCount({ username: this.name })
       this.CATEGORY_CHECK({})
+    },
+    UpdateSuccess() {
+     
+      this.success = true
     }
   }
 }

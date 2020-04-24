@@ -130,7 +130,7 @@ export const constantRouterMap = [
     component: Layout,
     alwaysShow: true,
     meta: {
-      icon: 'svg-edit',
+      icon: 'collection',
       title: '文章'
     },
     redirect: 'post-new',
@@ -145,13 +145,13 @@ export const constantRouterMap = [
         path: 'all-essay',
         name: 'all-essay',
         component: () => import('@/views/edit/all-essay/index'),
-        meta: { icon: 'svg-all-essay', title: '所有文章' }
+        meta: { icon: 'notebook-2', title: '所有文章' }
       },
       {
         path: 'category',
         name: 'category',
         component: () => import('@/views/edit/category/index'),
-        meta: { icon: 'svg-category', title: '分类目录' }
+        meta: { icon: 'collection-tag', title: '分类目录' }
       },
       {
         path: '/edit/category-detail/:id',
