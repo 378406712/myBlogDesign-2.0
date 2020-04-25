@@ -25,9 +25,9 @@
       <el-table-column sortable prop="alias" label="别名"></el-table-column>
       <el-table-column sortable prop="sum" label="总数">
         <template slot-scope="scope">
-          <a href="#" @click="EssayDetail(scope.row.category)">{{
-            scope.row.sum
-          }}</a>
+          <router-link :to="'/edit/123/' + scope.row.category">
+            {{ scope.row.category }}</router-link
+          >
         </template>
       </el-table-column>
     </el-table>

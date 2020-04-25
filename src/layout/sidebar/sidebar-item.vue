@@ -32,6 +32,7 @@
             :item="child"
             :base-path="resolvePath(child.path)"
             v-if="child.children && child.children.length > 0"
+            :key="child"
           />
 
           <router-link v-else :to="resolvePath(child.path)">

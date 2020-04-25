@@ -1,7 +1,4 @@
-import {
-  constantRouterMap,
-  asyncRouterMap
-} from '@/router'
+import { constantRouterMap, asyncRouterMap } from '@/router'
 /**
  * 递归过滤异步路由表，返回符合用户角色权限的路由表
  * @param asyncRouterMap
@@ -24,17 +21,13 @@ const permission = {
   mutations: {
     [SET_ROUTERS](state, routers) {
       state.addRouters = routers
-      state.routers = constantRouterMap.concat(routers)//加入权限路由表
+      state.routers = constantRouterMap.concat(routers) //加入权限路由表
     }
   },
   actions: {
-    GenerateRoutes({
-      commit
-    }, routers) {
+    GenerateRoutes({ commit }, routers) {
       return new Promise((resolve, reject) => {
-        const {
-          permissions: p
-        } = routers
+        const { permissions: p } = routers
         const routersMap = p.split(',')
         let accessedRouters = filterAsyncRouter(asyncRouterMap, routersMap)
         commit(SET_ROUTERS, accessedRouters)

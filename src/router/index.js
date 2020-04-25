@@ -34,7 +34,7 @@ export const constantRouterMap = [
       title: '注册'
     }
   },
- 
+
   {
     path: '/',
     hidden: false,
@@ -174,25 +174,8 @@ export const constantRouterMap = [
       }
     ]
   },
-  {
-    
-    path:'*',
-    name: '404',
-    component: Layout,
-    hidden: true,
-    redirect:'404',
-    meta: {
-      title: '404'
-    },
-    children: [
-      {
-        path: '404',
-        name: 'err0r',
-        component: () => import('@/views/error-page/index'),
-        meta: { icon: 'svg-aperture', title: '404' }
-      }
-    ]
-  },
+ 
+  
 ]
 
 export default new Router({
@@ -254,6 +237,7 @@ export const asyncRouterMap = [
   {
     path: '/theme',
     component: Layout,
+    redirect: 'index',
     meta: {
       icon: 'document',
       title: 'theme'
@@ -267,21 +251,5 @@ export const asyncRouterMap = [
       }
     ]
   },
-  {
-    path: '/test',
-    component: Layout,
-    meta: {
-      icon: 'document',
-      title: '测试用例'
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/test/index'),
-        name: 'Test',
-        meta: { title: '测试', icon: 'document' }
-      }
-    ]
-  },
-
+  
 ]

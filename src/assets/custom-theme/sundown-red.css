@@ -3,48 +3,51 @@
 /*
  * 1、顶部navbar颜色
  */
- .sundown-red .top-navbar .el-menu {
-  background:#f55b56!important  }
-   
-  
-  /*2、 存在子菜单 */
-  .sundown-red .left-sidebar .el-menu--inline .el-menu-item{
-    background:  #db322d;
-    }
-  .sundown-red .left-sidebar .el-menu-item i {
-    color: #fff;
-  }
-   /* 3.选中的文字颜色 */
-   .sundown-red .left-sidebar .el-menu-item.is-active {
-    color: #f1fc5a;
-  }
-  .sundown-red .left-sidebar .el-menu-item.is-active i{
-    color: #f1fc5a;
-  }
-   /* 4.滑动的颜色 */
-  .sundown-red .left-sidebar .el-menu-item:hover,
-  .sundown-red .left-sidebar .el-menu-item:focus,
-  .sundown-red .left-sidebar .el-submenu__title:hover {
-    background-color: rgb(236, 28, 28,.6);
-  }
-  /* 5.侧边栏 */
-  .sundown-red .left-sidebar .el-menu {
-    background:#f55b56!important
-  }
-  .sundown-red .left-sidebar .el-submenu__title {
-    color: #fff;
-  }
-  .sundown-red .left-sidebar .el-submenu__title i {
-    color: #fff;
-  }
-  .sundown-red .left-sidebar .el-menu-item {
-    color: #fff;
-  }
- 
-  
-  /**
+.sundown-red .top-navbar .el-menu {
+  background: #f55b56 !important;
+}
+
+/*2、 存在子菜单 */
+.sundown-red .left-sidebar .el-menu--inline .el-menu-item {
+  background: #db322d;
+}
+.sundown-red .left-sidebar .el-menu-item i {
+  color: #fff;
+}
+/* 3.选中的文字颜色 */
+.sundown-red .left-sidebar .el-menu-item.is-active {
+  color: #f1fc5a;
+}
+.sundown-red .left-sidebar .el-menu-item.is-active i {
+  color: #f1fc5a;
+}
+/* 4.滑动的颜色 */
+.sundown-red .left-sidebar .el-menu-item:hover,
+.sundown-red .left-sidebar .el-menu-item:focus,
+.sundown-red .left-sidebar .el-submenu__title:hover {
+  background-color: rgb(236, 28, 28, 0.6);
+}
+.sundown-red .left-sidebar {
+  background: #f55b56 !important;
+}
+/* 5.侧边栏 */
+.sundown-red .left-sidebar .el-menu {
+  background: #f55b56 !important;
+}
+
+.sundown-red .left-sidebar .el-submenu__title {
+  color: #fff;
+}
+.sundown-red .left-sidebar .el-submenu__title i {
+  color: #fff;
+}
+.sundown-red .left-sidebar .el-menu-item {
+  color: #fff;
+}
+
+/**
    * 3、tabs-view
    */
-  .sundown-red .tabs-view-container .tags-view-item.active .el-tag {
-    background:#f55b56!important
-  }
+.sundown-red .tabs-view-container .tags-view-item.active .el-tag {
+  background: #f55b56 !important;
+}
