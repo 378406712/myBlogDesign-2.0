@@ -74,13 +74,16 @@ export default {
 <style lang="stylus">
 .tabs-view-container {
   height: 40px;
-  padding: 5px;
-  border-bottom: 1px solid #dfdfdf;
+  line-height:40px;
 
+  border-bottom: 1px solid #dfdfdf;
+  
   .tags-view-item {
+    &:first-child {
+        margin-left: 15px;
+      }
     .el-tag {
       margin: 0 3px;
-
       &:first-child {
         margin-left: 0;
       }
@@ -108,5 +111,7 @@ export default {
       }
     }
   }
+  
+
 }
 </style>

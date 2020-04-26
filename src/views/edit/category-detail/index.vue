@@ -61,9 +61,9 @@ export default {
 .alter-category{
     max-width:800px
 }
-.grey-bg {
-  background: #f1f1f1;
-  padding: 30px 30px 60px 20px;
+.components-container{
+  
+  margin-bottom:  20px;
 }
 h2{
   margin-top: 0

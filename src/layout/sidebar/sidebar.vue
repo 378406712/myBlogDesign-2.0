@@ -40,11 +40,10 @@ export default {
 <style lang="stylus" scoped>
 .left-sidebar
   position fixed
-  margin-top 56px
   width 200px
   top: 0;
   bottom: 0;
-
+  background-color: rgb(48, 65, 86);
 </style>
 <style>
 .left-sidebar >>> .el-scrollbar_wrap {

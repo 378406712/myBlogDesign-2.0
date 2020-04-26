@@ -1,7 +1,7 @@
 <template>
-  <div class="grey-bg">
+  <div>
     <h2>新增文章</h2>
-    <el-row :gutter="20">
+    <el-row class="grey-bg" >
       <el-col :span="18">
         <div class="tips">
           <el-input
@@ -33,7 +33,7 @@
         <el-divider content-position="center">End</el-divider>
       </el-col>
       <el-col :span="6">
-        <EssaySetting
+        <EssaySetting 
           :disabled="disabled"
           v-on:addCategory="addCategory"
           v-on:toPublish="toPublish"
@@ -293,10 +293,11 @@ export default {
 /* 内容返显 */
 .ql-editor {
   margin-bottom: 50px;
-}.grey-bg {
-  padding: 30px 30px 0px 20px;
 }
 h2{
   margin-top: 0;
+}
+.grey-bg{
+  background:#fff
 }
 </style>

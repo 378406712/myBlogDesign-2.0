@@ -1,11 +1,11 @@
 <template>
   <div class="top-navbar">
     <el-menu mode="horizontal" text-color="#5a5e66" active-text-color="#5a5e66">
-      <router-link to="/home" style="display: table;float:left">
+      <!-- <router-link to="/home" style="display: table;float:left">
         <el-menu-item index="1" class="title-name">{{
           $t('navbar.title')
         }}</el-menu-item>
-      </router-link>
+      </router-link> -->
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
       <change-theme class="theme-container"></change-theme>
 
@@ -87,9 +87,9 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .top-navbar {
-  position: fixed;
   width: 100%;
   z-index: 10;
+  height:50px
 
   .el-menu {
     border-bottom: none !important;
@@ -161,8 +161,7 @@ color: #5a5e66;
 }
    .breadcrumb-container {
    float:left;
-    margin-top 3px;
-    margin-left: 40px!important;
+    margin-left: 15px!important;
 
   }
 </style>

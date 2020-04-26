@@ -49,7 +49,7 @@ export default {
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: calc(10px + 0.33vw);
   -webkit-font-smoothing: antialiased;
-  padding: 1vh 2vw;
+ /* padding: 1vh 2vw; */
   color: #121314;
 }
 h1 {
@@ -88,9 +88,9 @@ a:hover:after {
 canvas {
   position: absolute;
   top: 100px;
-  left: 200px;
+  left: -20px;
   z-index: 0;
-  width: 100%;
+  width: 102%;
   height: 100%;
   pointer-events: none;
 }

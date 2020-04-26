@@ -30,11 +30,13 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.app-main {
+.main-app {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
   width: 100%;
   position: relative;
   overflow: hidden;
+  padding: 30px 20px 0px 20px!important;
+      background-color: #f4f6f9;
 }
 </style>

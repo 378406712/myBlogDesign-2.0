@@ -1,3 +1,4 @@
+@import './sidebar.css';
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -22,92 +23,7 @@
   --dark: #343a40;
 }
 
-/* fade */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.28s;
-}
 
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
-/* fade-transform */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all 0.5s;
-}
-
-.fade-transform-enter {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-
-.fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-.main-app {
-  overflow: hidden;
-}
-/*elementUi*/
-.el-menu-item i {
-  color: #606266;
-}
-.el-menu {
-  border: 0;
-}
-.el-submenu .el-menu-item {
-  min-width: 210px !important;
-  background-color: #1f2d3d !important;
-}
-
-.left-sidebar .el-submenu__title {
-  color: rgb(191, 203, 217);
-}
-.left-sidebar .el-submenu__title i {
-  color: rgb(191, 203, 217);
-}
-.left-sidebar .el-menu-item {
-  color: rgb(191, 203, 217);
-}
-.left-sidebar .el-menu-item i {
-  color: rgb(191, 203, 217);
-}
-.left-sidebar .el-menu-item.is-active {
-  color: rgb(64, 158, 255);
-}
-.left-sidebar .el-menu-item.is-active i {
-  color: rgb(64, 158, 255);
-}
-.left-sidebar .el-menu-item:hover,
-.left-sidebar .el-menu-item:focus:hover {
-  background-color: #263445 !important;
-}
-.el-submenu .el-menu-item:hover {
-  background-color: #001528 !important;
-}
-/* breadcrumb transition */
-.breadcrumb-enter-active,
-.breadcrumb-leave-active {
-  transition: all 0.5s;
-}
-
-.breadcrumb-enter,
-.breadcrumb-leave-active {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-.breadcrumb-move {
-  transition: all 0.5s;
-}
-
-.breadcrumb-leave-active {
-  position: absolute;
-}
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -237,17 +153,13 @@ button {
 }
 
 .content {
-  padding: 30px 30px 0px 20px;
   width: 100%;
   position: relative;
   transition: padding 0.5s;
   margin-bottom: 30px;
 }
 
-.grey_bg {
-  background-color: #f4f6f9;
-  overflow: hidden;
-}
+
 
 .content-header {
   background-position: 50% 50%;

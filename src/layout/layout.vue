@@ -1,8 +1,9 @@
 <template>
   <div class="app-wrapper">
-    <navbar></navbar>
     <sidebar></sidebar>
     <div class="main-container">
+      <navbar></navbar>
+
       <tabs-view></tabs-view>
       <app-main></app-main>
     </div>
@@ -29,7 +30,7 @@
   height: 100%;
   .main-container {
     padding-left: 200px;
-    padding-top: 60px;
+    
   }
 }
 </style>
