@@ -63,13 +63,9 @@ export const constantRouterMap = [
   },
   {
     path: '/user',
-    redirect: '/user/account',
     component: Layout,
     hidden: false,
-    meta: {
-      icon: 'user-solid',
-      title: '个人中心'
-    },
+
     children: [
       {
         path: 'account',
@@ -83,11 +79,6 @@ export const constantRouterMap = [
     path: '/introduction',
     component: Layout,
     redirect: '/introduction/index',
-    // alwaysShow: true,
-    meta: {
-      icon: 'svg-aperture',
-      title: '简述'
-    },
     children: [
       {
         path: 'index',
@@ -100,10 +91,6 @@ export const constantRouterMap = [
   {
     path: '/custom-component',
     component: Layout,
-    meta: {
-      icon: 'question',
-      title: '自定义组件'
-    },
     redirect: '/custom-component/index',
     children: [
       {
@@ -136,6 +123,7 @@ export const constantRouterMap = [
     path: '/edit',
     component: Layout,
     alwaysShow: true,
+    redirect:'/post-new',
     meta: {
       icon: 'collection',
       title: '文章'
@@ -172,6 +160,7 @@ export const constantRouterMap = [
   {
     path: '/futures',
     component: Layout,
+    redirect:'/draggable',
     alwaysShow: true,
     meta: {
       icon: 's-grid',
@@ -253,10 +242,7 @@ export const asyncRouterMap = [
     path: '/theme',
     component: Layout,
     redirect: 'index',
-    meta: {
-      icon: 'document',
-      title: 'theme'
-    },
+   
     children: [
       {
         path: 'index',
