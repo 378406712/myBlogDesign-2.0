@@ -324,8 +324,8 @@ export default {
         .catch(() => Msg('已取消删除', 'info'))
     },
     selectSpecial() {
-      console.log(this.target)
-      // if (this.target === 'Essay') this.SPECIAL_BG(this.detail.file)
+     // console.log(this.target)
+      if (this.target === 'Essay') this.SPECIAL_BG(this.detail.file)
       if (this.target === 'CategoryForm') {
         this.$emit('PropPic', this.detail.file)
       } else if (this.target === 'DetailForm') {

@@ -9,11 +9,11 @@
     </div>
     <div class="alter-category">
       <DetailForm
+        ref="alterForm"
         :title="title"
         :label_width="label_width"
         :showMessage="false"
         :label_position="label_position"
-        ref="alterForm"
         v-on:getCategory="getCategory"
         v-on:UpdateSuccess="UpdateSuccess"
       />
@@ -45,7 +45,6 @@ export default {
       this.CATEGORY_CHECK({})
     },
     UpdateSuccess() {
-     
       this.success = true
     }
   }
@@ -62,7 +61,7 @@ export default {
     max-width:800px
 }
 .components-container{
-  
+
   margin-bottom:  20px;
 }
 h2{
