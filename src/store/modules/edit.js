@@ -68,7 +68,6 @@ const Edit = {
     },
     [SPECIAL_BG](state, bg) {
       state.special_bg = bg
-      console.log(state.special_bg)
     },
 
     [SHOW_DIALOG](state, dialog) {

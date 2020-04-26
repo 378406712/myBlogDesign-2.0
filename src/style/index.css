@@ -23,7 +23,6 @@
   --dark: #343a40;
 }
 
-
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -46,6 +45,9 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+a {
+  cursor: url(/static/cur/ayuda.cur), auto;
 }
 
 a:focus,
@@ -76,7 +78,11 @@ a span i {
 }
 
 a {
-  cursor: url(/static/cur/ayuda.cur), auto;
+  cursor: url(/static/cur/ayuda.cur), auto !important;
+}
+.el-menu-item,
+.el-submenu__title {
+  cursor: url(/static/cur/normal.cur), auto !important;
 }
 
 img:hover {
@@ -158,8 +164,6 @@ button {
   transition: padding 0.5s;
   margin-bottom: 30px;
 }
-
-
 
 .content-header {
   background-position: 50% 50%;
