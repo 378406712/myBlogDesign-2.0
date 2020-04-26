@@ -3,19 +3,11 @@ export default [
   {
     path: '*',
     name: '404',
-    component: Layout,
     hidden: true,
-    redirect: '404',
+    redirect: '/404',
+    component: () => import('@/views/error-page/index'),
     meta: {
-      title: '404'
-    },
-    children: [
-      {
-        path: '404',
-        name: 'err0r',
-        component: () => import('@/views/error-page/index'),
-        meta: { icon: 'svg-aperture', title: '404' }
-      }
-    ]
+      title: 'err0r'
+    }
   }
 ]

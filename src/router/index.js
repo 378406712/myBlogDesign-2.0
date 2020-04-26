@@ -37,15 +37,27 @@ export const constantRouterMap = [
 
   {
     path: '/',
-    hidden: false,
     component: Layout,
-    redirect: '/home',
+    redirect: '/dashboard',
     children: [
       {
-        path: 'home',
-        name: 'home',
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: 'Dashboard',
+        meta: { title: '仪表盘', icon: 'svg-dashboard', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/home',
+    hidden: false,
+    component: Layout,
+    children: [
+      {
+        path: 'center',
+        name: 'center',
         component: () => import('@/views/homepage'),
-        meta: { title: '首页', icon: 's-home' }
+        meta: { title: '个人中心', icon: 's-home' }
       }
     ]
   },
@@ -174,8 +186,11 @@ export const constantRouterMap = [
       }
     ]
   },
- 
-  
+  {
+    path: '/404',
+    component: () => import('@/views/error-page/index'),
+    hidden: true
+  }
 ]
 
 export default new Router({
@@ -250,6 +265,5 @@ export const asyncRouterMap = [
         meta: { title: '主题', icon: 'svg-pifu' }
       }
     ]
-  },
-  
+  }
 ]

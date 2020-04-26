@@ -12,6 +12,7 @@
     <div class="demo-fit">
       <div class="block">
         <el-avatar
+          class="rotateImg"
           style="vertical-align:middle"
           shape="circle"
           :size="100"
@@ -110,11 +111,20 @@ export default {
 }
 </style>
 
-<style>
+<style lang="stylus">
 .loli-drawers {
   background-position: 220px 340px;
   background-repeat: no-repeat;
   background-image: url('/static/image/beautify/iloli.gif');
   background-size: 12rem;
+}
+.rotateImg {
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s linear;
+  &:hover {
+    transform: scale(1.1, 1.1);
+    filter: contrast(130%);
+  }
 }
 </style>

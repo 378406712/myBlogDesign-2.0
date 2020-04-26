@@ -5,7 +5,7 @@
     </span>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item class="clearfix" command="default">
-        渐变绿
+        默认
       </el-dropdown-item>
       <el-dropdown-item class="clearfix" command="science-blue">
         深空蓝

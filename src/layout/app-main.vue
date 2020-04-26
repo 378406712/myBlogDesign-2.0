@@ -1,6 +1,6 @@
 <template>
   <div class="main-app">
-    <transition name="fade" enter-active-class="animated fadeIn" mode="out-in">
+    <transition name="fade-transform" mode="out-in">
       <keep-alive v-if="key !== '/edit/post-new'">
         <router-view :key="key"></router-view>
       </keep-alive>
@@ -30,6 +30,11 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.main-app
-  padding 5px
+.app-main {
+  /* 50= navbar  50  */
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
 </style>

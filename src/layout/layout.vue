@@ -28,8 +28,8 @@
   width: 100%;
   height: 100%;
   .main-container {
-    padding-left: 201px;
-    padding-top: 61px;
+    padding-left: 200px;
+    padding-top: 60px;
   }
 }
 </style>

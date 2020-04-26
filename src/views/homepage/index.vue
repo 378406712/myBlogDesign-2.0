@@ -4,7 +4,7 @@
       <div class="content">
         <div class="content-header">
           <div class="container">
-            <h1 class="content-heading">用户首页</h1>
+            <h1 class="content-heading">个人中心</h1>
           </div>
         </div>
         <!-- 内容 -->

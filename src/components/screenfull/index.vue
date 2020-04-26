@@ -56,7 +56,7 @@
   .screenfull-svg {
     display inline-block
     cursor pointer
-    fill #fff
+    fill #5a5e66
     width 20px
     height 20px
     vertical-align 10px

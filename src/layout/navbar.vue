@@ -1,11 +1,12 @@
 <template>
   <div class="top-navbar">
-    <el-menu mode="horizontal" text-color="#fff" active-text-color="#fff">
-      <router-link to="/home" style="display: table;">
+    <el-menu mode="horizontal" text-color="#5a5e66" active-text-color="#5a5e66">
+      <router-link to="/home" style="display: table;float:left">
         <el-menu-item index="1" class="title-name">{{
           $t('navbar.title')
         }}</el-menu-item>
       </router-link>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
       <change-theme class="theme-container"></change-theme>
 
       <el-tooltip
@@ -54,12 +55,15 @@ import { mapGetters, mapActions } from 'vuex'
 import LangSelect from '@/components/lang-select'
 import Screenfull from '@/components/screenfull'
 import ChangeTheme from '@/components/theme'
+import Breadcrumb from '@/components/Breadcrumb'
+
 export default {
   name: '',
   components: {
     LangSelect,
     Screenfull,
-    ChangeTheme
+    ChangeTheme,
+    Breadcrumb
   },
   computed: {
     ...mapGetters(['name', 'avatar'])
@@ -68,6 +72,7 @@ export default {
     ...mapActions({
       userLogout: 'logout'
     }),
+
     logout() {
       this.userLogout()
         .then(() => {
@@ -88,11 +93,7 @@ export default {
 
   .el-menu {
     border-bottom: none !important;
-    background-image: -webkit-gradient(linear, left top, right top, from(#1278f6), to(#00b4aa));
-    background-image: -webkit-linear-gradient(45deg, #1278f6, #00b4aa 50%, #1278f6);
-    background-image: -moz-linear-gradient(45deg, #1278f6, #00b4aa 50%, #1278f6);
-    background-image: linear-gradient(45deg, #1278f6, #00b4aa 50%, #1278f6);
-
+        box-shadow: 0 1px 4px rgba(0,21,41,0.08);
     .lang-select {
       position: absolute;
       top: 18px;
@@ -101,13 +102,13 @@ export default {
 
     .lang-select /deep/ .el-dropdown {
       font-size: 20px;
-      color: #fff;
+    color: #5a5e66;
     }
 
     .avatar-container {
       position: absolute;
-      top: 15px;
-      right: 40px;
+      top: 8px;
+      right: 30px;
 
       .avatar-wrapper {
         cursor: pointer;
@@ -115,9 +116,10 @@ export default {
     }
 
     .avatar-container /deep/ .user-avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
+     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
       vertical-align: middle;
     }
 
@@ -125,7 +127,7 @@ export default {
       display: inline-block;
       height: 30px;
       line-height: 30px;
-      color: #fff;
+      color:#5a5e66
     }
   }
 }
@@ -146,8 +148,8 @@ export default {
   position: absolute;
   top: 15px;
   right: 225px;
-  color: #fff;
-  font-size: 24px;
+color: #5a5e66;
+ font-size: 24px;
   cursor: pointer;
   // background-image linear-gradient(red, blue)
 }
@@ -157,4 +159,10 @@ export default {
   top: 20px;
   right: 190px;
 }
+   .breadcrumb-container {
+   float:left;
+    margin-top 3px;
+    margin-left: 40px!important;
+
+  }
 </style>

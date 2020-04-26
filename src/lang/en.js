@@ -20,9 +20,9 @@ export default {
   },
   error: {
     title: 'Oh no!!',
-    line1:'You’re either misspelling the URL',
-    line2:'or requesting a page that\'s no longer here.',
-    back:'Back to previous page',
+    line1: 'You’re either misspelling the URL',
+    line2: "or requesting a page that's no longer here.",
+    back: 'Back to previous page'
   },
   navbar: {
     title: 'vue-cms',
@@ -31,9 +31,5 @@ export default {
     avatar: 'Avatar',
     github: 'GitHub',
     logOut: 'Log Out'
-  },
-  introduction: {
-    item1:
-      'Sometimes we also need to access the original DOM event in an inline statement handler. You can pass it into a method using the special $event variable'
   }
 }

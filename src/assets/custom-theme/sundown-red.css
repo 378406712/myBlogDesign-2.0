@@ -26,6 +26,7 @@
 .sundown-red .left-sidebar .el-menu-item:focus,
 .sundown-red .left-sidebar .el-submenu__title:hover {
   background-color: rgb(236, 28, 28, 0.6);
+  
 }
 .sundown-red .left-sidebar {
   background: #f55b56 !important;

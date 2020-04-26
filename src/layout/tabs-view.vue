@@ -2,16 +2,17 @@
   <div class="tabs-view-container">
     <router-link
       class="tags-view-item"
-      :class="isActive(tag) ? 'active' : '' "
+      :class="isActive(tag) ? 'active' : ''"
       v-for="(tag, index) in visitedTabsView"
       :to="tag.path"
       :key="index"
     >
       <el-tag
-        :closable="tag.path!='/home'"
+        :closable="tag.path != '/dashboard'"
         :disable-transitions="false"
         @close.prevent.stop="handleClose(tag)"
-      >{{tag.name}}</el-tag>
+        >{{ tag.name }}</el-tag
+      >
     </router-link>
   </div>
 </template>

@@ -51,10 +51,11 @@ export default {
   background-image: url('/static/image/beautify/star.svg'),
     linear-gradient(to bottom, #05007a, #4d007d);
   margin: 0;
-  height: 41rem;
   background-attachment: fixed;
   overflow: hidden;
-  position: relative;
+    position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .mars {
@@ -73,7 +74,7 @@ export default {
   margin-right: auto;
   left: 0;
   right: 0;
-  top: 8vmin;
+  top: 16vmin;
   width: 30vmin;
 }
 @media (max-width: 480px) and (min-width: 320px) {
@@ -94,7 +95,7 @@ export default {
   font-weight: 600;
   text-align: center;
   font-size: 5vmin;
-  margin-top: 25vmin;
+  margin-top: 31vmin;
 }
 @media (max-width: 480px) and (min-width: 320px) {
   .title {

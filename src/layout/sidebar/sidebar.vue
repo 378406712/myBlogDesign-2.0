@@ -1,11 +1,11 @@
 <template>
   <div class="left-sidebar">
-    <el-scrollbar class="el_scroll" :native="false" >
+    <el-scrollbar class="el_scroll" :native="false">
       <el-menu
         class="scroll-menu"
         mode="vertical"
         unique-opened
-        background-color=""
+        background-color="rgb(48, 65, 86)"
         :collapse="isCollapse"
         :default-active="$route.path"
       >
@@ -44,6 +44,7 @@ export default {
   width 200px
   top: 0;
   bottom: 0;
+
 </style>
 <style>
 .left-sidebar >>> .el-scrollbar_wrap {
