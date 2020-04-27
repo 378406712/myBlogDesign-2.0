@@ -8,6 +8,7 @@ import permission from './modules/permission'
 import account from './modules/user/account'
 import edit from './modules/edit'
 import category from './modules/essay/category'
+import settings from './modules/settings'
 
 Vue.use(Vuex)
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     account,
     edit,
     category,
+    settings
   }
 })

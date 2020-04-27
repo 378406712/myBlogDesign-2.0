@@ -2,26 +2,44 @@
   <div class="app-wrapper">
     <sidebar></sidebar>
     <div class="main-container">
-      <navbar></navbar>
-
-      <tabs-view></tabs-view>
-      <app-main></app-main>
+      <navbar />
+      <tabs-view />
+      <app-main />
+      <right-panel v-if="showSettings">
+        <settings />
+      </right-panel>
     </div>
   </div>
 </template>
 <script>
-  import Navbar from './navbar'
-  import Sidebar from './sidebar/sidebar'
-  import TabsView from './tabs-view'
-  import AppMain from './app-main'
-  export default {
-    components: {
-      Navbar,
-      Sidebar,
-      TabsView,
-      AppMain
-    }
+import Navbar from './navbar'
+import Sidebar from './sidebar/sidebar'
+import TabsView from './tabs-view'
+import AppMain from './app-main'
+import Settings from './Settings'
+import RightPanel from '@/components/RightPanel'
+import { mapState } from 'vuex'
+
+export default {
+  components: {
+    Navbar,
+    Sidebar,
+    TabsView,
+    AppMain,
+    RightPanel,
+    Settings
+  },
+  computed: {
+    ...mapState({
+      showSettings: state => state.settings.showSettings,
+      needTagsView: state => state.settings.tagsView,
+      fixedHeader: state => state.settings.fixedHeader
+    })
+  },
+  mounted() {
+    console.log(this.$store)
   }
+}
 </script>
 <style scoped lang="stylus">
 .app-wrapper {
@@ -30,7 +48,7 @@
   height: 100%;
   .main-container {
     padding-left: 200px;
-    
+
   }
 }
 </style>
