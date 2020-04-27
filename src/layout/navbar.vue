@@ -97,7 +97,7 @@ export default {
     .lang-select {
       position: absolute;
       top: 18px;
-      right: 150px;
+      right: 140px;
     }
 
     .lang-select /deep/ .el-dropdown {
@@ -107,8 +107,8 @@ export default {
 
     .avatar-container {
       position: absolute;
-      top: 8px;
-      right: 30px;
+      top: 5px;
+      right: 20px;
 
       .avatar-wrapper {
         cursor: pointer;
@@ -147,7 +147,7 @@ export default {
 .top-navbar /deep/ .theme-container {
   position: absolute;
   top: 15px;
-  right: 225px;
+  right: 215px;
 color: #5a5e66;
  font-size: 24px;
   cursor: pointer;
@@ -157,7 +157,7 @@ color: #5a5e66;
 .top-navbar .screenfull {
   position: absolute;
   top: 20px;
-  right: 190px;
+  right: 180px;
 }
    .breadcrumb-container {
    float:left;
