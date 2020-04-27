@@ -1,9 +1,11 @@
 <template>
   <div class="app-wrapper">
     <sidebar></sidebar>
-    <div class="main-container">
-      <navbar />
-      <tabs-view />
+    <div :class="{ hasTagsView: needTagsView }" class="main-container">
+      <div :class="{ 'fixed-header': fixedHeader }">
+        <navbar />
+        <tabs-view v-if="needTagsView" />
+      </div>
       <app-main />
       <right-panel v-if="showSettings">
         <settings />
