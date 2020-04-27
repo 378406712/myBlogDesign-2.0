@@ -1,5 +1,6 @@
 <template>
   <div class="left-sidebar">
+    <logo v-if="showLogo" :collapse="isCollapse" class="logo" />
     <el-scrollbar class="el_scroll" :native="false">
       <el-menu
         class="scroll-menu"
@@ -20,12 +21,15 @@
   </div>
 </template>
 <script>
+import Logo from './Logo'
+
 import { mapGetters } from 'vuex'
 import SidebarItem from './sidebar-item'
 export default {
   name: 'SideBar',
   components: {
-    SidebarItem
+    SidebarItem,
+    Logo
   },
   data() {
     return {
@@ -33,7 +37,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['routers'])
+    ...mapGetters(['routers']),
+    showLogo() {
+      return this.$store.state.settings.sidebarLogo
+    }
   }
 }
 </script>
@@ -52,4 +59,14 @@ export default {
 .el_scroll {
   height: 100%;
 }
+.logo {
+  user-select: none;
+}
+#app .el-menu div a li span {
+  margin-left: 16px !important;
+}
+#app .el-menu div  li  div span {
+  margin-left: 16px !important;
+}
 </style>
+
