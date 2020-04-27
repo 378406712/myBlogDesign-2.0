@@ -254,4 +254,7 @@ export default {
 .playerList {
   float: right;
 }
+.grey_bg {
+  padding: 30px 20px 0px 20px !important;
+}
 </style>

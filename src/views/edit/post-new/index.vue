@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="grey_bg">
     <h2>新增文章</h2>
-    <el-row class="grey-bg" >
+    <el-row>
       <el-col :span="18">
         <div class="tips">
           <el-input
@@ -33,7 +33,7 @@
         <el-divider content-position="center">End</el-divider>
       </el-col>
       <el-col :span="6">
-        <EssaySetting 
+        <EssaySetting
           :disabled="disabled"
           v-on:addCategory="addCategory"
           v-on:toPublish="toPublish"
@@ -299,5 +299,8 @@ h2{
 }
 .grey-bg{
   background:#fff
+}
+.grey_bg {
+  padding: 30px 20px 0px 20px !important;
 }
 </style>

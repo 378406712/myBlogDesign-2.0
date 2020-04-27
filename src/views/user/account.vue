@@ -116,6 +116,9 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
+.grey_bg {
+  padding: 30px 20px 0px 20px !important;
+}
   .section .section-header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
     background-color: #6777ef;

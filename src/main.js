@@ -6,7 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 //弹窗
 import VueSwal from 'vue-swal'
-
+import '@/style/index.scss' // global css
 // animate动画库
 import 'animate.css'
 

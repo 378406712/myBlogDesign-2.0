@@ -29,14 +29,36 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="scss" scoped>
 .main-app {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: 30px 20px 0px 20px!important;
-      background-color: #f4f6f9;
+}
+
+.fixed-header + .main-app {
+  padding-top: 50px;
+}
+
+.hasTagsView {
+  .main-app {
+    /* 84 = navbar + tags-view = 50 + 34 */
+    min-height: calc(100vh - 84px);
+  }
+
+  .fixed-header + .main-app{
+    padding-top: 90px;
+  }
+}
+</style>
+
+<style lang="scss">
+// fix css style bug in open el-dialog
+.el-popup-parent--hidden {
+  .fixed-header {
+    padding-right: 15px;
+  }
 }
 </style>

@@ -12,6 +12,5 @@ export default {
 
 <style>
   @import 'normalize.css/normalize.css';
-  @import './style/index.css';
   @import './style/custom.css';
 </style>

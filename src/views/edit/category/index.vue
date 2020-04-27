@@ -1,5 +1,5 @@
 <template>
-  <div class="grey-bg components-container">
+  <div class="grey_bg components-container">
     <h2>分类目录</h2>
     <el-form>
       <el-form-item>
@@ -67,10 +67,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.grey-bg {
-  background: #f1f1f1;
-  padding: 30px 30px 60px 20px;
-}
+
 h2{
   margin-top: 0
 }
@@ -81,5 +78,9 @@ h2{
 
 >>> .el-form-item {
   margin-bottom:0
+}
+.grey_bg {
+    background: #f1f1f1;
+  padding: 30px 20px 0px 20px !important;
 }
 </style>

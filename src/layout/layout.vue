@@ -37,20 +37,26 @@ export default {
       needTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader
     })
-  },
-  mounted() {
-    console.log(this.$store)
   }
 }
 </script>
-<style scoped lang="stylus">
+<style scoped lang="scss">
+@import '~@/style/variables.scss';
+
 .app-wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
   .main-container {
     padding-left: 200px;
-
+  }
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    transition: width 0.28s;
+    width: calc(100% - #{$sideBarWidth});
   }
 }
 </style>

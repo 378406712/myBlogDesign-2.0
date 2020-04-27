@@ -1,5 +1,5 @@
 <template>
-  <div class="grey-bg components-container">
+  <div class="grey_bg components-container">
     <h2>编辑分类目录</h2>
     <div id="message" class="notice notice-success">
       <p v-if="success"><strong>分类已更新。</strong></p>
@@ -51,6 +51,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+
 >>>.el-form-item__label{
         padding: 10px 10px 20px 0;
 }
@@ -95,5 +96,8 @@ h2{
 }
 #message  a:hover {
     color: #0096dd;
+}
+.grey_bg {
+  padding: 30px 20px 0px 20px !important;
 }
 </style>

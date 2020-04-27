@@ -1,5 +1,5 @@
 <template>
-  <div class="introduction">
+  <div class="introduction grey_bg">
     <canvas></canvas>
     <h1>Hello.</h1>
     <p style="font-weight:500; font-size:2.2em">
@@ -44,12 +44,15 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,500,700');
+.grey_bg {
+  padding: 30px 20px 0px 20px !important;
+}
 .introduction {
   font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: calc(10px + 0.33vw);
   -webkit-font-smoothing: antialiased;
- /* padding: 1vh 2vw; */
+  /* padding: 1vh 2vw; */
   color: #121314;
 }
 h1 {
