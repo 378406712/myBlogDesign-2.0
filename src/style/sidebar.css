@@ -36,7 +36,7 @@
   border: 0;
 }
 .el-submenu .el-menu-item {
-  min-width: 210px !important;
+  min-width: 200px !important;
   background-color: #1f2d3d !important;
 }
 
@@ -44,7 +44,8 @@
   color: rgb(191, 203, 217);
 }
 .el-submenu__title:hover {
-  background-color: #263445 !important;}
+  background-color: #263445 !important;
+}
 .left-sidebar .el-submenu__title i {
   color: rgb(191, 203, 217);
 }
@@ -56,9 +57,11 @@
 }
 .left-sidebar .el-menu-item.is-active {
   color: rgb(64, 158, 255);
+  background-color: #001528 !important;
 }
 .left-sidebar .el-menu-item.is-active i {
   color: rgb(64, 158, 255);
+  background-color: #001528 !important;
 }
 .left-sidebar .el-menu-item:hover,
 .left-sidebar .el-menu-item:focus:hover {

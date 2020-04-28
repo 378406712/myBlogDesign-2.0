@@ -5,7 +5,7 @@
       <el-menu
         class="scroll-menu"
         mode="vertical"
-        unique-opened
+    
         background-color="rgb(48, 65, 86)"
         :collapse="isCollapse"
         :default-active="$route.path"

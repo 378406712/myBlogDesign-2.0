@@ -97,7 +97,5 @@ h2{
 #message  a:hover {
     color: #0096dd;
 }
-.grey_bg {
-  padding: 30px 20px 0px 20px !important;
-}
+
 </style>

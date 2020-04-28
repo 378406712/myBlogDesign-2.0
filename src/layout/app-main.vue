@@ -36,6 +36,7 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
+  background-color: #f0f2f5;
 }
 
 .fixed-header + .main-app {
@@ -48,7 +49,7 @@ export default {
     min-height: calc(100vh - 90px);
   }
 
-  .fixed-header + .main-app{
+  .fixed-header + .main-app {
     padding-top: 90px;
   }
 }

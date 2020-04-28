@@ -25,7 +25,7 @@
       <el-table-column sortable prop="alias" label="别名"></el-table-column>
       <el-table-column sortable prop="sum" label="总数">
         <template slot-scope="scope">
-          <router-link :to="'/edit/123/' + scope.row.category">
+          <router-link :to="'/edit/essay-detail/' + scope.row.category">
             {{ scope.row.category }}</router-link
           >
         </template>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import Operation from './components/operation'
+import Operation from './operation'
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {

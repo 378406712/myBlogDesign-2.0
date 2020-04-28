@@ -123,7 +123,7 @@ export const constantRouterMap = [
     path: '/edit',
     component: Layout,
     alwaysShow: true,
-    redirect:'/post-new',
+    redirect: '/post-new',
     meta: {
       icon: 'collection',
       title: '文章'
@@ -153,14 +153,22 @@ export const constantRouterMap = [
         hidden: true,
         name: 'alter-category',
         component: () => import('@/views/edit/category-detail/index'),
-        meta: { icon: 'svg-category', title: '编辑分类目录' }
+        meta: { title: '编辑分类目录' }
+      },
+
+      {
+        path: '/edit/essay-detail/:id',
+        hidden: true,
+        name: 'alter-essay',
+        component: () => import('@/views/edit/essay-detail/index'),
+        meta: { title: '编辑分类目录' }
       }
     ]
   },
   {
     path: '/futures',
     component: Layout,
-    redirect:'/draggable',
+    redirect: '/draggable',
     alwaysShow: true,
     meta: {
       icon: 's-grid',
@@ -242,7 +250,7 @@ export const asyncRouterMap = [
     path: '/theme',
     component: Layout,
     redirect: 'index',
-   
+
     children: [
       {
         path: 'index',

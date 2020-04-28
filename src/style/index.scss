@@ -60,6 +60,7 @@ ul,
 li {
   list-style: none;
 }
+
 ul {
   padding: 0;
 }
@@ -229,4 +230,8 @@ button {
 
 .card-inner li {
   line-height: 20px;
+}
+.grey_bg {
+  padding: 30px 20px 0px 20px !important;
+  background: #f0f2f5;
 }

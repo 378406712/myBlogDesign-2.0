@@ -4,7 +4,7 @@
     <div class="rightPanel">
       <div
         class="handle-button"
-        :style="{ top: buttonTop + 'px', 'background-color': 'blue' }"
+        :style="{ top: buttonTop + 'px', 'background-color': '#1890FF' }"
         @click="show = !show"
       >
         <i :class="show ? 'el-icon-close' : 'el-icon-setting'" />

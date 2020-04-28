@@ -1,5 +1,5 @@
 <template>
-  <div class="grey_bg">
+  <div class="grey_bg white">
     <h2>新增文章</h2>
     <el-row>
       <el-col :span="18">
@@ -297,10 +297,8 @@ export default {
 h2{
   margin-top: 0;
 }
-.grey-bg{
-  background:#fff
+.white{
+   background: #fff;
 }
-.grey_bg {
-  padding: 30px 20px 0px 20px !important;
-}
+
 </style>
