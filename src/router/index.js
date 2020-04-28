@@ -153,15 +153,14 @@ export const constantRouterMap = [
         hidden: true,
         name: 'alter-category',
         component: () => import('@/views/edit/category-detail/index'),
-        meta: { title: '编辑分类目录' }
+        meta: {  title: '编辑分类目录' }
       },
-
       {
-        path: '/edit/essay-detail/:id',
+        path: '/edit/all-essay/:id',
         hidden: true,
-        name: 'alter-essay',
-        component: () => import('@/views/edit/essay-detail/index'),
-        meta: { title: '编辑分类目录' }
+        name: 'essay-detail',
+        component: () => import('@/views/edit/all-essay/index'),
+        meta: { title: '文章' }
       }
     ]
   },

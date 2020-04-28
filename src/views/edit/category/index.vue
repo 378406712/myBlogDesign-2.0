@@ -79,8 +79,8 @@ h2{
 >>> .el-form-item {
   margin-bottom:0
 }
-.grey_bg {
-    background: #f1f1f1;
-  padding: 30px 20px 0px 20px !important;
-}
+// .grey_bg {
+//     background: #f1f1f1;
+//   padding: 30px 20px 0px 20px !important;
+// }
 </style>
