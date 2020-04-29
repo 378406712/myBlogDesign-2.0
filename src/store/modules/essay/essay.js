@@ -44,7 +44,15 @@ const Essay = {
           })
           .catch(err => reject(err))
       })
-    }
+    },
+    SearchEssay({ commit }, keywords) {
+        return new Promise((resolve, reject) => {
+          Api.SearchEssay(keywords).then(res => {
+            commit(ESSAY_LIST, res.data)
+            resolve()
+          })
+        })
+      }
   }
 }
 export default Essay

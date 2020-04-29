@@ -19,10 +19,10 @@
         <p class="search-box">
           <el-input
             style="width:auto"
-            v-model="searchCategory"
+            v-model="searchEssay"
             size="mini"
           ></el-input>
-          <el-button size="mini" @click="handleSearch">搜索分类目录</el-button>
+          <el-button size="mini" @click="handleSearch">搜索文章</el-button>
           <el-button
             class="control"
             @click="drawer = true"
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       drawer: false,
-      searchCategory: '',
+      searchEssay: '',
       category: [],
       subtitle: [
         { title: '全部', status: 'all' },
@@ -65,8 +65,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetEssay']),
-    handleSearch() {},
+    ...mapActions(['GetEssay', 'SearchEssay']),
+    handleSearch() {
+      this.SearchEssay({
+        params: {
+          username: this.name,
+          keywords: this.searchEssay
+        }
+      })
+    },
     getCategory() {},
 
     getEssay() {
