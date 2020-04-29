@@ -8,7 +8,10 @@
         <ul class="subsubsub">
           <li v-for="(item, index) in subtitle" :key="index">
             <router-link :to="'/edit/all-essay/' + item.status"
-              >{{ item.title }}<span class="count">（66）</span></router-link
+              >{{ item.title
+              }}<span class="count"
+                >（{{ num[item.status] }}）</span
+              ></router-link
             >
             |
           </li>
@@ -31,8 +34,7 @@
       </el-form-item>
 
       <Operation v-on:getCategory="getCategory" />
-      <EssayTable/>
-      
+      <EssayTable />
     </el-form>
     <Operation v-on:getCategory="getCategory" />
     <el-drawer :visible.sync="drawer">
@@ -47,7 +49,7 @@ import SettingForm from './components/settingForm'
 import EssayTable from './components/essay-table'
 import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
-  components: { Operation, SettingForm,EssayTable },
+  components: { Operation, SettingForm, EssayTable },
   data() {
     return {
       drawer: false,
@@ -56,7 +58,7 @@ export default {
       subtitle: [
         { title: '全部', status: 'all' },
         { title: '已发送', status: 'sended' },
-        { title: '草稿', status: 'draft' },
+        // { title: '草稿', status: 'draft' },
         { title: '待审', status: 'pend' },
         { title: '回收站', status: 'trash' }
       ]
@@ -66,8 +68,7 @@ export default {
     ...mapActions(['GetEssay']),
     handleSearch() {},
     getCategory() {},
-   
- 
+
     getEssay() {
       this.GetEssay({
         params: {
@@ -82,7 +83,9 @@ export default {
   },
   computed: {
     ...mapGetters(['name']),
- 
+    ...mapState({
+      num: state => state.essay.num
+    })
   }
 }
 </script>

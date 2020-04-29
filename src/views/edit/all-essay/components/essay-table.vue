@@ -21,7 +21,13 @@
         </router-link>
       </template>
     </el-table-column>
-    <el-table-column sortable prop="comment" label="评论"></el-table-column>
+    <el-table-column
+      sortable
+      prop="comment"
+      :render-header="commentIcon"
+      label="评论"
+    >
+    </el-table-column>
     <el-table-column sortable prop="date" label="日期"></el-table-column>
     <el-table-column sortable prop="click_sum" label="点击数">
       <template slot-scope="scope">
@@ -44,6 +50,32 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    commentIcon(h, { column, $index }, index) {
+      return h('span', {}, [
+        h(
+          'el-popover',
+          {
+            props: {
+              placement: 'top-start',
+              width: '50',
+              trigger: 'hover',
+              content: '评论数量'
+            }
+          },
+          [
+            h(
+              'i',
+              {
+                slot: 'reference',
+                class: 'el-icon-s-comment',
+                style: 'fontSize:24px;position:relative;top:5px'
+              },
+              ''
+            )
+          ]
+        )
+      ])
     }
   },
   computed: {
