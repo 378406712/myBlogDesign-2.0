@@ -2,40 +2,17 @@
   <div class="grey_bg">
     <h2 class="heading-inline">文章</h2>
     <router-link to="/edit/post-new">写文章</router-link>
-    <hr class="header-end" />
-    <ul class="subsubsub">
-      <li class="all">
-        <a href="edit.php?post_type=post"
-          >全部<span class="count">（66）</span></a
-        >
-        |
-      </li>
-      <li class="publish">
-        <a href="edit.php?post_status=publish&amp;post_type=post"
-          >已发布<span class="count">（61）</span></a
-        >
-        |
-      </li>
-      <li class="draft">
-        <a href="edit.php?post_status=draft&amp;post_type=post"
-          >草稿<span class="count">（3）</span></a
-        >
-        |
-      </li>
-      <li class="pending">
-        <a href="edit.php?post_status=pending&amp;post_type=post"
-          >待审<span class="count">（2）</span></a
-        >
-        |
-      </li>
-      <li class="trash">
-        <a href="edit.php?post_status=trash&amp;post_type=post"
-          >回收站<span class="count">（5）</span></a
-        >
-      </li>
-    </ul>
+    <el-divider></el-divider>
     <el-form>
       <el-form-item>
+        <ul class="subsubsub">
+          <li v-for="(item, index) in subtitle" :key="index">
+            <router-link :to="'/edit/all-essay/' + item.status"
+              >{{ item.title }}<span class="count">（66）</span></router-link
+            >
+            |
+          </li>
+        </ul>
         <p class="search-box">
           <el-input
             style="width:auto"
@@ -52,46 +29,11 @@
           >
         </p>
       </el-form-item>
+
       <Operation v-on:getCategory="getCategory" />
-
-      <el-table
-        :data="category"
-        @selection-change="handleChange"
-        :row-class-name="tableRowClassName"
-        style="width: 100%"
-      >
-        <el-table-column :selectable="selectable" type="selection" width="45">
-        </el-table-column>
-        <el-table-column prop="title" label="标题" width="400">
-          <template slot-scope="scope">
-            <img :src="scope.row.pic" style="width: 50px;height: 50px" />
-          </template>
-        </el-table-column>
-        <el-table-column sortable prop="author" label="作者">
-          <template slot-scope="scope">
-            <router-link :to="'/edit/category-detail/' + scope.row._id">
-              {{ scope.row.category }}</router-link
-            >
-          </template>
-        </el-table-column>
-        <el-table-column
-          sortable
-          prop="category"
-          label="分类目录"
-        ></el-table-column>
-        <el-table-column sortable prop="comment" label="评论"></el-table-column>
-        <el-table-column sortable prop="date" label="日期"></el-table-column>
-
-        <el-table-column sortable prop="click_sum" label="点击数">
-          <template slot-scope="scope">
-            <router-link :to="'/edit/all-essay/' + scope.row.category">
-              {{ scope.row.category }}</router-link
-            >
-          </template>
-        </el-table-column>
-      </el-table>
+      <EssayTable/>
+      
     </el-form>
-
     <Operation v-on:getCategory="getCategory" />
     <el-drawer :visible.sync="drawer">
       <SettingForm />
@@ -102,32 +44,45 @@
 <script>
 import Operation from './components/operation'
 import SettingForm from './components/settingForm'
+import EssayTable from './components/essay-table'
+import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
-  components: { Operation, SettingForm },
+  components: { Operation, SettingForm,EssayTable },
   data() {
     return {
       drawer: false,
       searchCategory: '',
       category: [],
+      subtitle: [
+        { title: '全部', status: 'all' },
+        { title: '已发送', status: 'sended' },
+        { title: '草稿', status: 'draft' },
+        { title: '待审', status: 'pend' },
+        { title: '回收站', status: 'trash' }
+      ]
     }
   },
   methods: {
+    ...mapActions(['GetEssay']),
     handleSearch() {},
     getCategory() {},
-    selectable(row, index) {
-      if (row.category !== '未分类') return true
-      else {
-        return false
-      }
-    },
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 === 1) 'warning-row'
-      else {
-        return 'success-row'
-      }
-      return ''
-    },
-    handleChange() {}
+   
+ 
+    getEssay() {
+      this.GetEssay({
+        params: {
+          username: this.name,
+          keyword: 'all'
+        }
+      })
+    }
+  },
+  mounted() {
+    this.getEssay()
+  },
+  computed: {
+    ...mapGetters(['name']),
+ 
   }
 }
 </script>
@@ -171,6 +126,7 @@ export default {
   font-size: 13px;
   float: left;
   color: #666;
+  z-index: 999999;
 }
 .subsubsub li {
   display: inline-block;

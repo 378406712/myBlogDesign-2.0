@@ -52,6 +52,7 @@ import { ImageDrop } from 'quill-image-drop-module'
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import { Msg, ComfirmMsg } from '@/utils/message'
 import EssaySetting from './components/essay-setting'
+import moment from 'moment'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
 
@@ -197,7 +198,8 @@ export default {
         ...visiable,
         title: this.title,
         essay: this.content,
-        username: this.name
+        username: this.name,
+        date: moment().format('YYYY-MM-DD HH:mm:ss')
       }
       this.PostEssay(EssayData)
         .then(() => {
@@ -300,5 +302,4 @@ h2{
 .white{
    background: #fff;
 }
-
 </style>

@@ -9,7 +9,7 @@ import account from './modules/user/account'
 import edit from './modules/edit'
 import category from './modules/essay/category'
 import settings from './modules/settings'
-
+import essay from './modules/essay/essay'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,6 +22,7 @@ export default new Vuex.Store({
     account,
     edit,
     category,
-    settings
+    settings,
+    essay
   }
 })

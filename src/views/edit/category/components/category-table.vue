@@ -55,7 +55,7 @@ export default {
     ...mapMutations(['SET_SELECTION', 'CATEGORY_CHECK']),
 
     tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 === 1) 'warning-row'
+      if (rowIndex % 2 === 1) return 'warning-row'
       else {
         return 'success-row'
       }
@@ -106,38 +106,16 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import url(../../../../style/table.scss);
 .el-table_1_column_2 {
   line-height: 0;
 }
 .el-table__row {
   width: 100%;
 }
-</style>
-<style>
-.cell a {
-  color: #0073aa;
-  outline: 0;
-  font-size: 14px !important;
-  font-weight: 600;
-}
-.cell a:active,
-.cell a:focus,
-.cell a:hover {
-  color: #0096dd;
-}
-.el-table th,
-.el-table td {
-  text-align: left !important;
-}
-.el-table .warning-row {
+.el-table >>> .warning-row {
   background: #fff;
 }
-.el-table td,
-.el-table th.is-leaf {
-  border-bottom: 0px;
-}
-
-.el-table .success-row {
-  background: #f9f9f9;
-}
+.el-table >>>.success-row {
+background-color: #f5f7fa;}
 </style>

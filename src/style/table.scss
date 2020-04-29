@@ -1,0 +1,20 @@
+.cell a {
+    color: #0073aa;
+    outline: 0;
+    font-size: 14px !important;
+    font-weight: 600;
+  }
+  .cell a:active,
+  .cell a:focus,
+  .cell a:hover {
+    color: #0096dd;
+  }
+  .el-table th,
+  .el-table td {
+    text-align: left !important;
+  }
+  
+  .el-table td,
+  .el-table th.is-leaf {
+    border-bottom: 0px;
+  }
