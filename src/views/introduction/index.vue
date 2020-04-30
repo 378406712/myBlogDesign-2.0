@@ -1,5 +1,5 @@
 <template>
-  <div class="introduction grey_bg">
+  <div class="introduction white_bg">
     <canvas></canvas>
     <h1>Hello.</h1>
     <p style="font-weight:500; font-size:2.2em">
@@ -44,8 +44,9 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,500,700');
-.grey_bg {
+.white_bg {
   padding: 30px 20px 0px 20px !important;
+  background-color: #fff;
 }
 .introduction {
   font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -84,6 +85,7 @@ a:after {
   bottom: 0;
   transition: top 200ms cubic-bezier(0, 0.8, 0.13, 1);
   background-color: rgba(79, 192, 141, 0.5);
+  z-index: 999;
 }
 a:hover:after {
   top: 0%;

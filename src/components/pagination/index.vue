@@ -4,6 +4,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :page-sizes="[2, 4, 6, 8, 10]"
+      :pager-count="7"
       :page-size="size"
       :current-page="page"
       layout="total, sizes, prev, pager, next, jumper"
