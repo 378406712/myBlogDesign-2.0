@@ -2,8 +2,8 @@
   <el-table
     :data="essayList"
     @selection-change="handleChange"
-    :row-class-name="tableRowClassName"
     style="width: 100%"
+    :stripe="true"
   >
     >
     <el-table-column type="selection" width="45"> </el-table-column>
@@ -44,13 +44,6 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
   methods: {
     handleChange() {},
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 === 1) return 'warning-row'
-      else {
-        return 'success-row'
-      }
-      return ''
-    },
     commentIcon(h, { column, $index }, index) {
       return h('span', {}, [
         h(
@@ -88,10 +81,4 @@ export default {
 
 <style lang="scss" scoped>
 @import url(../../../../style/table.scss);
-.el-table >>> .warning-row {
-  background: #fff;
-}
-.el-table >>> .success-row {
-  background: #f9f9f9;
-}
 </style>

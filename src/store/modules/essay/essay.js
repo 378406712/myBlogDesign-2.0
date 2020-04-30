@@ -1,15 +1,35 @@
 import * as Api from '@/api/essay'
 const ESSAY_LIST = 'ESSAY_LIST'
 const ESSAY_STATUS = 'ESSAY_STATUS'
+const ESSAY_PAGES = 'ESSAY_PAGES'
+const ESSAY_SIZES = 'ESSAY_SIZES'
+const ESSAY_TOTALS = 'ESSAY_TOTALS'
 const Essay = {
   state: {
     essayList: [],
-    num: { all: 0, sended: 0, pend: 0, trash: 0 }
+    num: { all: 0, sended: 0, pend: 0, trash: 0 },
+    pages: 1,
+    sizes: 8,
+    totals: 0
   },
   mutations: {
     [ESSAY_LIST](state, essayList) {
-      state.essayList = essayList
+      //先判断slice后的数组长度是否为0，是，则将pages-1，返回新的state.category
+      //这里的pages已经变更
+      let data = essayList.slice(
+        state.sizes * (state.pages - 1),
+        state.sizes * state.pages
+      )
+      state.essayList = essayList.slice(
+        state.sizes * (state.pages - 1),
+        state.sizes * state.pages
+      )
+      if (data.length === 0) {
+        state.pages -= 1
+        state.essayList = essayList
+      }
     },
+
     [ESSAY_STATUS](state, essayList) {
       state.num.all = essayList.length
       const reCheckNum = []
@@ -20,6 +40,15 @@ const Essay = {
       })
       state.num.pend = reCheckNum.length
       state.num.sended = essayList.length - reCheckNum.length
+    },
+    [ESSAY_PAGES](state, pages) {
+      state.pages = pages
+    },
+    [ESSAY_SIZES](state, sizes) {
+      state.sizes = sizes
+    },
+    [ESSAY_TOTALS](state, totals) {
+      state.totals = totals
     }
   },
   actions: {
@@ -37,8 +66,9 @@ const Essay = {
       return new Promise((resolve, reject) => {
         Api.GetEssay(keywords)
           .then(res => {
-            commit('ESSAY_LIST', res.data)
-            commit('ESSAY_STATUS', res.data)
+            commit(ESSAY_LIST, res.data)
+            commit(ESSAY_STATUS, res.data)
+            commit(ESSAY_TOTALS, res.data.length)
 
             resolve()
           })
@@ -46,13 +76,13 @@ const Essay = {
       })
     },
     SearchEssay({ commit }, keywords) {
-        return new Promise((resolve, reject) => {
-          Api.SearchEssay(keywords).then(res => {
-            commit(ESSAY_LIST, res.data)
-            resolve()
-          })
+      return new Promise((resolve, reject) => {
+        Api.SearchEssay(keywords).then(res => {
+          commit(ESSAY_LIST, res.data)
+          resolve()
         })
-      }
+      })
+    }
   }
 }
 export default Essay

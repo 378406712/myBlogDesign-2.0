@@ -4,8 +4,8 @@
     <el-table
       :data="category"
       @selection-change="handleChange"
-      :row-class-name="tableRowClassName"
       style="width: 100%"
+      stripe="true"
     >
       <el-table-column :selectable="selectable" type="selection" width="45">
       </el-table-column>
@@ -54,13 +54,6 @@ export default {
     ...mapActions(['GetCategory', 'GetEssay', 'AllCategoryCount']),
     ...mapMutations(['SET_SELECTION', 'CATEGORY_CHECK']),
 
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 === 1) return 'warning-row'
-      else {
-        return 'success-row'
-      }
-      return ''
-    },
     handleChange(val) {
       this.SET_SELECTION(val)
     },
@@ -82,14 +75,6 @@ export default {
       else {
         return false
       }
-    },
-    pageValue(pageValue) {
-      this.SET_PAGES(pageValue)
-      this.getCategory()
-    },
-    sizeValue(sizeValue) {
-      this.SET_SIZES(sizeValue)
-      this.getCategory()
     }
   },
   mounted() {

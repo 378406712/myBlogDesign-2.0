@@ -33,10 +33,10 @@
         </p>
       </el-form-item>
 
-      <Operation v-on:getCategory="getCategory" />
+      <Operation v-on:getEssay="getEssay" />
       <EssayTable />
     </el-form>
-    <Operation v-on:getCategory="getCategory" />
+    <Operation v-on:getEssay="getEssay" />
     <el-drawer :visible.sync="drawer">
       <SettingForm />
     </el-drawer>
@@ -74,7 +74,7 @@ export default {
         }
       })
     },
-    getCategory() {},
+    getEssay() {},
 
     getEssay() {
       this.GetEssay({

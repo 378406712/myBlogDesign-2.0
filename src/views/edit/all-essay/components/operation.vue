@@ -1,8 +1,6 @@
 <template>
   <el-form style="margin: 2px 0 5px">
-    
     <el-form-item>
-      
       <p class="search-box">
         <el-select
           v-model="operation"
@@ -13,9 +11,7 @@
           <el-option label="批量操作" value="depatch"></el-option>
           <el-option label="删除" value="delete"></el-option>
         </el-select>
-        <el-button  size="mini" @click="BatchDelete"
-          >应用</el-button
-        >
+        <el-button size="mini" @click="BatchDelete">应用</el-button>
         <el-select
           v-model="operation"
           placeholder="全部日期"
@@ -33,7 +29,7 @@
           <el-option label="所有分类目录" value="depatch"></el-option>
           <el-option label="删除" value="delete"></el-option>
         </el-select>
-        
+
         <Pagination
           style="float:right"
           :total="totals"
@@ -42,8 +38,7 @@
           v-on:sizeValue="sizeValue"
           v-on:pageValue="pageValue"
         />
-          <el-button  size="mini" @click="BatchDelete"
-          >筛选</el-button>
+        <el-button size="mini" @click="BatchDelete">筛选</el-button>
       </p>
     </el-form-item>
   </el-form>
@@ -60,7 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_PAGES_C', 'SET_SIZES_C']),
+    ...mapMutations(['ESSAY_PAGES', 'ESSAY_SIZES']),
     ...mapActions(['BatchDeleteCategory', 'AllCategoryCount']),
     /**
      * 删除多条
@@ -90,20 +85,20 @@ export default {
       }
     },
     pageValue(pageValue) {
-      this.SET_PAGES_C(pageValue)
-      this.$emit('getCategory')
+      this.ESSAY_PAGES(pageValue)
+      this.$emit('getEssay')
     },
     sizeValue(sizeValue) {
-      this.SET_SIZES_C(sizeValue)
-      this.$emit('getCategory')
+      this.ESSAY_SIZES(sizeValue)
+      this.$emit('getEssay')
     }
   },
   computed: {
     ...mapState({
-      selection: state => state.category.selection,
-      pages: state => state.edit.pages,
-      sizes: state => state.edit.sizes,
-      totals: state => state.edit.totals
+   //   selection: state => state.category.selection,
+      pages: state => state.essay.pages,
+      sizes: state => state.essay.sizes,
+      totals: state => state.essay.totals
     }),
     ...mapGetters(['name'])
   }
