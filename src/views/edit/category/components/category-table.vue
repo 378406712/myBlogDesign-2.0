@@ -43,7 +43,6 @@ export default {
   components: {
     Operation
   },
-  props: {},
 
   data() {
     return {

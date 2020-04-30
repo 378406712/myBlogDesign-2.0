@@ -61,7 +61,6 @@
 }
 .left-sidebar .el-menu-item.is-active i {
   color: rgb(64, 158, 255);
-  background-color: #001528 !important;
 }
 .left-sidebar .el-menu-item:hover,
 .left-sidebar .el-menu-item:focus:hover {

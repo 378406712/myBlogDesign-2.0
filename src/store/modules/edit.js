@@ -69,7 +69,6 @@ const Edit = {
     [SPECIAL_BG](state, bg) {
       state.special_bg = bg
     },
-
     [SHOW_DIALOG](state, dialog) {
       state.showDialog = dialog
     },

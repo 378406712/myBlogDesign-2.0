@@ -18,7 +18,14 @@
           style="width:10%"
           size="mini"
         >
-          <el-option label="全部日期" value="depatch"></el-option>
+          <el-option label="全部日期" value="all-date"></el-option>
+          <el-option
+            v-for="(item, index) in DateList"
+            :key="index"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
         </el-select>
         <el-select
           v-model="chooseCategory"
@@ -26,8 +33,14 @@
           style="width:12%"
           size="mini"
         >
-          <el-option label="所有分类目录" value="depatch"></el-option>
-          <el-option label="删除" value="delete"></el-option>
+          <el-option label="所有分类目录" value="all-category"></el-option>
+          <el-option
+            v-for="(item, index) in CategoryList"
+            :key="index"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
         </el-select>
 
         <Pagination
@@ -49,11 +62,15 @@ import Pagination from '@/components/pagination'
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 export default {
   components: { Pagination },
+  props: {
+    DateList: Array,
+    CategoryList: Array
+  },
   data() {
     return {
       operation: 'depatch',
-      chooseCategory: '',
-      chooseDate: ''
+      chooseCategory: 'all-category',
+      chooseDate: 'all-date'
     }
   },
   methods: {
@@ -81,7 +98,9 @@ export default {
         this.$emit('getEssay')
       }
     },
-    Filter() {},
+    Filter() {
+      console.log(this.chooseCategory, this.chooseDate)
+    },
     pageValue(pageValue) {
       this.ESSAY_PAGES(pageValue)
       this.$emit('getEssay')
@@ -91,6 +110,7 @@ export default {
       this.$emit('getEssay')
     }
   },
+
   computed: {
     ...mapState({
       selection: state => state.essay.selection,

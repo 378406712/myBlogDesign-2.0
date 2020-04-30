@@ -36,7 +36,9 @@ body {
 html {
   box-sizing: border-box;
 }
-
+.v-modal {
+  z-index: 999 !important;
+}
 /* 机器数字 */
 .digital-number {
   font-family: digital;
@@ -66,6 +68,7 @@ ul {
 }
 div {
   outline: none;
+  cursor: url(/static/cur/normal.cur), auto;
 }
 a,
 a:focus,
@@ -82,9 +85,14 @@ a span i {
 a {
   cursor: url(/static/cur/ayuda.cur), auto !important;
 }
+
 .el-menu-item,
 .el-submenu__title {
   cursor: url(/static/cur/normal.cur), auto !important;
+}
+.el-menu-item:focus,
+.el-submenu__title:focus {
+  cursor: url(/static/cur/No_Disponible.cur), auto !important;
 }
 
 img:hover {
@@ -96,7 +104,7 @@ li div:hover {
 }
 
 a:active {
-  cursor: url(/static/cur/work.cur), alias;
+  cursor: url(/static/cur/work.cur), auto !important;
 }
 
 input {

@@ -33,10 +33,18 @@
         </p>
       </el-form-item>
 
-      <Operation v-on:getEssay="getEssay" />
+      <Operation
+        v-on:getEssay="getEssay"
+        :DateList="DateList"
+        :CategoryList="CategoryList"
+      />
       <EssayTable />
     </el-form>
-    <Operation v-on:getEssay="getEssay" />
+    <Operation
+      v-on:getEssay="getEssay"
+      :DateList="DateList"
+      :CategoryList="CategoryList"
+    />
     <el-drawer :visible.sync="drawer">
       <SettingForm />
     </el-drawer>
@@ -52,9 +60,10 @@ export default {
   components: { Operation, SettingForm, EssayTable },
   data() {
     return {
+      DateList: [],
+      CategoryList: [],
       drawer: false,
       searchEssay: '',
-      category: [],
       subtitle: [
         { title: '全部', status: 'all' },
         { title: '已发送', status: 'sended' },
@@ -65,7 +74,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetEssay', 'SearchEssay', 'AllCategoryCount']),
+    ...mapActions([
+      'GetEssay',
+      'SearchEssay',
+      'AllCategoryCount',
+      'EssayDate',
+      'EssayCategory'
+    ]),
     handleSearch() {
       this.SearchEssay({
         params: {
@@ -75,19 +90,36 @@ export default {
       })
     },
 
-    getEssay() {
-      this.GetEssay({
+    async getEssay() {
+      await this.GetEssay({
         params: {
           username: this.name,
           keyword: 'all'
         }
       })
+      await this.EssayDate({ params: { username: this.name } })
+      await this.EssayCategory({ params: { username: this.name } })
+      this.isCategory(this.Essaycategory)
+      this.isSame(this.date)
+    },
+    isCategory(Essaycategory) {
+      let array = []
+      Essaycategory.map(item => {
+        array.push(item.category)
+      })
+      this.CategoryList = array
+    },
+
+    isSame(date) {
+      let array = []
+      date.map(item => {
+        array.push(item.selectDate)
+      })
+
+      this.DateList = Array.from(new Set(array)).reverse()
     }
   },
-  mounted() {
-    this.getEssay()
-  },
- 
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.getEssay()
@@ -96,7 +128,9 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      num: state => state.essay.num
+      num: state => state.essay.num,
+      date: state => state.essay.date,
+      Essaycategory: state => state.essay.category
     })
   }
 }

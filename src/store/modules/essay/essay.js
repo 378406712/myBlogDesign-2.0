@@ -5,17 +5,23 @@ const ESSAY_PAGES = 'ESSAY_PAGES'
 const ESSAY_SIZES = 'ESSAY_SIZES'
 const ESSAY_TOTALS = 'ESSAY_TOTALS'
 const SET_SELECTION = 'SET_SELECTION'
+const ESSAY_DATE = 'ESSAY_DATE'
+const GET_CATEGORY = 'GET_CATEGORY'
 const Essay = {
   state: {
     essayList: [],
     selection: [],
-
+    category: [],
+    date: [],
     num: { all: 0, sended: 0, pend: 0, trash: 0 },
     pages: 1,
     sizes: 8,
     totals: 0
   },
   mutations: {
+    [GET_CATEGORY](state, category) {
+      state.category = category
+    },
     [SET_SELECTION](state, selection) {
       state.selection = selection
     },
@@ -35,7 +41,9 @@ const Essay = {
         state.essayList = essayList
       }
     },
-
+    [ESSAY_DATE](state, date) {
+      state.date = date
+    },
     [ESSAY_STATUS](state, essayList) {
       state.num.all = essayList.length
       const reCheckNum = []
@@ -86,6 +94,22 @@ const Essay = {
       return new Promise((resolve, reject) => {
         Api.SearchEssay(keywords).then(res => {
           commit(ESSAY_LIST, res.data)
+          resolve()
+        })
+      })
+    },
+    EssayDate({ commit }, username) {
+      return new Promise((resolve, reject) => {
+        Api.EssayDate(username).then(res => {
+          commit(ESSAY_DATE, res.data)
+          resolve()
+        })
+      })
+    },
+    EssayCategory({ commit }, username) {
+      return new Promise((resolve, reject) => {
+        Api.GetCategory(username).then(res => {
+          commit(GET_CATEGORY, res.data)
           resolve()
         })
       })

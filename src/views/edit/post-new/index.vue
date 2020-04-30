@@ -199,12 +199,13 @@ export default {
         title: this.title,
         essay: this.content,
         username: this.name,
-        date: moment().format('YYYY-MM-DD HH:mm:ss')
+        date: moment().format(' YYYY年MM月DD日mm分'),
+        selectDate: moment().format(' YYYY年MM月')
       }
       this.PostEssay(EssayData)
         .then(() => {
           if (this.status === 'SUCCESS') {
-           // this.CategoryCount(EssayData)
+            // this.CategoryCount(EssayData)
             //  this.publish = '更新'
             return Msg('发布成功', 'success')
           } else if (this.status === 'ERROR') return Msg('发布失败', 'error')
