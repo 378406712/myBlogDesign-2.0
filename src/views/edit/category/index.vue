@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     ...mapMutations(['CATEGORY_PIC']),
-    ...mapActions(['SearchCategory_c']),
+    ...mapActions(['SearchCategory_c', 'AllCategoryCount']),
     handleSearch() {
       this.SearchCategory_c({
         params: {
@@ -62,6 +62,10 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({})
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log(from)
+    next(vm => vm.getCategory())
   }
 }
 </script>

@@ -4,15 +4,21 @@ const ESSAY_STATUS = 'ESSAY_STATUS'
 const ESSAY_PAGES = 'ESSAY_PAGES'
 const ESSAY_SIZES = 'ESSAY_SIZES'
 const ESSAY_TOTALS = 'ESSAY_TOTALS'
+const SET_SELECTION = 'SET_SELECTION'
 const Essay = {
   state: {
     essayList: [],
+    selection: [],
+
     num: { all: 0, sended: 0, pend: 0, trash: 0 },
     pages: 1,
     sizes: 8,
     totals: 0
   },
   mutations: {
+    [SET_SELECTION](state, selection) {
+      state.selection = selection
+    },
     [ESSAY_LIST](state, essayList) {
       //先判断slice后的数组长度是否为0，是，则将pages-1，返回新的state.category
       //这里的pages已经变更
@@ -52,15 +58,16 @@ const Essay = {
     }
   },
   actions: {
-    // BatchDeleteCategory({ commit }, key) {
-    //   return new Promise((resolve, reject) => {
-    //     Api.BatchDeleteCategory(key)
-    //       .then(() => {
-    //         resolve()
-    //       })
-    //       .catch(err => reject(err))
-    //   })
-    // },
+    BatchDeleteEssay({ commit }, key) {
+      console.log(key)
+      return new Promise((resolve, reject) => {
+        Api.BatchDeleteEssay(key)
+          .then(() => {
+            resolve()
+          })
+          .catch(err => reject(err))
+      })
+    },
     //文章
     GetEssay({ commit }, keywords) {
       return new Promise((resolve, reject) => {

@@ -20,7 +20,6 @@ const Category = {
     [SET_SELECTION](state, selection) {
       state.selection = selection
     },
-
     [GET_CATEGORY_DETAIL](state, detail) {
       state.detail = detail
     },

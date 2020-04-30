@@ -65,7 +65,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetEssay', 'SearchEssay']),
+    ...mapActions(['GetEssay', 'SearchEssay', 'AllCategoryCount']),
     handleSearch() {
       this.SearchEssay({
         params: {
@@ -74,7 +74,6 @@ export default {
         }
       })
     },
-    getEssay() {},
 
     getEssay() {
       this.GetEssay({
@@ -87,6 +86,12 @@ export default {
   },
   mounted() {
     this.getEssay()
+  },
+ 
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.getEssay()
+    })
   },
   computed: {
     ...mapGetters(['name']),

@@ -13,7 +13,7 @@
         </el-select>
         <el-button size="mini" @click="BatchDelete">应用</el-button>
         <el-select
-          v-model="operation"
+          v-model="chooseDate"
           placeholder="全部日期"
           style="width:10%"
           size="mini"
@@ -21,7 +21,7 @@
           <el-option label="全部日期" value="depatch"></el-option>
         </el-select>
         <el-select
-          v-model="operation"
+          v-model="chooseCategory"
           placeholder="所有分类目录"
           style="width:12%"
           size="mini"
@@ -38,7 +38,7 @@
           v-on:sizeValue="sizeValue"
           v-on:pageValue="pageValue"
         />
-        <el-button size="mini" @click="BatchDelete">筛选</el-button>
+        <el-button size="mini" @click="Filter">筛选</el-button>
       </p>
     </el-form-item>
   </el-form>
@@ -51,39 +51,37 @@ export default {
   components: { Pagination },
   data() {
     return {
-      operation: 'depatch'
+      operation: 'depatch',
+      chooseCategory: '',
+      chooseDate: ''
     }
   },
   methods: {
     ...mapMutations(['ESSAY_PAGES', 'ESSAY_SIZES']),
-    ...mapActions(['BatchDeleteCategory', 'AllCategoryCount']),
+    ...mapActions(['BatchDeleteEssay', 'GetEssay']),
     /**
      * 删除多条
-     * @class BatchDelete
+     * @class BatchDeleteEssay
      */
     async BatchDelete() {
       if (this.operation === 'delete' && this.selection) {
         const data = [] //id
-        const payload = [] //目录名
         this.selection.map(item => {
           Object.getOwnPropertyNames(item).forEach(function(key) {
             if (key == '_id') {
               data.push(item[key])
-            } else if (key == 'category') {
-              payload.push(item[key])
             }
           })
         })
         const param = {
           username: this.name,
-          _id: JSON.stringify(data),
-          category: payload
+          _id: JSON.stringify(data)
         }
-        await this.BatchDeleteCategory(param)
-
-        this.$emit('getCategory')
+        await this.BatchDeleteEssay(param)
+        this.$emit('getEssay')
       }
     },
+    Filter() {},
     pageValue(pageValue) {
       this.ESSAY_PAGES(pageValue)
       this.$emit('getEssay')
@@ -95,7 +93,7 @@ export default {
   },
   computed: {
     ...mapState({
-   //   selection: state => state.category.selection,
+      selection: state => state.essay.selection,
       pages: state => state.essay.pages,
       sizes: state => state.essay.sizes,
       totals: state => state.essay.totals

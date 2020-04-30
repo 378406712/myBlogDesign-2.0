@@ -7,4 +7,7 @@ function GetEssay(keywords) {
 function SearchEssay(keywords) {
   return axios.get('/api/essay/essay-search', keywords)
 }
-export { GetEssay, SearchEssay }
+function BatchDeleteEssay(key) {
+  return axios.post('/api/essay/BatchDeleteEssay', key)
+}
+export { GetEssay, SearchEssay,BatchDeleteEssay }

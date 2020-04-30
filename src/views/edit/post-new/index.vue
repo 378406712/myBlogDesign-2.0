@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     ...mapMutations(['SPECIAL_BG']),
-    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory', 'CategoryCount']),
+    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory']),
     async addCategory(category) {
       await this.SetCategory(category)
       this.getCategory()
@@ -204,8 +204,8 @@ export default {
       this.PostEssay(EssayData)
         .then(() => {
           if (this.status === 'SUCCESS') {
-            this.CategoryCount(EssayData)
-            this.publish = '更新'
+           // this.CategoryCount(EssayData)
+            //  this.publish = '更新'
             return Msg('发布成功', 'success')
           } else if (this.status === 'ERROR') return Msg('发布失败', 'error')
         })

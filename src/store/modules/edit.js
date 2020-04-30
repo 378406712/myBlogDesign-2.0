@@ -95,14 +95,7 @@ const Edit = {
         })
       })
     },
-    CategoryCount({ commit }, CategoryData) {
-      return new Promise((resolve, reject) => {
-        Api.CategoryCount(CategoryData).then(res => {
-          commit(GET_CATEGORY_C, res.data)
-          resolve()
-        })
-      })
-    },
+  
     SetCategory({ commit }, CategoryData) {
       return new Promise((resolve, reject) => {
         Api.SetCategory(CategoryData)

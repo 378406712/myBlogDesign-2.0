@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_PAGES_C', 'SET_SIZES_C']),
-    ...mapActions(['BatchDeleteCategory', 'AllCategoryCount']),
+    ...mapActions(['BatchDeleteCategory']),
     /**
      * 删除多条
      * @class BatchDelete

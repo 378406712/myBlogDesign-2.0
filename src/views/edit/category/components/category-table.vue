@@ -5,7 +5,7 @@
       :data="category"
       @selection-change="handleChange"
       style="width: 100%"
-      stripe="true"
+      :stripe="true"
     >
       <el-table-column :selectable="selectable" type="selection" width="45">
       </el-table-column>
@@ -26,7 +26,7 @@
       <el-table-column sortable prop="sum" label="总数">
         <template slot-scope="scope">
           <router-link :to="'/edit/all-essay/' + scope.row.category">
-            {{ scope.row.category }}</router-link
+            {{ scope.row.sum }}</router-link
           >
         </template>
       </el-table-column>
@@ -77,15 +77,16 @@ export default {
       }
     }
   },
-  mounted() {
-    this.getCategory().then(() => (this.total = this.totals))
-  },
+
   computed: {
     ...mapGetters(['name']),
     ...mapState({
       category: state => state.edit.category_c,
       totals: state => state.edit.totals
     })
+  },
+  mounted() {
+    this.getCategory().then(() => (this.total = this.totals))
   }
 }
 </script>

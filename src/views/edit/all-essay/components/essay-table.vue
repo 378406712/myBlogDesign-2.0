@@ -40,10 +40,13 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 export default {
   methods: {
-    handleChange() {},
+    ...mapMutations(['SET_SELECTION']),
+    handleChange(val) {
+      this.SET_SELECTION(val)
+    },
     commentIcon(h, { column, $index }, index) {
       return h('span', {}, [
         h(

@@ -1,7 +1,7 @@
 <template>
   <div class="main-app">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive v-if="key !== '/edit/post-new'">
+      <keep-alive v-if="key !== '/edit/post-new '">
         <router-view :key="key"></router-view>
       </keep-alive>
       <router-view v-else :key="key"></router-view>
