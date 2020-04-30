@@ -89,7 +89,6 @@ export default {
         }
       })
     },
-
     async getEssay() {
       await this.GetEssay({
         params: {
@@ -109,7 +108,6 @@ export default {
       })
       this.CategoryList = array
     },
-
     isSame(date) {
       let array = []
       date.map(item => {
@@ -119,7 +117,6 @@ export default {
       this.DateList = Array.from(new Set(array)).reverse()
     }
   },
-
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.getEssay()

@@ -64,7 +64,6 @@ export default {
     ...mapState({})
   },
   beforeRouteEnter(to, from, next) {
-    console.log(from)
     next(vm => vm.getCategory())
   }
 }

@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     ...mapMutations(['ESSAY_PAGES', 'ESSAY_SIZES']),
-    ...mapActions(['BatchDeleteEssay', 'GetEssay']),
+    ...mapActions(['BatchDeleteEssay', 'GetEssay', 'FilterEssay']),
     /**
      * 删除多条
      * @class BatchDeleteEssay
@@ -100,6 +100,13 @@ export default {
     },
     Filter() {
       console.log(this.chooseCategory, this.chooseDate)
+      this.FilterEssay({
+        params: {
+          username: this.name,
+          checkCategory: this.chooseCategory,
+          date: this.chooseDate
+        }
+      })
     },
     pageValue(pageValue) {
       this.ESSAY_PAGES(pageValue)

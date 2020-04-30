@@ -31,7 +31,7 @@
             </div>
           </div>
           <el-dropdown-menu class="user-dropdown" slot="dropdown">
-            <router-link class="inlineBlock" to="/user/profile">
+            <router-link class="inlineBlock" to="/home/center">
               <el-dropdown-item>{{ $t('navbar.profile') }}</el-dropdown-item>
             </router-link>
 

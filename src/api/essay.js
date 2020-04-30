@@ -9,10 +9,21 @@ function GetCategory(category) {
 function SearchEssay(keywords) {
   return axios.get('/api/essay/essay-search', keywords)
 }
+function FilterEssay(keywords) {
+  return axios.get('/api/essay/essay-filter', keywords)
+}
 function BatchDeleteEssay(key) {
   return axios.post('/api/essay/BatchDeleteEssay', key)
 }
 function EssayDate(key) {
   return axios.get('/api/essay/essay-date', key)
 }
-export { GetEssay, SearchEssay, BatchDeleteEssay, EssayDate, GetCategory }
+
+export {
+  GetEssay,
+  SearchEssay,
+  BatchDeleteEssay,
+  EssayDate,
+  GetCategory,
+  FilterEssay
+}

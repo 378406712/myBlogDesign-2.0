@@ -113,6 +113,14 @@ const Essay = {
           resolve()
         })
       })
+    },
+    FilterEssay({ commit }, keywords) {
+      return new Promise((resolve, reject) => {
+        Api.FilterEssay(keywords).then(res => {
+          commit(ESSAY_LIST, res.data)
+        })
+        resolve()
+      })
     }
   }
 }
