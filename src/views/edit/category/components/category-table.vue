@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column sortable prop="category" label="名称">
         <template slot-scope="scope">
-          <router-link :to="'/edit/category-detail/' + scope.row._id">
+          <router-link :to="'/edit/category-detail/' + scope.row.category">
             {{ scope.row.category }}</router-link
           >
         </template>
@@ -61,14 +61,14 @@ export default {
       this.AllCategoryCount({ username: this.name })
       this.CATEGORY_CHECK({})
     },
-    EssayDetail(data) {
-      this.GetEssay({
-        params: {
-          username: this.name,
-          checkCategory: data
-        }
-      })
-    },
+    // EssayDetail(data) {
+    //   this.GetEssay({
+    //     params: {
+    //       username: this.name,
+    //       checkCategory: data
+    //     }
+    //   })
+    // },
     selectable(row, index) {
       if (row.category !== '未分类') return true
       else {

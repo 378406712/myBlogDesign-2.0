@@ -13,7 +13,7 @@
         <router-link
           v-for="(category, index) in row.checkCategory"
           :key="index"
-          :to="'/edit/all-essay/' + category"
+          :to="'/edit/category-detail/' + category"
         >
           {{ category }}
 
@@ -31,7 +31,7 @@
     <el-table-column sortable prop="date" label="日期"></el-table-column>
     <el-table-column sortable prop="click_sum" label="点击数">
       <template slot-scope="scope">
-        <router-link :to="'/edit/all-essay/' + scope.row.category">
+        <router-link :to="'/edit/category-detail/' + scope.row.category">
           {{ scope.row.category }}</router-link
         >
       </template>

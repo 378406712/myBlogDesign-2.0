@@ -149,11 +149,11 @@ export const constantRouterMap = [
         meta: { icon: 'collection-tag', title: '分类目录' }
       },
       {
-        path: '/edit/category-detail/:id',
+        path: '/edit/category-detail/:category',
         hidden: true,
         name: 'alter-category',
         component: () => import('@/views/edit/category-detail/index'),
-        meta: {  title: '编辑分类目录' }
+        meta: { title: '编辑分类目录' }
       },
       {
         path: '/edit/all-essay/:id',
