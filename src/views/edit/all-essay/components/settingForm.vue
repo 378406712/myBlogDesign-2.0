@@ -36,7 +36,7 @@
     </el-form-item>
     <el-form-item>
       <div class="submit" @click="onSubmit">
-        <el-button size="mini" class="apply">应用</el-button>
+        <el-button size="mini" id="apply">应用</el-button>
       </div>
     </el-form-item>
   </el-form>
@@ -80,7 +80,7 @@ export default {
 .settingForm {
   padding: 8px 20px 12px;
 }
-.apply {
+#apply {
   background: #a3b745;
   border-color: #829237 #727f30 #727f30;
   color: #fff;
@@ -88,11 +88,16 @@ export default {
   text-shadow: 0 -1px 1px #727f30, 1px 0 1px #727f30, 0 1px 1px #727f30,
     -1px 0 1px #727f30;
 }
-.apply:hover {
-  background: #a9bd4f;
-  border-color: #727f30;
+#apply:hover {
+  background: #a9bd4f!important;
+  border-color: #727f30!important;
   color: #fff;
   box-shadow: 0 1px 0 #727f30;
+}
+#apply:active{
+      background: #829237;
+    border-color: #727f30;
+    box-shadow: inset 0 2px 0 #727f30;
 }
 .el-form--label-top >>> .el-form-item__label {
   padding: 0;

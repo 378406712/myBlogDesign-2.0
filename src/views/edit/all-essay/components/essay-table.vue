@@ -7,8 +7,15 @@
     :default-sort="{ prop: 'selectDate', order: 'descending' }"
   >
     >
-    <el-table-column type="selection" width="45"> </el-table-column>
-    <el-table-column prop="title" label="标题" width="400"></el-table-column>
+    <el-table-column type="selection" width="45"></el-table-column>
+    <el-table-column prop="title" label="标题" width="400">
+      <template slot-scope="scope">
+        <strong
+          ><router-link to="/">{{ scope.row.title }}</router-link></strong
+        >
+        <div id="essay-tabloid" v-html="scope.row.essay"></div>
+      </template>
+    </el-table-column>
     <el-table-column
       v-if="!setting.includes('分类目录')"
       sortable
@@ -108,4 +115,21 @@ export default {
 
 <style lang="scss" scoped>
 @import url(../../../../style/table.scss);
+</style>
+<style lang="stylus">
+#essay-#essay-tabloid{
+
+
+}
+#essay-tabloid p {
+  margin: 0 !important  ;
+  color: #555;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 </style>

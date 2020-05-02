@@ -90,7 +90,6 @@ export default {
       })
     },
     async getEssay() {
-      console.log(123)
       await this.GetEssay({
         params: {
           username: this.name,
