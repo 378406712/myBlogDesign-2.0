@@ -57,7 +57,7 @@ export default {
         ],
       },
       num: 8,
-      radio: 'list-view',
+      radio: 'tabloid-view',
     }
   },
   methods: {

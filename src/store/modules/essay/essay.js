@@ -20,7 +20,7 @@ const Essay = {
     sizes: 8,
     totals: 0,
     setting:['分类目录', '评论', '日期', '点击数'],
-    tabloid: 'list-view',
+    tabloid: 'tabloid-view',
   },
   mutations: {
     [SETTING](state, setting) {
