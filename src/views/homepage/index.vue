@@ -66,7 +66,7 @@
           <section class="list">
             <div class="card">
               <div class="card-main">
-                <div style="margin-bottom: 20px">
+                <div style="margin-bottom: 20px;">
                   <el-button
                     ref="BatchDelete"
                     type="primary"
@@ -76,7 +76,6 @@
                 </div>
                 <!-- 设备表格 -->
                 <DevicesTable
-                  :search="search"
                   :handleDelete="handleDelete"
                   :tableData2="tableData2"
                   :handleChange="handleChange"
@@ -117,7 +116,7 @@ export default {
     Paginations,
     DanceHeart,
     CPlayer,
-    serviceDialog
+    serviceDialog,
   },
   data() {
     return {
@@ -127,8 +126,7 @@ export default {
       username: '',
       length: '',
       tableData2: [],
-      search: '',
-      total: ''
+      total: '',
     }
   },
   methods: {
@@ -137,7 +135,7 @@ export default {
       'getInfo',
       'getDevieces',
       'deleteDevices',
-      'BatchDeleteDevices'
+      'BatchDeleteDevices',
     ]),
     userInfo() {
       this.getInfo({ params: { username: this.name } })
@@ -184,8 +182,8 @@ export default {
         ComfirmMsg('此操作将删除该记录 是否继续?', 'warning')
           .then(() => {
             const data = []
-            this.multipleSelection.map(item => {
-              Object.getOwnPropertyNames(item).forEach(function(key) {
+            this.multipleSelection.map((item) => {
+              Object.getOwnPropertyNames(item).forEach(function (key) {
                 if (key == '_id') {
                   data.push(item[key])
                 }
@@ -217,17 +215,17 @@ export default {
         this.tableData2 = this.devices
         this.total = this.totals
       })
-    }
+    },
   },
   computed: {
     ...mapGetters(['name', 'e_mail']),
     ...mapState({
-      devices: state => state.homepage.devices,
-      music: state => state.homepage.music,
-      pages: state => state.homepage.pages,
-      sizes: state => state.homepage.sizes,
-      totals: state => state.homepage.totals
-    })
+      devices: (state) => state.homepage.devices,
+      music: (state) => state.homepage.music,
+      pages: (state) => state.homepage.pages,
+      sizes: (state) => state.homepage.sizes,
+      totals: (state) => state.homepage.totals,
+    }),
   },
   created() {
     this.os = loadFromLocal('device')
@@ -237,7 +235,7 @@ export default {
   },
   mounted() {
     this.query()
-  }
+  },
 }
 </script>
 <style scoped>
@@ -254,5 +252,4 @@ export default {
 .playerList {
   float: right;
 }
-
 </style>
