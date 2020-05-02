@@ -2,8 +2,9 @@
   <el-table
     :data="essayList"
     @selection-change="handleChange"
-    style="width: 100%"
+    style="width: 100%;"
     :stripe="true"
+    :default-sort="{ prop: 'selectDate', order: 'descending' }"
   >
     >
     <el-table-column type="selection" width="45"> </el-table-column>
@@ -28,7 +29,12 @@
       label="评论"
     >
     </el-table-column>
-    <el-table-column sortable prop="date" label="日期"></el-table-column>
+    <el-table-column
+      :sort-method="sortDate"
+      :sortable="true"
+      prop="date"
+      label="日期"
+    ></el-table-column>
     <el-table-column sortable prop="click_sum" label="点击数">
       <template slot-scope="scope">
         <router-link :to="'/edit/category-detail/' + scope.row.category">
@@ -56,8 +62,8 @@ export default {
               placement: 'top-start',
               width: '50',
               trigger: 'hover',
-              content: '评论数量'
-            }
+              content: '评论数量',
+            },
           },
           [
             h(
@@ -65,20 +71,25 @@ export default {
               {
                 slot: 'reference',
                 class: 'el-icon-s-comment',
-                style: 'fontSize:24px;position:relative;top:5px'
+                style: 'fontSize:24px;position:relative;top:5px',
               },
               ''
-            )
+            ),
           ]
-        )
+        ),
       ])
-    }
+    },
+    sortDate(a, b) {
+      let sortA = Date.parse(new Date(a.selectDate))
+      let sortB = Date.parse(new Date(b.selectDate))
+      return sortA - sortB
+    },
   },
   computed: {
     ...mapState({
-      essayList: state => state.essay.essayList
-    })
-  }
+      essayList: (state) => state.essay.essayList,
+    }),
+  },
 }
 </script>
 

@@ -16,7 +16,7 @@ const Essay = {
     num: { all: 0, sended: 0, pend: 0, trash: 0 },
     pages: 1,
     sizes: 8,
-    totals: 0
+    totals: 0,
   },
   mutations: {
     [GET_CATEGORY](state, category) {
@@ -47,7 +47,7 @@ const Essay = {
     [ESSAY_STATUS](state, essayList) {
       state.num.all = essayList.length
       const reCheckNum = []
-      essayList.map(item => {
+      essayList.map((item) => {
         if (item.reCheck === true) {
           reCheckNum.push(item)
         }
@@ -63,7 +63,7 @@ const Essay = {
     },
     [ESSAY_TOTALS](state, totals) {
       state.totals = totals
-    }
+    },
   },
   actions: {
     BatchDeleteEssay({ commit }, key) {
@@ -73,26 +73,26 @@ const Essay = {
           .then(() => {
             resolve()
           })
-          .catch(err => reject(err))
+          .catch((err) => reject(err))
       })
     },
     //文章
     GetEssay({ commit }, keywords) {
       return new Promise((resolve, reject) => {
         Api.GetEssay(keywords)
-          .then(res => {
+          .then((res) => {
             commit(ESSAY_LIST, res.data)
             commit(ESSAY_STATUS, res.data)
             commit(ESSAY_TOTALS, res.data.length)
 
             resolve()
           })
-          .catch(err => reject(err))
+          .catch((err) => reject(err))
       })
     },
     SearchEssay({ commit }, keywords) {
       return new Promise((resolve, reject) => {
-        Api.SearchEssay(keywords).then(res => {
+        Api.SearchEssay(keywords).then((res) => {
           commit(ESSAY_LIST, res.data)
           resolve()
         })
@@ -100,7 +100,7 @@ const Essay = {
     },
     EssayDate({ commit }, username) {
       return new Promise((resolve, reject) => {
-        Api.EssayDate(username).then(res => {
+        Api.EssayDate(username).then((res) => {
           commit(ESSAY_DATE, res.data)
           resolve()
         })
@@ -108,7 +108,7 @@ const Essay = {
     },
     EssayCategory({ commit }, username) {
       return new Promise((resolve, reject) => {
-        Api.GetCategory(username).then(res => {
+        Api.GetCategory(username).then((res) => {
           commit(GET_CATEGORY, res.data)
           resolve()
         })
@@ -116,12 +116,12 @@ const Essay = {
     },
     FilterEssay({ commit }, keywords) {
       return new Promise((resolve, reject) => {
-        Api.FilterEssay(keywords).then(res => {
+        Api.FilterEssay(keywords).then((res) => {
           commit(ESSAY_LIST, res.data)
         })
         resolve()
       })
-    }
-  }
+    },
+  },
 }
 export default Essay
