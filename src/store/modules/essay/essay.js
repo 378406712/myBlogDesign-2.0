@@ -7,6 +7,7 @@ const ESSAY_TOTALS = 'ESSAY_TOTALS'
 const SET_SELECTION = 'SET_SELECTION'
 const ESSAY_DATE = 'ESSAY_DATE'
 const GET_CATEGORY = 'GET_CATEGORY'
+const SETTING = 'SETTING'
 const Essay = {
   state: {
     essayList: [],
@@ -17,8 +18,12 @@ const Essay = {
     pages: 1,
     sizes: 8,
     totals: 0,
+    setting: [],
   },
   mutations: {
+    [SETTING](state, setting) {
+      state.setting = setting
+    },
     [GET_CATEGORY](state, category) {
       state.category = category
     },
