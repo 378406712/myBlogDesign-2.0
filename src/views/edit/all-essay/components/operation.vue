@@ -1,11 +1,11 @@
 <template>
-  <el-form style="margin: 2px 0 5px">
+  <el-form style="margin: 2px 0 5px;">
     <el-form-item>
       <p class="search-box">
         <el-select
           v-model="operation"
           placeholder="批量操作"
-          style="width:10%"
+          style="width: 10%;"
           size="mini"
         >
           <el-option label="批量操作" value="depatch"></el-option>
@@ -15,7 +15,7 @@
         <el-select
           v-model="chooseDate"
           placeholder="全部日期"
-          style="width:10%"
+          style="width: 10%;"
           size="mini"
         >
           <el-option label="全部日期" value="all-date"></el-option>
@@ -30,7 +30,7 @@
         <el-select
           v-model="chooseCategory"
           placeholder="所有分类目录"
-          style="width:12%"
+          style="width: 12%;"
           size="mini"
         >
           <el-option label="所有分类目录" value="all-category"></el-option>
@@ -44,7 +44,7 @@
         </el-select>
 
         <Pagination
-          style="float:right"
+          style="float: right;"
           :total="totals"
           :size="sizes"
           :page="pages"
@@ -64,13 +64,13 @@ export default {
   components: { Pagination },
   props: {
     DateList: Array,
-    CategoryList: Array
+    CategoryList: Array,
   },
   data() {
     return {
       operation: 'depatch',
       chooseCategory: 'all-category',
-      chooseDate: 'all-date'
+      chooseDate: 'all-date',
     }
   },
   methods: {
@@ -83,8 +83,8 @@ export default {
     async BatchDelete() {
       if (this.operation === 'delete' && this.selection) {
         const data = [] //id
-        this.selection.map(item => {
-          Object.getOwnPropertyNames(item).forEach(function(key) {
+        this.selection.map((item) => {
+          Object.getOwnPropertyNames(item).forEach(function (key) {
             if (key == '_id') {
               data.push(item[key])
             }
@@ -92,7 +92,7 @@ export default {
         })
         const param = {
           username: this.name,
-          _id: JSON.stringify(data)
+          _id: JSON.stringify(data),
         }
         await this.BatchDeleteEssay(param)
         this.$emit('getEssay')
@@ -104,8 +104,8 @@ export default {
         params: {
           username: this.name,
           checkCategory: this.chooseCategory,
-          date: this.chooseDate
-        }
+          date: this.chooseDate,
+        },
       })
     },
     pageValue(pageValue) {
@@ -115,18 +115,18 @@ export default {
     sizeValue(sizeValue) {
       this.ESSAY_SIZES(sizeValue)
       this.$emit('getEssay')
-    }
+    },
   },
 
   computed: {
     ...mapState({
-      selection: state => state.essay.selection,
-      pages: state => state.essay.pages,
-      sizes: state => state.essay.sizes,
-      totals: state => state.essay.totals
+      selection: (state) => state.essay.selection,
+      pages: (state) => state.essay.pages,
+      sizes: (state) => state.essay.sizes,
+      totals: (state) => state.essay.totals,
     }),
-    ...mapGetters(['name'])
-  }
+    ...mapGetters(['name']),
+  },
 }
 </script>
 

@@ -22,6 +22,7 @@
         v-model="num"
         controls-position="right"
         @change="handleChangeNum"
+        step-strictly
         :min="2"
         :step="2"
         :max="10"
@@ -60,10 +61,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SETTING']),
+    ...mapMutations(['SETTING', 'ESSAY_SIZES']),
     onSubmit() {
-      console.log(this.$store)
-       this.SETTING(this.form.checkGroup)
+      this.SETTING(this.form.checkGroup)
+      this.ESSAY_SIZES(this.num)
+      this.$emit('getEssay')
     },
     handleChangeNum(val) {
       this.num = val

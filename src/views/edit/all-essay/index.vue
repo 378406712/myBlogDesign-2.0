@@ -18,7 +18,7 @@
         </ul>
         <p class="search-box">
           <el-input
-            style="width:auto"
+            style="width: auto;"
             v-model="searchEssay"
             size="mini"
           ></el-input>
@@ -46,7 +46,7 @@
       :CategoryList="CategoryList"
     />
     <el-drawer :visible.sync="drawer">
-      <SettingForm />
+      <SettingForm v-on:getEssay="getEssay" />
     </el-drawer>
   </div>
 </template>
@@ -69,8 +69,8 @@ export default {
         { title: '已发送', status: 'sended' },
         // { title: '草稿', status: 'draft' },
         { title: '待审', status: 'pend' },
-        { title: '回收站', status: 'trash' }
-      ]
+        { title: '回收站', status: 'trash' },
+      ],
     }
   },
   methods: {
@@ -79,22 +79,23 @@ export default {
       'SearchEssay',
       'AllCategoryCount',
       'EssayDate',
-      'EssayCategory'
+      'EssayCategory',
     ]),
     handleSearch() {
       this.SearchEssay({
         params: {
           username: this.name,
-          keywords: this.searchEssay
-        }
+          keywords: this.searchEssay,
+        },
       })
     },
     async getEssay() {
+      console.log(123)
       await this.GetEssay({
         params: {
           username: this.name,
-          keyword: 'all'
-        }
+          keyword: 'all',
+        },
       })
       await this.EssayDate({ params: { username: this.name } })
       await this.EssayCategory({ params: { username: this.name } })
@@ -103,33 +104,33 @@ export default {
     },
     isCategory(Essaycategory) {
       let array = []
-      Essaycategory.map(item => {
+      Essaycategory.map((item) => {
         array.push(item.category)
       })
       this.CategoryList = array
     },
     isSame(date) {
       let array = []
-      date.map(item => {
+      date.map((item) => {
         array.push(item.selectDate)
       })
 
       this.DateList = Array.from(new Set(array)).reverse()
-    }
+    },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.getEssay()
     })
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      num: state => state.essay.num,
-      date: state => state.essay.date,
-      Essaycategory: state => state.essay.category
-    })
-  }
+      num: (state) => state.essay.num,
+      date: (state) => state.essay.date,
+      Essaycategory: (state) => state.essay.category,
+    }),
+  },
 }
 </script>
 
