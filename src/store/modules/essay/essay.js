@@ -8,6 +8,7 @@ const SET_SELECTION = 'SET_SELECTION'
 const ESSAY_DATE = 'ESSAY_DATE'
 const GET_CATEGORY = 'GET_CATEGORY'
 const SETTING = 'SETTING'
+const TABLOID = 'TABLOID'
 const Essay = {
   state: {
     essayList: [],
@@ -18,12 +19,17 @@ const Essay = {
     pages: 1,
     sizes: 8,
     totals: 0,
-    setting: [],
+    setting:['分类目录', '评论', '日期', '点击数'],
+    tabloid: 'list-view',
   },
   mutations: {
     [SETTING](state, setting) {
       state.setting = setting
     },
+    [TABLOID](state, tabloid) {
+      state.tabloid = tabloid
+    },
+
     [GET_CATEGORY](state, category) {
       state.category = category
     },
@@ -72,7 +78,6 @@ const Essay = {
   },
   actions: {
     BatchDeleteEssay({ commit }, key) {
-      console.log(key)
       return new Promise((resolve, reject) => {
         Api.BatchDeleteEssay(key)
           .then(() => {

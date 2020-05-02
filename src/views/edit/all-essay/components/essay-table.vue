@@ -8,16 +8,24 @@
   >
     >
     <el-table-column type="selection" width="45"></el-table-column>
-    <el-table-column prop="title" label="标题" width="400">
+    <el-table-column prop="title" label="标题" min-width="200">
       <template slot-scope="scope">
         <strong
           ><router-link to="/">{{ scope.row.title }}</router-link></strong
         >
-        <div id="essay-tabloid" v-html="scope.row.essay"></div>
+        <div
+          id="essay-tabloid"
+          v-if="tabloid === 'tabloid-view'"
+          v-html="
+            scope.row.essay.length > 50
+              ? scope.row.essay.slice(0, 50) + '...'
+              : scope.row.essay
+          "
+        ></div>
       </template>
     </el-table-column>
     <el-table-column
-      v-if="!setting.includes('分类目录')"
+      v-if="setting.includes('分类目录')"
       sortable
       prop="checkCategory"
       label="分类目录"
@@ -37,20 +45,20 @@
     <el-table-column
       sortable
       prop="comment"
-      v-if="!setting.includes('评论')"
+      v-if="setting.includes('评论')"
       :render-header="commentIcon"
       label="评论"
     >
     </el-table-column>
     <el-table-column
-      v-if="!setting.includes('日期')"
+      v-if="setting.includes('日期')"
       :sort-method="sortDate"
       :sortable="true"
       prop="date"
       label="日期"
     ></el-table-column>
     <el-table-column
-      v-if="!setting.includes('点击数')"
+      v-if="setting.includes('点击数')"
       sortable
       prop="click_sum"
       label="点击数"
@@ -108,6 +116,7 @@ export default {
     ...mapState({
       essayList: (state) => state.essay.essayList,
       setting: (state) => state.essay.setting,
+      tabloid: (state) => state.essay.tabloid,
     }),
   },
 }
@@ -124,12 +133,12 @@ export default {
 #essay-tabloid p {
   margin: 0 !important  ;
   color: #555;
-  text-overflow: -o-ellipsis-lastline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
+  // text-overflow: -o-ellipsis-lastline;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // display: -webkit-box;
+  // -webkit-line-clamp: 2;
+  // line-clamp: 2;
+  // -webkit-box-orient: vertical;
 }
 </style>

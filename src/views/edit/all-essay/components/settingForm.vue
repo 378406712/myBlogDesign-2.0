@@ -7,7 +7,7 @@
     label-width="80px"
   >
     <el-form-item label="栏目">
-      <el-checkbox-group v-model="form.checkGroup">
+      <el-checkbox-group @change="showSetting" v-model="form.checkGroup">
         <el-checkbox
           v-for="item in form.type"
           :key="item.label"
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       form: {
-        checkGroup: [],
+        checkGroup: ['分类目录', '评论', '日期', '点击数'],
         type: [
           { label: '分类目录', value: 'category' },
           { label: '评论', value: 'comment' },
@@ -61,11 +61,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SETTING', 'ESSAY_SIZES']),
-    onSubmit() {
+    ...mapMutations(['SETTING', 'ESSAY_SIZES', 'TABLOID']),
+    showSetting() {
       this.SETTING(this.form.checkGroup)
+    },
+    onSubmit() {
       this.ESSAY_SIZES(this.num)
-      this.$emit('getEssay')
+      this.TABLOID(this.radio)
     },
     handleChangeNum(val) {
       this.num = val
@@ -89,15 +91,15 @@ export default {
     -1px 0 1px #727f30;
 }
 #apply:hover {
-  background: #a9bd4f!important;
-  border-color: #727f30!important;
+  background: #a9bd4f !important;
+  border-color: #727f30 !important;
   color: #fff;
   box-shadow: 0 1px 0 #727f30;
 }
-#apply:active{
-      background: #829237;
-    border-color: #727f30;
-    box-shadow: inset 0 2px 0 #727f30;
+#apply:active {
+  background: #829237;
+  border-color: #727f30;
+  box-shadow: inset 0 2px 0 #727f30;
 }
 .el-form--label-top >>> .el-form-item__label {
   padding: 0;
