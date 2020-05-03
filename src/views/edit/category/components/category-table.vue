@@ -4,14 +4,14 @@
     <el-table
       :data="category"
       @selection-change="handleChange"
-      style="width: 100%"
+      style="width: 100%;"
       :stripe="true"
     >
       <el-table-column :selectable="selectable" type="selection" width="45">
       </el-table-column>
       <el-table-column prop="pic" label="图像">
         <template slot-scope="scope">
-          <img :src="scope.row.pic" style="width: 50px;height: 50px" />
+          <img :src="scope.row.pic" style="width: 50px; height: 50px;" />
         </template>
       </el-table-column>
       <el-table-column sortable prop="category" label="名称">
@@ -25,7 +25,12 @@
       <el-table-column sortable prop="alias" label="别名"></el-table-column>
       <el-table-column sortable prop="sum" label="总数">
         <template slot-scope="scope">
-          <router-link :to="'/edit/all-essay/' + scope.row.category">
+          <router-link
+            :to="{
+              path: '/edit/all-essay/' + scope.row.category,
+              query: { tag: 'category' },
+            }"
+          >
             {{ scope.row.sum }}</router-link
           >
         </template>
@@ -41,12 +46,12 @@ import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
-    Operation
+    Operation,
   },
 
   data() {
     return {
-      total: 0
+      total: 0,
     }
   },
   methods: {
@@ -74,19 +79,19 @@ export default {
       else {
         return false
       }
-    }
+    },
   },
 
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      category: state => state.edit.category_c,
-      totals: state => state.edit.totals
-    })
+      category: (state) => state.edit.category_c,
+      totals: (state) => state.edit.totals,
+    }),
   },
   mounted() {
     this.getCategory().then(() => (this.total = this.totals))
-  }
+  },
 }
 </script>
 

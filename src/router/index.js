@@ -156,7 +156,7 @@ export const constantRouterMap = [
         meta: { title: '编辑分类目录' }
       },
       {
-        path: '/edit/all-essay/:id',
+        path: '/edit/all-essay/:key',
         hidden: true,
         name: 'essay-detail',
         component: () => import('@/views/edit/all-essay/index'),

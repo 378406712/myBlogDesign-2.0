@@ -20,7 +20,9 @@
             v-model="searchEssay"
             size="mini"
           ></el-input>
-          <el-button size="mini" @click="handleSearch">搜索文章</el-button>
+          <el-button size="mini" @click="handleSearch(searchEssay)"
+            >搜索文章</el-button
+          >
           <el-button
             class="control"
             @click="drawer = true"
@@ -82,11 +84,12 @@ export default {
       'EssayCategory',
       'GetEssayNum',
     ]),
-    handleSearch() {
+    handleSearch(val) {
       this.SearchEssay({
         params: {
           username: this.name,
-          keywords: this.searchEssay,
+          keywords: val,
+          tag: this.tag,
         },
       })
     },
@@ -134,8 +137,13 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      vm.getEssay()
       vm.getEssayNum()
+      if (vm.$route.query.tag) {
+        vm.tag = vm.$route.query.tag
+        vm.handleSearch(vm.$route.params.key)
+      } else {
+        vm.getEssay()
+      }
     })
   },
   computed: {
