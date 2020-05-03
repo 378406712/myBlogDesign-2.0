@@ -96,6 +96,8 @@ export default {
         }
         await this.BatchDeleteEssay(param)
         this.$emit('getEssay')
+        this.$emit('getEssayNum')
+        
       }
     },
     Filter() {

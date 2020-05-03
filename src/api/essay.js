@@ -25,5 +25,5 @@ export {
   BatchDeleteEssay,
   EssayDate,
   GetCategory,
-  FilterEssay
+  FilterEssay,
 }

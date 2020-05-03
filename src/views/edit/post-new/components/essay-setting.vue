@@ -4,6 +4,8 @@
       <el-button :disabled="disabled" @click="toPublish" type="primary">{{
         publish
       }}</el-button>
+      <a v-if="!disabled" @click="toPublish('draft')" class="draft">存为草稿</a>
+
       <el-collapse-item title="状态与可见性" name="1">
         <div class="units">
           <span>可见性</span>
@@ -46,9 +48,7 @@
         <div class="select">
           <el-checkbox v-model="Status_Visible.reCheck">等待复审</el-checkbox>
         </div>
-        <div class="select">
-          <el-checkbox v-model="Status_Visible.draft">存入草稿</el-checkbox>
-        </div>
+
         <div class="select">
           <el-checkbox style="color: #dc3232;" v-model="Status_Visible.trash"
             >移至回收站</el-checkbox
@@ -188,17 +188,25 @@ export default {
         Msg('目录不能为空', 'error')
       }
     },
-    toPublish() {
+    toPublish(val) {
       let { checkCategory } = this.Classify_Category
       if (!checkCategory.length) {
         checkCategory.push('未分类')
       }
+      if (val === 'draft') {
+        this.Status_Visible.draft = true
+        this.Status_Visible.reCheck = false
+        this.Status_Visible.keepTop = false
+        this.Status_Visible.trash = false
+      }
       const { special_bg } = this
-      this.$emit('toPublish', {
-        ...this.Status_Visible,
-        checkCategory: checkCategory,
-        special_bg,
-      })
+      let info = Object.assign(
+        this.Status_Visible,
+        { checkCategory },
+        { special_bg }
+      )
+
+      this.$emit('toPublish', info)
       this.Classify_Category.checkCategory = []
     },
     VisibleChange(data) {
@@ -246,4 +254,16 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import url('../../../../style/attachment-detail.css')
+.draft{
+  display: inline-flex;
+  color: #523f6d;
+    text-decoration: none;
+    font-size: 13px;
+    margin: 0;
+    border: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    background: none;
+    padding-left:25px
+}
 </style>

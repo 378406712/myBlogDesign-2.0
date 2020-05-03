@@ -21,6 +21,7 @@ const Essay = {
     totals: 0,
     setting: ['分类目录', '评论', '日期', '点击数'],
     tabloid: 'tabloid-view',
+    essaySend: [],
   },
   mutations: {
     [SETTING](state, setting) {
@@ -54,27 +55,29 @@ const Essay = {
     [ESSAY_DATE](state, date) {
       state.date = date
     },
+
     [ESSAY_STATUS](state, essayList) {
       state.num.all = essayList.length
       const reCheckNum = []
       const draftNum = []
       const trashNum = []
+      const sendNum = []
       essayList.map((item) => {
         if (item.reCheck === true) {
           reCheckNum.push(item)
-        }
-        if (item.draft === true) {
+        } else if (item.draft === true) {
           draftNum.push(item)
-        }
-        if (item.trash === true) {
+        } else if (item.trash === true) {
           trashNum.push(item)
+        } else {
+          sendNum.push(item)
         }
       })
       state.num.pend = reCheckNum.length
       state.num.trash = trashNum.length
       state.num.draft = draftNum.length
-      state.num.sended =
-        essayList.length - draftNum.length - trashNum.length - reCheckNum.length
+      state.num.sended = sendNum.length
+      state.essaySend = sendNum
     },
     [ESSAY_PAGES](state, pages) {
       state.pages = pages
@@ -97,14 +100,22 @@ const Essay = {
       })
     },
     //文章
-    GetEssay({ commit }, keywords) {
+    GetEssay({ commit }, keyword) {
       return new Promise((resolve, reject) => {
-        Api.GetEssay(keywords)
+        Api.GetEssay(keyword)
           .then((res) => {
             commit(ESSAY_LIST, res.data)
-            commit(ESSAY_STATUS, res.data)
             commit(ESSAY_TOTALS, res.data.length)
-
+            resolve()
+          })
+          .catch((err) => reject(err))
+      })
+    },
+    GetEssayNum({ commit }, keyword) {
+      return new Promise((resolve, reject) => {
+        Api.GetEssay(keyword)
+          .then((res) => {
+            commit(ESSAY_STATUS, res.data)
             resolve()
           })
           .catch((err) => reject(err))

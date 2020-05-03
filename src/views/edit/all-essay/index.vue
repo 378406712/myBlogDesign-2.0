@@ -7,13 +7,11 @@
       <el-form-item>
         <ul class="subsubsub">
           <li v-for="(item, index) in subtitle" :key="index">
-            <router-link :to="'/edit/all-essay/' + item.status"
+            <a href="javascript:;" @click="pushSetting(item.status)"
               >{{ item.title
-              }}<span class="count"
-                >（{{ num[item.status] }}）</span
-              ></router-link
+              }}<span class="count">（{{ num[item.status] }}）</span></a
             >
-            <span v-if="item.status!='trash'">|</span>
+            <span v-if="item.status != 'trash'">|</span>
           </li>
         </ul>
         <p class="search-box">
@@ -35,6 +33,7 @@
 
       <Operation
         v-on:getEssay="getEssay"
+        v-on:getEssayNum="getEssayNum"
         :DateList="DateList"
         :CategoryList="CategoryList"
       />
@@ -64,6 +63,7 @@ export default {
       CategoryList: [],
       drawer: false,
       searchEssay: '',
+      keywordSetting: 'all',
       subtitle: [
         { title: '全部', status: 'all' },
         { title: '已发送', status: 'sended' },
@@ -80,6 +80,7 @@ export default {
       'AllCategoryCount',
       'EssayDate',
       'EssayCategory',
+      'GetEssayNum',
     ]),
     handleSearch() {
       this.SearchEssay({
@@ -93,13 +94,23 @@ export default {
       await this.GetEssay({
         params: {
           username: this.name,
+          keyword: this.keywordSetting,
+        },
+      })
+
+      await this.EssayDate({ params: { username: this.name } })
+      await this.EssayCategory({ params: { username: this.name } })
+
+      this.isCategory(this.Essaycategory)
+      this.isSame(this.date)
+    },
+    getEssayNum() {
+      this.GetEssayNum({
+        params: {
+          username: this.name,
           keyword: 'all',
         },
       })
-      await this.EssayDate({ params: { username: this.name } })
-      await this.EssayCategory({ params: { username: this.name } })
-      this.isCategory(this.Essaycategory)
-      this.isSame(this.date)
     },
     isCategory(Essaycategory) {
       let array = []
@@ -116,10 +127,15 @@ export default {
 
       this.DateList = Array.from(new Set(array)).reverse()
     },
+    pushSetting(key) {
+      this.keywordSetting = key
+      this.getEssay()
+    },
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.getEssay()
+      vm.getEssayNum()
     })
   },
   computed: {
