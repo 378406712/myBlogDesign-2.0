@@ -29,7 +29,6 @@ const Essay = {
     [TABLOID](state, tabloid) {
       state.tabloid = tabloid
     },
-
     [GET_CATEGORY](state, category) {
       state.category = category
     },
@@ -58,13 +57,24 @@ const Essay = {
     [ESSAY_STATUS](state, essayList) {
       state.num.all = essayList.length
       const reCheckNum = []
+      const draftNum = []
+      const trashNum = []
       essayList.map((item) => {
         if (item.reCheck === true) {
           reCheckNum.push(item)
         }
+        if (item.draft === true) {
+          draftNum.push(item)
+        }
+        if (item.trash === true) {
+          trashNum.push(item)
+        }
       })
       state.num.pend = reCheckNum.length
-      state.num.sended = essayList.length - reCheckNum.length
+      state.num.trash = trashNum.length
+      state.num.draft = draftNum.length
+      state.num.sended =
+        essayList.length - draftNum.length - trashNum.length - reCheckNum.length
     },
     [ESSAY_PAGES](state, pages) {
       state.pages = pages

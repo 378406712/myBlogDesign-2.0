@@ -27,38 +27,15 @@
             :class="scope.row._id === rowid ? '' : 'hidden'"
             class="row-actions"
           >
-            <span class="edit"
-              ><a
-                href="https://www.qdmmz.cn/wp-admin/post.php?post=1173&amp;action=edit"
-                aria-label="编辑“router-link与a标签区别”"
-                >编辑</a
-              >
-              | </span
-            ><span class="inline hide-if-no-js"
-              ><a
-                class="button-link editinline"
-                aria-label="快速编辑“router-link与a标签区别”"
-                aria-expanded="false"
-              >
-                快速编辑
-              </a>
-              | </span
-            ><span class="trash"
-              ><a
-                href="https://www.qdmmz.cn/wp-admin/post.php?post=1173&amp;action=trash&amp;_wpnonce=81ec5212c4"
-                class="submitdelete"
-                aria-label="移动“router-link与a标签区别”到垃圾箱"
-                >移至回收站</a
-              >
-              | </span
-            ><span class="view"
-              ><a
-                href="https://www.qdmmz.cn/378406712qq-com/1173/router-link%e4%b8%8ea%e6%a0%87%e7%ad%be%e5%8c%ba%e5%88%ab/"
-                rel="bookmark"
-                aria-label="查看“router-link与a标签区别”"
-                >查看</a
-              ></span
-            >
+            <span
+              v-for="(item, index) in editSetting"
+              :key="index"
+              :class="(item.name === 'trash' ? 'trash' : 'x')"
+              ><a @click="operate(item.name)" href="javascript:;">{{
+                item.label
+              }}</a
+              ><em class="left" v-if="item.name != 'watch'">|</em>
+            </span>
           </div>
         </div>
       </template>
@@ -117,10 +94,38 @@ export default {
   data() {
     return {
       rowid: '',
+      editSetting: [
+        {
+          label: '编辑',
+          name: 'edit',
+        },
+        {
+          label: '移至回收站',
+          name: 'trash',
+        },
+        {
+          label: '查看',
+          name: 'watch',
+        },
+      ],
     }
   },
   methods: {
     ...mapMutations(['SET_SELECTION']),
+    operate(val) {
+      console.log(this.rowid)
+      switch (val) {
+        case 'edit':
+          console.log('edit')
+          break
+        case 'trash':
+          console.log('trash')
+          break
+        case 'watch':
+          console.log('watch')
+          break
+      }
+    },
     handleChange(val) {
       this.SET_SELECTION(val)
     },
@@ -193,20 +198,7 @@ export default {
     font-size: 13px;
     padding: 2px 0 0;
 }
-.button-link {
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    border: 0;
-    border-radius: 0;
-    background: 0 0;
-    cursor: pointer;
-    text-align: left;
-    color: #0073aa;
-    transition-property: border,background,color;
-    transition-duration: .05s;
-    transition-timing-function: ease-in-out;
-}
+
 .row-actions a{
  font-weight:normal!important
 }
@@ -215,5 +207,9 @@ export default {
   &:hover{
  color:#dc3232;
   }
+
 }
+.row-actions em{
+    margin :0 5px
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="tips" style="height:100%">
+  <div class="tips" style="height: 100%;">
     <el-collapse v-model="activeNames">
       <el-button :disabled="disabled" @click="toPublish" type="primary">{{
         publish
@@ -41,12 +41,18 @@
           </el-popover>
         </div>
         <div class="select">
-          <el-checkbox v-model="Status_Visible.keepTop"
-            >在博客中置顶</el-checkbox
-          >
+          <el-checkbox v-model="Status_Visible.keepTop">博客中置顶</el-checkbox>
         </div>
         <div class="select">
           <el-checkbox v-model="Status_Visible.reCheck">等待复审</el-checkbox>
+        </div>
+        <div class="select">
+          <el-checkbox v-model="Status_Visible.draft">存入草稿</el-checkbox>
+        </div>
+        <div class="select">
+          <el-checkbox style="color: #dc3232;" v-model="Status_Visible.trash"
+            >移至回收站</el-checkbox
+          >
         </div>
       </el-collapse-item>
       <el-collapse-item title="分类目录" name="2">
@@ -87,7 +93,11 @@
             placeholder="请输入内容"
             v-model="Classify_Category.createCategory"
           />
-          <el-button style="marginTop:5px" @click="addCategory" type="primary">
+          <el-button
+            style="margintop: 5px;"
+            @click="addCategory"
+            type="primary"
+          >
             添加新分类目录</el-button
           >
         </div>
@@ -120,14 +130,14 @@
           <el-button
             @click="SHOW_DIALOG(true)"
             v-if="special_bg"
-            style="margin:10px"
+            style="margin: 10px;"
           >
             更换图像</el-button
           ><button
             v-if="special_bg"
             type="button"
             class="components-button is-link is-destructive"
-            style="margin:10px"
+            style="margin: 10px;"
             @click="changeSpecial"
           >
             取消特色图片
@@ -147,12 +157,12 @@ import Onbeforeunload from '@/utils/onbeforeunload'
 
 export default {
   props: {
-    disabled: Boolean
+    disabled: Boolean,
   },
   components: { Media },
   data() {
     return {
-      ...EssaySettingData
+      ...EssaySettingData,
     }
   },
   methods: {
@@ -171,7 +181,7 @@ export default {
           alias: createCategory.toLowerCase(),
           desc: '—',
           pic: 'http://localhost:3001/random/1.jpg',
-          sum: 0
+          sum: 0,
         })
         this.Classify_Category.createCategory = ''
       } else {
@@ -187,7 +197,7 @@ export default {
       this.$emit('toPublish', {
         ...this.Status_Visible,
         checkCategory: checkCategory,
-        special_bg
+        special_bg,
       })
       this.Classify_Category.checkCategory = []
     },
@@ -211,27 +221,27 @@ export default {
       this.SearchCategory({
         params: {
           username: this.name,
-          keywords: item
-        }
+          keywords: item,
+        },
       })
-    }
+    },
   },
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      category: state => state.edit.category,
-      special_bg: state => state.edit.special_bg,
-      check: state => state.edit.check,
-      showDialog: state => state.edit.showDialog
-    })
+      category: (state) => state.edit.category,
+      special_bg: (state) => state.edit.special_bg,
+      check: (state) => state.edit.check,
+      showDialog: (state) => state.edit.showDialog,
+    }),
   },
   watch: {
-    disabled: function(e) {
+    disabled: function (e) {
       if (!e) {
         Onbeforeunload(this, '/edit/post-new')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="stylus" scoped>
