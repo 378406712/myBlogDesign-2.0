@@ -15,6 +15,9 @@ function FilterEssay(keywords) {
 function BatchDeleteEssay(key) {
   return axios.post('/api/essay/BatchDeleteEssay', key)
 }
+function BatchTrashEssay(key) {
+  return axios.post('/api/essay/BatchTrashEssay', key)
+}
 function EssayDate(key) {
   return axios.get('/api/essay/essay-date', key)
 }
@@ -23,6 +26,7 @@ export {
   GetEssay,
   SearchEssay,
   BatchDeleteEssay,
+  BatchTrashEssay,
   EssayDate,
   GetCategory,
   FilterEssay,

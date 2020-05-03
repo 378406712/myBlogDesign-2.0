@@ -10,6 +10,7 @@
         >
           <el-option label="批量操作" value="depatch"></el-option>
           <el-option label="删除" value="delete"></el-option>
+          <el-option label="移至回收站" value="trash"></el-option>
         </el-select>
         <el-button size="mini" @click="BatchDelete">应用</el-button>
         <el-select
@@ -75,7 +76,7 @@ export default {
   },
   methods: {
     ...mapMutations(['ESSAY_PAGES', 'ESSAY_SIZES']),
-    ...mapActions(['BatchDeleteEssay', 'GetEssay', 'FilterEssay']),
+    ...mapActions(['BatchDeleteEssay', 'GetEssay', 'FilterEssay','BatchTrashEssay']),
     /**
      * 删除多条
      * @class BatchDeleteEssay
@@ -97,7 +98,23 @@ export default {
         await this.BatchDeleteEssay(param)
         this.$emit('getEssay')
         this.$emit('getEssayNum')
-        
+      }
+      if (this.operation === 'trash' && this.selection) {
+        const data = [] //id
+        this.selection.map((item) => {
+          Object.getOwnPropertyNames(item).forEach(function (key) {
+            if (key == '_id') {
+              data.push(item[key])
+            }
+          })
+        })
+        const param = {
+          username: this.name,
+          _id: JSON.stringify(data),
+        }
+        await this.BatchTrashEssay(param)
+        this.$emit('getEssay')
+        this.$emit('getEssayNum')
       }
     },
     Filter() {

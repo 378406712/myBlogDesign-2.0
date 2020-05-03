@@ -90,7 +90,16 @@ const Essay = {
     },
   },
   actions: {
-    BatchDeleteEssay({ commit }, key) {
+    BatchTrashEssay({}, key) {
+      return new Promise((resolve, reject) => {
+        Api.BatchTrashEssay(key)
+          .then(() => {
+            resolve()
+          })
+          .catch((err) => reject(err))
+      })
+    },
+    BatchDeleteEssay({}, key) {
       return new Promise((resolve, reject) => {
         Api.BatchDeleteEssay(key)
           .then(() => {
