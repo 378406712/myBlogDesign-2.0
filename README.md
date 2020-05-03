@@ -129,4 +129,4 @@ Modern browsers and Internet Explorer 10+.
 
 [MIT](https://github.com/378406712/myBlogDesign-2.0/blob/master/LICENSE)
 
-Copyright (c) 2020-present 南山忆旧@lzw
+Copyright (c) 2020-present Clover@lzw
