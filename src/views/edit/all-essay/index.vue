@@ -18,6 +18,7 @@
           <el-input
             style="width: auto;"
             v-model="searchEssay"
+            @focus="clearTag"
             size="mini"
           ></el-input>
           <el-button size="mini" @click="handleSearch(searchEssay)"
@@ -84,6 +85,9 @@ export default {
       'EssayCategory',
       'GetEssayNum',
     ]),
+    clearTag() {
+      this.tag = ''
+    },
     handleSearch(val) {
       this.SearchEssay({
         params: {
@@ -100,10 +104,8 @@ export default {
           keyword: this.keywordSetting,
         },
       })
-
       await this.EssayDate({ params: { username: this.name } })
       await this.EssayCategory({ params: { username: this.name } })
-
       this.isCategory(this.Essaycategory)
       this.isSame(this.date)
     },
@@ -137,13 +139,13 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      vm.getEssayNum()
       if (vm.$route.query.tag) {
         vm.tag = vm.$route.query.tag
         vm.handleSearch(vm.$route.params.key)
       } else {
         vm.getEssay()
       }
+      vm.getEssayNum()
     })
   },
   computed: {

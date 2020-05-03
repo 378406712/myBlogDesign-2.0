@@ -134,6 +134,7 @@ const Essay = {
       return new Promise((resolve, reject) => {
         Api.SearchEssay(keywords).then((res) => {
           commit(ESSAY_LIST, res.data)
+          commit(ESSAY_TOTALS, res.data.length)
           resolve()
         })
       })
