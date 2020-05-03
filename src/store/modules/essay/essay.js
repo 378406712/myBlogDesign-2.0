@@ -15,11 +15,11 @@ const Essay = {
     selection: [],
     category: [],
     date: [],
-    num: { all: 0, sended: 0, pend: 0, trash: 0 },
+    num: { all: 0, sended: 0, pend: 0, trash: 0, draft: 0 },
     pages: 1,
     sizes: 8,
     totals: 0,
-    setting:['分类目录', '评论', '日期', '点击数'],
+    setting: ['分类目录', '评论', '日期', '点击数'],
     tabloid: 'tabloid-view',
   },
   mutations: {

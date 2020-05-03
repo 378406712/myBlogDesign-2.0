@@ -13,7 +13,7 @@
                 >（{{ num[item.status] }}）</span
               ></router-link
             >
-            |
+            <span v-if="item.status!='trash'">|</span>
           </li>
         </ul>
         <p class="search-box">
@@ -67,7 +67,7 @@ export default {
       subtitle: [
         { title: '全部', status: 'all' },
         { title: '已发送', status: 'sended' },
-        // { title: '草稿', status: 'draft' },
+        { title: '草稿', status: 'draft' },
         { title: '待审', status: 'pend' },
         { title: '回收站', status: 'trash' },
       ],
