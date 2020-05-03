@@ -37,7 +37,7 @@
         :DateList="DateList"
         :CategoryList="CategoryList"
       />
-      <EssayTable />
+      <EssayTable v-on:getEssay="getEssay" v-on:getEssayNum="getEssayNum" />
     </el-form>
     <Operation
       v-on:getEssay="getEssay"

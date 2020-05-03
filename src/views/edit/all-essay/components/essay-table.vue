@@ -112,14 +112,21 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_SELECTION']),
-    operate(val) {
-      console.log(this.rowid)
+    ...mapActions(['BatchTrashEssay']),
+    async operate(val) {
       switch (val) {
         case 'edit':
           console.log('edit')
           break
         case 'trash':
-          console.log('trash')
+          const param = {
+            username: this.name,
+            _id: JSON.stringify(this.rowid),
+            tag:'single'
+          }
+          await this.BatchTrashEssay(param)
+          this.$emit('getEssay')
+          this.$emit('getEssayNum')
           break
         case 'watch':
           console.log('watch')
@@ -175,20 +182,9 @@ export default {
 @import url(../../../../style/table.scss);
 </style>
 <style lang="stylus">
-#essay-#essay-tabloid{
-
-
-}
 #essay-tabloid p {
   margin: 0 !important  ;
   color: #555;
-  // text-overflow: -o-ellipsis-lastline;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
-  // display: -webkit-box;
-  // -webkit-line-clamp: 2;
-  // line-clamp: 2;
-  // -webkit-box-orient: vertical;
 }
 .hidden{
   visibility: hidden;
@@ -198,7 +194,6 @@ export default {
     font-size: 13px;
     padding: 2px 0 0;
 }
-
 .row-actions a{
  font-weight:normal!important
 }
@@ -207,7 +202,6 @@ export default {
   &:hover{
  color:#dc3232;
   }
-
 }
 .row-actions em{
     margin :0 5px

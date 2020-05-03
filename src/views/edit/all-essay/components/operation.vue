@@ -94,6 +94,7 @@ export default {
         const param = {
           username: this.name,
           _id: JSON.stringify(data),
+           tag:'batch'
         }
         await this.BatchDeleteEssay(param)
         this.$emit('getEssay')
@@ -118,7 +119,6 @@ export default {
       }
     },
     Filter() {
-      console.log(this.chooseCategory, this.chooseDate)
       this.FilterEssay({
         params: {
           username: this.name,
