@@ -1,13 +1,25 @@
 <template>
   <el-table
     :data="essayList"
+    ref="essayTable"
+    :expand-row-keys="expands"
+    row-key="_id"
     @selection-change="handleChange"
+    @expand-change="handleExpand"
     style="width: 100%;"
     :stripe="true"
     :default-sort="{ prop: 'selectDate', order: 'descending' }"
   >
     >
     <el-table-column type="selection" width="45"></el-table-column>
+      <el-table-column type="expand">
+      <template slot-scope="scope">
+        <div class="bottom_content">
+          <!-- <a @click="update(scope.row)"></a> -->
+      <UpdateTable/>
+        </div>
+      </template>
+    </el-table-column>
     <el-table-column prop="title" label="标题" min-width="200">
       <template slot-scope="scope">
         <div @mouseleave="rowid = ''" @mouseover="rowid = scope.row._id">
@@ -30,8 +42,8 @@
             <span
               v-for="(item, index) in editSetting"
               :key="index"
-              :class="(item.name === 'trash' ? 'trash' : 'x')"
-              ><a @click="operate(item.name)" href="javascript:;">{{
+              :class="(item.name === 'trash' ? 'trash' : '')"
+              ><a @click="operate(item.name, scope.row)" href="javascript:;">{{
                 item.label
               }}</a
               ><em class="left" v-if="item.name != 'watch'">|</em>
@@ -40,9 +52,10 @@
         </div>
       </template>
     </el-table-column>
+  
+
     <el-table-column
       v-if="setting.includes('分类目录')"
-      sortable
       prop="checkCategory"
       label="分类目录"
     >
@@ -59,7 +72,6 @@
       </template>
     </el-table-column>
     <el-table-column
-      sortable
       prop="comment"
       v-if="setting.includes('评论')"
       :render-header="commentIcon"
@@ -90,9 +102,12 @@
 
 <script>
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
+import UpdateTable  from './updateTable'
 export default {
+  components:{UpdateTable},
   data() {
     return {
+      expands: [],
       rowid: '',
       editSetting: [
         {
@@ -113,16 +128,21 @@ export default {
   methods: {
     ...mapMutations(['SET_SELECTION']),
     ...mapActions(['BatchTrashEssay']),
-    async operate(val) {
+    //更新表格数据(关闭)
+    update(row) {
+      console.log(row)
+      this.expands = []
+    },
+    async operate(val, row) {
       switch (val) {
         case 'edit':
-          console.log('edit')
+          this.handleExpand(row, [row])
           break
         case 'trash':
           const param = {
             username: this.name,
             _id: JSON.stringify(this.rowid),
-            tag:'single'
+            tag: 'single',
           }
           await this.BatchTrashEssay(param)
           this.$emit('getEssay')
@@ -131,6 +151,16 @@ export default {
         case 'watch':
           console.log('watch')
           break
+      }
+    },
+    //只能展开1行
+    handleExpand(row, expandedRows) {
+      let _this = this
+      if (expandedRows.length) {
+        _this.expands = []
+        if (row) {
+          _this.expands.push(row._id)
+        }
       }
     },
     handleChange(val) {
@@ -154,7 +184,7 @@ export default {
               {
                 slot: 'reference',
                 class: 'el-icon-s-comment',
-                style: 'fontSize:24px;position:relative;top:5px',
+                style: 'fontSize:24px;',
               },
               ''
             ),

@@ -2,11 +2,11 @@
   <div class="introduction white_bg">
     <canvas></canvas>
     <h1>Hello.</h1>
-    <p style="font-weight:500; font-size:2.2em">
-      My name is Liu ZW.
+    <p style="font-weight: 500; font-size: 2.2em;">
+      I m Clover.
     </p>
     <p>
-      I am a Grade 4 student of a college, I use
+      I use
       <a href="https://vuejs.org" target="_blank">Vue.js</a> to rebuild this
       project. The basic project is this
       <a href="https://github.com/Neveryu/vue-cms">One.</a> It is open source
@@ -38,7 +38,7 @@ import Belt from '@/utils/color-belt.js'
 export default {
   mounted() {
     Belt()
-  }
+  },
 }
 </script>
 
@@ -92,11 +92,8 @@ a:hover:after {
 }
 canvas {
   position: absolute;
-  top: 100px;
-  left: -20px;
+  left: -2px;
   z-index: 0;
-  width: 102%;
-  height: 100%;
   pointer-events: none;
 }
 </style>
