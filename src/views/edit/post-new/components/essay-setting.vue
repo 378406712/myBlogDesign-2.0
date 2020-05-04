@@ -48,6 +48,9 @@
         <div class="select">
           <el-checkbox v-model="Status_Visible.reCheck">等待复审</el-checkbox>
         </div>
+        <div class="select">
+          <el-checkbox v-model="Status_Visible.commentOn">允许评论</el-checkbox>
+        </div>
 
         <div class="select">
           <el-checkbox style="color: #dc3232;" v-model="Status_Visible.trash"

@@ -14,11 +14,9 @@
     <el-table-column type="selection" width="45"></el-table-column>
       <el-table-column type="expand">
       <template slot-scope="scope">
-        <div class="bottom_content">
-          <!-- <a @click="update(scope.row)"></a> -->
-      <UpdateTable/>
-        </div>
-      </template>
+      
+      <UpdateTable :updateForm="scope.row"/>
+        </template>
     </el-table-column>
     <el-table-column prop="title" label="标题" min-width="200">
       <template slot-scope="scope">
