@@ -29,24 +29,13 @@
       </el-col>
       <el-col :span="6">
         <el-form-item id="lengend" label="更新状态"> </el-form-item>
-        <el-form-item size="mini" label="状态">
-          <el-select v-model="updateForm.status" placeholder="请选择活动区域">
-            <el-option
-              v-for="(item, index) in updateForm.checkCategory"
-              :key="index"
-              :label="item"
-              :value="item"
-            ></el-option>
-          </el-select>
+        <el-form-item label="状态">
+          <el-checkbox :checked="updateForm.keepTop">置顶文章</el-checkbox>
+          <el-checkbox :checked="updateForm.draft">草稿 </el-checkbox>
+          <el-checkbox :checked="updateForm.reCheck">等待复审 </el-checkbox>
+          <el-checkbox :checked="updateForm.commentOn">允许评论 </el-checkbox>
+          <el-checkbox :checked="updateForm.sended">已发送 </el-checkbox>
         </el-form-item>
-        <el-form-item
-          ><el-checkbox :checked="updateForm.keepTop">置顶这篇文章</el-checkbox>
-        </el-form-item>
-        <el-form-item
-          ><el-checkbox :checked="updateForm.commentOn"
-            >允许评论</el-checkbox
-          ></el-form-item
-        >
       </el-col>
       <!-- <el-checkbox-group
           v-model="updateForm.checkCategory"
@@ -108,5 +97,8 @@ export default {
 }
 #lengend{
     font-weight 600
+}
+#lengend + .el-form-item  >>> .el-checkbox {
+    margin-right 10px
 }
 </style>

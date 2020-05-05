@@ -81,6 +81,7 @@ export default {
     return {
       disabled: true,
       title: '',
+      sended: true,
       // 富文本内容
       quillUpdateImg: false,
       content: '',
@@ -194,6 +195,12 @@ export default {
       quill.on('editor-change', this.onEditorChange)
     },
     async toPublish(visiable) {
+      const { reCheck, draft, trash } = visiable
+      if (reCheck || draft || trash) {
+        this.sended = false
+      } else {
+        this.sended = true
+      }
       const EssayData = {
         ...visiable,
         title: this.title,
@@ -201,6 +208,7 @@ export default {
         username: this.name,
         date: moment().format(' YYYY年MM月DD日mm分'),
         selectDate: moment().format(' YYYY-MM'),
+        sended: this.sended,
       }
       this.PostEssay(EssayData)
         .then(() => {

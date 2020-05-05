@@ -69,7 +69,7 @@ const Essay = {
           draftNum.push(item)
         } else if (item.trash === true) {
           trashNum.push(item)
-        } else {
+        } else if (item.sended === true) {
           sendNum.push(item)
         }
       })
