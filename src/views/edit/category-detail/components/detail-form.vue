@@ -63,7 +63,7 @@ export default {
   data() {
     const validCategoryName = (rule, value, cb) => {
       const existCategory = []
-      _.forEach(this.category, function(value, key) {
+      _.forEach(this.category, function (value, key) {
         existCategory.push(value.category)
       })
 
@@ -112,7 +112,7 @@ export default {
       })
     },
     upDateCategory() {
-      this.$refs.DetailForm.validate(valid => {
+      this.$refs.DetailForm.validate((valid) => {
         if (valid) {
           this.baseJudge()
           this.updateCategory({
@@ -147,10 +147,10 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      form: state => state.category.detail,
-      detail_pic: state => state.category.detail_pic,
-      category: state => state.edit.category_c,
-      base_detail: state => state.category.base_detail
+      form: (state) => state.category.detail,
+      detail_pic: (state) => state.category.detail_pic,
+      category: (state) => state.edit.category_c,
+      base_detail: (state) => state.category.base_detail
     })
   }
 }

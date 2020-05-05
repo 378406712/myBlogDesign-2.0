@@ -112,9 +112,9 @@ export default {
   methods: {
     alterPass() {
       const { originPass, newPass } = this.alterForm
-      this.$refs.alterForm.validate(valid => {
+      this.$refs.alterForm.validate((valid) => {
         if (valid) {
-          getPublicKey().then(res => {
+          getPublicKey().then((res) => {
             let encryptor = new JSEncrypt()
             encryptor.setPublicKey(res.data.resultmap) //设置公钥
             let alterData = {

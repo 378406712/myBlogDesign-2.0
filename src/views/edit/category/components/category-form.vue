@@ -30,7 +30,7 @@
         @click="onSubmit('CategoryForm')"
         type="warning"
         class="text-shadow"
-        style="marginTop:10px"
+        style="margintop: 10px;"
         >添加新分类目录</el-button
       >
     </el-form-item>
@@ -74,7 +74,7 @@ export default {
         : this.form.pic
     },
     async onSubmit() {
-      this.$refs.CategoryForm.validate(valid => {
+      this.$refs.CategoryForm.validate((valid) => {
         if (valid) {
           this.baseJudge()
           this.SetCategory({

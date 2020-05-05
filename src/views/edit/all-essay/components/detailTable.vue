@@ -74,7 +74,7 @@
       </el-col>
     </el-row>
     <div style="text-align: center;">
-      <el-button @click="$emit('cancel')" size="mini" type="success"
+      <el-button @click="$emit('confirm')" size="mini" type="success"
         >确定</el-button
       >
     </div>
@@ -85,7 +85,7 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   props: {
-    updateForm: Object,
+    updateForm: Object
   },
 
   methods: {
@@ -104,8 +104,8 @@ export default {
     },
     changeStatus(val) {
       console.log(val)
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -147,4 +147,4 @@ export default {
 >>>.el-step__icon{
   background-color transparent
 }
-  </style>
+</style>

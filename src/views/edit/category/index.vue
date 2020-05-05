@@ -41,7 +41,7 @@ export default {
       searchCategory: '',
       label_position: 'top',
       title: true,
-      label_width: '80px',
+      label_width: '80px'
     }
   },
   methods: {
@@ -51,18 +51,18 @@ export default {
       this.SearchCategory_c({
         params: {
           username: this.name,
-          keywords: this.searchCategory,
-        },
+          keywords: this.searchCategory
+        }
       })
     },
     getCategory() {
       this.$refs.tableComponent.getCategory()
-    },
+    }
   },
   computed: {
     ...mapGetters(['name']),
-    ...mapState({}),
-  },
+    ...mapState({})
+  }
   // beforeRouteEnter(to, from, next) {
   //   next((vm) => vm.getCategory())
   // },

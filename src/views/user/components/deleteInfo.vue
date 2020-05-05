@@ -33,5 +33,4 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import url('../../../style/card.css');
- 
 </style>

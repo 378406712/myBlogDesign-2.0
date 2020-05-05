@@ -109,8 +109,8 @@ export default {
   computed: {
     ...mapGetters(['e_mail', 'name']),
     ...mapState({
-      status: state => state.account.status,
-      visible: state => state.account.visible
+      status: (state) => state.account.status,
+      visible: (state) => state.account.visible
     })
   }
 }

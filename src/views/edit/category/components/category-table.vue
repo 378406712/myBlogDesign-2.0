@@ -28,7 +28,7 @@
           <router-link
             :to="{
               path: '/edit/all-essay/' + scope.row.category,
-              query: { tag: 'category' },
+              query: { tag: 'category' }
             }"
           >
             {{ scope.row.sum }}</router-link
@@ -46,12 +46,12 @@ import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
-    Operation,
+    Operation
   },
 
   data() {
     return {
-      total: 0,
+      total: 0
     }
   },
   methods: {
@@ -79,19 +79,19 @@ export default {
       else {
         return false
       }
-    },
+    }
   },
 
   computed: {
     ...mapGetters(['name']),
     ...mapState({
       category: (state) => state.edit.category_c,
-      totals: (state) => state.edit.totals,
-    }),
+      totals: (state) => state.edit.totals
+    })
   },
   mounted() {
     this.getCategory().then(() => (this.total = this.totals))
-  },
+  }
 }
 </script>
 
@@ -108,5 +108,4 @@ export default {
 }
 .el-table >>>.success-row {
 background-color: #f5f7fa;}
-
 </style>

@@ -2,7 +2,7 @@
   <el-container class="register-container">
     <el-card class="animated flipInY">
       <div slot="header" class="el-card-header clearFix">
-             <router-link class="tologin clearFix" to="/login">
+        <router-link class="tologin clearFix" to="/login">
           <span class="svg-container svg-container_user">
             <svg-icon icon-class="back" />
           </span>
@@ -21,7 +21,7 @@
         <el-form-item
           :label="$t('register.account')"
           prop="username"
-          style="position:relative"
+          style="position: relative;"
         >
           <el-input
             type="text"
@@ -182,10 +182,10 @@ export default {
         permission = '/excel,/clipboard,/theme,/test'
       }
       this.$refs.e_mail.$el.getElementsByTagName('input')[0].blur()
-      this.$refs.registerForm.validate(valid => {
+      this.$refs.registerForm.validate((valid) => {
         if (valid) {
           this.loading = true
-          getPublicKey().then(res => {
+          getPublicKey().then((res) => {
             let encryptor = new JSEncrypt()
             encryptor.setPublicKey(res.data.resultmap) //设置公钥
             let registerData = {
@@ -197,7 +197,7 @@ export default {
               password: encryptor.encrypt(this.registerForm.checkPass)
             }
             register(registerData)
-              .then(res => {
+              .then((res) => {
                 if (res.data.status === 'USERNAME_REPERATED') {
                   this.loading = false
                   Msg('用户名重复', 'warning')

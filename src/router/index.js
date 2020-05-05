@@ -22,8 +22,8 @@ export const constantRouterMap = [
     hidden: true,
     component: Login,
     meta: {
-      title: '登录'
-    }
+      title: '登录',
+    },
   },
   {
     path: '/register',
@@ -31,8 +31,8 @@ export const constantRouterMap = [
     hidden: true,
     component: Register,
     meta: {
-      title: '注册'
-    }
+      title: '注册',
+    },
   },
 
   {
@@ -44,9 +44,9 @@ export const constantRouterMap = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '仪表盘', icon: 'svg-dashboard', affix: true }
-      }
-    ]
+        meta: { title: '仪表盘', icon: 'svg-dashboard', affix: true },
+      },
+    ],
   },
   {
     path: '/home',
@@ -57,9 +57,9 @@ export const constantRouterMap = [
         path: 'center',
         name: 'center',
         component: () => import('@/views/homepage'),
-        meta: { title: '个人中心', icon: 's-home' }
-      }
-    ]
+        meta: { title: '个人中心', icon: 's-home' },
+      },
+    ],
   },
   {
     path: '/user',
@@ -71,9 +71,9 @@ export const constantRouterMap = [
         path: 'account',
         name: 'account',
         component: () => import('@/views/user/account'),
-        meta: { icon: 's-promotion', title: '账号设置' }
-      }
-    ]
+        meta: { icon: 's-promotion', title: '账号设置' },
+      },
+    ],
   },
   {
     path: '/introduction',
@@ -84,9 +84,9 @@ export const constantRouterMap = [
         path: 'index',
         name: 'introduction',
         component: () => import('@/views/introduction/index'),
-        meta: { icon: 'svg-aperture', title: '简述' }
-      }
-    ]
+        meta: { icon: 'svg-aperture', title: '简述' },
+      },
+    ],
   },
   {
     path: '/custom-component',
@@ -97,9 +97,9 @@ export const constantRouterMap = [
         path: 'index',
         name: 'CustomComponent',
         component: () => import('@/views/custom-component/index'),
-        meta: { icon: 'guide', title: '自定义组件' }
-      }
-    ]
+        meta: { icon: 'guide', title: '自定义组件' },
+      },
+    ],
   },
   {
     path: '/echarts',
@@ -108,16 +108,16 @@ export const constantRouterMap = [
     alwaysShow: true,
     meta: {
       title: '可视化',
-      icon: 'svg-droplet'
+      icon: 'svg-droplet',
     },
     children: [
       {
         path: 'index',
         name: 'count',
         component: () => import('@/views/echarts'),
-        meta: { title: '数量统计', icon: 'svg-heart' }
-      }
-    ]
+        meta: { title: '数量统计', icon: 'svg-heart' },
+      },
+    ],
   },
   {
     path: '/edit',
@@ -126,7 +126,7 @@ export const constantRouterMap = [
     redirect: '/post-new',
     meta: {
       icon: 'collection',
-      title: '文章'
+      title: '文章',
     },
     redirect: 'post-new',
     children: [
@@ -134,35 +134,35 @@ export const constantRouterMap = [
         path: 'post-new',
         name: 'post-new',
         component: () => import('@/views/edit/post-new/index'),
-        meta: { icon: 'svg-type', title: '写文章' }
+        meta: { icon: 'svg-type', title: '写文章' },
       },
       {
         path: 'all-essay',
         name: 'all-essay',
         component: () => import('@/views/edit/all-essay/index'),
-        meta: { icon: 'notebook-2', title: '所有文章' }
+        meta: { icon: 'notebook-2', title: '所有文章' },
       },
       {
         path: 'category',
         name: 'category',
         component: () => import('@/views/edit/category/index'),
-        meta: { icon: 'collection-tag', title: '分类目录' }
+        meta: { icon: 'collection-tag', title: '分类目录' },
       },
       {
         path: '/edit/category-detail/:category',
         hidden: true,
         name: 'alter-category',
         component: () => import('@/views/edit/category-detail/index'),
-        meta: { title: '编辑分类目录' }
+        meta: { title: '编辑分类目录' },
       },
       {
-        path: '/edit/all-essay/:key',
+        path: '/edit/all-essay/:category',
         hidden: true,
         name: 'essay-detail',
         component: () => import('@/views/edit/all-essay/index'),
-        meta: { title: '文章' }
-      }
-    ]
+        meta: { title: '文章' },
+      },
+    ],
   },
   {
     path: '/futures',
@@ -171,22 +171,22 @@ export const constantRouterMap = [
     alwaysShow: true,
     meta: {
       icon: 's-grid',
-      title: '更多功能'
+      title: '更多功能',
     },
     children: [
       {
         path: 'draggable',
         name: 'draggable',
         component: () => import('@/views/futures/draggable'),
-        meta: { icon: 'thumb', title: '拖拽' }
-      }
-    ]
+        meta: { icon: 'thumb', title: '拖拽' },
+      },
+    ],
   },
   {
     path: '/404',
     component: () => import('@/views/error-page/index'),
-    hidden: true
-  }
+    hidden: true,
+  },
 ]
 
 export default new Router({
@@ -194,7 +194,7 @@ export default new Router({
   // scrollBehavior: () => ({ y: 0 }),
   // mode:'hash',
   mode: 'history',
-  routes: constantRouterMap
+  routes: constantRouterMap,
 })
 
 export const asyncRouterMap = [
@@ -205,28 +205,28 @@ export const asyncRouterMap = [
     alwaysShow: true,
     meta: {
       title: '表格',
-      icon: 'date'
+      icon: 'date',
     },
     children: [
       {
         path: 'export-excel',
         name: 'exportExcel',
         component: () => import('@/views/excel/export-excel'),
-        meta: { icon: 'download', title: '导出表格' }
+        meta: { icon: 'download', title: '导出表格' },
       },
       {
         path: 'upload-excel',
         name: 'uploadExcel',
         component: () => import('@/views/excel/upload-excel'),
-        meta: { icon: 'upload', title: '上传表格' }
+        meta: { icon: 'upload', title: '上传表格' },
       },
       {
         path: 'merge-count',
         name: 'mergeCount',
         component: () => import('@/views/excel/merge-count'),
-        meta: { icon: 'upload', title: '合并&统计' }
-      }
-    ]
+        meta: { icon: 'upload', title: '合并&统计' },
+      },
+    ],
   },
   {
     path: '/clipboard',
@@ -234,16 +234,16 @@ export const asyncRouterMap = [
     redirect: 'index',
     meta: {
       icon: 'document',
-      title: '剪切板'
+      title: '剪切板',
     },
     children: [
       {
         path: 'index',
         name: 'clipBoard',
         component: () => import('@/views/clipboard'),
-        meta: { title: '剪切板示例', icon: 'document' }
-      }
-    ]
+        meta: { title: '剪切板示例', icon: 'document' },
+      },
+    ],
   },
   {
     path: '/theme',
@@ -255,8 +255,8 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/theme/index'),
         name: 'Theme',
-        meta: { title: '主题', icon: 'svg-pifu' }
-      }
-    ]
-  }
+        meta: { title: '主题', icon: 'svg-pifu' },
+      },
+    ],
+  },
 ]

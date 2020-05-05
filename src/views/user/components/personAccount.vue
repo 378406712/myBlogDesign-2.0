@@ -57,7 +57,7 @@
                 type="date"
                 placeholder="选择日期"
                 v-model="ruleForm.birthday"
-                style="width: 84%"
+                style="width: 84%;"
               ></el-date-picker>
             </el-form-item>
           </el-col>
@@ -71,7 +71,7 @@
           <el-col :span="12">
             <el-form-item id="labels" prop="hometown" label="家乡">
               <el-cascader
-                style="width: 100%"
+                style="width: 100%;"
                 ref="cascader"
                 :options="area.options"
                 v-model="ruleForm.hometown"
@@ -105,7 +105,7 @@
             >
               <div slot="error" class="image-slot">
                 <i
-                  style="fontSize:30px"
+                  style="fontsize: 30px;"
                   class="showPic-error showPic el-icon-picture-outline"
                 ></i>
               </div>
@@ -185,7 +185,7 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      ruleForm: state => state.account.form
+      ruleForm: (state) => state.account.form
     })
   }
 }

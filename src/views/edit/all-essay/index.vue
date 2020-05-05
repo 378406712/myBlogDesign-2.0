@@ -72,8 +72,8 @@ export default {
         { title: '已发送', status: 'sended' },
         { title: '草稿', status: 'draft' },
         { title: '待审', status: 'pend' },
-        { title: '回收站', status: 'trash' },
-      ],
+        { title: '回收站', status: 'trash' }
+      ]
     }
   },
   methods: {
@@ -83,7 +83,7 @@ export default {
       'AllCategoryCount',
       'EssayDate',
       'EssayCategory',
-      'GetEssayNum',
+      'GetEssayNum'
     ]),
     clearTag() {
       this.tag = ''
@@ -93,16 +93,16 @@ export default {
         params: {
           username: this.name,
           keywords: val,
-          tag: this.tag,
-        },
+          tag: this.tag
+        }
       })
     },
     async getEssay() {
       await this.GetEssay({
         params: {
           username: this.name,
-          keyword: this.keywordSetting,
-        },
+          keyword: this.keywordSetting
+        }
       })
       await this.EssayDate({ params: { username: this.name } })
       await this.EssayCategory({ params: { username: this.name } })
@@ -113,8 +113,8 @@ export default {
       this.GetEssayNum({
         params: {
           username: this.name,
-          keyword: 'all',
-        },
+          keyword: 'all'
+        }
       })
     },
     isCategory(Essaycategory) {
@@ -135,13 +135,13 @@ export default {
     pushSetting(key) {
       this.keywordSetting = key
       this.getEssay()
-    },
+    }
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       if (vm.$route.query.tag) {
         vm.tag = vm.$route.query.tag
-        vm.handleSearch(vm.$route.params.key)
+        vm.handleSearch(vm.$route.params.category)
       } else {
         vm.getEssay()
       }
@@ -153,9 +153,9 @@ export default {
     ...mapState({
       num: (state) => state.essay.num,
       date: (state) => state.essay.date,
-      Essaycategory: (state) => state.essay.category,
-    }),
-  },
+      Essaycategory: (state) => state.essay.category
+    })
+  }
 }
 </script>
 

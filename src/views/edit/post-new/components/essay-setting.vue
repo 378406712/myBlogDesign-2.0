@@ -160,12 +160,12 @@ import Onbeforeunload from '@/utils/onbeforeunload'
 
 export default {
   props: {
-    disabled: Boolean,
+    disabled: Boolean
   },
   components: { Media },
   data() {
     return {
-      ...EssaySettingData,
+      ...EssaySettingData
     }
   },
   methods: {
@@ -184,7 +184,7 @@ export default {
           alias: createCategory.toLowerCase(),
           desc: '—',
           pic: 'http://localhost:3001/random/1.jpg',
-          sum: 0,
+          sum: 0
         })
         this.Classify_Category.createCategory = ''
       } else {
@@ -235,10 +235,10 @@ export default {
       this.SearchCategory({
         params: {
           username: this.name,
-          keywords: item,
-        },
+          keywords: item
+        }
       })
-    },
+    }
   },
   computed: {
     ...mapGetters(['name']),
@@ -246,16 +246,16 @@ export default {
       category: (state) => state.edit.category,
       special_bg: (state) => state.edit.special_bg,
       check: (state) => state.edit.check,
-      showDialog: (state) => state.edit.showDialog,
-    }),
+      showDialog: (state) => state.edit.showDialog
+    })
   },
   watch: {
     disabled: function (e) {
       if (!e) {
         Onbeforeunload(this, '/edit/post-new')
       }
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="stylus" scoped>

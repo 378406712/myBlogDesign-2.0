@@ -65,18 +65,23 @@ export default {
   components: { Pagination },
   props: {
     DateList: Array,
-    CategoryList: Array,
+    CategoryList: Array
   },
   data() {
     return {
       operation: 'depatch',
       chooseCategory: 'all-category',
-      chooseDate: 'all-date',
+      chooseDate: 'all-date'
     }
   },
   methods: {
     ...mapMutations(['ESSAY_PAGES', 'ESSAY_SIZES']),
-    ...mapActions(['BatchDeleteEssay', 'GetEssay', 'FilterEssay','BatchTrashEssay']),
+    ...mapActions([
+      'BatchDeleteEssay',
+      'GetEssay',
+      'FilterEssay',
+      'BatchTrashEssay'
+    ]),
     /**
      * 删除多条
      * @class BatchDeleteEssay
@@ -94,7 +99,7 @@ export default {
         const param = {
           username: this.name,
           _id: JSON.stringify(data),
-           tag:'batch'
+          tag: 'batch'
         }
         await this.BatchDeleteEssay(param)
         this.$emit('getEssay')
@@ -111,7 +116,7 @@ export default {
         })
         const param = {
           username: this.name,
-          _id: JSON.stringify(data),
+          _id: JSON.stringify(data)
         }
         await this.BatchTrashEssay(param)
         this.$emit('getEssay')
@@ -123,8 +128,8 @@ export default {
         params: {
           username: this.name,
           checkCategory: this.chooseCategory,
-          date: this.chooseDate,
-        },
+          date: this.chooseDate
+        }
       })
     },
     pageValue(pageValue) {
@@ -134,7 +139,7 @@ export default {
     sizeValue(sizeValue) {
       this.ESSAY_SIZES(sizeValue)
       this.$emit('getEssay')
-    },
+    }
   },
 
   computed: {
@@ -142,10 +147,10 @@ export default {
       selection: (state) => state.essay.selection,
       pages: (state) => state.essay.pages,
       sizes: (state) => state.essay.sizes,
-      totals: (state) => state.essay.totals,
+      totals: (state) => state.essay.totals
     }),
-    ...mapGetters(['name']),
-  },
+    ...mapGetters(['name'])
+  }
 }
 </script>
 

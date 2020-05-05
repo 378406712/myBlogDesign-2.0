@@ -16,7 +16,7 @@
         <el-form-item
           :label="$t('login.account')"
           prop="username"
-          style="position:relative"
+          style="position: relative;"
         >
           <el-input
             clearable
@@ -130,10 +130,10 @@ export default {
       }
 
       this.$refs.password.$el.getElementsByTagName('input')[0].blur()
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true
-          getPublicKey().then(res => {
+          getPublicKey().then((res) => {
             let encryptor = new JSEncrypt()
             encryptor.setPublicKey(res.data.resultmap) //设置公钥
             this.loginForm.password = encryptor.encrypt(password)
@@ -178,7 +178,7 @@ export default {
   },
 
   computed: {
-    ...mapState({ status: state => state.user.status })
+    ...mapState({ status: (state) => state.user.status })
   }
 }
 </script>

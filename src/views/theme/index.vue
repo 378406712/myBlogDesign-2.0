@@ -4,7 +4,13 @@
       <div slot="header">
         <span>换主题</span>
         <!-- <el-button style="float: right; padding: 3px 0" type="text">更换主题文档</el-button> -->
-        <el-link type="primary" style="float: right;" href="https://blog.csdn.net/csdn_yudong/article/details/97621471" target="_blank">更换文档主题</el-link>
+        <el-link
+          type="primary"
+          style="float: right;"
+          href="https://blog.csdn.net/csdn_yudong/article/details/97621471"
+          target="_blank"
+          >更换文档主题</el-link
+        >
       </div>
       <div class="box-item">
         <!-- <span class="field-label">换肤 : </span> -->
@@ -12,7 +18,10 @@
         <el-radio v-model="themeModel" :label="1" border>默认(可定制)</el-radio>
 
         <el-radio v-model="themeModel" :label="2" border>夏日心情</el-radio>
-        <aside style="margin-top:15px;">Tips: 这里与 navbar 中的更换皮肤有明显的区别，它们是两种不同的换肤方法，各自有不同的应用场景；这里主要是对ElementUI的颜色做一些改变以及自定义，详情请参考文档。</aside>
+        <aside style="margin-top: 15px;">
+          Tips: 这里与 navbar
+          中的更换皮肤有明显的区别，它们是两种不同的换肤方法，各自有不同的应用场景；这里主要是对ElementUI的颜色做一些改变以及自定义，详情请参考文档。
+        </aside>
       </div>
 
       <el-color-picker
@@ -20,7 +29,8 @@
         class="color-picker"
         popper-class="theme-picker-dropdown"
         v-model="color"
-        :predefine="predefineColors">
+        :predefine="predefineColors"
+      >
       </el-color-picker>
     </el-card>
 
@@ -53,7 +63,12 @@
     </div>
 
     <div class="block">
-      <el-tag v-for="tag in tags" :key="tag.type" :type="tag.type" class="tag-item">
+      <el-tag
+        v-for="tag in tags"
+        :key="tag.type"
+        :type="tag.type"
+        class="tag-item"
+      >
         {{ tag.name }}
       </el-tag>
     </div>
@@ -70,7 +85,7 @@
           Option C
         </el-radio>
       </el-radio-group>
-      <span style="margin-left: 25px;"></span> 
+      <span style="margin-left: 25px;"></span>
       <el-checkbox v-model="checked1" label="备选项1" border></el-checkbox>
       <el-checkbox v-model="checked2" label="备选项2" border></el-checkbox>
     </div>
@@ -115,25 +130,29 @@
         class="item-alert"
         title="成功提示的文案"
         type="success"
-        effect="dark">
+        effect="dark"
+      >
       </el-alert>
       <el-alert
         class="item-alert"
         title="消息提示的文案"
         type="info"
-        effect="dark">
+        effect="dark"
+      >
       </el-alert>
       <el-alert
         class="item-alert"
         title="警告提示的文案"
         type="warning"
-        effect="dark">
+        effect="dark"
+      >
       </el-alert>
       <el-alert
         class="item-alert"
         title="错误提示的文案"
         type="error"
-        effect="dark">
+        effect="dark"
+      >
       </el-alert>
     </div>
   </div>
@@ -148,10 +167,19 @@ export default {
   name: 'Theme',
   data() {
     return {
-      chalk: '',  // 当前是否已经获取过css样式文件内容，如果获取过，这里会有值，避免多次获取
+      chalk: '', // 当前是否已经获取过css样式文件内容，如果获取过，这里会有值，避免多次获取
       showColorPicker: true,
       color: '#409EFF',
-      predefineColors: ['#409EFF', '#1890ff', '#304156', '#212121', '#11a983', '#13c2c2', '#6959CD', '#f5222d'],
+      predefineColors: [
+        '#409EFF',
+        '#1890ff',
+        '#304156',
+        '#212121',
+        '#11a983',
+        '#13c2c2',
+        '#6959CD',
+        '#f5222d'
+      ],
       themeModel: 1,
       tags: [
         { name: 'Tag One', type: '' },
@@ -169,7 +197,7 @@ export default {
   watch: {
     themeModel(val) {
       toggleClass(document.body, 'theme-summer')
-      if(val === 1) {
+      if (val === 1) {
         this.showColorPicker = true
       } else {
         this.showColorPicker = false
@@ -186,8 +214,14 @@ export default {
 
       const getHandler = (variable, id) => {
         return () => {
-          const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace('#', ''))
-          const newStyle = this.updateStyle(this[variable], originalCluster, themeCluster)
+          const originalCluster = this.getThemeCluster(
+            ORIGINAL_THEME.replace('#', '')
+          )
+          const newStyle = this.updateStyle(
+            this[variable],
+            originalCluster,
+            themeCluster
+          )
 
           let styleTag = document.getElementById(id)
           if (!styleTag) {
@@ -210,16 +244,23 @@ export default {
       chalkHandler()
 
       // 过滤当前整个页面的样式文件，找到含有oldVal颜色的样式文件
-      const styles = [].slice.call(document.querySelectorAll('style'))
-        .filter(style => {
+      const styles = [].slice
+        .call(document.querySelectorAll('style'))
+        .filter((style) => {
           const text = style.innerText
-          return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
+          return (
+            new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
+          )
         })
       // 然后，将其中oldVal的颜色，全部换成我们颜色选择器中选择的新的颜色
-      styles.forEach(style => {
+      styles.forEach((style) => {
         const { innerText } = style
         if (typeof innerText !== 'string') return
-        style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)
+        style.innerText = this.updateStyle(
+          innerText,
+          originalCluster,
+          themeCluster
+        )
       })
     }
   },
@@ -234,7 +275,7 @@ export default {
     },
     // 创建xhr，远程获取css文件，并给chalk赋值
     getCSSString(url, variable) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const xhr = new XMLHttpRequest()
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 4 && xhr.status === 200) {
@@ -258,7 +299,8 @@ export default {
         let green = parseInt(color.slice(2, 4), 16)
         let blue = parseInt(color.slice(4, 6), 16)
 
-        if (tint === 0) { // when primary color is in its rgb space
+        if (tint === 0) {
+          // when primary color is in its rgb space
           return [red, green, blue].join(',')
         } else {
           red += Math.round(tint * (255 - red))
@@ -301,7 +343,7 @@ export default {
 </script>
 
 <style scoped>
-.field-label{
+.field-label {
   vertical-align: middle;
 }
 .box-card {

@@ -53,11 +53,11 @@ export default {
           { label: '分类目录', value: 'category' },
           { label: '评论', value: 'comment' },
           { label: '日期', value: 'date' },
-          { label: '点击数', value: 'click_num' },
-        ],
+          { label: '点击数', value: 'click_num' }
+        ]
       },
       num: 8,
-      radio: 'tabloid-view',
+      radio: 'tabloid-view'
     }
   },
   methods: {
@@ -74,8 +74,8 @@ export default {
     },
     handleChangeView(val) {
       this.radio = val
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="scss">

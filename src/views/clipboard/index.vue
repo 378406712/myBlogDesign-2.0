@@ -6,7 +6,7 @@
           v-model="inputData"
           placeholder="Please input"
           ref="input1"
-          style="width:400px;"
+          style="width: 400px;"
         ></el-input>
         <wired-button elevation="3" @click="handleCopy1">copy</wired-button>
         <p class="title">粘贴一下：</p>
@@ -22,7 +22,7 @@
           v-model="inputData"
           placeholder="Please input"
           ref="input2"
-          style="width:400px;"
+          style="width: 400px;"
         ></el-input>
         <el-button type="primary" @click="handleCopy2(inputData, $event)"
           >copy</el-button
@@ -35,7 +35,7 @@
         <el-input
           v-model="inputData"
           placeholder="please input"
-          style="width:400px;"
+          style="width: 400px;"
         ></el-input>
         <el-button
           type="primary"
@@ -85,8 +85,7 @@ export default {
         type: 'success'
       })
     }
-  },
-
+  }
 }
 </script>
 

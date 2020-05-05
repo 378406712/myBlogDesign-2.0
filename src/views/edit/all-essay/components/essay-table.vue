@@ -14,11 +14,7 @@
     <el-table-column type="selection" width="45"></el-table-column>
     <el-table-column type="expand">
       <template slot-scope="scope">
-        <DetailTable
-          :updateForm="scope.row"
-          v-on:cancel="cancel"
-          v-on:update="update"
-        />
+        <DetailTable :updateForm="scope.row" v-on:confirm="cancel" />
       </template>
     </el-table-column>
     <el-table-column prop="title" label="标题" min-width="200">
@@ -118,18 +114,22 @@ export default {
       rowid: '',
       editSetting: [
         {
+          label: '编辑',
+          name: 'edit'
+        },
+        {
           label: '详情',
-          name: 'detail',
+          name: 'detail'
         },
         {
           label: '移至回收站',
-          name: 'trash',
+          name: 'trash'
         },
         {
           label: '查看',
-          name: 'watch',
-        },
-      ],
+          name: 'watch'
+        }
+      ]
     }
   },
   methods: {
@@ -137,14 +137,13 @@ export default {
     ...mapActions(['BatchTrashEssay']),
     //更新表格数据(关闭)
     cancel(row) {
-      console.log(row)
       this.expands = []
-    },
-    update(updateForm) {
-      console.log(updateForm)
     },
     async operate(val, row) {
       switch (val) {
+        case 'edit':
+          this.$route.push({ path: '/edit/post-new' + row._id })
+          break
         case 'detail':
           this.handleExpand(row, [row])
           break
@@ -152,7 +151,7 @@ export default {
           const param = {
             username: this.name,
             _id: JSON.stringify(this.rowid),
-            tag: 'single',
+            tag: 'single'
           }
           await this.BatchTrashEssay(param)
           this.$emit('getEssay')
@@ -185,8 +184,8 @@ export default {
               placement: 'top-start',
               width: '50',
               trigger: 'hover',
-              content: '评论数量',
-            },
+              content: '评论数量'
+            }
           },
           [
             h(
@@ -194,32 +193,36 @@ export default {
               {
                 slot: 'reference',
                 class: 'el-icon-s-comment',
-                style: 'fontSize:24px;',
+                style: 'fontSize:24px;'
               },
               ''
-            ),
+            )
           ]
-        ),
+        )
       ])
     },
     sortDate(a, b) {
       let sortA = Date.parse(new Date(a.selectDate))
       let sortB = Date.parse(new Date(b.selectDate))
       return sortA - sortB
-    },
+    }
   },
   computed: {
     ...mapState({
       essayList: (state) => state.essay.essayList,
       setting: (state) => state.essay.setting,
-      tabloid: (state) => state.essay.tabloid,
-    }),
-  },
+      tabloid: (state) => state.essay.tabloid
+    })
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import url(../../../../style/table.scss);
+>>> .el-table__expanded-cell {
+  height: 160px;
+  background-image: url(/static/image/beautify/sakura.png);
+}
 </style>
 <style lang="stylus">
 #essay-tabloid p {
@@ -246,10 +249,4 @@ export default {
 .row-actions em{
     margin :0 5px
   }
-  .setStatus{
-  }
-  .el-table__expanded-cell{
-height: 160px;
-background-image url(/static/image/beautify/sakura.png)
-}
 </style>

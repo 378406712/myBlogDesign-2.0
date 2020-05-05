@@ -26,7 +26,7 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.path = from.path
     })
   }
@@ -53,7 +53,7 @@ export default {
   margin: 0;
   background-attachment: fixed;
   overflow: hidden;
-    position: absolute;
+  position: absolute;
   width: 100%;
   height: 100%;
 }

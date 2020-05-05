@@ -17,9 +17,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'roles'
-    ])
+    ...mapGetters(['roles'])
   },
   created() {
     // if (!this.roles.includes('admin')) {

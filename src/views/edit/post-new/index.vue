@@ -66,7 +66,7 @@ export default {
     [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
     [{ align: [] }], // 对齐方式
     ['clean'], // 清除字体样式
-    ['image'],
+    ['image']
   ],
   // 自定义富文本的图片上传
   imageFunction(val) {
@@ -85,7 +85,7 @@ export default {
       quillUpdateImg: false,
       content: '',
       richMaxLength: 800,
-      richCurrentLength: 0,
+      richCurrentLength: 0
     }
   },
   watch: {
@@ -100,7 +100,7 @@ export default {
       } else {
         numWrapper.style.color = '#666'
       }
-    },
+    }
   },
   methods: {
     ...mapMutations(['SPECIAL_BG']),
@@ -158,8 +158,8 @@ export default {
             container: this.$options.toolbarOptions,
             handlers: {
               // 自定义功能
-              image: this.$options.imageFunction,
-            },
+              image: this.$options.imageFunction
+            }
           },
           imageDrop: true,
           imageResize: {
@@ -167,22 +167,22 @@ export default {
             handleStyles: {
               backgroundColor: 'black',
               border: 'none',
-              color: 'white',
+              color: 'white'
             },
             displayStyles: {
               backgroundColor: 'black',
               border: 'none',
-              color: 'white',
+              color: 'white'
             },
             toolbarStyles: {
               backgroundColor: 'black',
               border: 'none',
-              color: 'white',
+              color: 'white'
             },
             toolbarButtonStyles: {},
-            toolbarButtonSvgStyles: {},
-          },
-        },
+            toolbarButtonSvgStyles: {}
+          }
+        }
       })
       this.quill = quill
       /**
@@ -210,7 +210,7 @@ export default {
         username: this.name,
         date: moment().format(' YYYY年MM月DD日mm分'),
         selectDate: moment().format(' YYYY-MM'),
-        sended: this.sended,
+        sended: this.sended
       }
       this.PostEssay(EssayData)
         .then(() => {
@@ -235,9 +235,9 @@ export default {
         category: '未分类',
         alias: '未分类',
         desc: '—',
-        pic: 'http://localhost:3001/random/2.jpg',
+        pic: 'http://localhost:3001/random/2.jpg'
       })
-    },
+    }
   },
   mounted() {
     this.initQuill()
@@ -247,8 +247,8 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      status: (state) => state.edit.status,
-    }),
+      status: (state) => state.edit.status
+    })
   },
   beforeDestroy() {
     this.quill = null
@@ -269,7 +269,7 @@ export default {
       this.SPECIAL_BG('')
       next()
     }
-  },
+  }
 }
 </script>
 <style lang="stylus" scoped>
