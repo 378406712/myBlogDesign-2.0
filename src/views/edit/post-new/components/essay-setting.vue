@@ -59,27 +59,28 @@
         </div>
       </el-collapse-item>
       <el-collapse-item title="分类目录" name="2">
-        <div>
-          <div>搜索分类目录</div>
-          <el-input
-            placeholder="请输入目录查询"
-            @input="handleSearch"
-            v-model="search"
-          >
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
-        </div>
-        <el-card class="box-card category">
-          <el-checkbox-group
-            v-model="Classify_Category.checkCategory"
-            v-for="(item, index) in category"
-            :key="index"
-          >
-            <el-checkbox
-              :label="item.category"
-              :checked="check._id === item._id && check.category !== '未分类'"
-            ></el-checkbox>
-          </el-checkbox-group>
+        <div>搜索分类目录</div>
+        <el-input
+          placeholder="请输入目录查询"
+          @input="handleSearch"
+          v-model="search"
+        >
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+
+        <el-card class="box-card category" :body-style="{ height: '100%' }">
+          <el-scrollbar style="height: 100%;">
+            <el-checkbox-group
+              v-model="Classify_Category.checkCategory"
+              v-for="(item, index) in category"
+              :key="index"
+            >
+              <el-checkbox
+                :label="item.category"
+                :checked="check._id === item._id && check.category !== '未分类'"
+              ></el-checkbox>
+            </el-checkbox-group>
+          </el-scrollbar>
         </el-card>
         <button
           type="button"
@@ -259,7 +260,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-@import url('../../../../style/attachment-detail.css')
+@import url('../../../../style/attachment-detail.scss')
 .draft{
   display: inline-flex;
   color: #523f6d;

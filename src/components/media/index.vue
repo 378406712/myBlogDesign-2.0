@@ -357,5 +357,5 @@ export default {
 }
 </script>
 <style scoped>
-@import url('../../style/attachment-detail.css');
+@import url('../../style/attachment-detail.scss');
 </style>

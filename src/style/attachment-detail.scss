@@ -1,5 +1,5 @@
-.tips{
- margin-left: 15px;
+.tips {
+  margin-left: 15px;
 }
 .media-uploader-status {
   position: relative;
@@ -298,7 +298,7 @@ img {
   padding: 0px 20px;
 }
 >>> .el-dialog__header {
-  padding:20px;
+  padding: 20px;
 }
 >>> .el-popover {
   right: 100% !important;
@@ -350,6 +350,7 @@ img {
 .category {
   margin-top: 10px;
   margin-bottom: 10px;
+  height: 210px;
 }
 .select {
   margin-top: 5px;
@@ -362,4 +363,7 @@ img {
 }
 >>> .el-collapse-item__header {
   font-weight: bold;
+}
+.editor-post ~ button {
+  margin-top: 10px;
 }
