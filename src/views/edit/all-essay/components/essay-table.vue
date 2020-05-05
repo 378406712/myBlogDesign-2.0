@@ -12,11 +12,14 @@
   >
     >
     <el-table-column type="selection" width="45"></el-table-column>
-      <el-table-column type="expand">
+    <el-table-column type="expand">
       <template slot-scope="scope">
-      
-      <UpdateTable :updateForm="scope.row"/>
-        </template>
+        <UpdateTable
+          :updateForm="scope.row"
+          v-on:cancel="cancel"
+          v-on:update="update"
+        />
+      </template>
     </el-table-column>
     <el-table-column prop="title" label="标题" min-width="200">
       <template slot-scope="scope">
@@ -50,7 +53,6 @@
         </div>
       </template>
     </el-table-column>
-  
 
     <el-table-column
       v-if="setting.includes('分类目录')"
@@ -100,17 +102,17 @@
 
 <script>
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
-import UpdateTable  from './updateTable'
+import UpdateTable from './updateTable'
 export default {
-  components:{UpdateTable},
+  components: { UpdateTable },
   data() {
     return {
       expands: [],
       rowid: '',
       editSetting: [
         {
-          label: '编辑',
-          name: 'edit',
+          label: '详情',
+          name: 'detail',
         },
         {
           label: '移至回收站',
@@ -127,13 +129,16 @@ export default {
     ...mapMutations(['SET_SELECTION']),
     ...mapActions(['BatchTrashEssay']),
     //更新表格数据(关闭)
-    update(row) {
+    cancel(row) {
       console.log(row)
       this.expands = []
     },
+    update(updateForm) {
+      console.log(updateForm)
+    },
     async operate(val, row) {
       switch (val) {
-        case 'edit':
+        case 'detail':
           this.handleExpand(row, [row])
           break
         case 'trash':

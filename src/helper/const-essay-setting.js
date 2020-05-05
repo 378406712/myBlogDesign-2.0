@@ -19,7 +19,7 @@ export const EssaySettingData = {
     showVisible: '公开',
     keepTop: false,
     reCheck: false,
-    commentOn:false,
+    commentOn: false,
     draft: false,
     trash: false,
     visible: [

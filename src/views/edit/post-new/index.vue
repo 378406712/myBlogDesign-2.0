@@ -201,6 +201,9 @@ export default {
       } else {
         this.sended = true
       }
+      if (this.title === '') {
+        this.title = '(无标题)'
+      }
       const EssayData = {
         ...visiable,
         title: this.title,

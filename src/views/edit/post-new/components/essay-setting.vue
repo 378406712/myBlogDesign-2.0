@@ -216,14 +216,17 @@ export default {
       switch (data) {
         case 'public':
           this.Status_Visible.showVisible = '公开'
+          this.Status_Visible.radioVisible = 'public'
           this.Status_Visible.showPass = false
           break
         case 'private':
           this.Status_Visible.showVisible = '私密'
+          this.Status_Visible.radioVisible = 'private'
           this.Status_Visible.showPass = false
           break
         case 'protect':
           this.Status_Visible.showVisible = '密码保护'
+          this.Status_Visible.radioVisible = 'protect'
           this.Status_Visible.showPass = true
           break
       }

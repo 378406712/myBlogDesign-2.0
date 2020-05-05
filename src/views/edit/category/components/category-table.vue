@@ -108,4 +108,5 @@ export default {
 }
 .el-table >>>.success-row {
 background-color: #f5f7fa;}
+
 </style>
