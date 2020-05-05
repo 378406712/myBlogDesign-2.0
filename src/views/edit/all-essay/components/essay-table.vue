@@ -14,7 +14,7 @@
     <el-table-column type="selection" width="45"></el-table-column>
     <el-table-column type="expand">
       <template slot-scope="scope">
-        <UpdateTable
+        <DetailTable
           :updateForm="scope.row"
           v-on:cancel="cancel"
           v-on:update="update"
@@ -25,8 +25,15 @@
       <template slot-scope="scope">
         <div @mouseleave="rowid = ''" @mouseover="rowid = scope.row._id">
           <strong
-            ><router-link to="/">{{ scope.row.title }}</router-link></strong
-          >
+            ><router-link to="/">{{ scope.row.title }}</router-link>
+            <span v-if="scope.row.sended === false">—</span>
+            <span v-if="scope.row.radioVisible === 'protect'">密码保护</span>
+            <span v-if="scope.row.radioVisible === 'private'">私密</span>
+            <span v-if="scope.row.reCheck === true">待发布</span>
+            <span v-if="scope.row.keepTop === true">置顶</span>
+            <span v-if="scope.row.draft === true">草稿</span>
+          </strong>
+
           <div
             id="essay-tabloid"
             v-if="tabloid === 'tabloid-view'"
@@ -102,9 +109,9 @@
 
 <script>
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
-import UpdateTable from './updateTable'
+import DetailTable from './detailTable'
 export default {
-  components: { UpdateTable },
+  components: { DetailTable },
   data() {
     return {
       expands: [],
@@ -239,4 +246,10 @@ export default {
 .row-actions em{
     margin :0 5px
   }
+  .setStatus{
+  }
+  .el-table__expanded-cell{
+height: 160px;
+background-image url(/static/image/beautify/sakura.png)
+}
 </style>

@@ -1,11 +1,10 @@
 <template>
   <el-form
-    style="height: 160px;"
     :model="updateForm"
     ref="ruleForm"
     label-width="75px"
     label-position="left"
-    class="demo-ruleForm"
+    class="detail-ruleForm"
   >
     <el-row :gutter="20">
       <el-col :span="6">
@@ -144,4 +143,8 @@ export default {
           color: #0096dd;
     }
 }
-</style>
+
+>>>.el-step__icon{
+  background-color transparent
+}
+  </style>

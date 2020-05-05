@@ -1,10 +1,11 @@
 <template>
   <div class="main-app">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive v-if="key !== '/edit/post-new '">
+      <!-- <keep-alive v-if="key !== '/edit/post-new '">
         <router-view :key="key"></router-view>
       </keep-alive>
-      <router-view v-else :key="key"></router-view>
+      <router-view v-else :key="key"></router-view> -->
+      <router-view :key="key"></router-view>
     </transition>
     <ScrollTop />
   </div>
@@ -17,15 +18,15 @@ export default {
   components: { ScrollTop },
   data() {
     return {
-      desc: '这里是右侧主界面'
+      desc: '这里是右侧主界面',
     }
   },
 
   computed: {
     key() {
       return this.$route.path
-    }
-  }
+    },
+  },
 }
 </script>
 

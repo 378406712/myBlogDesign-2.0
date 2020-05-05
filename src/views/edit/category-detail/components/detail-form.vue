@@ -105,7 +105,6 @@ export default {
         : this.detail_pic
     },
     CategoryDetail() {
-      console.log(this.$route)
       this.GetCategoryDetail({
         params: {
           category: this.$route.params.category
