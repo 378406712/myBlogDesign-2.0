@@ -1,8 +1,8 @@
 {
   "name": "vue-cms",
   "version": "1.0.0",
-  "description": "用vue做的一个内容管理系统",
-  "author": "yu",
+  "description": "用vue做的一个博客管理系统",
+  "author": "liu",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --colors --config build/webpack.dev.conf.js",
@@ -14,7 +14,6 @@
     "animate.css": "^3.7.0",
     "axios": "^0.17.1",
     "better-scroll": "^1.10.0",
-    "clipboard": "^2.0.1",
     "countup.js": "^1.9.3",
     "cplayer": "^3.2.2",
     "echarts": "^4.0.4",
@@ -45,8 +44,7 @@
     "vue-swal": "^1.0.0",
     "vuedraggable": "^2.23.0",
     "vuex": "^3.0.1",
-    "wired-elements": "^0.5.8",
-    "xlsx": "^0.12.12"
+    "wired-elements": "^0.5.8"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
