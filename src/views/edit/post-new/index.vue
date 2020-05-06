@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       tag: 'post-new',
-      type:'primary',
+      type: 'primary',
       publish: '发布',
       disabled: true,
       title: '',
@@ -172,7 +172,7 @@ export default {
       const quill = new Quill('#quill-editor', {
         // 编辑器配置选项
         theme: 'snow',
-        placeholder: 'Compose an epic...',
+        placeholder: '你是我一生只会遇见一次的惊喜 ...',
         debug: 'error',
         modules: {
           toolbar: {
@@ -283,7 +283,7 @@ export default {
         vm.getEssay(vm.$route.query.id)
         vm.$nextTick(() => {
           vm.tag = 'update'
-          vm.type="success"
+          vm.type = 'success'
           vm.publish = '更新'
         })
       }
@@ -325,6 +325,11 @@ export default {
 #quill-editor {
   /*width: 80%;*/
   height: 300px;
+    background-image: url(https://api.m1314.cn/random/comment);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    resize: vertical;
 }
 /*字数统计*/
 .quill-count {

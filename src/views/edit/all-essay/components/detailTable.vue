@@ -133,6 +133,7 @@ export default {
 >>> .el-card{
     width 150px;
      text-align:center
+     background-color transparent
 }
 .el-card a{
   color: #0073aa;
