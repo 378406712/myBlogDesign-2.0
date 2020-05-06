@@ -142,7 +142,7 @@ export default {
     async operate(val, row) {
       switch (val) {
         case 'edit':
-          this.$route.push({ path: '/edit/post-new' + row._id })
+          this.$router.push({ path: '/edit/post-new/' , query: { tag: 'all-essay',id:row._id }})
           break
         case 'detail':
           this.handleExpand(row, [row])

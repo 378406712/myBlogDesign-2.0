@@ -12,9 +12,10 @@ const GET_CATEGORY_C = 'GET_CATEGORY_C'
 const SET_PAGES_C = 'SET_PAGES_C'
 const SET_SIZES_C = 'SET_SIZES_C'
 const SET_TOTALS_C = 'SET_TOTALS_C'
+const ESSAY = 'ESSAY'
 const Edit = {
   state: {
-    status: '',
+    essay: {},
     category: [],
     category_c: [],
     media: [],
@@ -29,7 +30,12 @@ const Edit = {
     sizes: 8,
     totals: 0
   },
+
   mutations: {
+    [ESSAY](state, essay) {
+      state.essay = essay
+      console.log(state.essay)
+    },
     [GET_STATUS](state, status) {
       state.status = status
     },
@@ -86,19 +92,29 @@ const Edit = {
     }
   },
   actions: {
+    GetEssayNew({ commit }, keyword) {
+      return new Promise((resolve, reject) => {
+        Api.GetEssay(keyword)
+          .then((res) => {
+            console.log(res.data)
+            commit(ESSAY, res.data)
+            resolve()
+          })
+          .catch((err) => reject(err))
+      })
+    },
     PostEssay({ commit }, EssayData) {
       return new Promise((resolve, reject) => {
-        Api.PostEssay(EssayData).then(res => {
+        Api.PostEssay(EssayData).then((res) => {
           commit(GET_STATUS, res.data.status)
           resolve()
         })
       })
     },
-  
     SetCategory({ commit }, CategoryData) {
       return new Promise((resolve, reject) => {
         Api.SetCategory(CategoryData)
-          .then(res => {
+          .then((res) => {
             commit(CATEGORY_CHECK, res.data)
             resolve()
           })
@@ -107,7 +123,7 @@ const Edit = {
     },
     GetCategory({ commit }, username) {
       return new Promise((resolve, reject) => {
-        Api.GetCategory(username).then(res => {
+        Api.GetCategory(username).then((res) => {
           commit(GET_CATEGORY, res.data)
           commit(GET_CATEGORY_C, res.data)
           commit(SET_TOTALS_C, res.data.length)
@@ -118,7 +134,7 @@ const Edit = {
     GetMedia({ commit }, data) {
       return new Promise((resolve, reject) => {
         Api.GetMedia(data)
-          .then(res => {
+          .then((res) => {
             commit(GET_MEDIA, res.data.reverse())
             resolve()
           })
@@ -128,7 +144,7 @@ const Edit = {
     MediaDetail({ commit }, detail) {
       return new Promise((resolve, reject) => {
         Api.MediaDetail(detail)
-          .then(res => {
+          .then((res) => {
             commit(MEDIA_DETAIL, res.data)
             resolve()
           })
@@ -139,7 +155,7 @@ const Edit = {
     },
     ChangeDetail({ commit }, single_media) {
       return new Promise((resolve, reject) => {
-        Api.ChangeMedia(single_media).then(res => {
+        Api.ChangeMedia(single_media).then((res) => {
           commit(MEDIA_DETAIL, res.data)
           resolve()
         })
@@ -147,7 +163,7 @@ const Edit = {
     },
     GetDate({ commit }, username) {
       return new Promise((resolve, reject) => {
-        Api.GetDate(username).then(res => {
+        Api.GetDate(username).then((res) => {
           commit(MEDIA_DATE, res.data)
           resolve()
         })
@@ -155,7 +171,7 @@ const Edit = {
     },
     SearchMedia({ commit }, keywords) {
       return new Promise((resolve, reject) => {
-        Api.SearchMedia(keywords).then(res => {
+        Api.SearchMedia(keywords).then((res) => {
           commit('GET_MEDIA', res.data)
           resolve()
         })
@@ -163,7 +179,7 @@ const Edit = {
     },
     RemoveMedia({ commit }, id) {
       return new Promise((resolve, reject) => {
-        Api.RemoveMedia(id).then(res => {
+        Api.RemoveMedia(id).then((res) => {
           commit(GET_STATUS, res.data.status)
           commit(MEDIA_DETAIL, {})
           resolve()
@@ -172,7 +188,7 @@ const Edit = {
     },
     SearchCategory({ commit }, keywords) {
       return new Promise((resolve, reject) => {
-        Api.SearchCategory(keywords).then(res => {
+        Api.SearchCategory(keywords).then((res) => {
           commit(GET_CATEGORY, res.data)
           resolve()
         })
@@ -180,7 +196,7 @@ const Edit = {
     },
     AllCategoryCount({ commit }, username) {
       return new Promise((resolve, reject) => {
-        Api.CategoryCountAll(username).then(res => {
+        Api.CategoryCountAll(username).then((res) => {
           commit(GET_CATEGORY, res.data)
           commit(GET_CATEGORY_C, res.data)
           resolve()
@@ -189,7 +205,7 @@ const Edit = {
     },
     SearchCategory_c({ commit }, keywords) {
       return new Promise((resolve, reject) => {
-        Api.SearchCategory(keywords).then(res => {
+        Api.SearchCategory(keywords).then((res) => {
           commit(GET_CATEGORY_C, res.data)
           resolve()
         })

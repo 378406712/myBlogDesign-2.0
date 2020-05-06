@@ -247,7 +247,8 @@ export default {
       category: (state) => state.edit.category,
       special_bg: (state) => state.edit.special_bg,
       check: (state) => state.edit.check,
-      showDialog: (state) => state.edit.showDialog
+      showDialog: (state) => state.edit.showDialog,
+      essay: (state) => state.edit.essay
     })
   },
   watch: {

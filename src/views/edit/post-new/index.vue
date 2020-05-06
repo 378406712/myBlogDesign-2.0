@@ -7,7 +7,7 @@
           <el-input
             placeholder="添加标题"
             @input="changeTitle"
-            v-model="title"
+            v-model="essay.title"
           ></el-input>
         </div>
         <el-upload
@@ -104,7 +104,19 @@ export default {
   },
   methods: {
     ...mapMutations(['SPECIAL_BG']),
-    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory']),
+    ...mapActions(['PostEssay', 'SetCategory', 'GetCategory', 'GetEssayNew']),
+    getEssay(id) {
+      this.GetEssayNew({
+        params: {
+          username: this.name,
+          id
+        }
+      }).then(() => {
+        document.querySelector(
+          '#quill-editor'
+        ).children[0].innerHTML = this.essay.essay
+      })
+    },
     async addCategory(category) {
       await this.SetCategory(category)
       this.getCategory()
@@ -247,12 +259,23 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      status: (state) => state.edit.status
+      status: (state) => state.edit.status,
+      essay: (state) => state.edit.essay
     })
   },
   beforeDestroy() {
     this.quill = null
     delete this.quill
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (vm.$route.query.tag) {
+        vm.getEssay(vm.$route.query.id)
+      }
+      //  else {
+      //   vm.GetEssayNew()
+      // }
+    })
   },
   beforeRouteLeave(to, from, next) {
     if (!this.disabled) {
@@ -284,7 +307,6 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   // line-height: 2;
 }
-
 .font {
   font-size: 18px;
 }

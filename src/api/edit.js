@@ -1,5 +1,7 @@
 import axios from 'axios'
-
+function GetEssay(keywords) {
+  return axios.get('/api/edit/get-essay-new', keywords)
+}
 function PostEssay(essay) {
   return axios.post('/api/edit/post-new', essay)
 }
@@ -38,6 +40,7 @@ function CategoryCountAll(username) {
 }
 
 export {
+  GetEssay,
   PostEssay,
   CategoryCount,
   SetCategory,
