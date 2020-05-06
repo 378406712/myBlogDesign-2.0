@@ -35,6 +35,9 @@
       <el-col :span="6">
         <EssaySetting
           :disabled="disabled"
+          :tag="tag"
+          :type="type"
+          :publish="publish"
           v-on:addCategory="addCategory"
           v-on:toPublish="toPublish"
         />
@@ -78,6 +81,9 @@ export default {
   },
   data() {
     return {
+      tag: 'post-new',
+      type:'primary',
+      publish: '发布',
       disabled: true,
       title: '',
       sended: true,
@@ -115,6 +121,9 @@ export default {
         document.querySelector(
           '#quill-editor'
         ).children[0].innerHTML = this.essay.essay
+        if (this.essay.title === '(无标题)') {
+          this.essay.title = ''
+        }
       })
     },
     async addCategory(category) {
@@ -215,6 +224,8 @@ export default {
       if (this.title === '') {
         this.title = '(无标题)'
       }
+      delete visiable.visiable
+
       const EssayData = {
         ...visiable,
         title: this.title,
@@ -224,11 +235,10 @@ export default {
         selectDate: moment().format(' YYYY-MM'),
         sended: this.sended
       }
+      delete EssayData.visible
       this.PostEssay(EssayData)
         .then(() => {
           if (this.status === 'SUCCESS') {
-            // this.CategoryCount(EssayData)
-            //  this.publish = '更新'
             return Msg('发布成功', 'success')
           } else if (this.status === 'ERROR') return Msg('发布失败', 'error')
         })
@@ -271,10 +281,12 @@ export default {
     next((vm) => {
       if (vm.$route.query.tag) {
         vm.getEssay(vm.$route.query.id)
+        vm.$nextTick(() => {
+          vm.tag = 'update'
+          vm.type="success"
+          vm.publish = '更新'
+        })
       }
-      //  else {
-      //   vm.GetEssayNew()
-      // }
     })
   },
   beforeRouteLeave(to, from, next) {

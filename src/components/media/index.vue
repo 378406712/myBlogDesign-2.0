@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    top="3%"
+    top="1.5%"
     @open="handleOpen"
     @close="handleClose"
     custom-class="special-bg"

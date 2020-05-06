@@ -41,6 +41,7 @@ const Edit = {
     },
     [GET_CATEGORY](state, category) {
       state.category = category
+      console.log(state.category)
     },
     [GET_CATEGORY_C](state, category) {
       //先判断slice后的数组长度是否为0，是，则将pages-1，返回新的state.category

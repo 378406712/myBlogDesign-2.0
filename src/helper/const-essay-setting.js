@@ -27,14 +27,14 @@ export const EssaySettingData = {
       {
         status: 'private',
         info: '只有站点管理员和编辑可见。',
-        title: '私密',
+        title: '私密'
       },
       {
         status: 'protect',
         info: '受您选择的密码保护，只有持有密码的人士可查看此文章。',
-        title: '密码保护',
-      },
-    ],
+        title: '密码保护'
+      }
+    ]
   },
   /**
    * @enum
@@ -44,16 +44,15 @@ export const EssaySettingData = {
   Classify_Category: {
     createCategory: '',
     newCategory: false,
-    checkCategory: [],
+    checkCategory: []
   },
   /**
    * @enum
    * @param {Boolean} activeName 初始显示的标签页
    */
   Special_Pic: {
-    activeName: 'uploadDocs',
+    activeName: 'uploadDocs'
   },
-  publish: '发布',
   search: '',
-  activeNames: ['1', '2', '3'],
+  activeNames: ['1']
 }

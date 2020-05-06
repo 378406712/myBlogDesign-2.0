@@ -1,9 +1,10 @@
 <template>
   <div class="tips" style="height: 100%;">
     <el-collapse v-model="activeNames">
-      <el-button :disabled="disabled" @click="toPublish" type="primary">{{
+      <el-button :disabled="disabled" @click="toPublish" :type="type">{{
         publish
       }}</el-button>
+
       <a v-if="!disabled" @click="toPublish('draft')" class="draft">存为草稿</a>
 
       <el-collapse-item title="状态与可见性" name="1">
@@ -43,17 +44,17 @@
           </el-popover>
         </div>
         <div class="select">
-          <el-checkbox v-model="Status_Visible.keepTop">博客中置顶</el-checkbox>
+          <el-checkbox v-model="essay.keepTop">博客中置顶</el-checkbox>
         </div>
         <div class="select">
-          <el-checkbox v-model="Status_Visible.reCheck">等待复审</el-checkbox>
+          <el-checkbox v-model="essay.reCheck">等待复审</el-checkbox>
         </div>
         <div class="select">
-          <el-checkbox v-model="Status_Visible.commentOn">允许评论</el-checkbox>
+          <el-checkbox v-model="essay.commentOn">允许评论</el-checkbox>
         </div>
 
         <div class="select">
-          <el-checkbox style="color: #dc3232;" v-model="Status_Visible.trash"
+          <el-checkbox style="color: #dc3232;" v-model="essay.trash"
             >移至回收站</el-checkbox
           >
         </div>
@@ -161,12 +162,15 @@ import Onbeforeunload from '@/utils/onbeforeunload'
 
 export default {
   props: {
-    disabled: Boolean
+    disabled: Boolean,
+    tag:String,
+    publish:String,
+    type:String
   },
   components: { Media },
   data() {
     return {
-      ...EssaySettingData
+      ...EssaySettingData,
     }
   },
   methods: {
@@ -207,7 +211,8 @@ export default {
       let info = Object.assign(
         this.Status_Visible,
         { checkCategory },
-        { special_bg }
+        { special_bg },
+        { tag: this.tag }
       )
 
       this.$emit('toPublish', info)
@@ -256,7 +261,18 @@ export default {
       if (!e) {
         Onbeforeunload(this, '/edit/post-new')
       }
+    },
+    essay(e) {
+      if (e.checkCategory) {
+        this.Classify_Category.checkCategory = e.checkCategory
+      }
+      if (e.special_bg) {
+        this.SPECIAL_BG(e.special_bg)
+      }
     }
+  },
+  beforeDestroy() {
+    this.Classify_Category.checkCategory = []
   }
 }
 </script>
