@@ -85,6 +85,7 @@ export default {
       type: 'primary',
       publish: '发布',
       disabled: true,
+      _id: '',
       title: '',
       sended: true,
       // 富文本内容
@@ -121,9 +122,6 @@ export default {
         document.querySelector(
           '#quill-editor'
         ).children[0].innerHTML = this.essay.essay
-        if (this.essay.title === '(无标题)') {
-          this.essay.title = ''
-        }
       })
     },
     async addCategory(category) {
@@ -221,14 +219,17 @@ export default {
       } else {
         this.sended = true
       }
-      if (this.title === '') {
-        this.title = '(无标题)'
+      if (this.essay.title === '') {
+        this.essay.title = '(无标题)'
       }
       delete visiable.visiable
-
+      if (this.essay._id) {
+        this._id = this.essay._id
+      }
       const EssayData = {
         ...visiable,
-        title: this.title,
+        _id: this._id,
+        title: this.essay.title,
         essay: this.content,
         username: this.name,
         date: moment().format(' YYYY年MM月DD日mm分'),
@@ -241,6 +242,7 @@ export default {
           if (this.status === 'SUCCESS') {
             return Msg('发布成功', 'success')
           } else if (this.status === 'ERROR') return Msg('发布失败', 'error')
+          else if (this.status === 'UPDATE') return Msg('更新成功', 'success')
         })
         .catch(() => Msg('发布失败', 'error'))
     },
