@@ -304,6 +304,7 @@ export default {
         })
     } else {
       this.SPECIAL_BG('')
+      this.essay.title = ''
       next()
     }
   }

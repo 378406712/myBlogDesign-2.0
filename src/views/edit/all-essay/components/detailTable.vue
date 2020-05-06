@@ -60,7 +60,12 @@
         <el-steps :active="2" align-center>
           <el-step title="步骤1" icon="el-icon-edit" description="">
             <template slot="description">
-              <router-link :to="'/edit/post-new/' + updateForm._id">
+              <router-link
+                :to="{
+                  path: '/edit/post-new/',
+                  query: { tag: 'all-essay', id: updateForm._id }
+                }"
+              >
                 点击编辑</router-link
               >
             </template>
@@ -86,25 +91,6 @@ import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     updateForm: Object
-  },
-
-  methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
-    },
-    changeStatus(val) {
-      console.log(val)
-    }
   }
 }
 </script>
