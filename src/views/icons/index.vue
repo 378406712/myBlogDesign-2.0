@@ -5,6 +5,22 @@
       </a>
     </aside>
     <el-tabs type="border-card">
+       <el-tab-pane label="Uas">
+        <div class="grid">
+          <div v-for="item of uaIcons" :key="item" @click="handleClipboard(generateUaCode(item),$event)">
+            <el-tooltip placement="top">
+              <div slot="content">
+                {{ generateUaCode(item) }}
+              </div>
+              <div class="icon-item">
+                <svg-icon :icon-class="item" class-name="disabled" />
+                <span>{{ item }}</span>
+              </div>
+            </el-tooltip>
+          </div>
+        </div>
+      </el-tab-pane>
+
       <el-tab-pane label="Icons">
         <div class="grid">
           <div v-for="item of svgIcons" :key="item" @click="handleClipboard(generateIconCode(item),$event)">
@@ -43,24 +59,29 @@
 import clipboard from '@/utils/clipboard'
 import svgIcons from './svg-icons'
 import elementIcons from './element-icons'
-
+import uaIcons from './ua-icons'
 export default {
   name: 'Icons',
   data() {
     return {
+      uaIcons,
       svgIcons,
       elementIcons
     }
   },
   methods: {
+    generateUaCode(symbol) {
+      console.log(symbol)
+      return `<ua-icon icon-class="${symbol}" />`
+    },
     generateIconCode(symbol) {
+
       return `<svg-icon icon-class="${symbol}" />`
     },
     generateElementIconCode(symbol) {
       return `<i class="el-icon-${symbol}" />`
     },
     handleClipboard(text, event) {
-      console.log(text)
       clipboard(text, event)
     }
   }

@@ -22,12 +22,11 @@ import i18n from './lang'
 import './permission'
 // 全局图标
 import './icons'
+// 全局Ua
+import './icons/ua'
 // 全局 Mock 接口
 //import './mock'
 import moment from 'moment' //导入文件
-//loadsh
-// import _ from 'lodash'
-// Vue.prototype._ = _
 
 Vue.prototype.$moment = moment //赋值使用
 Vue.use(VueSwal)
