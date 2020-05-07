@@ -60,6 +60,7 @@ export default {
       return `<i class="el-icon-${symbol}" />`
     },
     handleClipboard(text, event) {
+      console.log(text)
       clipboard(text, event)
     }
   }
