@@ -40,6 +40,7 @@
 }
 .card-icon svg {
   font-size: 66px !important;
+  color:#fff
 }
 .card.card-large-icons .card-body {
   padding: 18px 30px;

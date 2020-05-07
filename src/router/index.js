@@ -62,7 +62,7 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/user',
+    path: '/account',
     component: Layout,
     hidden: false,
 
@@ -70,7 +70,7 @@ export const constantRouterMap = [
       {
         path: 'account',
         name: 'account',
-        component: () => import('@/views/user/account'),
+        component: () => import('@/views/account/index'),
         meta: { icon: 's-promotion', title: '账号设置' }
       }
     ]
@@ -131,6 +131,18 @@ export const constantRouterMap = [
         name: 'essay-detail',
         component: () => import('@/views/edit/all-essay/index'),
         meta: { title: '文章' }
+      }
+    ]
+  },
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
       }
     ]
   },

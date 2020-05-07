@@ -149,4 +149,5 @@ export default {
 .card-profile {
   margin-top: 0;
 }
+  
 </style>
