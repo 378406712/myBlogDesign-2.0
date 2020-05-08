@@ -55,8 +55,8 @@ export default {
   },
   computed: {
     ...mapState({
-      media: state => state.edit.media,
-      id: state => state.edit.id
+      media: (state) => state.edit.media,
+      id: (state) => state.edit.id
     }),
     ...mapGetters(['name'])
   }
@@ -188,7 +188,6 @@ export default {
   word-wrap: normal !important;
 }
 .details {
-  /* box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #0073aa; */
   box-shadow: inset 0 0 2px 3px #fff, inset 0 0 0 7px #5b9dd9;
 }
 

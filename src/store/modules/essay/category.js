@@ -37,13 +37,13 @@ const Category = {
           .then(() => {
             resolve()
           })
-          .catch(err => reject(err))
+          .catch((err) => reject(err))
       })
     },
     GetCategoryDetail({ commit }, id) {
       return new Promise((resolve, reject) => {
         Api.GetCategoryDetail(id)
-          .then(res => {
+          .then((res) => {
             commit('GET_CATEGORY_DETAIL', res.data)
             commit('CATEGORY_PIC', res.data.pic)
             commit('Base_CATEGORY', res.data.category)
@@ -55,7 +55,7 @@ const Category = {
     updateCategory({ commit }, data) {
       return new Promise((resolve, reject) => {
         Api.alterCategory(data)
-          .then(res => {
+          .then((res) => {
             commit('GET_CATEGORY_DETAIL', res.data)
             resolve()
           })

@@ -6,23 +6,23 @@
     :with-header="false"
   >
     <!-- 头像 -->
-    <el-divider content-position="left" style="padding:20px">
+    <el-divider content-position="left" style="padding: 20px;">
       <el-button type="primary" round @click="jumpToCenter">编辑资料</el-button>
     </el-divider>
     <div class="demo-fit">
       <div class="block">
         <el-avatar
           class="rotateImg"
-          style="vertical-align:middle"
+          style="vertical-align: middle;"
           shape="circle"
           :size="100"
           :src="detailData.url"
         ></el-avatar>
         <div class="block_item1">
-          <span class="title" style="margin-left:20px"
+          <span class="title" style="margin-left: 20px;"
             >昵称 ：{{ detailData.nickname }}</span
           >
-          <span class="title" style="margin-left:20px;marginTop:10px">
+          <span class="title" style="margin-left: 20px; margintop: 10px;">
             性别 ：
             <span class="svg-container">
               <svg-icon v-if="detailData.sex == '男'" icon-class="odoko" />
@@ -70,15 +70,15 @@ export default {
       this.SET_DRAWER(false)
     },
     jumpToCenter() {
-      this.$router.push('/user/account')
+      this.$router.push('/account/account')
       this.SET_DRAWER(false)
     }
   },
   computed: {
     ...mapGetters(['name', 'avatar']),
     ...mapState({
-      detailData: state => state.homepage.details,
-      drawer: state => state.homepage.drawers
+      detailData: (state) => state.homepage.details,
+      drawer: (state) => state.homepage.drawers
     })
   }
 }

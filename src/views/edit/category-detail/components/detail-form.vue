@@ -25,7 +25,11 @@
       <p class="description">描述只会在一部分主题中显示。</p>
     </el-form-item>
     <el-form-item label="分类/标签图像" prop="detail_pic" class="mb-15">
-      <img class="taxonomy-image" :src="detail_pic" />
+      <img
+        class="taxonomy-image"
+        :src="detail_pic"
+        @click="SHOW_DIALOG(true)"
+      />
       <el-input v-model="detail_pic" class="mb-5"></el-input>
       <el-button @click="SHOW_DIALOG(true)">添加图像</el-button>
       <el-button @click="deletePic" type="danger">删除图像</el-button>
