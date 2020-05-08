@@ -21,7 +21,6 @@
 <script>
 import Pane from './components/pane'
 import { mapState, mapMutations } from 'vuex'
-import { Msg, ComfirmMsg } from '@/utils/message'
 import { SpecialPicData } from '@/helper/const-essay-special'
 export default {
   props: {

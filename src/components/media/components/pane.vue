@@ -59,7 +59,7 @@
             ></el-input>
           </div>
         </div>
-        <Media v-on="$listeners"  />
+        <Media v-on="$listeners" />
         <div class="media-sidebar">
           <div v-if="id">
             <div
@@ -158,7 +158,7 @@ import JudgeSize from '@/utils/size'
 import { SpecialPicData } from '@/helper/const-essay-special'
 export default {
   components: { Media },
-   data() {
+  data() {
     return {
       ...SpecialPicData,
       select_id: '',
@@ -166,21 +166,15 @@ export default {
     }
   },
   methods: {
-     ...mapActions([
+    ...mapActions([
       'GetMedia',
       'ChangeDetail',
       'GetDate',
       'SearchMedia',
       'RemoveMedia'
     ]),
-    ...mapMutations([
-      'MEDIA_DETAIL',
-      'MEDIA_ID',
-      'SPECIAL_BG',
-      'SHOW_DIALOG',
-      'CATEGORY_PIC'
-    ]),
-   
+    ...mapMutations(['MEDIA_DETAIL', 'MEDIA_ID', 'SPECIAL_BG']),
+
     async getMedia() {
       await this.GetMedia({
         params: { username: this.name, date: this.select }
@@ -197,7 +191,7 @@ export default {
           const windowURL = window.URL || window.webkitURL
           const img = new Image()
           img.src = windowURL.createObjectURL(file)
-          img.onload = function() {
+          img.onload = function () {
             _this.UploadFile.extraData.file_name = Extname(file.name)
             _this.UploadFile.extraData.description =
               _this.UploadFile.extraData.description
@@ -252,7 +246,7 @@ export default {
       })
     },
     Spinner() {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         this.spinner = true
         setTimeout(() => {
           resolve()
@@ -267,7 +261,7 @@ export default {
     },
     isSame(date) {
       let array = []
-      date.map(item => {
+      date.map((item) => {
         array.push(item.selectDate)
       })
       this.DateList = Array.from(new Set(array)).reverse()
@@ -292,10 +286,6 @@ export default {
           this.getMedia()
         })
         .catch(() => Msg('已取消删除', 'info'))
-    },
-
-    selectId(val) {
-      this.select_id = val
     }
   },
   computed: {
@@ -305,15 +295,11 @@ export default {
       media: (state) => state.edit.media,
       date: (state) => state.edit.date,
       id: (state) => state.edit.id,
-      status: (state) => state.edit.status,
-      showDialog: (state) => state.edit.showDialog,
-      special_bg: (state) => state.edit.special_bg
+      status: (state) => state.edit.status
     })
   }
 }
 </script>
-
 <style lang="scss" scoped>
 @import url('../../../style/attachment-detail.scss');
-
 </style>
