@@ -1,20 +1,12 @@
 <template>
-  <div v-if="item.children && !item.hidden">
-    <template>
-      <!-- 这个路由对象 item 只有一个子路由的时候，会把子路由放到一级菜单来 -->
-      <!-- 除非这个路由对象有属性 alwaysShow: true 这个属性 -->
-      <!-- 所以这里的意思是：这个只有一个子路由，子路由没有children，这个路由没有属性 alwaysShow: true -->
-      <!-- 那么就将他的唯一子路由放到一级菜单来 -->
-      <!-- 20190707 note: 那么这里的icon和title就用子路由的吧 -->
-      <router-link
-        v-if="
-          hasOneShowingChildren(item.children, item) &&
-          (!onlyOneChild.children || onlyOneChild.noShowingChild) &&
-          !item.alwaysShow
-        "
-        :to="resolvePath(onlyOneChild.path)"
-      >
-      </router-link>
+  <div v-if="!item.hidden">
+    <template
+      v-if="
+        hasOneShowingChildren(item.children, item) &&
+        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+        !item.alwaysShow
+      "
+    >
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item
           :index="resolvePath(onlyOneChild.path)"
@@ -26,26 +18,30 @@
           />
         </el-menu-item>
       </app-link>
-      <el-submenu v-else :index="resolvePath(onlyOneChild.path)">
-        <template slot="title">
-          <item :icon="item.meta.icon" :title="item.meta.title"></item>
-        </template>
-
-        <template v-for="child of item.children" v-if="!child.hidden">
-          <sidebar-item
-            :item="child"
-            :base-path="resolvePath(child.path)"
-            v-if="child.children && child.children.length > 0"
-            :key="child"
-          />
-          <router-link v-else :to="resolvePath(child.path)">
-            <el-menu-item :index="resolvePath(child.path)">
-              <item :icon="child.meta.icon" :title="child.meta.title"></item>
-            </el-menu-item>
-          </router-link>
-        </template>
-      </el-submenu>
     </template>
+
+    <el-submenu
+      v-else
+      ref="subMenu"
+      :index="resolvePath(item.path)"
+      popper-append-to-body
+    >
+      <template slot="title">
+        <item
+          v-if="item.meta"
+          :icon="item.meta && item.meta.icon"
+          :title="item.meta.title"
+        />
+      </template>
+      <sidebar-item
+        v-for="child in item.children"
+        :key="child.path"
+        :is-nest="true"
+        :item="child"
+        :base-path="resolvePath(child.path)"
+        class="nest-menu"
+      />
+    </el-submenu>
   </div>
 </template>
 <script>
@@ -84,7 +80,7 @@ export default {
     click(data) {
       console.log(data)
     },
-    hasOneShowingChildren(children, parent) {
+    hasOneShowingChildren(children = [], parent) {
       // 把 children 里面没有 hidden 属性的元素，收集起来，看看有哪些
       // 1、后面要来判断，children 里面是不是只有一个
       // 2、亦或者没有 【比如 '/login' 这个 route 就没有 children】
@@ -116,7 +112,6 @@ export default {
       return false
     },
     resolvePath(routePath) {
-      console.log(routePath)
       if (isExternal(routePath)) {
         return routePath
       }
