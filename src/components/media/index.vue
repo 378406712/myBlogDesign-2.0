@@ -63,7 +63,6 @@ export default {
     selectSpecial() {
       if (this.target === 'Essay') {
         this.SPECIAL_BG(this.detail.file)
-        cons
       }
       if (this.target === 'CategoryForm') {
         this.$emit('PropPic', this.detail.file)

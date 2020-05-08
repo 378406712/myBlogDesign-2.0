@@ -92,10 +92,12 @@ export const constantRouterMap = [
   {
     path: '/media',
     component: Layout,
+    redirect: '/media/index',
     children: [
       {
         path: 'index',
         component: () => import('@/views/media/index'),
+        name: '媒体库',
         meta: {
           title: '媒体库',
           icon: 'svg-component'
