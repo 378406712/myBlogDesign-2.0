@@ -117,6 +117,16 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: 'external-link',
+    component: Layout,
+    children: [
+      {
+        path: 'https://github.com/378406712/myBlogDesign-2.0',
+        meta: { title: 'External Link', icon: 'link' }
+      }
+    ]
+  },
 
   {
     path: '/404',
@@ -147,5 +157,7 @@ export const asyncRouterMap = [
         meta: { title: '主题', icon: 'svg-pifu' }
       }
     ]
-  }
+  },
+  { path: '*', redirect: '/404', hidden: true }
+
 ]

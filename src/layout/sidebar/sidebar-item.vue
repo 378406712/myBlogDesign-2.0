@@ -9,19 +9,23 @@
       <router-link
         v-if="
           hasOneShowingChildren(item.children, item) &&
-            (!onlyOneChild.children || onlyOneChild.noShowingChild) &&
-            !item.alwaysShow
+          (!onlyOneChild.children || onlyOneChild.noShowingChild) &&
+          !item.alwaysShow
         "
         :to="resolvePath(onlyOneChild.path)"
       >
-        <el-menu-item :index="resolvePath(onlyOneChild.path)">
-          <item
-            :icon="item.children[0].meta.icon"
-            :title="item.children[0].meta.title"
-          ></item>
-        </el-menu-item>
       </router-link>
-
+      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
+        <el-menu-item
+          :index="resolvePath(onlyOneChild.path)"
+          :class="{ 'submenu-title-noDropdown': !isNest }"
+        >
+          <item
+            :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
+            :title="onlyOneChild.meta.title"
+          />
+        </el-menu-item>
+      </app-link>
       <el-submenu v-else :index="resolvePath(onlyOneChild.path)">
         <template slot="title">
           <item :icon="item.meta.icon" :title="item.meta.title"></item>
@@ -34,7 +38,6 @@
             v-if="child.children && child.children.length > 0"
             :key="child"
           />
-
           <router-link v-else :to="resolvePath(child.path)">
             <el-menu-item :index="resolvePath(child.path)">
               <item :icon="child.meta.icon" :title="child.meta.title"></item>
@@ -47,11 +50,15 @@
 </template>
 <script>
 import path from 'path'
+import { isExternal } from '@/utils/validate'
+import AppLink from './Link'
+
 import Item from './item'
 export default {
   name: 'sidebar-item',
   components: {
-    Item
+    Item,
+    AppLink
   },
   props: {
     // 一级路由对象
@@ -62,6 +69,10 @@ export default {
     basePath: {
       type: String,
       default: ''
+    },
+    isNest: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -78,7 +89,7 @@ export default {
       // 1、后面要来判断，children 里面是不是只有一个
       // 2、亦或者没有 【比如 '/login' 这个 route 就没有 children】
       // 3、亦或者 children 里面的子路由大于1个
-      const showingChildren = children.filter(item => {
+      const showingChildren = children.filter((item) => {
         if (item.hidden) {
           return false
         } else {
@@ -105,6 +116,13 @@ export default {
       return false
     },
     resolvePath(routePath) {
+      console.log(routePath)
+      if (isExternal(routePath)) {
+        return routePath
+      }
+      if (isExternal(this.basePath)) {
+        return this.basePath
+      }
       return path.resolve(this.basePath, routePath)
     }
   }

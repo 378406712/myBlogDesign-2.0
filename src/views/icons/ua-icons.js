@@ -5,5 +5,4 @@ const re = /\.\/(.*)\.svg/
 const uaIcons = requireAll(req).map((i) => {
   return i.match(re)[1]
 })
-console.log(uaIcons)
-export default uaIcons
+  export default uaIcons
