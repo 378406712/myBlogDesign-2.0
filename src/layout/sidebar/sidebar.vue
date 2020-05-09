@@ -5,9 +5,9 @@
       <el-menu
         class="scroll-menu"
         mode="vertical"
-    
         background-color="rgb(48, 65, 86)"
         :collapse="isCollapse"
+        :collapse-transition="true"
         :default-active="$route.path"
       >
         <sidebar-item
@@ -32,25 +32,34 @@ export default {
     Logo
   },
   data() {
-    return {
-      isCollapse: false
-    }
+    return {}
   },
   computed: {
     ...mapGetters(['routers']),
     showLogo() {
       return this.$store.state.settings.sidebarLogo
+    },
+    isCollapse() {
+      return !this.$store.state.app.sidebar.opened
     }
   }
 }
 </script>
 <style lang="stylus" scoped>
-.left-sidebar
-  position fixed
-  width 200px
-  top: 0;
-  bottom: 0;
-  background-color: rgb(48, 65, 86);
+.left-sidebar{
+   transition: width 0.28s;
+    width:200px;
+    background-color: #304156;
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.hideSidebar .sidebar-container {
+    width: 64px !important;
+}
 </style>
 <style>
 .left-sidebar >>> .el-scrollbar_wrap {
@@ -63,10 +72,9 @@ export default {
   user-select: none;
 }
 #app .el-menu div a li span {
-  margin-left: 16px !important;
+  margin-left: 18px !important;
 }
-#app .el-menu div  li  div span {
-  margin-left: 16px !important;
+#app .el-menu div li div span {
+  margin-left: 18px !important;
 }
 </style>
-

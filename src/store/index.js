@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import homepage from './modules/homepage'
+import app from './modules/app'
 import user from './modules/user'
 import tabsview from './modules/tabsview'
 import language from './modules/language'
@@ -16,6 +17,7 @@ export default new Vuex.Store({
   modules: {
     user,
     homepage,
+    app,
     tabsview,
     language,
     permission,

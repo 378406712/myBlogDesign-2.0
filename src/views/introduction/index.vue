@@ -43,7 +43,6 @@ export default {
 </script>
 
 <style scoped>
-/* @import url('../../style/wire-font.scss'); */
 @font-face {
   font-family: 'wired';
   src: url('/static/assets/fonts/font.woff2');
@@ -54,11 +53,8 @@ export default {
 }
 .introduction {
   font-family: 'wired';
-  /* font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
   font-size: calc(10px + 0.33vw);
   -webkit-font-smoothing: antialiased;
-  /* padding: 1vh 2vw; */
   color: #121314;
 }
 h1 {

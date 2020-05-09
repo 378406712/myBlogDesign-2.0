@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper">
+  <div :class="classObj" class="app-wrapper">
     <sidebar></sidebar>
     <div :class="{ hasTagsView: needTagsView }" class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
@@ -33,10 +33,23 @@ export default {
   },
   computed: {
     ...mapState({
-      showSettings: state => state.settings.showSettings,
-      needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
-    })
+      sidebar: (state) => state.app.sidebar,
+      device: (state) => state.app.device,
+      showSettings: (state) => state.settings.showSettings,
+      needTagsView: (state) => state.settings.tagsView,
+      fixedHeader: (state) => state.settings.fixedHeader
+    }),
+       classObj() {
+      return {
+        hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,
+        withoutAnimation: this.sidebar.withoutAnimation,
+        mobile: this.device === 'mobile'
+      }
+    }
+  },
+  methods: {
+ 
   }
 }
 </script>
@@ -48,7 +61,7 @@ export default {
   width: 100%;
   height: 100%;
   .main-container {
-    padding-left: 200px;
+    margin-left: 200px;
   }
   .fixed-header {
     position: fixed;
@@ -58,5 +71,8 @@ export default {
     transition: width 0.28s;
     width: calc(100% - #{$sideBarWidth});
   }
+}
+.hideSidebar .fixed-header {
+  width: calc(100% - 64px);
 }
 </style>

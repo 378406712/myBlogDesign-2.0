@@ -6,6 +6,13 @@
           $t('navbar.title')
         }}</el-menu-item>
       </router-link> -->
+      <hamburger
+        id="hamburger-container"
+        :is-active="sidebar.opened"
+        class="hamburger-container"
+        @toggleClick="toggleSideBar"
+      />
+
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
       <change-theme class="theme-container"></change-theme>
 
@@ -42,7 +49,7 @@
               <el-dropdown-item>{{ $t('navbar.github') }}</el-dropdown-item>
             </a>
             <el-dropdown-item @click.native="logout">
-              <span style="display:block;">{{ $t('navbar.logOut') }}</span>
+              <span style="display: block;">{{ $t('navbar.logOut') }}</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -56,6 +63,7 @@ import LangSelect from '@/components/lang-select'
 import Screenfull from '@/components/screenfull'
 import ChangeTheme from '@/components/theme'
 import Breadcrumb from '@/components/Breadcrumb'
+import Hamburger from '@/components/Hamburger'
 
 export default {
   name: '',
@@ -63,22 +71,26 @@ export default {
     LangSelect,
     Screenfull,
     ChangeTheme,
-    Breadcrumb
+    Breadcrumb,
+    Hamburger
   },
   computed: {
-    ...mapGetters(['name', 'avatar'])
+    ...mapGetters(['name', 'avatar', 'sidebar'])
   },
   methods: {
     ...mapActions({
       userLogout: 'logout'
     }),
+    toggleSideBar() {
+      this.$store.dispatch('toggleSideBar')
+    },
 
     logout() {
       this.userLogout()
         .then(() => {
           location.reload() // 为了重新实例化vue-router对象 避免bug
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
         })
     }
@@ -94,6 +106,23 @@ export default {
   .el-menu {
     border-bottom: none !important;
         box-shadow: 0 1px 4px rgba(0,21,41,0.08);
+        .hamburger-container {
+    line-height: 46px;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+    transition: background .3s;
+    -webkit-tap-highlight-color:transparent;
+
+    &:hover {
+      background: rgba(0, 0, 0, .025)
+    }
+  }
+
+  .breadcrumb-container {
+    float: left;
+  }
+
     .lang-select {
       position: absolute;
       top: 18px;
