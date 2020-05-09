@@ -38,19 +38,24 @@ import Belt from '@/utils/color-belt.js'
 export default {
   mounted() {
     Belt()
-  },
+  }
 }
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Rubik:300,500,700');
+/* @import url('../../style/wire-font.scss'); */
+@font-face {
+  font-family: 'wired';
+  src: url('/static/assets/fonts/font.woff2');
+}
 .white_bg {
   padding: 30px 20px 0px 20px !important;
   background-color: #fff;
 }
 .introduction {
-  font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'wired';
+  /* font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
   font-size: calc(10px + 0.33vw);
   -webkit-font-smoothing: antialiased;
   /* padding: 1vh 2vw; */
