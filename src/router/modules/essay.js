@@ -15,19 +15,19 @@ const essayRouter = {
       path: 'post-new',
       name: 'post-new',
       component: () => import('@/views/edit/post-new/index'),
-      meta: { icon: 'svg-type', title: '写文章' }
+      meta: {  title: '写文章' }
     },
     {
       path: 'all-essay',
       name: 'all-essay',
       component: () => import('@/views/edit/all-essay/index'),
-      meta: { icon: 'notebook-2', title: '所有文章' }
+      meta: {  title: '所有文章' }
     },
     {
       path: 'category',
       name: 'category',
       component: () => import('@/views/edit/category/index'),
-      meta: { icon: 'collection-tag', title: '分类目录' }
+      meta: { title: '分类目录' }
     },
     {
       path: '/edit/category-detail/:category',

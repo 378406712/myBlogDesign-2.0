@@ -7,8 +7,9 @@
         mode="vertical"
         background-color="rgb(48, 65, 86)"
         :collapse="isCollapse"
-        :collapse-transition="true"
-        :default-active="$route.path"
+        :default-active="activeMenu"
+        :unique-opened="false"
+        :collapse-transition="false"
       >
         <sidebar-item
           v-for="router of routers"
@@ -41,6 +42,15 @@ export default {
     },
     isCollapse() {
       return !this.$store.state.app.sidebar.opened
+    },
+    activeMenu() {
+      const route = this.$route
+      const { meta, path } = route
+      // if set path, the sidebar will highlight the path you set
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
+      return path
     }
   }
 }
@@ -72,9 +82,15 @@ export default {
   user-select: none;
 }
 #app .el-menu div a li span {
-  margin-left: 18px !important;
+  margin-left: 18px;
 }
 #app .el-menu div li div span {
-  margin-left: 18px !important;
+  margin-left: 18px;
+}
+#app .el-menu ul .nest-menu a li span {
+  margin-left: 25px !important;
+}
+#app .el-menu ul .nest-menu li div span {
+  margin-left: 25px !important;
 }
 </style>
