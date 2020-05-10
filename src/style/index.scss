@@ -1,5 +1,7 @@
 @import './sidebar.css';
+@import './transition.scss';
 @import './variables.scss';
+@import './btn.scss';
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -69,6 +71,9 @@ ul {
 div {
   outline: none;
   cursor: url(/static/cur/normal.cur), auto;
+}
+.text-center {
+  text-align: center;
 }
 a,
 a:focus,
@@ -242,4 +247,8 @@ button {
 .grey_bg {
   padding: 30px 20px 0px 20px !important;
   background: #f0f2f5;
+}
+.white_bg {
+  padding: 30px 20px 20px 20px !important;
+  background-color: #fff;
 }

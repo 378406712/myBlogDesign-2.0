@@ -31,5 +31,8 @@ export default {
     avatar: 'Avatar',
     github: 'GitHub',
     logOut: 'Log Out'
+  },
+  guide:{
+    
   }
 }

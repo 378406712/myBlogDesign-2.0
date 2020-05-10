@@ -42,15 +42,15 @@ export default {
 }
 </script>
 
+<style lang="stylus">
+
+</style>
 <style scoped>
 @font-face {
   font-family: 'wired';
   src: url('/static/assets/fonts/font.woff2');
 }
-.white_bg {
-  padding: 30px 20px 0px 20px !important;
-  background-color: #fff;
-}
+
 .introduction {
   font-family: 'wired';
   font-size: calc(10px + 0.33vw);

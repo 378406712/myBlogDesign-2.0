@@ -26,6 +26,7 @@ import './icons/ua'
 //import './mock'
 import moment from 'moment' //导入文件
 
+import inportJs from './common/importJs'
 Vue.prototype.$moment = moment //赋值使用
 Vue.use(VueSwal)
 

@@ -14,17 +14,20 @@
       />
 
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-      <change-theme class="theme-container"></change-theme>
+      <change-theme id="theme-container" class="theme-container"></change-theme>
 
       <el-tooltip
         effect="dark"
         :content="$t('navbar.screenfull')"
         placement="bottom"
       >
-        <screenfull class="screenfull right-menu-item"></screenfull>
+        <screenfull
+          id="screenfull"
+          class="screenfull right-menu-item"
+        ></screenfull>
       </el-tooltip>
 
-      <div class="lang-select">
+      <div class="lang-select" id="lang-select">
         <lang-select></lang-select>
       </div>
 

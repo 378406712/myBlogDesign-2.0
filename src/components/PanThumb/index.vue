@@ -1,12 +1,15 @@
 <template>
-  <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item">
+  <div
+    :style="{ zIndex: zIndex, height: height, width: width }"
+    class="pan-item"
+  >
     <div class="pan-info">
       <div class="pan-info-roles-container">
         <slot />
       </div>
     </div>
     <!-- eslint-disable-next-line -->
-    <div :style="{backgroundImage: `url(${image})`}" class="pan-thumb"></div>
+    <div :style="{ backgroundImage: `url(${image})` }" class="pan-thumb"></div>
   </div>
 </template>
 
@@ -61,20 +64,6 @@ export default {
   transform-origin: 95% 40%;
   transition: all 0.3s ease-in-out;
 }
-
-/* .pan-thumb:after {
-  content: '';
-  width: 8px;
-  height: 8px;
-  position: absolute;
-  border-radius: 50%;
-  top: 40%;
-  left: 95%;
-  margin: -4px 0 0 -4px;
-  background: radial-gradient(ellipse at center, rgba(14, 14, 14, 1) 0%, rgba(125, 126, 125, 1) 100%);
-  box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);
-} */
-
 .pan-info {
   position: absolute;
   width: inherit;
@@ -123,7 +112,8 @@ export default {
   margin: 7px auto 0;
   font-family: 'Open Sans', Arial, sans-serif;
   opacity: 0;
-  transition: transform 0.3s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s, background 0.2s linear 0s;
+  transition: transform 0.3s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s,
+    background 0.2s linear 0s;
   transform: translateX(60px) rotate(90deg);
 }
 

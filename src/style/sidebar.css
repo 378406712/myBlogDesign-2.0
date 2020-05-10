@@ -78,6 +78,11 @@
 .left-sidebar .el-menu-item:focus:hover {
   background-color: #263445 !important;
 }
+.el-menu-item:focus,
+.el-menu-item:hover {
+  outline: 0;
+  background-color: transparent !important;
+}
 .el-menu--vertical .nest-menu .el-submenu > .el-submenu__title:hover,
 .el-menu--vertical .el-menu-item:hover {
   background-color: #263445 !important;
