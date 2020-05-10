@@ -71,7 +71,20 @@ export const constantRouterMap = [
         path: 'account',
         name: 'account',
         component: () => import('@/views/account/index'),
-        meta: { icon: 's-promotion', title: '账号设置' }
+        meta: { icon: 'svg-peoples', title: '账号设置' }
+      }
+    ]
+  },
+  {
+    path: '/guide',
+    component: Layout,
+    redirect: '/guide/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/guide/index'),
+        name: 'Guide',
+        meta: { title: '导航', icon: 'svg-guide', noCache: true }
       }
     ]
   },
@@ -154,10 +167,9 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/theme/index'),
         name: 'Theme',
-        meta: { title: '主题', icon: 'svg-pifu' }
+        meta: { title: '主题', icon: 'svg-theme' }
       }
     ]
   },
   { path: '*', redirect: '/404', hidden: true }
-
 ]
