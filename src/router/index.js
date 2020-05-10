@@ -130,6 +130,18 @@ export const constantRouterMap = [
       }
     ]
   },
+
+  {
+    path: '/todo',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/todo/index'),
+        meta: { title: 'ToDo', icon: 'svg-form' }
+      }
+    ]
+  },
   {
     path: '/external-link',
     component: Layout,

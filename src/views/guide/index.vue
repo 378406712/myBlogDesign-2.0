@@ -17,7 +17,7 @@
               <router-link
                 id="user-center"
                 class="liu-btn blue-btn"
-                to="/documentation/index"
+                to="/home/center"
               >
                 个人中心
               </router-link>
@@ -71,7 +71,7 @@
         </el-card>
       </el-row>
 
-      <el-row :gutter="20" style="margin: 50px 0; height: 450px;">
+      <el-row :gutter="20" style="margin: 30px 0; height: 450px;">
         <el-col :span="8" style="height: 100%;">
           <el-card class="box-card" id="share-link">
             <div slot="header" class="clearfix">
