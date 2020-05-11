@@ -1,20 +1,20 @@
 <template>
   <div class="drawer-container">
     <div>
-      <h3 class="drawer-title">Page style setting</h3>
+      <h3 class="drawer-title">页面样式设定</h3>
 
       <div class="drawer-item">
-        <span>Open Tags-View</span>
+        <span>打开/关闭 Tab栏</span>
         <el-switch v-model="tagsView" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
-        <span>Fixed Header</span>
+        <span>固定 顶栏</span>
         <el-switch v-model="fixedHeader" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
-        <span>Sidebar Logo</span>
+        <span>显示/隐藏 LOGO</span>
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </div>
     </div>

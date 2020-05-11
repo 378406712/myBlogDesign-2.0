@@ -8,8 +8,7 @@
     <p>
       I use
       <a href="https://vuejs.org" target="_blank">Vue.js</a> to rebuild this
-      project. The basic project is this
-      <a href="https://github.com/Neveryu/vue-cms">One.</a> It is open source
+      project.  It is open source
       and published on
       <a href="https://github.com/378406712" target="_blank">GitHub</a>.
     </p>

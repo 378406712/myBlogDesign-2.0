@@ -1,5 +1,5 @@
 <p align="center"><a href="https://qdmmz.cn"><img width="120" src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640"></a></p>
-<p align="center">基于 Vue 和 ElementUI 二次构建的企业级后台博客管理项目</p>
+<p align="center">基于 Vue 和 ElementUI 构建的企业级后台博客管理项目</p>
 <p align="center">后端：node.js </p>
 <p align="center">数据库：mongodb</p>
 <p align="center">
@@ -32,9 +32,6 @@
 `vue-lzw` 是一个企业级管理二次构建的后台博客发布以及管理项目，基于 Vue 和 ElementUI 构建。它使用了最新的前端技术栈，内置了 i18n 国际化解决方案，支持多语言，动态路由，权限验证，登录注册，等很多功能特性。
 
 同时，它也是一个很好的学习项目，包含了一些常见问题的解决方案，比如：数据可视化，表单表格，导入导出，自定义组件，自定义指令，富文本，换肤等等。
-
-<a href="https://github.com/Neveryu/vue-cms">原项目</a>
-感谢大佬搭的架子
 
 ## 写在前面
 
@@ -80,18 +77,11 @@ npm run build --report
 - 权限验证
 - 多环境发布
 - 动态侧边栏（支持多级路由）
-- better-scroll
 - 国际化多语言
 - Screenfull全屏
 - 列表拖拽
 - Svg Sprite 图标
 - Dashboard
-- 本地mock数据
-- Echarts图表
-- 导出excel
-- 导出zip
-- 前端可视化excel
-- CountTo
 - 自定义组件
 - 换肤
 - 富文本
@@ -107,9 +97,6 @@ npm run build --report
 ![image](https://github.com/378406712/myBlogDesign-2.0/blob//master/resource/post-new.png)
 ![image](https://github.com/378406712/myBlogDesign-2.0/blob//master/resource/category.png)
 
-## Online Demo
-
-[在线 Demo](https://neveryu.github.io/vue-cms/index.html)
 
 ## Donate
 

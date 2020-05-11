@@ -75,7 +75,7 @@
         <el-col :span="8" style="height: 100%;">
           <el-card class="box-card" id="share-link">
             <div slot="header" class="clearfix">
-              <span>Links</span>
+              <span>社交媒体分享</span>
             </div>
             <div class="component-item">
               <dropdown-menu
@@ -86,8 +86,15 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="16" class="canvas-chain">
-          <Chain />
+        <el-col :span="16"  style="height: 100%;">
+          <el-card class="box-card" id="share-link">
+             <div slot="header" class="clearfix">
+              <span>施工中...</span>
+            </div>
+          <div  class="canvas-chain">
+            <Chain />
+          </div>
+           </el-card>
         </el-col>
       </el-row>
     </div>

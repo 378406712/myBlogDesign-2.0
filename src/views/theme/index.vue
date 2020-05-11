@@ -3,18 +3,9 @@
     <el-card class="box-card" shadow="hover">
       <div slot="header">
         <span>换主题</span>
-        <!-- <el-button style="float: right; padding: 3px 0" type="text">更换主题文档</el-button> -->
-        <el-link
-          type="primary"
-          style="float: right;"
-          href="https://blog.csdn.net/csdn_yudong/article/details/97621471"
-          target="_blank"
-          >更换文档主题</el-link
-        >
       </div>
       <div class="box-item">
-        <!-- <span class="field-label">换肤 : </span> -->
-        <!-- <el-switch v-model="theme" /> -->
+    
         <el-radio v-model="themeModel" :label="1" border>默认(可定制)</el-radio>
 
         <el-radio v-model="themeModel" :label="2" border>夏日心情</el-radio>
@@ -232,7 +223,6 @@ export default {
           styleTag.innerText = newStyle
         }
       }
-
       // 如果没有chalk就是第一次换颜色，需要远程获取css文件
       // 后面的换色，就不用再次远程获取了
       if (!this.chalk) {
@@ -242,7 +232,6 @@ export default {
 
       const chalkHandler = getHandler('chalk', 'chalk-style')
       chalkHandler()
-
       // 过滤当前整个页面的样式文件，找到含有oldVal颜色的样式文件
       const styles = [].slice
         .call(document.querySelectorAll('style'))
@@ -291,7 +280,7 @@ export default {
      * 传入一个颜色的HEX，得到这个颜色的深浅颜色数组
      * 我们知道，我们默认的主色调蓝色，在实际使用中，还需要对应的浅蓝和深蓝
      * @param  {[string]]} theme [color]
-     * @return {[array]}       [对应的深浅颜色数组]
+     * @return {[array]} [对应的深浅颜色数组]
      */
     getThemeCluster(theme) {
       const tintColor = (color, tint) => {
@@ -369,7 +358,6 @@ export default {
 .item-alert {
   margin-bottom: 10px !important;
 }
-
 .app-container /deep/ .color-picker {
   position: absolute;
   left: -36px;
