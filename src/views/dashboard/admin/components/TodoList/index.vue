@@ -51,23 +51,14 @@
 
 <script>
 import Todo from './Todo.vue'
-
+import { mapGetters, mapState } from 'vuex'
 const STORAGE_KEY = 'todos'
 const filters = {
   all: (todos) => todos,
   active: (todos) => todos.filter((todo) => !todo.done),
   completed: (todos) => todos.filter((todo) => todo.done)
 }
-const defalutList = [
-  { text: 'star this repository', done: false },
-  { text: 'fork this repository', done: false },
-  { text: 'follow author', done: false },
-  { text: 'vue-element-admin', done: true },
-  { text: 'vue', done: true },
-  { text: 'element-ui', done: true },
-  { text: 'axios', done: true },
-  { text: 'webpack', done: true }
-]
+
 export default {
   components: { Todo },
   filters: {
@@ -79,7 +70,7 @@ export default {
       visibility: 'all',
       filters,
       // todos: JSON.parse(window.localStorage.getItem(STORAGE_KEY)) || defalutList
-      todos: defalutList
+     
     }
   },
   computed: {
@@ -91,7 +82,11 @@ export default {
     },
     remaining() {
       return this.todos.filter((todo) => !todo.done).length
-    }
+    },
+    ...mapGetters(['name']),
+    ...mapState({
+      todos:state=>state.dashboard.todoList
+    })
   },
   methods: {
     setLocalStorage() {
@@ -105,8 +100,15 @@ export default {
           done: false
         })
         this.setLocalStorage()
+        this.$store
+          .dispatch('SetListAll', {
+            username: this.name,
+            todo: this.todos
+          })
+          .then(() => {
+            e.target.value = ''
+          })
       }
-      e.target.value = ''
     },
     toggleTodo(val) {
       val.done = !val.done

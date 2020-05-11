@@ -11,12 +11,14 @@ import edit from './modules/edit'
 import category from './modules/essay/category'
 import settings from './modules/settings'
 import essay from './modules/essay/essay'
+import dashboard from './modules/dashboard'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     user,
     homepage,
+    dashboard,
     app,
     tabsview,
     language,
