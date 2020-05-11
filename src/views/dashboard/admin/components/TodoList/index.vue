@@ -10,7 +10,7 @@
       />
     </header>
     <!-- main section -->
-    <section v-show="todos.length" class="main">
+    <section class="main">
       <input
         id="toggle-all"
         :checked="allChecked"
@@ -31,7 +31,7 @@
       </ul>
     </section>
     <!-- footer -->
-    <footer v-show="todos.length" class="footer">
+    <footer class="footer">
       <span class="todo-count">
         <strong>{{ remaining }}</strong>
         {{ remaining | pluralize('item') }} left
@@ -68,24 +68,29 @@ export default {
   data() {
     return {
       visibility: 'all',
-      filters,
+      filters
       // todos: JSON.parse(window.localStorage.getItem(STORAGE_KEY)) || defalutList
-     
     }
   },
   computed: {
     allChecked() {
-      return this.todos.every((todo) => todo.done)
+      if (this.todos) {
+        return this.todos.every((todo) => todo.done)
+      }
     },
     filteredTodos() {
-      return filters[this.visibility](this.todos)
+      if (this.todos) {
+        return filters[this.visibility](this.todos)
+      }
     },
     remaining() {
-      return this.todos.filter((todo) => !todo.done).length
+      if (this.todos) {
+        return this.todos.filter((todo) => !todo.done).length
+      }
     },
     ...mapGetters(['name']),
     ...mapState({
-      todos:state=>state.dashboard.todoList
+      todos: (state) => state.dashboard.todoList
     })
   },
   methods: {
@@ -99,15 +104,13 @@ export default {
           text,
           done: false
         })
-        this.setLocalStorage()
         this.$store
           .dispatch('SetListAll', {
             username: this.name,
             todo: this.todos
           })
-          .then(() => {
-            e.target.value = ''
-          })
+          .then((res) => {})
+        e.target.value = ''
       }
     },
     toggleTodo(val) {
@@ -132,6 +135,9 @@ export default {
         this.setLocalStorage()
       })
     }
+  },
+  mounted() {
+    this.$store.dispatch('GetTodoList', { params: { username: this.name } })
   }
 }
 </script>
