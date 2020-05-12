@@ -69,7 +69,6 @@ export default {
     return {
       visibility: 'all',
       filters
-      // todos: JSON.parse(window.localStorage.getItem(STORAGE_KEY)) || defalutList
     }
   },
   computed: {
@@ -127,18 +126,13 @@ export default {
     //编辑
     editTodo({ todo, value }) {
       todo.text = value
-      console.log({ todo, value })
-      this.setLocalStorage()
+      this.setTodo()
     },
-    clearCompleted() {
-      this.todos = this.todos.filter((todo) => !todo.done)
-      console.log(this.todos)
-      this.setLocalStorage()
-    },
+    //全选
     toggleAll({ done }) {
       this.todos.forEach((todo) => {
         todo.done = done
-        this.setLocalStorage()
+        this.setTodo()
       })
     }
   },
