@@ -52,6 +52,7 @@ export default {
       this.$emit('deleteTodo', todo)
     },
     editTodo({ todo, value }) {
+      console.log({ todo, value })
       this.$emit('editTodo', { todo, value })
     },
     toggleTodo(todo) {
@@ -61,6 +62,7 @@ export default {
       const value = e.target.value.trim()
       const { todo } = this
       if (!value) {
+       
         this.deleteTodo({
           todo
         })

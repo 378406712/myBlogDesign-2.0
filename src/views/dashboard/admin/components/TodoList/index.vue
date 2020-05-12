@@ -97,6 +97,12 @@ export default {
     setLocalStorage() {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.todos))
     },
+    async setTodo() {
+      await this.$store.dispatch('SetListAll', {
+        username: this.name,
+        todo: this.todos
+      })
+    },
     async addTodo(e) {
       const text = e.target.value
       if (text.trim()) {
@@ -104,30 +110,29 @@ export default {
           text,
           done: false
         })
-        await this.$store.dispatch('SetListAll', {
-          username: this.name,
-          todo: this.todos
-        })
+        this.setTodo()
         e.target.value = ''
       }
     },
+    //切换状态
     toggleTodo(val) {
       val.done = !val.done
-      this.setLocalStorage()
+      this.setTodo()
     },
+    //删除
     deleteTodo(todo) {
       this.todos.splice(this.todos.indexOf(todo), 1)
-      this.$store.dispatch('SetListAll', {
-        username: this.name,
-        todo: this.todos
-      })
+      this.setTodo()
     },
+    //编辑
     editTodo({ todo, value }) {
       todo.text = value
+      console.log({ todo, value })
       this.setLocalStorage()
     },
     clearCompleted() {
       this.todos = this.todos.filter((todo) => !todo.done)
+      console.log(this.todos)
       this.setLocalStorage()
     },
     toggleAll({ done }) {
