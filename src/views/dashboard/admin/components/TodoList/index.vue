@@ -97,19 +97,17 @@ export default {
     setLocalStorage() {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.todos))
     },
-    addTodo(e) {
+    async addTodo(e) {
       const text = e.target.value
       if (text.trim()) {
         this.todos.push({
           text,
           done: false
         })
-        this.$store
-          .dispatch('SetListAll', {
-            username: this.name,
-            todo: this.todos
-          })
-          .then((res) => {})
+        await this.$store.dispatch('SetListAll', {
+          username: this.name,
+          todo: this.todos
+        })
         e.target.value = ''
       }
     },
@@ -119,7 +117,10 @@ export default {
     },
     deleteTodo(todo) {
       this.todos.splice(this.todos.indexOf(todo), 1)
-      this.setLocalStorage()
+      this.$store.dispatch('SetListAll', {
+        username: this.name,
+        todo: this.todos
+      })
     },
     editTodo({ todo, value }) {
       todo.text = value

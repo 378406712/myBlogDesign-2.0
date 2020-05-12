@@ -6,7 +6,6 @@ const dashboard = {
   mutations: {
     setList(state, todo) {
       state.todoList = todo
-      console.log(state.todoList)
     }
   },
   actions: {
