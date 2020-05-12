@@ -44,6 +44,7 @@
             >{{ key | capitalize }}</a
           >
         </li>
+        <router-link class="tagTodo" to="/todo/index">TODO管理</router-link>
       </ul>
     </footer>
   </section>
@@ -52,7 +53,6 @@
 <script>
 import Todo from './Todo.vue'
 import { mapGetters, mapState } from 'vuex'
-const STORAGE_KEY = 'todos'
 const filters = {
   all: (todos) => todos,
   active: (todos) => todos.filter((todo) => !todo.done),
@@ -62,8 +62,8 @@ const filters = {
 export default {
   components: { Todo },
   filters: {
-    pluralize: (n, w) => (n === 1 ? w : w + 's'),
-    capitalize: (s) => s.charAt(0).toUpperCase() + s.slice(1)
+    pluralize: (n, w) => (n === 1 ? w : w + 's'), //英文复数+s
+    capitalize: (s) => s.charAt(0).toUpperCase() + s.slice(1) //首字母大写
   },
   data() {
     return {
@@ -93,9 +93,6 @@ export default {
     })
   },
   methods: {
-    setLocalStorage() {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.todos))
-    },
     async setTodo() {
       await this.$store.dispatch('SetListAll', {
         username: this.name,
@@ -138,10 +135,12 @@ export default {
   },
   mounted() {
     this.$store.dispatch('GetTodoList', { params: { username: this.name } })
+ 
   }
 }
 </script>
 
 <style lang="scss">
 @import './index.scss';
+
 </style>

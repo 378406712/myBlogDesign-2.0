@@ -8,9 +8,11 @@
       v-bind="$attrs"
       class="board-column-content"
       :set-data="setData"
+      @remove="remove"
+      draggable="false"
     >
-      <div v-for="element in list" :key="element.id" class="board-item">
-        {{ element.name }} {{ element.id }}
+      <div v-for="(element, index) in list" :key="index" class="board-item">
+        {{ element.text }}
       </div>
     </draggable>
   </div>
@@ -47,6 +49,16 @@ export default {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
       dataTransfer.setData('Text', '')
+    },
+
+    remove(evt) {
+      console.log(evt, 'end....')
+      this.drag = true
+      // evt.item //可以知道拖动的本身
+      // evt.to // 可以知道拖动的目标列表
+      // evt.from // 可以知道之前的列表
+      // evt.oldIndex // 可以知道拖动前的位置
+      // evt.newIndex // 可以知道拖动后的位置
     }
   }
 }
@@ -96,4 +108,3 @@ export default {
   }
 }
 </style>
-

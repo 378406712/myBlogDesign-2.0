@@ -137,6 +137,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'index',
+        name: 'ToDo',
         component: () => import('@/views/todo/index'),
         meta: { title: 'ToDo', icon: 'svg-form' }
       }

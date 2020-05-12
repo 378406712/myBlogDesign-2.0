@@ -1,13 +1,31 @@
 <template>
-  <div class="components-container board">
-    <Kanban :key="1" :list="list1" :group="group" class="kanban todo" header-text="Todo" />
-    <Kanban :key="2" :list="list2" :group="group" class="kanban working" header-text="Working" />
-    <Kanban :key="3" :list="list3" :group="group" class="kanban done" header-text="Done" />
+  <div class="components-container board grey_bg">
+    <Kanban
+      :key="1"
+      :list="todos"
+      :group="group"
+      class="kanban todo"
+      header-text="Todo"
+    />
+    <Kanban
+      :key="2"
+      :list="working"
+      :group="group"
+      class="kanban working"
+      header-text="Working"
+    />
+    <Kanban
+      :key="3"
+      :list="completed"
+      :group="group"
+      class="kanban done"
+      header-text="Done"
+    />
   </div>
 </template>
 <script>
 import Kanban from '@/components/Kanban'
-
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'DragKanbanDemo',
   components: {
@@ -33,6 +51,21 @@ export default {
         { name: 'Mission', id: 10 }
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({
+      todos: (state) => state.dashboard.todoList
+    }),
+    working() {
+      return this.todos.filter((todo) => !todo.done)
+    },
+    completed() {
+      return this.todos.filter((todo) => todo.done)
+    }
+  },
+  mounted() {
+    this.$store.dispatch('GetTodoList', { params: { username: this.name } })
   }
 }
 </script>
@@ -48,19 +81,18 @@ export default {
 .kanban {
   &.todo {
     .board-column-header {
-      background: #4A9FF9!important;
+      background: #4a9ff9 !important;
     }
   }
   &.working {
     .board-column-header {
-      background: #f9944a!important;
+      background: #f9944a !important;
     }
   }
   &.done {
     .board-column-header {
-      background: #2ac06d!important;
+      background: #2ac06d !important;
     }
   }
 }
 </style>
-

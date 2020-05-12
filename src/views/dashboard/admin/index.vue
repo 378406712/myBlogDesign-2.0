@@ -9,8 +9,8 @@
         :xs="{ span: 24 }"
         :sm="{ span: 12 }"
         :md="{ span: 12 }"
-        :lg="{ span: 6 }"
-        :xl="{ span: 6 }"
+        :lg="{ span: 8 }"
+        :xl="{ span: 8 }"
         style="margin-bottom:30px;"
       >
         <todo-list />
@@ -19,8 +19,8 @@
         :xs="{ span: 24 }"
         :sm="{ span: 12 }"
         :md="{ span: 12 }"
-        :lg="{ span: 6 }"
-        :xl="{ span: 6 }"
+        :lg="{ span: 7 }"
+        :xl="{ span: 7 }"
         style="margin-bottom:30px;"
       >
         <box-card />
