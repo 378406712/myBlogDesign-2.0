@@ -11,7 +11,7 @@
         :md="{ span: 12 }"
         :lg="{ span: 8 }"
         :xl="{ span: 8 }"
-        style="margin-bottom:30px;"
+        style="margin-bottom: 30px;"
       >
         <todo-list />
       </el-col>
@@ -21,59 +21,38 @@
         :md="{ span: 12 }"
         :lg="{ span: 7 }"
         :xl="{ span: 7 }"
-        style="margin-bottom:30px;"
+        style="margin-bottom: 30px;"
       >
         <box-card />
+      </el-col>
+      <el-col
+        :xs="{ span: 24 }"
+        :sm="{ span: 12 }"
+        :md="{ span: 12 }"
+        :lg="{ span: 9 }"
+        :xl="{ span: 9 }"
+        style="margin-bottom: 30px;"
+      >
+        <Chain />
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-//import GithubCorner from '@/components/GithubCorner'
-// import PanelGroup from './components/PanelGroup'
-// import LineChart from './components/LineChart'
-// import RaddarChart from './components/RaddarChart'
-// import PieChart from './components/PieChart'
-// import BarChart from './components/BarChart'
-// import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
-
-// const lineChartData = {
-//   newVisitis: {
-//     expectedData: [100, 120, 161, 134, 105, 160, 165],
-//     actualData: [120, 82, 91, 154, 162, 140, 145]
-//   },
-//   messages: {
-//     expectedData: [200, 192, 120, 144, 160, 130, 140],
-//     actualData: [180, 160, 151, 106, 145, 150, 130]
-//   },
-//   purchases: {
-//     expectedData: [80, 100, 121, 104, 105, 90, 100],
-//     actualData: [120, 90, 100, 138, 142, 130, 130]
-//   },
-//   shoppings: {
-//     expectedData: [130, 140, 141, 142, 145, 150, 160],
-//     actualData: [120, 82, 91, 154, 162, 140, 130]
-//   }
-// }
+import Chain from './components/chain/index'
 
 export default {
   name: 'DashboardAdmin',
   components: {
     TodoList,
-    BoxCard
+    BoxCard,
+    Chain
   },
   data() {
-    return {
-      // lineChartData: lineChartData.newVisitis
-    }
-  },
-  methods: {
-    // handleSetLineChartData(type) {
-    //   this.lineChartData = lineChartData[type]
-    // }
+    return {}
   }
 }
 </script>

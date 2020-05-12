@@ -37,7 +37,7 @@
                   </el-col>
                   <el-col>
                     <!-- css心型 -->
-                    <DanceHeart />
+                    <CatDance />
                   </el-col>
                   <el-col>
                     <el-row>
@@ -99,7 +99,7 @@
 
 <script>
 import CPlayer from '@/components/c-player'
-import DanceHeart from '@/components/heart-dance'
+import CatDance from './components/chain'
 import serviceDialog from '@/components/serviceDialog'
 import DevicesTable from './components/table'
 import Detail from './components/detail'
@@ -114,7 +114,7 @@ export default {
     Detail,
     DevicesTable,
     Paginations,
-    DanceHeart,
+    CatDance,
     CPlayer,
     serviceDialog,
   },
