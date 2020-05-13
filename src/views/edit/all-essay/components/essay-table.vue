@@ -21,7 +21,14 @@
       <template slot-scope="scope">
         <div @mouseleave="rowid = ''" @mouseover="rowid = scope.row._id">
           <strong
-            ><router-link to="/">{{ scope.row.title }}</router-link>
+            ><router-link
+              :to="{
+                path: '/edit/post-new/',
+                query: { tag: 'all-essay', id: scope.row._id }
+              }"
+            >
+              {{ scope.row.title }}</router-link
+            >
             <span v-if="scope.row.sended === false">—</span>
             <span v-if="scope.row.radioVisible === 'protect'">密码保护</span>
             <span v-if="scope.row.radioVisible === 'private'">私密</span>
@@ -142,7 +149,10 @@ export default {
     async operate(val, row) {
       switch (val) {
         case 'edit':
-          this.$router.push({ path: '/edit/post-new/' , query: { tag: 'all-essay',id:row._id }})
+          this.$router.push({
+            path: '/edit/post-new/',
+            query: { tag: 'all-essay', id: row._id }
+          })
           break
         case 'detail':
           this.handleExpand(row, [row])

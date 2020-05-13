@@ -302,6 +302,8 @@ export default {
         this.clear()
         next()
       })
+    } else {
+      next()
     }
   }
 }

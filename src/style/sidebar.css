@@ -74,8 +74,7 @@
 .left-sidebar .el-menu-item.is-active i {
   color: rgb(64, 158, 255);
 }
-.left-sidebar .el-menu-item:hover,
-.left-sidebar .el-menu-item:focus:hover {
+.left-sidebar .el-menu-item:hover {
   background-color: #263445 !important;
 }
 .el-menu-item:focus,
@@ -123,4 +122,7 @@
 }
 .main-container {
   transition: margin-left 0.28s;
+}
+.left-sidebar .nest-menu .is-active {
+  background-color: #1f2d3d !important;
 }
