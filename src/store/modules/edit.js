@@ -15,7 +15,12 @@ const SET_TOTALS_C = 'SET_TOTALS_C'
 const ESSAY = 'ESSAY'
 const Edit = {
   state: {
-    essay: {},
+    essay: {
+      reCheck: false,
+      draft: false,
+      keepTop: false,
+      trash: false
+    },
     category: [],
     category_c: [],
     media: [],

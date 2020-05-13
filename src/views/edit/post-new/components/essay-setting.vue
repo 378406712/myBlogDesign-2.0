@@ -16,10 +16,10 @@
             title="文章可见性"
             trigger="click"
           >
-            <div v-for="(item, i) in Status_Visible.visible" :key="i">
+            <div v-for="(item, i) in essay.visible" :key="i">
               <el-radio
                 @change="VisibleChange"
-                v-model="Status_Visible.radioVisible"
+                v-model="essay.radioVisible"
                 :label="item.status"
               >
                 {{ item.title }}</el-radio
@@ -30,8 +30,8 @@
             </div>
             <div>
               <el-input
-                v-model="Status_Visible.essayPassword"
-                v-if="Status_Visible.showPass"
+                v-model="essay.essayPassword"
+                v-if="essay.showPass"
                 type="password"
                 show-password
                 placeholder="使用安全的密码"
@@ -39,7 +39,7 @@
               ></el-input>
             </div>
             <el-button class="is-link" slot="reference">{{
-              Status_Visible.showVisible
+              essay.showVisible
             }}</el-button>
           </el-popover>
         </div>
@@ -163,14 +163,14 @@ import Onbeforeunload from '@/utils/onbeforeunload'
 export default {
   props: {
     disabled: Boolean,
-    tag:String,
-    publish:String,
-    type:String
+    tag: String,
+    publish: String,
+    type: String
   },
   components: { Media },
   data() {
     return {
-      ...EssaySettingData,
+      ...EssaySettingData
     }
   },
   methods: {
@@ -202,14 +202,14 @@ export default {
         checkCategory.push('未分类')
       }
       if (val === 'draft') {
-        this.Status_Visible.draft = true
-        this.Status_Visible.reCheck = false
-        this.Status_Visible.keepTop = false
-        this.Status_Visible.trash = false
+        this.essay.draft = true
+        this.essay.reCheck = false
+        this.essay.keepTop = false
+        this.essay.trash = false
       }
       const { special_bg } = this
       let info = Object.assign(
-        this.Status_Visible,
+        this.essay,
         { checkCategory },
         { special_bg },
         { tag: this.tag }
@@ -221,19 +221,19 @@ export default {
     VisibleChange(data) {
       switch (data) {
         case 'public':
-          this.Status_Visible.showVisible = '公开'
-          this.Status_Visible.radioVisible = 'public'
-          this.Status_Visible.showPass = false
+          this.essay.showVisible = '公开'
+          this.essay.radioVisible = 'public'
+          this.essay.showPass = false
           break
         case 'private':
-          this.Status_Visible.showVisible = '私密'
-          this.Status_Visible.radioVisible = 'private'
-          this.Status_Visible.showPass = false
+          this.essay.showVisible = '私密'
+          this.essay.radioVisible = 'private'
+          this.essay.showPass = false
           break
         case 'protect':
-          this.Status_Visible.showVisible = '密码保护'
-          this.Status_Visible.radioVisible = 'protect'
-          this.Status_Visible.showPass = true
+          this.essay.showVisible = '密码保护'
+          this.essay.radioVisible = 'protect'
+          this.essay.showPass = true
           break
       }
     },

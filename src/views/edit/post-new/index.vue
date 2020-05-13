@@ -163,14 +163,13 @@ export default {
           '#quill-editor'
         ).children[0].innerHTML
       } else if (eventName === 'selection-change') {
-        // args[0] will be old range
       }
     },
     initQuill() {
       const quill = new Quill('#quill-editor', {
         // 编辑器配置选项
         theme: 'snow',
-        placeholder: '你是我一生只会遇见一次的惊喜 ...',
+        placeholder: '写点什么...',
         debug: 'error',
         modules: {
           toolbar: {
@@ -214,7 +213,8 @@ export default {
     },
     async toPublish(visiable) {
       const { reCheck, draft, trash } = visiable
-      if (reCheck || draft || trash) {
+      console.log(reCheck, draft, trash)
+      if (!reCheck || !draft || !trash) {
         this.sended = false
       } else {
         this.sended = true
