@@ -213,7 +213,7 @@ export default {
     },
     async toPublish(visiable) {
       const { reCheck, draft, trash } = visiable
-      console.log(reCheck, draft, trash)
+
       if (!reCheck || !draft || !trash) {
         this.sended = false
       } else {
@@ -261,6 +261,11 @@ export default {
         desc: '—',
         pic: 'http://localhost:3001/random/2.jpg'
       })
+    },
+    clear() {
+      this.$store.commit('ESSAY', {})
+      this.SPECIAL_BG('')
+      document.querySelector('#quill-editor').children[0].innerHTML = ''
     }
   },
   mounted() {
@@ -293,19 +298,10 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     if (!this.disabled) {
-      ComfirmMsg('当前页面数据未保存，确定离开?')
-        .then(() => {
-          this.SPECIAL_BG('')
-          next()
-        })
-        .catch(() => {
-          Msg('已取消删除', 'info')
-          next(false)
-        })
-    } else {
-      this.SPECIAL_BG('')
-      this.essay.title = ''
-      next()
+      ComfirmMsg('当前页面数据未保存，确定离开?').then(() => {
+        this.clear()
+        next()
+      })
     }
   }
 }

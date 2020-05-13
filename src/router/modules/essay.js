@@ -15,33 +15,33 @@ const essayRouter = {
       path: 'post-new',
       name: 'post-new',
       component: () => import('@/views/edit/post-new/index'),
-      meta: {  title: '写文章' }
+      meta: { title: '写文章',noCache: true }
     },
     {
       path: 'all-essay',
       name: 'all-essay',
       component: () => import('@/views/edit/all-essay/index'),
-      meta: {  title: '所有文章' }
+      meta: { title: '所有文章', noCache: true }
     },
     {
       path: 'category',
       name: 'category',
       component: () => import('@/views/edit/category/index'),
-      meta: { title: '分类目录' }
+      meta: { title: '分类目录', noCache: true }
     },
     {
       path: '/edit/category-detail/:category',
       hidden: true,
       name: 'alter-category',
       component: () => import('@/views/edit/category-detail/index'),
-      meta: { title: '编辑分类目录' }
+      meta: { title: '编辑分类目录', noCache: true }
     },
     {
       path: '/edit/all-essay/:category',
       hidden: true,
       name: 'essay-detail',
       component: () => import('@/views/edit/all-essay/index'),
-      meta: { title: '文章' }
+      meta: { title: '文章', noCache: false }
     }
   ]
 }

@@ -1,11 +1,9 @@
 <template>
   <div class="main-app">
     <transition name="fade-transform" mode="out-in">
-      <!-- <keep-alive v-if="key !== '/edit/post-new '">
-        <router-view :key="key"></router-view>
+      <keep-alive :include="cachedViews">
+        <router-view :key="key" />
       </keep-alive>
-      <router-view v-else :key="key"></router-view> -->
-      <router-view :key="key"></router-view>
     </transition>
     <ScrollTop />
   </div>
@@ -18,7 +16,7 @@ export default {
   components: { ScrollTop },
   data() {
     return {
-      desc: '这里是右侧主界面',
+      desc: '这里是右侧主界面'
     }
   },
 
@@ -26,7 +24,11 @@ export default {
     key() {
       return this.$route.path
     },
-  },
+    cachedViews() {
+    
+      return this.$store.state.cachedViews
+    }
+  }
 }
 </script>
 

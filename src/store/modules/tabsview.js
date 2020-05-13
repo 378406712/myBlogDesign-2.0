@@ -3,7 +3,8 @@ const DEL_TABSVIEW = 'DEL_TABSVIEW'
 
 const tabsview = {
   state: {
-    visitedTabsView: []
+    visitedTabsView: [],
+    cachedViews: []
   },
   mutations: {
     [SET_TABSVIEW](state, view) {
@@ -18,12 +19,20 @@ const tabsview = {
           state.visitedTabsView.splice(i, 1)
         }
       }
+    },
+    ADD_CACHED_VIEW: (state, view) => {
+      if (state.cachedViews.includes(view.name)) return
+      if (!view.meta.noCache) {
+        state.cachedViews.push(view.name)
+        console.log(state.cachedViews)
+      }
     }
   },
   actions: {
     // 添加一个新的tabsView
     addVisitedTabsView({ commit }, view) {
       commit(SET_TABSVIEW, view)
+      commit('ADD_CACHED_VIEW', view)
     },
     // 关闭一个tabsView
     delVisitedTabsView({ commit, state }, view) {
@@ -34,7 +43,7 @@ const tabsview = {
     }
   },
   getters: {
-    visitedTabsView: state => state.visitedTabsView
+    visitedTabsView: (state) => state.visitedTabsView
   }
 }
 
