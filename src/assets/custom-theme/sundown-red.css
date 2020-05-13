@@ -1,54 +1,51 @@
-/*自定义蓝色主题-皮肤*/
+/*自定义红色主题-皮肤*/
 
 /*
  * 1、顶部navbar颜色
  */
 .sundown-red .top-navbar .el-menu {
-  background: #f55b56 !important;
+  background-image: url('/static/image/beautify/sakura.png') !important;
 }
 
-/*2、 存在子菜单 */
-.sundown-red .left-sidebar .el-menu--inline .el-menu-item {
-  background: #db322d;
+/*
+ * 2、侧边栏
+ */
+.sundown-red .left-sidebar {
+  background-color: #fee4d7;
 }
-.sundown-red .left-sidebar .el-menu-item i {
-  color: #fff;
+.sundown-red .left-sidebar .el-menu {
+  background-color: #fee4d7;
 }
-/* 3.选中的文字颜色 */
-.sundown-red .left-sidebar .el-menu-item.is-active {
-  color: #f1fc5a;
-}
-.sundown-red .left-sidebar .el-menu-item.is-active i {
-  color: #f1fc5a;
-}
-/* 4.滑动的颜色 */
+
 .sundown-red .left-sidebar .el-menu-item:hover,
 .sundown-red .left-sidebar .el-menu-item:focus,
 .sundown-red .left-sidebar .el-submenu__title:hover {
-  background-color: rgb(236, 28, 28, 0.6);
-  
-}
-.sundown-red .left-sidebar {
-  background: #f55b56 !important;
-}
-/* 5.侧边栏 */
-.sundown-red .left-sidebar .el-menu {
-  background: #f55b56 !important;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.sundown-red .left-sidebar .el-submenu__title {
-  color: #fff;
-}
-.sundown-red .left-sidebar .el-submenu__title i {
-  color: #fff;
-}
 .sundown-red .left-sidebar .el-menu-item {
   color: #fff;
 }
+.sundown-red .left-sidebar .el-menu-item.is-active {
+  color: #f35d5d;
+}
+.sundown-red .left-sidebar .el-menu-item.is-active i {
+  color: #f35d5d;
+}
 
 /**
-   * 3、tabs-view
-   */
+ * 3、tabs-view
+ */
 .sundown-red .tabs-view-container .tags-view-item.active .el-tag {
-  background: #f55b56 !important;
+  background-color: #fee4d7;
+}
+
+.sundown-red .app-breadcrumb.el-breadcrumb .no-redirect {
+  color: #f35d5d !important;
+}
+.sundown-red .tabs-view-container .tags-view-item.active .el-tag {
+  color: #f35d5d;
+}
+.sundown-red .sidebar-title {
+  color: #f35d5d !important;
 }

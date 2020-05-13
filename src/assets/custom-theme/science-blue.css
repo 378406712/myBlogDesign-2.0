@@ -4,7 +4,7 @@
  * 1、顶部navbar颜色
  */
 .science-blue .top-navbar .el-menu {
-  background-image: url('../../../static/image/science-blue-header.jpg')!important;
+  background-image: url('../../../static/image/science-blue-header.jpg') !important;
 }
 
 /*
@@ -36,7 +36,7 @@
 .science-blue .left-sidebar .el-menu-item.is-active {
   color: #eeff41;
 }
-.science-blue .left-sidebar .el-menu-item.is-active i{
+.science-blue .left-sidebar .el-menu-item.is-active i {
   color: #eeff41;
 }
 
@@ -45,4 +45,13 @@
  */
 .science-blue .tabs-view-container .tags-view-item.active .el-tag {
   background-color: #2a68c9;
+}
+.science-blue .el-breadcrumb__inner a {
+  color: #fff;
+}
+.science-blue .app-breadcrumb.el-breadcrumb .no-redirect {
+  color: #eeff41 !important;
+}
+.science-blue .sidebar-title {
+  color: #eeff41 !important;
 }
