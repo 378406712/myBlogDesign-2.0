@@ -2,14 +2,14 @@
   <el-card class="box-card-component" style="margin-left: 8px;">
     <div slot="header" class="box-card-header">
       <img :src="detailData.url" />
-      <strong class="showUser">{{ detailData.username }}</strong>
+      <strong class="showUser">{{ name }}</strong>
       <strong class="changeAva" @click="dealPic">更换头像</strong>
       <div class="right-triangle"></div>
     </div>
     <div class="person-data" style="position: relative;">
       <div style="" class="progress-item">
         <span>账号</span>
-        <li>{{ detailData.username }}</li>
+        <li>{{ name }}</li>
       </div>
       <el-divider></el-divider>
       <div class="progress-item">

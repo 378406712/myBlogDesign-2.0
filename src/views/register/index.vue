@@ -95,7 +95,7 @@ export default {
     // 用户名 验证
     const validateUsername = (rule, value, callback) => {
       if (value.length > 10) {
-        calssback(new Error('用户名长度需少于10位'))
+        callback(new Error('用户名长度需少于10位'))
       } else {
         callback()
       }
