@@ -100,8 +100,9 @@
                     {{ detail.pic_width }}×{{ detail.pic_height }}像素
                   </div>
                   <a
+                    @click="dealPic"
                     class="edit-attachment"
-                    href="https://www.qdmmz.cn/wp-admin/post.php?post=1028&amp;action=edit&amp;image-editor"
+                    href="javascript:;"
                     target="_blank"
                     >编辑图像</a
                   >
@@ -146,6 +147,7 @@
         </div>
       </el-tab-pane>
     </el-tabs>
+   
   </div>
 </template>
 
@@ -157,12 +159,13 @@ import { Msg, ComfirmMsg } from '@/utils/message'
 import JudgeSize from '@/utils/size'
 import { SpecialPicData } from '@/helper/const-essay-special'
 export default {
-  components: { Media },
+  components: { Media, ImageCrop },
   data() {
     return {
       ...SpecialPicData,
       select_id: '',
-      check_id: ''
+      check_id: '',
+      imgDataUrl: ''
     }
   },
   methods: {
@@ -174,7 +177,6 @@ export default {
       'RemoveMedia'
     ]),
     ...mapMutations(['MEDIA_DETAIL', 'MEDIA_ID', 'SPECIAL_BG']),
-
     async getMedia() {
       await this.GetMedia({
         params: { username: this.name, date: this.select }
@@ -286,6 +288,11 @@ export default {
           this.getMedia()
         })
         .catch(() => Msg('已取消删除', 'info'))
+    },
+    dealPic() {
+      // this.imgDataUrl = this.detail.file
+      
+      // this.$refs.imageCrop.toggleShow()
     }
   },
   computed: {

@@ -10,15 +10,19 @@
       <mallki class-name="mallki-text" text="vue-element-admin" />
       <div style="padding-top: 35px;" class="progress-item">
         <span>Vue</span>
-        <el-progress :percentage="70" />
+        <el-progress :percentage="63.6" />
       </div>
       <div class="progress-item">
         <span>JavaScript</span>
-        <el-progress :percentage="18" />
+        <el-progress :percentage="27.1" />
       </div>
       <div class="progress-item">
         <span>Css</span>
-        <el-progress :percentage="12" />
+        <el-progress :percentage="8.0" />
+      </div>
+      <div class="progress-item">
+        <span>Others</span>
+        <el-progress :percentage="0.3" />
       </div>
       <div class="progress-item">
         <span>ESLint</span>

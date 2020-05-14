@@ -16,10 +16,28 @@ const ESSAY = 'ESSAY'
 const Edit = {
   state: {
     essay: {
-      reCheck: false,
-      draft: false,
+      showPass: false,
+      essayPassword: '',
+      radioVisible: 'public',
+      showVisible: '公开',
       keepTop: false,
-      trash: false
+      reCheck: false,
+      commentOn: false,
+      draft: false,
+      trash: false,
+      visible: [
+        { status: 'public', info: '所有人可见。', title: '公开' },
+        {
+          status: 'private',
+          info: '只有站点管理员和编辑可见。',
+          title: '私密'
+        },
+        {
+          status: 'protect',
+          info: '受您选择的密码保护，只有持有密码的人士可查看此文章。',
+          title: '密码保护'
+        }
+      ]
     },
     category: [],
     category_c: [],

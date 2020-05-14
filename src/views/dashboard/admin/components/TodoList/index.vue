@@ -5,7 +5,7 @@
       <input
         class="new-todo"
         autocomplete="off"
-        placeholder="Todo List"
+        placeholder="今日 任务"
         @keyup.enter="addTodo"
       />
     </header>

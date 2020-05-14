@@ -19,8 +19,8 @@
         :xs="{ span: 24 }"
         :sm="{ span: 12 }"
         :md="{ span: 12 }"
-        :lg="{ span: 7 }"
-        :xl="{ span: 7 }"
+        :lg="{ span: 8 }"
+        :xl="{ span: 8 }"
         style="margin-bottom: 30px;"
       >
         <box-card />
@@ -29,11 +29,11 @@
         :xs="{ span: 24 }"
         :sm="{ span: 12 }"
         :md="{ span: 12 }"
-        :lg="{ span: 9 }"
-        :xl="{ span: 9 }"
+        :lg="{ span: 7 }"
+        :xl="{ span: 7 }"
         style="margin-bottom: 30px;"
       >
-        <Chain />
+      <AvatarCard/>
       </el-col>
     </el-row>
   </div>
@@ -42,14 +42,14 @@
 <script>
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
-import Chain from './components/chain/index'
+import AvatarCard from './components/AvatarCard'
 
 export default {
   name: 'DashboardAdmin',
   components: {
     TodoList,
     BoxCard,
-    Chain
+    AvatarCard
   },
   data() {
     return {}
