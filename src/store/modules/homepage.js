@@ -60,34 +60,34 @@ const homepage = {
         Api.devices({
           username
         })
-          .then(res => {
+          .then((res) => {
             commit(GET_DEVICES, res.data.reverse())
             commit(SET_TOTALS, res.data.length)
             return resolve()
           })
-          .catch(err => reject(err))
+          .catch((err) => reject(err))
       })
     },
     deleteDevices({}, val) {
       return new Promise((resolve, reject) => {
         Api.deleteDevices(val._id)
           .then(() => resolve())
-          .catch(err => reject(err))
+          .catch((err) => reject(err))
       })
     },
     BatchDeleteDevices({}, key) {
       return new Promise((resolve, reject) => {
         Api.BatchDeleteDevices(key)
           .then(() => resolve())
-          .catch(err => reject(err))
+          .catch((err) => reject(err))
       })
     },
     getInfo({ commit }, username) {
       return new Promise((resolve, reject) => {
-        Api.userInfoGet(username).then(res => {
+        Api.userInfoGet(username).then((res) => {
           if (res.data.length !== 0) {
             let hometown = []
-            res.data.hometown.map(item => {
+            res.data.hometown.map((item) => {
               hometown += CodeToText[item] + ' '
             })
             if (hometown.length === 0) hometown = ''

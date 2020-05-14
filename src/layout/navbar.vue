@@ -37,8 +37,8 @@
             <img class="user-avatar" :src="avatar" />
             <div class="username-wrapper">
               <span class="user-name">{{ name }}</span>
-              <i class="el-icon-caret-bottom"></i>
             </div>
+            <i class="el-icon-caret-bottom"></i>
           </div>
           <el-dropdown-menu class="user-dropdown" slot="dropdown">
             <router-link class="inlineBlock" to="/home/center">
@@ -129,7 +129,7 @@ export default {
     .lang-select {
       position: absolute;
       top: 18px;
-      right: 140px;
+      right: 170px;
     }
 
     .lang-select /deep/ .el-dropdown {
@@ -140,7 +140,7 @@ export default {
     .avatar-container {
       position: absolute;
       top: 5px;
-      right: 20px;
+      right: 10px;
 
       .avatar-wrapper {
         cursor: pointer;
@@ -159,7 +159,10 @@ export default {
       display: inline-block;
       height: 30px;
       line-height: 30px;
-      color:#5a5e66
+      color:#5a5e66;
+     .user-name{
+     }
+
     }
   }
 }
@@ -179,7 +182,7 @@ export default {
 .top-navbar /deep/ .theme-container {
   position: absolute;
   top: 15px;
-  right: 215px;
+  right: 250px;
 color: #5a5e66;
  font-size: 24px;
   cursor: pointer;
@@ -189,7 +192,7 @@ color: #5a5e66;
 .top-navbar .screenfull {
   position: absolute;
   top: 20px;
-  right: 180px;
+  right: 210px;
 }
    .breadcrumb-container {
    float:left;

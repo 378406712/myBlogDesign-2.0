@@ -63,7 +63,7 @@ export default {
   computed: {
     ...mapGetters(['name', 'avatar', 'e_mail', 'language']),
     ...mapState({
-      detailData: (state) => state.homepage.details
+      detailData: (state) => state.account.form
     })
   },
   methods: {
@@ -179,7 +179,7 @@ export default {
   position: absolute;
   right: 5px;
   top: 20px;
-  color: #fff;
+  color: #1890ff;
   font-size: 21px;
 }
 .box-card-header img {
