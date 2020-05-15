@@ -5,7 +5,7 @@ import { constantRouterMap, asyncRouterMap } from '@/router'
  * @param routesMap
  */
 function filterAsyncRouter(asyncRouterMap, routesMap) {
-  const accessedRouters = asyncRouterMap.filter(route => {
+  const accessedRouters = asyncRouterMap.filter((route) => {
     return routesMap.includes(route.path)
   })
   return accessedRouters
@@ -32,12 +32,14 @@ const permission = {
         let accessedRouters = filterAsyncRouter(asyncRouterMap, routersMap)
         commit(SET_ROUTERS, accessedRouters)
         resolve()
+      }).catch((err) => {
+        return reject(err)
       })
     }
   },
   getters: {
-    addRouters: state => state.addRouters,
-    routers: state => state.routers
+    addRouters: (state) => state.addRouters,
+    routers: (state) => state.routers
   }
 }
 

@@ -44,7 +44,7 @@ export const constantRouterMap = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '仪表盘', icon: 'svg-dashboard', affix: true }
+        meta: { title: 'router.dashboard', icon: 'svg-dashboard', affix: true }
       }
     ]
   },
@@ -57,7 +57,7 @@ export const constantRouterMap = [
         path: 'center',
         name: 'center',
         component: () => import('@/views/homepage'),
-        meta: { title: '个人中心', icon: 's-home' }
+        meta: { title: 'router.homepage', icon: 's-home' }
       }
     ]
   },
@@ -71,7 +71,7 @@ export const constantRouterMap = [
         path: 'account',
         name: 'account',
         component: () => import('@/views/account/index'),
-        meta: { icon: 'svg-peoples', title: '账号设置' }
+        meta: { icon: 'svg-peoples', title: 'router.account' }
       }
     ]
   },
@@ -84,7 +84,7 @@ export const constantRouterMap = [
         path: 'index',
         component: () => import('@/views/guide/index'),
         name: 'Guide',
-        meta: { title: '导航', icon: 'svg-guide', noCache: true }
+        meta: { title: 'router.guide', icon: 'svg-guide', noCache: true }
       }
     ]
   },
@@ -97,8 +97,9 @@ export const constantRouterMap = [
         path: 'index',
         name: 'introduction',
         component: () => import('@/views/introduction/index'),
-        meta: { icon: 'svg-aperture', title: '简述' }
-      }
+        meta: { icon: 'svg-aperture', title: 'router.introduction' }
+      },
+      
     ]
   },
   essayRouter,
@@ -112,7 +113,7 @@ export const constantRouterMap = [
         component: () => import('@/views/media/index'),
         name: '媒体库',
         meta: {
-          title: '媒体库',
+          title: 'router.media',
           icon: 'svg-component'
         }
       }
@@ -126,7 +127,7 @@ export const constantRouterMap = [
         path: 'index',
         component: () => import('@/views/icons/index'),
         name: 'Icons',
-        meta: { title: '图标', icon: 'svg-icon', noCache: true }
+        meta: { title: 'router.icon', icon: 'svg-icon', noCache: true }
       }
     ]
   },
@@ -139,7 +140,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'ToDo',
         component: () => import('@/views/todo/index'),
-        meta: { title: 'ToDo', icon: 'svg-form' }
+        meta: { title: 'router.todo', icon: 'svg-form' }
       }
     ]
   },
@@ -149,7 +150,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'https://github.com/378406712/myBlogDesign-2.0',
-        meta: { title: 'External Link', icon: 'link' }
+        meta: { title: 'router.external_link', icon: 'link' }
       }
     ]
   },
@@ -180,7 +181,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/theme/index'),
         name: 'Theme',
-        meta: { title: '主题', icon: 'svg-theme' }
+        meta: { title: 'router.theme', icon: 'svg-theme' }
       }
     ]
   },

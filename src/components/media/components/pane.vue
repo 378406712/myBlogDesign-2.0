@@ -147,7 +147,6 @@
         </div>
       </el-tab-pane>
     </el-tabs>
-   
   </div>
 </template>
 
@@ -159,7 +158,7 @@ import { Msg, ComfirmMsg } from '@/utils/message'
 import JudgeSize from '@/utils/size'
 import { SpecialPicData } from '@/helper/const-essay-special'
 export default {
-  components: { Media, ImageCrop },
+  components: { Media },
   data() {
     return {
       ...SpecialPicData,
@@ -291,7 +290,6 @@ export default {
     },
     dealPic() {
       // this.imgDataUrl = this.detail.file
-      
       // this.$refs.imageCrop.toggleShow()
     }
   },

@@ -32,7 +32,22 @@ export default {
     github: 'GitHub',
     logOut: 'Log Out'
   },
-  guide:{
-    
+  router: {
+    dashboard: 'Dashboard',
+    homepage: 'Homepage',
+    account: 'Account',
+    guide: 'Guide',
+    introduction: 'Introduction',
+    media: 'Media',
+    icon: 'Icon',
+    todo: 'Todo',
+    external_link: 'External Link',
+    theme: 'Theme',
+    essay: 'Essay',
+    post_new: 'Post New',
+    all_essay: 'All Essay',
+    category: 'Category',
+    essay_detail: 'Essay Detail',
+    category_detail: 'Category Detail'
   }
 }

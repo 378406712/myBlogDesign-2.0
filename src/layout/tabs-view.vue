@@ -11,7 +11,7 @@
         :closable="tag.path != '/dashboard'"
         :disable-transitions="false"
         @close.prevent.stop="handleClose(tag)"
-        >{{ tag.name }}</el-tag
+        >{{ $t(tag.name) }}</el-tag
       >
     </router-link>
   </div>

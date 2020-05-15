@@ -14,7 +14,7 @@
         >
           <item
             :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            :title="onlyOneChild.meta.title"
+            :title="$t(onlyOneChild.meta.title)"
           />
         </el-menu-item>
       </app-link>
@@ -30,14 +30,14 @@
         <item
           v-if="item.meta"
           :icon="item.meta && item.meta.icon"
-          :title="item.meta.title"
+          :title="$t(item.meta.title)"
         />
       </template>
       <sidebar-item
         v-for="child in item.children"
         :key="child.path"
         :is-nest="true"
-        :item="child"
+        :item="(child)"
         :base-path="resolvePath(child.path)"
         class="nest-menu"
       />
@@ -48,13 +48,15 @@
 import path from 'path'
 import { isExternal } from '@/utils/validate'
 import AppLink from './Link'
+import LangSelect from '@/components/lang-select'
 
 import Item from './item'
 export default {
   name: 'sidebar-item',
   components: {
     Item,
-    AppLink
+    AppLink,
+    LangSelect
   },
   props: {
     // 一级路由对象
@@ -72,14 +74,12 @@ export default {
     }
   },
   data() {
+    this.onlyOneChild = null
     return {
-      onlyOneChild: null
+      // onlyOneChild: null
     }
   },
   methods: {
-    click(data) {
-      console.log(data)
-    },
     hasOneShowingChildren(children = [], parent) {
       // 把 children 里面没有 hidden 属性的元素，收集起来，看看有哪些
       // 1、后面要来判断，children 里面是不是只有一个

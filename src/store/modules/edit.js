@@ -129,6 +129,8 @@ const Edit = {
         Api.PostEssay(EssayData).then((res) => {
           commit(GET_STATUS, res.data.status)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -149,6 +151,8 @@ const Edit = {
           commit(GET_CATEGORY_C, res.data)
           commit(SET_TOTALS_C, res.data.length)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -179,6 +183,8 @@ const Edit = {
         Api.ChangeMedia(single_media).then((res) => {
           commit(MEDIA_DETAIL, res.data)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -187,6 +193,8 @@ const Edit = {
         Api.GetDate(username).then((res) => {
           commit(MEDIA_DATE, res.data)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -195,6 +203,8 @@ const Edit = {
         Api.SearchMedia(keywords).then((res) => {
           commit('GET_MEDIA', res.data)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -204,6 +214,8 @@ const Edit = {
           commit(GET_STATUS, res.data.status)
           commit(MEDIA_DETAIL, {})
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -212,6 +224,8 @@ const Edit = {
         Api.SearchCategory(keywords).then((res) => {
           commit(GET_CATEGORY, res.data)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -221,6 +235,8 @@ const Edit = {
           commit(GET_CATEGORY, res.data)
           commit(GET_CATEGORY_C, res.data)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     },
@@ -229,6 +245,8 @@ const Edit = {
         Api.SearchCategory(keywords).then((res) => {
           commit(GET_CATEGORY_C, res.data)
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     }

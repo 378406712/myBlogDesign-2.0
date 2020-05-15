@@ -30,11 +30,13 @@ const tabsview = {
       return new Promise((resolve, reject) => {
         commit(DEL_TABSVIEW, view)
         resolve([...state.visitedTabsView])
+      }).catch((err) => {
+        return reject(err)
       })
     }
   },
   getters: {
-    visitedTabsView: state => state.visitedTabsView
+    visitedTabsView: (state) => state.visitedTabsView
   }
 }
 

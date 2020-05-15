@@ -60,14 +60,6 @@ export default {
         })
       }
     }
-  },
-  methods: {
-    // themeChange(val) {
-    //   this.$store.dispatch('settings/changeSetting', {
-    //     key: 'theme',
-    //     value: val
-    //   })
-    // }
   }
 }
 </script>

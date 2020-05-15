@@ -5,9 +5,11 @@
         <span
           v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
           class="no-redirect"
-          >{{ item.meta.title }}</span
+          >{{ $t(item.meta.title) }}</span
         >
-        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+        <a v-else @click.prevent="handleLink(item)">{{
+          $t(item.meta.title)
+        }}</a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -38,18 +40,18 @@ export default {
     getBreadcrumb() {
       // only show routes with meta.title
       let matched = this.$route.matched.filter(
-        item => item.meta && item.meta.title
+        (item) => item.meta && item.meta.title
       )
       const first = matched[0]
 
       if (!this.isDashboard(first)) {
-        matched = [{ path: '/dashboard', meta: { title: '仪表盘' } }].concat(
-          matched
-        )
+        matched = [
+          { path: '/dashboard', meta: { title: 'router.dashboard' } }
+        ].concat(matched)
       }
 
       this.levelList = matched.filter(
-        item => item.meta && item.meta.title && item.meta.breadcrumb !== false
+        (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
       )
     },
     isDashboard(route) {
@@ -67,7 +69,7 @@ export default {
     },
     handleLink(item) {
       const { redirect, path } = item
-    
+
       if (redirect) {
         this.$router.push(redirect)
         return

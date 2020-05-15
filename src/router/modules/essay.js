@@ -7,7 +7,7 @@ const essayRouter = {
   redirect: '/post-new',
   meta: {
     icon: 'collection',
-    title: '文章'
+    title: 'router.essay'
   },
   redirect: 'post-new',
   children: [
@@ -15,33 +15,33 @@ const essayRouter = {
       path: 'post-new',
       name: 'post-new',
       component: () => import('@/views/edit/post-new/index'),
-      meta: {  title: '写文章' }
+      meta: { title: 'router.post_new' }
     },
     {
       path: 'all-essay',
       name: 'all-essay',
       component: () => import('@/views/edit/all-essay/index'),
-      meta: {  title: '所有文章' }
+      meta: { title: 'router.all_essay' }
     },
     {
       path: 'category',
       name: 'category',
       component: () => import('@/views/edit/category/index'),
-      meta: { title: '分类目录' }
+      meta: { title: 'router.category' }
     },
     {
       path: '/edit/category-detail/:category',
       hidden: true,
       name: 'alter-category',
       component: () => import('@/views/edit/category-detail/index'),
-      meta: { title: '编辑分类目录' }
+      meta: { title: 'router.essay_detail' }
     },
     {
       path: '/edit/all-essay/:category',
       hidden: true,
       name: 'essay-detail',
       component: () => import('@/views/edit/all-essay/index'),
-      meta: { title: '文章' }
+      meta: { title: 'router.category_detail' }
     }
   ]
 }

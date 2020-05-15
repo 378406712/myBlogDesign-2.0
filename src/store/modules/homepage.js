@@ -95,6 +95,8 @@ const homepage = {
             commit(SET_DETAIL, res.data)
           }
           resolve()
+        }).catch(err => {
+          return reject(err)
         })
       })
     }

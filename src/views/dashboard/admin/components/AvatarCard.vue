@@ -179,7 +179,7 @@ export default {
   position: absolute;
   right: 5px;
   top: 20px;
-  color: #1890ff;
+  color: #fff;
   font-size: 21px;
 }
 .box-card-header img {
