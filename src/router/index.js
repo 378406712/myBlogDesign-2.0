@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import HomePage from '@/pages/homepage'
 import Login from '@/views/login'
 import Register from '@/views/register'
 import Layout from '@/layout/layout'
@@ -16,6 +17,15 @@ Vue.use(Router)
  */
 
 export const constantRouterMap = [
+  {
+    path: '/front/homepage',
+    name: 'FrontHomepage',
+    hidden: true,
+    component: HomePage,
+    meta: {
+      title: '首页'
+    }
+  },
   {
     path: '/login',
     name: 'login',
@@ -98,8 +108,7 @@ export const constantRouterMap = [
         name: 'introduction',
         component: () => import('@/views/introduction/index'),
         meta: { icon: 'svg-aperture', title: 'router.introduction' }
-      },
-      
+      }
     ]
   },
   essayRouter,

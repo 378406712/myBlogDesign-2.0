@@ -13,7 +13,7 @@ NProgress.configure({
 })
 
 // 路由全局前置守卫
-const whiteList = ['/login', '/register'] // 白名单
+const whiteList = ['/login', '/register','/front/homepage'] // 白名单
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   if (getToken()) {
@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
       if (store.getters.permissions.length === 0) {
         store
           .dispatch('pullUserInfo', getToken())
-          .then(resp => {
+          .then((resp) => {
             const permissions = resp.permission
             store
               .dispatch('GenerateRoutes', {

@@ -14,6 +14,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+
 // 国际化
 import i18n from './lang'
 // 全局权限检查

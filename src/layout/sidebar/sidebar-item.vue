@@ -48,15 +48,13 @@
 import path from 'path'
 import { isExternal } from '@/utils/validate'
 import AppLink from './Link'
-import LangSelect from '@/components/lang-select'
 
 import Item from './item'
 export default {
   name: 'sidebar-item',
   components: {
     Item,
-    AppLink,
-    LangSelect
+    AppLink
   },
   props: {
     // 一级路由对象
