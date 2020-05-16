@@ -12,6 +12,7 @@ import category from './modules/essay/category'
 import settings from './modules/settings'
 import essay from './modules/essay/essay'
 import dashboard from './modules/dashboard'
+import indexpage from './front/indexpage'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -27,6 +28,8 @@ export default new Vuex.Store({
     edit,
     category,
     settings,
-    essay
+    essay,
+
+    indexpage
   }
 })
