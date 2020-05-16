@@ -907,3 +907,6 @@ p {
   border-style: solid;
   border-color: #fff transparent transparent transparent;
 }
+.no-select{
+  user-select: none;
+}

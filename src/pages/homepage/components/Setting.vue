@@ -4,11 +4,12 @@
       class="changeSkin-gear no-select"
       style="bottom: 0px;"
       v-if="showTools"
+      @click="toggleTools"
     >
-      <div class="keys" @click="toggleTools">
+      <div class="keys">
         <span id="open-skinMenu">
           <i class="iconfont icon-gear inline-block rotating"></i>&nbsp;
-          切换主题 | SCHEME TOOL
+          <svg-icon icon-class="gear" /> 切换主题 | SCHEME TOOL
         </span>
       </div>
     </div>

@@ -9,7 +9,7 @@
           <div class="focus_info">
             <div class="header_avatar">
               <a href>
-                <img src="/statoc/image/front/bg-body/girl.png" />
+                <img src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640" />
               </a>
             </div>
             <Link />
@@ -46,6 +46,8 @@ import Cover from './components/Cover'
 import Search from './components/Search'
 import Essay from './components/Essay'
 import Setting from './components/Setting'
+import { getBg } from '@/common/select-bg'
+
 export default {
   name: 'home',
   components: { Head, Link, Cover, Search, Essay, Setting },
@@ -72,7 +74,7 @@ export default {
   },
   computed: {
     bodyBg() {
-      return this.$store.state.indexpage.bodyBg
+      return this.$store.state.indexpage.bodyBg || getBg()
     }
   }
 }

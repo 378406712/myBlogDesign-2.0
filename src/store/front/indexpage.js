@@ -1,8 +1,10 @@
+import { getBg, setBg } from '@/common/select-bg'
+
 const indexpage = {
   state: {
     showTools: false,
     setting_flag: false,
-    bodyBg: 'sakura'
+    bodyBg: getBg() || 'sakura'
   },
   mutations: {
     toShowTools(state, bool) {
@@ -13,6 +15,7 @@ const indexpage = {
     },
     changeBodyBg(state, bg) {
       state.bodyBg = bg
+      setBg(bg)
     }
   }
 }
