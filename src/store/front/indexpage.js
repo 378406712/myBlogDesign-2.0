@@ -1,10 +1,12 @@
 import { getBg, setBg } from '@/common/select-bg'
-
+import * as Api from '@/api/front/front-essay'
+const FRONT_ESSAY_LIST = 'FRONT_ESSAY_LIST'
 const indexpage = {
   state: {
     showTools: false,
     setting_flag: false,
-    bodyBg: getBg() || 'sakura'
+    bodyBg: getBg() || 'sakura',
+    FrontEssay: []
   },
   mutations: {
     toShowTools(state, bool) {
@@ -16,6 +18,22 @@ const indexpage = {
     changeBodyBg(state, bg) {
       state.bodyBg = bg
       setBg(bg)
+    },
+    [FRONT_ESSAY_LIST](state, essay) {
+      state.FrontEssay = essay
+    }
+  },
+  actions: {
+    //文章
+    FrontEssay({ commit }, keyword) {
+      return new Promise((resolve, reject) => {
+        Api.GetEssay(keyword)
+          .then((res) => {
+            commit(FRONT_ESSAY_LIST, res.data)
+            resolve()
+          })
+          .catch((err) => reject(err))
+      })
     }
   }
 }

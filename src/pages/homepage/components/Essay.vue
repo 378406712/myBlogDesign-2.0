@@ -5,52 +5,45 @@
         <i class="fa fa-envira" aria-hidden="true"></i
         ><svg-icon icon-class="anchor" /> Dirctory
       </h1>
-      <article class="post post-list-thumb post-list-thumb-left post-list-show">
+      <article
+        v-for="(item, index) in essay"
+        :key="index"
+        class="post post-list-thumb post-list-show"
+        :class="
+          index % 2 == 0 ? 'post-list-thumb-left' : 'post-list-thumb-right'
+        "
+      >
         <div class="post-thumb">
-          <a href="https://www.qdmmz.cn/archives/387/378406712qq-com/">
-            <img
-              class="lazyload"
-              src="https://www.qdmmz.cn/wp-content/uploads/2019/11/64856256_p0_master1200-1024x509.jpg"
-              alt
-            />
+          <a href="#">
+            <img class="lazyload" :src="item.special_bg" />
           </a>
         </div>
         <div class="post-content-wrap">
           <div class="post-content">
             <div class="post-date">
-              <i class="iconfont icon-time"></i>发布于 45 分钟前
+              <i class="iconfont icon-time"></i>发布于 {{ item.date }}
             </div>
-            <a
-              href="https://www.qdmmz.cn/archives/387/378406712qq-com/"
-              class="post-title"
-              ><h3>vue-thinking</h3></a
+            <a href="#" class="post-title"
+              ><h3>{{ item.title }}</h3></a
             >
             <div class="post-meta">
               <span><i class="iconfont icon-attention"></i>25 热度</span>
               <span class="comments-number"
-                ><i class="iconfont icon-mark"></i
-                ><a
-                  href="https://www.qdmmz.cn/archives/387/378406712qq-com/#respond"
-                  >NOTHING</a
-                ></span
+                ><svg-icon icon-class="comment" /><a href="#">NOTHING</a></span
               >
               <span
-                ><i class="iconfont icon-file"></i
-                ><a href="https://www.qdmmz.cn/thinking/">随想</a>
+                ><svg-icon icon-class="file" /><a href="#">{{
+                  item.checkCategory[0]
+                }}</a>
               </span>
             </div>
             <div class="float-content">
-              <p>
-                上周由于主要精力放在微信小程序上，Vue这块儿又看得少了
-                事实证明，不论学习什么，都要经常复习，熟能生巧
-                晚上用vue写页面时，列 …
-              </p>
+              <p v-text="item.essay.slice(0, 100).replace(/<[^>]+>/g, '')"></p>
+
               <div class="post-bottom">
-                <a
-                  href="https://www.qdmmz.cn/archives/387/378406712qq-com/"
-                  class="button-normal"
-                  ><i class="iconfont icon-caidan"></i
-                ></a>
+                <a href="#" class="button-normal"
+                  ><svg-icon icon-class="more"
+                /></a>
               </div>
             </div>
           </div>
@@ -60,6 +53,36 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import { mapActions, mapState, mapGetters } from 'vuex'
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    ...mapActions(['FrontEssay']),
+    async getEssay() {
+      await this.FrontEssay({
+        params: {
+          username: this.name,
+          keyword: 'sended'
+        }
+      })
+    }
+  },
+  computed: {
+    ...mapGetters(['name']),
+    ...mapState({
+      essay: (state) => state.indexpage.FrontEssay
+    }),
+    time_diff() {}
+  },
+  mounted() {
+    this.getEssay().then(() => {
+      console.log(this.essay)
+    })
+  }
+}
+</script>
 
 <style lang="scss" scoped></style>

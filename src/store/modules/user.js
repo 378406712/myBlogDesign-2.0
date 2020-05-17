@@ -11,7 +11,7 @@ const SET_EMAIL = 'SET_EMAIL'
 const user = {
   state: {
     token: getToken(),
-    name: '',
+    name: 'Clover', //未登录前默认显示为管理员
     avatar: '',
     permissions: '',
     status: '',
@@ -42,7 +42,7 @@ const user = {
     login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo)
-          .then(resp => {
+          .then((resp) => {
             const { data } = resp
             commit(SET_EMAIL, data.e_mail)
             commit(SET_STATUS, data.status)
@@ -52,7 +52,7 @@ const user = {
             }
             return resolve()
           })
-          .catch(err => {
+          .catch((err) => {
             return reject(err)
           })
       })
@@ -63,7 +63,7 @@ const user = {
           .then(() => {
             return resolve()
           })
-          .catch(err => {
+          .catch((err) => {
             return reject(err)
           })
       })
@@ -75,7 +75,7 @@ const user = {
         userInfo({
           username
         })
-          .then(resp => {
+          .then((resp) => {
             let data = resp.data
             commit(SET_NAME, data.username)
             commit(SET_EMAIL, data.e_mail)
@@ -83,7 +83,7 @@ const user = {
             commit(SET_PERMISSIONS, data.permission)
             return resolve(data)
           })
-          .catch(err => {
+          .catch((err) => {
             return reject(err)
           })
       })
@@ -98,18 +98,18 @@ const user = {
             commit(SET_NAME, '')
             return resolve()
           })
-          .catch(err => {
+          .catch((err) => {
             return reject(err)
           })
       })
     }
   },
   getters: {
-    token: state => state.token,
-    name: state => state.name,
-    avatar: state => state.avatar,
-    e_mail: state => state.e_mail,
-    permissions: state => state.permissions
+    token: (state) => state.token,
+    name: (state) => state.name,
+    avatar: (state) => state.avatar,
+    e_mail: (state) => state.e_mail,
+    permissions: (state) => state.permissions
   }
 }
 
