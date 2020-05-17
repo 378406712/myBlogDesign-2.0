@@ -1,0 +1,205 @@
+.no-logged {
+  font-size: 13px;
+  padding: 15px 10px;
+  border-radius: 4px;
+  border: 0;
+  background: #fff;
+}
+.no-logged a {
+  display: initial;
+  font-size: 14px;
+  padding: 0 5px;
+}
+.shadow {
+  position: fixed;
+  left: 0;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 1px 40px -8px rgba(0, 0, 0, 0.5);
+}
+.site_header {
+  width: 100%;
+  height: 75px;
+  background: 0 0;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+}
+.site_header:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.site_header::after,
+.site_header::before {
+  content: '';
+  display: table;
+  table-layout: fixed;
+}
+
+.site_header::after {
+  clear: both;
+}
+.shadow {
+  position: fixed;
+  left: 0;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 1px 40px -8px rgba(0, 0, 0, 0.5);
+}
+
+.site_top {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.site_branding {
+  float: left;
+  position: relative;
+  height: 75px;
+  line-height: 75px;
+  margin-left: -6px;
+}
+
+.site_branding a {
+  color: #464646;
+  float: left;
+  font-size: 20px;
+  font-weight: 800;
+  height: 56px;
+  line-height: 56px;
+  padding-left: 35px;
+  padding-right: 15px;
+  padding-top: 11px;
+  text-decoration-line: none;
+  -webkit-transition: color 0.2s ease-out, border 0.2s ease-out,
+    opacity 0.2s ease-out;
+  -moz-transition: color 0.2s ease-out, border 0.2s ease-out,
+    opacity 0.2s ease-out;
+  transition: color 0.2s ease-out, border 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.site_branding a:hover {
+  color: #fe9600;
+}
+
+.site_branding a span {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif',
+    source-han-serif-sc, 'PT Serif', 'SongTi SC', 'MicroSoft Yahei', Georgia,
+    serif;
+}
+.header_user_menu {
+  position: absolute;
+  width: 110px;
+  right: -11px;
+  text-align: left;
+  background: 0 0;
+  top: 44px;
+
+  overflow: hidden;
+  animation: header-user-menu 0.4s;
+  box-shadow: 0 1px 40px -8px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  text-align: center;
+}
+.header_user_name {
+  font-size: 12px;
+  background: #fff;
+  padding: 10px 10px;
+  border-radius: 4px 4px 0 0;
+}
+.userName {
+    font-weight: 700;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .menu_option {
+    padding: 5px 0;
+    background: #fff;
+    border-radius: 0 0 4px 4px;
+    width: 130px;
+  }
+  .menu_option a {
+    display: block;
+    padding: 6px 10px;
+    margin: 2px 0;
+    width: 110px;
+    text-align: left;
+    color: #333;
+    font-size: 13px;
+    text-align: center;
+    -webkit-transition: color 0.2s ease-out, border 0.2s ease-out,
+      opacity 0.2s ease-out;
+    -moz-transition: color 0.2s ease-out, border 0.2s ease-out,
+      opacity 0.2s ease-out;
+    transition: color 0.2s ease-out, border 0.2s ease-out, opacity 0.2s ease-out;
+  }
+  .menu_option a:hover {
+    background-color: #f1f1f1;
+  }
+  .header_user_menu ::before {
+    content: '';
+    position: fixed;
+    top: 46px;
+    right: 25px;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+  }
+  
+
+
+.search_box {
+  float: right;
+  height: 75px;
+  line-height: 75px;
+  margin-left: 20px;
+}
+
+.search_box .icon-search {
+  color: #666;
+  cursor: pointer;
+  font-size: 32px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.icon-search:hover {
+    color: #fe9600;
+  }
+  .lower {
+    position: relative;
+  
+    float: right;
+    font-size: 16px;
+  }
+  
+  .site-top .lower nav {
+    display: block !important;
+    position: relative;
+    float: right;
+    display: none;
+    animation: searchbox 0.2s;
+  }  .menu ul li {
+  float: left;
+  margin-left: 28px;
+  position: relative;
+}
+
+.menu a {
+  padding: 10px 0;
+  display: inline-block;
+  color: #666;
+  -webkit-transition: color 0.2s ease-out, border 0.2s ease-out,
+    opacity 0.2s ease-out;
+  -moz-transition: color 0.2s ease-out, border 0.2s ease-out,
+    opacity 0.2s ease-out;
+  transition: color 0.2s ease-out, border 0.2s ease-out, opacity 0.2s ease-out;
+}
+.menu a:hover {
+  color: #fe9600 !important;
+}

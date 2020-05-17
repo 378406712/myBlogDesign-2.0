@@ -115,7 +115,9 @@ export default {
     },
     logout(target) {
       if (target === '') {
-        this.$store.dispatch('logout')
+        this.$store.dispatch('logout').then(() => {
+          history.go(0)
+        })
       }
     }
   },
@@ -132,20 +134,9 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import url(../../pages/homepage/index.scss);
 </style>
 <style scoped>
-.no-logged {
-  font-size: 13px;
-  padding: 15px 10px;
-  border-radius: 4px;
-  border: 0;
-  background: #fff;
-}
-.no-logged a {
-  display: initial;
-  font-size: 14px;
-  padding: 0 5px;
-}
+@import url(./index.scss);
 </style>

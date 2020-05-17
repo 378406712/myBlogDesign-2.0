@@ -1,0 +1,33 @@
+.site-footer {
+  padding: 2%;
+  background: rgba(255, 255, 255, 0.8);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.site-header:before {
+  content: '';
+  display: table;
+  table-layout: fixed;
+}
+.site-info {
+  text-align: center;
+  font-size: 13px;
+  color: #b9b9b9;
+}
+.img-preload {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+.img-preload img {
+  height: auto;
+  max-width: 100%;
+}
+.footertext p {
+  margin-bottom: 8px;
+}
+.site-info a {
+  color: #b9b9b9;
+  transition: color 0.2s ease-out, border 0.2s ease-out, opacity 0.2s ease-out;
+}

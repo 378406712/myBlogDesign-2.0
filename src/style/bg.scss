@@ -1,5 +1,22 @@
-// @mixin bodyBg($name) {
-// //   background-image: url(`/static/image/front/bg-body/${{$name}}.png`);
-//
-// }
-
+.dot {
+    background-image: url('/static/image/front/bg-body/dot.png');
+  }
+  .star {
+    background-image: url('/static/image/front/bg-body/star.png');
+  }
+  .sakura {
+    background-image: url('/static/image/front/bg-body/sakura.png');
+  }
+  .grid {
+    background-image: url('/static/image/front/bg-body/grid.png');
+  }
+  .girl {
+    background-image: url('/static/image/front/bg-body/girl.png');
+  }
+  .orange {
+    background-image: url('/static/image/front/bg-body/orange.png');
+  }
+  .scene {
+    background-image: url('/static/image/front/bg-body/scene.png');
+  }
+  

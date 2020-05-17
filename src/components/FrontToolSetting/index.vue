@@ -88,4 +88,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+@import url(./index.scss);
+</style>

@@ -1,0 +1,88 @@
+.changeSkin-gear {
+  left: auto;
+  right: 5px;
+  position: fixed;
+  width: auto;
+  height: auto;
+  z-index: 99;
+  white-space: nowrap;
+  padding: 10px 10px;
+  border-radius: 10px 10px 0 0;
+}
+.changeSkin-gear,
+.toc {
+  background: rgba(255, 255, 255, 0.8);
+}
+.skin-menu.show {
+  transform: scaleX(1);
+}
+.skin-menu {
+  left: auto;
+  right: 10px;
+}
+.skin-menu {
+  position: fixed;
+  bottom: 50px;
+  height: auto;
+  width: 220px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 1px 40px -8px rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  font-family: Ubuntu, sans-serif;
+  transform: scaleX(0);
+  transiton-property: transform, background;
+  transition-duration: 0.3s, 0.3s;
+}
+.skin-menu .row-container {
+  height: auto;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.skin-menu .row-container .menu-list {
+  display: block;
+  text-align: center;
+  padding: 0;
+  margin: 10px auto;
+}
+.menu-list li {
+  display: inline-block;
+  margin: 6px;
+  line-height: 36px;
+  width: 36px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.skin-menu .row-container.font-family-controls {
+  padding: 3px 12px 16px 12px;
+}
+.skin-menu .row-container {
+  height: auto;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.font-family-controls button.selected {
+  background-color: #fc3;
+  color: #fff;
+}
+.menu-list li:hover {
+  background-color: #fc3;
+  color: #fff;
+}
+.skin-menu::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+.no-select {
+  user-select: none;
+}

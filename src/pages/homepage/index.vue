@@ -34,6 +34,7 @@
       <Setting />
     </section>
     <Search />
+    <Foot />
   </div>
 </template>
 
@@ -41,16 +42,17 @@
 import $ from 'jquery'
 import axios from 'axios'
 import Head from '@/components/FrontHead'
+import Foot from '@/components/FrontFoot'
 import Link from './components/Link'
 import Cover from './components/Cover'
 import Search from './components/Search'
 import Essay from './components/Essay'
-import Setting from './components/Setting'
+import Setting from '@/components/FrontToolSetting'
 import { getBg } from '@/common/select-bg'
 
 export default {
   name: 'home',
-  components: { Head, Link, Cover, Search, Essay, Setting },
+  components: { Head, Foot, Link, Cover, Search, Essay, Setting },
   data() {
     return {
       hitokoto: ''
@@ -67,7 +69,6 @@ export default {
     axios.get('https://v1.hitokoto.cn/?c=b').then((res) => {
       this.hitokoto = res.data.hitokoto + ' ---' + res.data.from
     })
-
     $(window).resize(() => {
       this.fun()
     })
@@ -82,9 +83,8 @@ export default {
 
 <style lang="scss" scoped>
 @import url(./index.scss);
-@import url(./bg.scss);
+@import url(../../style/bg.scss);
 .home_page {
-  overflow: scroll;
   background-attachment: fixed;
 }
 </style>

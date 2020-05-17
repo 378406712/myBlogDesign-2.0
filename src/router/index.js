@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import HomePage from '@/pages/homepage'
+import BokePage from '@/pages/bokepage'
 import Login from '@/views/login'
 import Register from '@/views/register'
 import Layout from '@/layout/layout'
@@ -21,10 +22,13 @@ export const constantRouterMap = [
     path: '/front/homepage',
     name: 'FrontHomepage',
     hidden: true,
-    component: HomePage,
-    meta: {
-      title: '首页'
-    }
+    component: HomePage
+  },
+  {
+    path: '/front/bokepage',
+    name: 'FrontBokepage',
+    hidden: true,
+    component: BokePage
   },
   {
     path: '/login',
