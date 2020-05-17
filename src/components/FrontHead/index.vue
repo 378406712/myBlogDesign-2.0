@@ -11,17 +11,34 @@
         @mouseenter="flag = !flag"
         @mouseleave="flag = !flag"
       >
-        <img src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640" />
+        <img class="log_avatar" v-show="if_login" :src="avatar" />
+        <img v-show="!if_login" src="/static/image/front/none.png" />
+
         <transition name="fade">
           <div class="header_user_menu" v-show="flag">
-            <div class="header_user_name">
+            <div v-show="if_login" class="header_user_name">
               Signed in as
-              <div class="userName">轻度</div>
+              <div class="userName">{{ name }}</div>
             </div>
-            <div class="menu_option">
-              <router-link to="/" v-for="(item, index) in links" :key="index">{{
-                item.name
-              }}</router-link>
+            <div class="menu_option" v-show="if_login">
+              <router-link
+                :to="item.target"
+                v-for="(item, index) in links"
+                :key="index"
+                @click.native="logout(item.target)"
+              >
+                {{ item.name }}</router-link
+              >
+            </div>
+            <div v-show="!if_login" class="herder-user-name no-logged">
+              Whether to
+              <router-link
+                to="/login"
+                target="_blank"
+                style="color: #333; font-weight: bold; text-decoration: none;"
+                >log in</router-link
+              >
+              now?
             </div>
           </div>
         </transition>
@@ -34,7 +51,11 @@
           <div class="menu">
             <ul>
               <li v-for="(item, index) in menu" :key="index">
-                <router-link to="/">{{ item.name }}</router-link>
+                <router-link to="/">
+                  <svg-icon :icon-class="item.icon" />{{
+                    item.name
+                  }}</router-link
+                >
               </li>
             </ul>
           </div>
@@ -47,23 +68,27 @@
 <script>
 import $ from 'jquery'
 import throttle from '@/utils/throttle'
+import { mapGetters } from 'vuex'
+import { getToken } from '@/common/auth'
+
 export default {
   data() {
     return {
+      if_login: false,
       shadow: false,
       flag: false,
       title: '蜂蜜与四叶草',
       links: [
-        { name: '管理中心', target: '' },
-        { name: '撰写文章', target: '' },
-        { name: '个人资料', target: '' },
+        { name: '管理中心', target: '/dashboard' },
+        { name: '撰写文章', target: '/edit/post-new' },
+        { name: '个人资料', target: '/account/account' },
         { name: '退出登录', target: '' }
       ],
       menu: [
-        { name: 'Login', target: '' },
-        { name: '归档', target: '' },
-        { name: '时光轴', target: '' },
-        { name: 'About Me', target: '' }
+        { name: ' 首页', target: '', icon: 'fort-awesome' },
+        { name: ' 归档', target: '', icon: 'archive' },
+        { name: ' 友链', target: '', icon: 'link' },
+        { name: ' About Me', target: '', icon: 'leaf' }
       ]
     }
   },
@@ -87,13 +112,40 @@ export default {
         this.$store.commit('toShowFlag', false)
         this.$store.commit('toShowTools', false)
       }
+    },
+    logout(target) {
+      if (target === '') {
+        this.$store.dispatch('logout')
+      }
     }
   },
   mounted() {
     window.addEventListener('scroll', throttle(this.addShadow, 200))
+    if (getToken()) {
+      this.if_login = true
+    } else {
+      this.if_login = false
+    }
+  },
+  computed: {
+    ...mapGetters(['name', 'avatar'])
   }
 }
 </script>
 <style lang="stylus">
 @import url(../../pages/homepage/index.scss);
+</style>
+<style scoped>
+.no-logged {
+  font-size: 13px;
+  padding: 15px 10px;
+  border-radius: 4px;
+  border: 0;
+  background: #fff;
+}
+.no-logged a {
+  display: initial;
+  font-size: 14px;
+  padding: 0 5px;
+}
 </style>

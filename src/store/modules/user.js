@@ -90,6 +90,7 @@ const user = {
     },
     // 用户退出登录
     logout({ commit }) {
+      console.log(123)
       return new Promise((resolve, reject) => {
         logout()
           .then(() => {

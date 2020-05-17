@@ -81,7 +81,7 @@
 }
 
 .header_avatar img:hover,
-.h_user_avatar img:hover {
+.h_user_avatar .log_avatar:hover {
   transform: rotate(360deg);
   -webkit-transform: rotate(360deg);
   -moz-transform: rotate(360deg);
