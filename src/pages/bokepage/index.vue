@@ -50,7 +50,7 @@ import Comment from './components/comments'
 import Content from './components/content'
 import { getBg } from '@/common/select-bg'
 import { mapGetters, mapState } from 'vuex'
-import moment from 'moment'
+import 'highlight.js/styles/an-old-hope.css'
 export default {
   components: { Head, Foot, Setting, Comment, Content },
   data() {
@@ -87,4 +87,6 @@ export default {
 .pattern-attachment-img {
   background-color: #fff;
 }
+
 </style>
+

@@ -5,13 +5,14 @@
         <main id="main" class="site-main" role="main">
           <article id="article" class="hentry">
             <header v-if="boke_essay.special_bg === ''" class="entry-header">
-              <h1 class="entry-title">{{boke_essay.title}}</h1>
-              <p class="entry-census">发布于 {{boke_essay.date}}</p>
+              <h1 class="entry-title">{{ boke_essay.title }}</h1>
+              <p class="entry-census">发布于 {{ boke_essay.date }}</p>
               <hr />
             </header>
-            <div class="entry-content" v-html="boke_essay.essay">
+            <div class="entry-content">
+              <div class="essay-content" v-html="boke_essay.essay"></div>
               <!-- essay -->
-             
+
               <!-- <pre
                 class="wp-block-code highlight-wrap"
                 autocomplete="off"
@@ -96,8 +97,8 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import { mapGetters, mapState } from 'vuex'
-
 export default {
   data() {
     return {
@@ -109,6 +110,11 @@ export default {
       boke_essay: (state) => state.bokepage.boke_essay
     }),
     ...mapGetters(['name', 'avatar'])
+  },
+  updated() {
+    $(function () {
+      $('.entry-content').addClass('highlight-wrap')
+    })
   }
 }
 </script>
@@ -129,9 +135,10 @@ export default {
   display: table;
   table-layout: fixed;
 }
-.highlight-wrap code[data-rel]:before {
+
+.essay-content:before {
   color: #fff;
-  content: attr(data-rel);
+  content: 'TEXT';
   height: 30px;
   line-height: 30px;
   background: #21252b;
@@ -153,6 +160,20 @@ export default {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   pointer-events: none;
+}
+.essay-content:after {
+  color: #fff;
+  content: url(/static/image/beautify/clip-board.svg);
+  position: absolute;
+  float: right;
+  right: 10px;
+  top: 0;
+  padding-top: 4px;
+  padding-right: 2px;
+  z-index: 2;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
 .site-main {
   padding: 40px 0 0;
@@ -208,7 +229,7 @@ h6 {
   box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
 }
 .highlight-wrap:before {
-  content: ' ';
+  content: '';
   position: absolute;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -466,5 +487,14 @@ h6 {
       margin-left: 5px;
     }
   }
+}
+</style>
+<style lang="stylus">
+pre,
+code {
+  font-family: Consolas !important;
+  font-size: 18px !important;
+  color:#fff;
+  margin-top:0
 }
 </style>
