@@ -1,168 +1,134 @@
 <template>
   <div>
     <section id="comments" class="comments">
-      <div class="commentwrap clearFix comments-hidden" style="display: block;">
-        <div class="notification">
-          <i class="iconfont icon-mark"></i>查看评论 -
-          <span class="noticom">NOTHING </span>
+      <div class="commentwrap clearFix">
+        <div
+          @click="watch_comment = true"
+          class="notification animated"
+          :class="watch_comment ? 'fadeOutDown' : ''"
+        >
+          <svg-icon icon-class="comment" />查看评论 -
+          <span>NOTHING </span>
         </div>
       </div>
       <!-- 评论 -->
-      <div class="comments-main" style="display: block;">
-        <h3 id="comments-list-title">
-          Comments | <span class="noticom">NOTHING </span>
-        </h3>
-        <div class="comment clearFix">
-          <div class="contents">
-            <div class="comment-arrow clearFix">
-              <div class="main shadow">
-                <div class="profile">
-                  <a href="" target="_blank"
-                    ><img
-                      src="https://q2.qlogo.cn/headimg_dl?dst_uin=582463379&amp;spec=100"
-                      onerror="imgError(this,1)"
-                      data-src="https://q2.qlogo.cn/headimg_dl?dst_uin=582463379&amp;spec=100"
-                      class="lazyload avatar avatar-24 photo"
-                      width="24"
-                      height="24"
-                  /></a>
-                </div>
-                <div class="commentinfo">
+      <div class="set-comment" v-if="watch_comment">
+        <div class="comments-main">
+          <h3 id="comments-list-title">Comments | <span>NOTHING </span></h3>
+          <div class="comment clearFix">
+            <div class="contents">
+              <div class="clearFix">
+                <div class="main">
+                  <div class="profile">
+                    <a href="" target="_blank"
+                      ><img
+                        src="/static/image/register-logo.png"
+                        width="24"
+                        height="24"
+                    /></a>
+                  </div>
                   <section class="commeta">
-                    <div class="left">
-                      <h4 class="author">
-                        <a href="" target="_blank">
-                          独酌
-                        </a>
-                      </h4>
-                    </div>
-                    <div class="right">
-                      <div class="info">
-                        <time datetime="2020-05-18">发布于 35 分钟前</time>
-                      </div>
+                    <h4 class="author">
+                      <a href="" target="_blank">
+                        独酌
+                      </a>
+                    </h4>
+                    <div class="info">
+                      <time datetime="2020-05-18">发布于 35 分钟前</time>
                     </div>
                   </section>
-                </div>
-                <div class="body">
-                  <p>hello</p>
+                  <div class="body">
+                    <p>hello</p>
+                  </div>
                 </div>
               </div>
-              <div class="arrow-left"></div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="respond" class="comment-respond">
-        <form
-          action="https://www.qdmmz.cn/wp-comments-post.php"
-          method="post"
-          id="commentform"
-          class="comment-form"
-          novalidate=""
-        >
-          <p>
-            <i class="iconfont icon-markdown"></i> Markdown Supported while
-            <i class="fa fa-code" aria-hidden="true"></i> Forbidden
-          </p>
-          <div class="comment-textarea">
-            <textarea
-              placeholder="你是我一生只会遇见一次的惊喜 ..."
-              name="comment"
-              class="commentbody"
-              id="comment"
-              rows="5"
-              tabindex="4"
-            ></textarea
-            ><label class="input-label active"
-              >你是我一生只会遇见一次的惊喜 ...</label
-            >
-          </div>
-          <div id="upload-img-show"></div>
-          <!--插入表情面版-->
+        <div class="comment-respond">
+          <form action="#" method="post" novalidate="">
+            <p>
+              <svg-icon icon-class="markdown" /> Markdown Supported while
+              <svg-icon icon-class="code" /> Forbidden
+            </p>
+            <div class="comment-textarea">
+              <textarea class="commentbody" rows="5" tabindex="4"></textarea
+              ><label class="input-label active"
+                >你是我一生只会遇见一次的惊喜 ...</label
+              >
+            </div>
 
-          <!--表情面版完-->
-          <div class="cmt-info-container">
-            <div class="comment-user-avatar">
-              <img
-                src="https://gravatar.shino.cc/avatar/d41d8cd98f00b204e9800998ecf8427e.jpg?s=80&amp;d=mm"
-              />
-              <div class="socila-check qq-check" style="display: none;">
-                <i class="fa fa-qq" aria-hidden="true"></i>
+            <div class="cmt-info-container">
+              <div class="comment-user-avatar">
+                <img src="/static/image/login-logo.png" />
+                <div class="socila-check" style="display: block;">
+                  <i class="fa fa-qq" aria-hidden="true"></i>
+                </div>
               </div>
-              <div class="socila-check gravatar-check" style="display: block;">
-                <i class="fa fa-google" aria-hidden="true"></i>
+              <div class="cmt-popup cmt-author" onclick="cmt_showPopup(this)">
+                <input
+                  type="text"
+                  placeholder="昵称或QQ号 (昵称 )"
+                  name="author"
+                  id="author"
+                  value="独酌"
+                  size="22"
+                  autocomplete="off"
+                  tabindex="1"
+                  aria-required="true"
+                />
+              </div>
+              <div class="cmt-popup">
+                <input
+                  type="text"
+                  placeholder="邮箱 (必须* )"
+                  name="email"
+                  id="email"
+                  value="582463379@qq.com"
+                  size="22"
+                  tabindex="1"
+                  autocomplete="off"
+                  aria-required="true"
+                />
+              </div>
+              <div class="cmt-popup">
+                <input
+                  type="text"
+                  placeholder="网站"
+                  name="url"
+                  id="url"
+                  value=""
+                  size="22"
+                  autocomplete="off"
+                  tabindex="1"
+                />
               </div>
             </div>
-            <div
-              class="popup cmt-popup cmt-author"
-              onclick="cmt_showPopup(this)"
-            >
-              <input
-                type="text"
-                placeholder="昵称或QQ号 (昵称 )"
-                name="author"
-                id="author"
-                value="独酌"
-                size="22"
-                autocomplete="off"
-                tabindex="1"
-                aria-required="true"
-              />
-            </div>
-            <div class="popup cmt-popup" onclick="cmt_showPopup(this)">
-              <input
-                type="text"
-                placeholder="邮箱 (必须* )"
-                name="email"
-                id="email"
-                value="582463379@qq.com"
-                size="22"
-                tabindex="1"
-                autocomplete="off"
-                aria-required="true"
-              />
-            </div>
-            <div class="popup cmt-popup" onclick="cmt_showPopup(this)">
-              <input
-                type="text"
-                placeholder="网站"
-                name="url"
-                id="url"
-                value=""
-                size="22"
-                autocomplete="off"
-                tabindex="1"
-              />
-            </div>
-          </div>
 
-          <input
-            type="text"
-            placeholder="QQ"
-            name="new_field_qq"
-            id="qq"
-            value=""
-            style="display: none;"
-            autocomplete="off"
-          />
-
-          <p class="form-submit">
-            <input
-              name="submit"
-              type="submit"
-              id="submit"
-              class="submit"
-              value="BiuBiuBiu~"
-            />
-          </p>
-        </form>
+            <p class="form-submit">
+              <input
+                name="submit"
+                type="submit"
+                id="submit"
+                class="submit"
+                value="BiuBiuBiu~"
+              />
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      watch_comment: false
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -197,8 +163,8 @@ export default {}
   background: #fff;
   color: #6f6f6f;
 }
-.comment-respond .logged-in-as i,
-.notification i {
+.comment-respond .logged-in-as svg,
+.notification svg {
   margin-right: 10px;
   font-size: 16px;
 }
@@ -335,6 +301,8 @@ h3#comments-list-title {
   background-repeat: no-repeat;
   background-position: right;
   resize: vertical;
+  min-height: 55px;
+  overflow: scroll;
 }
 .comment-respond textarea {
   display: block;
@@ -396,7 +364,7 @@ h3#comments-list-title {
   border-radius: 50%;
 }
 .comment-user-avatar .socila-check {
-  display: none;
+  display: block;
   width: 1.5em;
   height: 1.5em;
   font-size: 1em;
@@ -407,9 +375,7 @@ h3#comments-list-title {
   position: absolute;
   margin: -28px 0 0 42px;
 }
-.gravatar-check {
-  background-color: #1e8cbe;
-}
+
 .cmt-author {
   margin-left: 70px;
 }
@@ -455,7 +421,6 @@ h3#comments-list-title {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  /* align-items: stretch; */
 }
 .comment-user-avatar {
   display: inline-block;
@@ -468,6 +433,19 @@ textarea {
   border-radius: 3px;
 }
 input {
-    font-family:Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
 }
+.comment-respond input[type='submit']:hover {
+  color: #69d2e7;
+}
+.comment-respond input[type='submit']:hover {
+  border-color: #69d2e7;
+}
+.comment-respond input:active,
+.comment-respond input:focus,
+.comment-respond textarea:active,
+.comment-respond textarea:focus {
+  outline: 0;
+}
+
 </style>

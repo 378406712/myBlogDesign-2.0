@@ -9,33 +9,29 @@
         <div class="pattern-center-blank"></div>
         <div class="pattern-center single-center">
           <div
+            v-if="boke_essay.special_bg !== ''"
             class="pattern-attachment-img lazyload"
-            style="
-              background-image: url('https://www.qdmmz.cn/wp-content/uploads/2020/04/bg.png');
-            "
-            data-src="https://www.qdmmz.cn/wp-content/uploads/2020/04/bg.png"
+            :style="{ backgroundImage: 'url(' + boke_essay.special_bg + ')' }"
           ></div>
           <header class="pattern-header single-header">
-            <h1 class="entry-title">动态路由表页面刷新后直接跳转到404问题</h1>
+            <h1 class="entry-title">{{ boke_essay.title }}</h1>
             <p class="entry-census">
               <span
-                ><a href="https://www.qdmmz.cn/author/378406712@qq.com/"
-                  ><img
-                    src="https://cn.gravatar.com/avatar/c5316c7d18a1d16f8aeabcad691b3b69?s=96&amp;d=mm&amp;r=g" /></a></span
-              ><span
-                ><a href="https://www.qdmmz.cn/author/378406712@qq.com/"
-                  >旧南山忆</a
-                ></span
-              ><span class="bull">·</span>22 天前<span class="bull">·</span>21
-              次阅读
+                ><a href=""><img :src="avatar" /></a></span
+              ><span>
+                <router-link v-if="boke_essay.nickname" to="">{{
+                  boke_essay.nickname
+                }}</router-link>
+                <router-link v-else to="">{{ name }}</router-link></span
+              ><span class="bull">·</span>{{ boke_essay.date }}
             </p>
           </header>
         </div>
         <!-- 内容 -->
-        <Content/>
+        <Content />
+    
         <!-- 评论 -->
-        <Comment/>
-        <div class="page_content"></div>
+        <Comment />
       </div>
       <Setting />
     </section>
@@ -44,7 +40,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import axios from 'axios'
 import Head from '@/components/FrontHead'
 import Foot from '@/components/FrontFoot'
@@ -53,16 +48,33 @@ import Comment from './components/comments'
 import Content from './components/content'
 import { getBg } from '@/common/select-bg'
 import { mapGetters, mapState } from 'vuex'
+import moment from 'moment'
 export default {
-  name: 'home',
-  components: { Head, Foot, Setting,Comment,Content },
+  components: { Head, Foot, Setting, Comment, Content },
   data() {
     return {}
   },
   computed: {
     bodyBg() {
       return this.$store.state.indexpage.bodyBg || getBg()
+    },
+    ...mapGetters(['name', 'avatar']),
+    ...mapState({
+      boke_essay: (state) => state.bokepage.boke_essay
+    })
+  },
+  methods: {
+    async getEssay(keywords) {
+      await this.$store.dispatch('getBokeEssay', keywords)
     }
+  },
+  mounted() {
+    this.getEssay({
+      params: {
+        _id: this.$route.query.essay_id,
+        username: this.name
+      }
+    })
   }
 }
 </script>
@@ -70,4 +82,7 @@ export default {
 <style lang="scss" scoped>
 @import url(../../style/bg.scss);
 @import url(./index.scss);
+.pattern-attachment-img {
+  background-color: #fff;
+}
 </style>

@@ -14,20 +14,36 @@
         "
       >
         <div class="post-thumb">
-          <a href="#">
-            <img class="lazyload" :src="item.special_bg" />
-          </a>
+          <router-link
+            :to="{ path: '/front/bokepage', query: { essay_id: item._id } }"
+          >
+            <img
+              v-if="item.special_bg !== ''"
+              class="lazyload"
+              :src="item.special_bg"
+            />
+            <img
+              v-else
+              class="lazyload"
+              :src="
+                'http://localhost:3001/random/' +
+                Math.floor(Math.random()*8+1) +
+                '.jpg'
+              "
+            />
+          </router-link>
         </div>
         <div class="post-content-wrap">
           <div class="post-content">
             <div class="post-date">
-              <i class="iconfont icon-time"></i>发布于 {{ item.date }}
+              <svg-icon icon-class="time" />发布于 {{ item.date }}
             </div>
-            <a href="#" class="post-title"
-              ><h3>{{ item.title }}</h3></a
+            <router-link
+              :to="{ path: '/front/bokepage', query: { essay_id: item._id } }"
+              class="post-title"
+              ><h3>{{ item.title }}</h3></router-link
             >
             <div class="post-meta">
-              <span><i class="iconfont icon-attention"></i>25 热度</span>
               <span class="comments-number"
                 ><svg-icon icon-class="comment" /><a href="#">NOTHING</a></span
               >
@@ -41,9 +57,14 @@
               <p v-text="item.essay.slice(0, 100).replace(/<[^>]+>/g, '')"></p>
 
               <div class="post-bottom">
-                <a href="#" class="button-normal"
+                <router-link
+                  :to="{
+                    path: '/front/bokepage',
+                    query: { essay_id: item._id }
+                  }"
+                  class="button-normal"
                   ><svg-icon icon-class="more"
-                /></a>
+                /></router-link>
               </div>
             </div>
           </div>

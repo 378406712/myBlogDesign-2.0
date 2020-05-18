@@ -232,6 +232,7 @@ export default {
         title: this.essay.title,
         essay: this.content,
         username: this.name,
+        nickname: this.nickname,
         date: moment().format(' YYYY年MM月DD日mm分'),
         selectDate: moment().format(' YYYY-MM'),
         sended: this.sended
@@ -274,7 +275,7 @@ export default {
     this.getCategory()
   },
   computed: {
-    ...mapGetters(['name']),
+    ...mapGetters(['name', 'nickname']),
     ...mapState({
       status: (state) => state.edit.status,
       essay: (state) => state.edit.essay

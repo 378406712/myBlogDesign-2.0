@@ -24,10 +24,10 @@ const indexpage = {
     }
   },
   actions: {
-    //文章
+    //获取所有已发送文章列表
     FrontEssay({ commit }, keyword) {
       return new Promise((resolve, reject) => {
-        Api.GetEssay(keyword)
+        Api.GetEssayList(keyword)
           .then((res) => {
             commit(FRONT_ESSAY_LIST, res.data)
             resolve()
