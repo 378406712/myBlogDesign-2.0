@@ -5,14 +5,14 @@
         <main id="main" class="site-main" role="main">
           <article id="article" class="hentry">
             <header v-if="boke_essay.special_bg === ''" class="entry-header">
-              <h1 class="entry-title">ces</h1>
-              <p class="entry-census">发布于 2 分钟前&nbsp;&nbsp;0 次阅读</p>
+              <h1 class="entry-title">{{boke_essay.title}}</h1>
+              <p class="entry-census">发布于 {{boke_essay.date}}</p>
               <hr />
             </header>
-            <div class="entry-content">
+            <div class="entry-content" v-html="boke_essay.essay">
               <!-- essay -->
-              <h4>动态路由目的</h4>
-              <pre
+             
+              <!-- <pre
                 class="wp-block-code highlight-wrap"
                 autocomplete="off"
                 autocorrect="off"
@@ -20,6 +20,7 @@
                 spellcheck="false"
                 contenteditable="false"
               ><code class="hljs javascript" data-rel="TEXT" id="hljs-1"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">//将404路由单独提出来</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">//notFoundRouterMap.js</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">import</span> Layout <span class="hljs-keyword">from</span> <span class="hljs-string">'@/layout/layout'</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> [</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">  {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">path</span>: <span class="hljs-string">'*'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">name</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">component</span>: Layout,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">redirect</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">meta</span>: {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      <span class="hljs-attr">title</span>: <span class="hljs-string">'404'</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="13"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    },</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="14"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">children</span>: [</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="15"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="16"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">path</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="17"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">name</span>: <span class="hljs-string">'err0r'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="18"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">component</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'@/views/error-page/index'</span>),</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="19"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">meta</span>: { <span class="hljs-attr">icon</span>: <span class="hljs-string">'svg-aperture'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'404'</span> }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="20"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="21"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    ]</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="22"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">  }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="23"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">]</div></td></tr></tbody></table></code><a class="copy-code" href="javascript:" data-clipboard-target="#hljs-1" title="拷贝代码"><i class="fa fa-clipboard" aria-hidden="true"></i></a></pre>
+          -->
             </div>
           </article>
           <footer class="post-footer">
@@ -27,7 +28,6 @@
               <svg-icon icon-class="thank" /> <span>{{ over_tag }}</span>
             </div>
           </footer>
-
           <section class="post-squares nextprev">
             <div class="post-nepre half previous">
               <a
@@ -320,6 +320,8 @@ h6 {
   float: left;
 }
 .post-squares.nextprev .next .info {
+  right: 40px;
+  bottom: 40px;
   text-align: right;
 }
 

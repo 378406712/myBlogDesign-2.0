@@ -55,11 +55,16 @@ import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import { Msg, ComfirmMsg } from '@/utils/message'
 import EssaySetting from './components/essay-setting'
 import moment from 'moment'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/an-old-hope.css'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
-
+hljs.configure({
+  languages: ['javascript', 'css', 'html', 'diff']
+})
 export default {
   components: { EssaySetting },
+
   // 富文本工具栏配置
   toolbarOptions: [
     [{ size: ['small', false, 'large', 'huge'] }], // 字体大小
@@ -69,8 +74,10 @@ export default {
     [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
     [{ align: [] }], // 对齐方式
     ['clean'], // 清除字体样式
-    ['image']
+    ['image'],
+    ['blockquote', 'code-block'] //引用，代码块
   ],
+
   // 自定义富文本的图片上传
   imageFunction(val) {
     if (val) {
@@ -177,6 +184,11 @@ export default {
             handlers: {
               // 自定义功能
               image: this.$options.imageFunction
+            }
+          },
+          syntax: {
+            highlight: (text) => {
+              return hljs.highlightAuto(text).value // 这里就是代码高亮需要配置的地方
             }
           },
           imageDrop: true,
@@ -310,6 +322,8 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+@import url('highlight.js/styles/an-old-hope.css');
+
 .main-container {
   max-width: 100%;
   min-width: 800px;
@@ -345,13 +359,21 @@ export default {
   color: #666;
 }
 /* 内容返显 */
-.ql-editor {
-  margin-bottom: 50px;
-}
+
 h2{
   margin-top: 0;
 }
 .white{
    background: #fff;
+}
+</style>
+<style lang="stylus">
+pre, code {
+font-family: Consolas!important;
+font-size:18px;
+ }
+ .ql-editor {
+  margin-bottom: 50px;
+  padding:0 200px 0 12px!important
 }
 </style>
