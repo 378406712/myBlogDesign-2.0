@@ -9,8 +9,7 @@
               <p class="entry-census">发布于 {{ boke_essay.date }}</p>
               <hr />
             </header>
-            <div class="entry-content">
-              <div class="essay-content" v-html="boke_essay.essay"></div>
+            <div class="entry-content" v-html="boke_essay.essay">
               <!-- essay -->
 
               <!-- <pre
@@ -113,7 +112,7 @@ export default {
   },
   updated() {
     $(function () {
-      $('.entry-content').addClass('highlight-wrap')
+      $('.ql-syntax').addClass('highlight-wrap')
     })
   }
 }
@@ -136,45 +135,6 @@ export default {
   table-layout: fixed;
 }
 
-.essay-content:before {
-  color: #fff;
-  content: 'TEXT';
-  height: 30px;
-  line-height: 30px;
-  background: #21252b;
-  font-size: 16px;
-  position: absolute;
-  margin-top: -30px;
-  left: 0;
-  width: 100%;
-  font-family: Ubuntu, sans-serif;
-  font-weight: 700;
-  padding: 0 80px;
-  text-indent: 15px;
-  text-align: center;
-  float: left;
-  z-index: 1;
-  border-radius: 5px 5px 0 0;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  pointer-events: none;
-}
-.essay-content:after {
-  color: #fff;
-  content: url(/static/image/beautify/clip-board.svg);
-  position: absolute;
-  float: right;
-  right: 10px;
-  top: 0;
-  padding-top: 4px;
-  padding-right: 2px;
-  z-index: 2;
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
 .site-main {
   padding: 40px 0 0;
 }
@@ -192,14 +152,7 @@ article {
 .entry-content h5 {
   padding-left: 16px;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  clear: both;
-}
+
 .entry-content p {
   line-height: 30px;
 }
@@ -214,44 +167,7 @@ h6 {
   margin-left: 0;
   border-radius: 10px;
 }
-.highlight-wrap {
-  position: relative;
-  background: #21252b;
-  border-radius: 5px;
-  font: 15px/22px 'Microsoft YaHei', Arial, Sans-Serif;
-  line-height: 1.6;
-  margin-bottom: 1.6em;
-  max-width: 100%;
-  overflow: auto;
-  text-shadow: none;
-  color: #000;
-  padding-top: 30px;
-  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
-}
-.highlight-wrap:before {
-  content: '';
-  position: absolute;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background: #fc625d;
-  width: 12px;
-  height: 12px;
-  left: 12px;
-  margin-top: -18px;
-  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  z-index: 2;
-}
-.highlight-wrap code {
-  background: #1d1f21;
-  color: #fff;
-  word-break: break-word;
-  font-family: 'Source Code Pro', monospace, Helvetica, Tahoma, Arial, STXihei,
-    'STHeiti Light', 'Microsoft YaHei', sans-serif;
-  padding: 2px;
-  text-shadow: none;
-  border-radius: 0 0 5px 5px;
-}
+
 .clear:after,
 .comment-content:after,
 .entry-content:after,
@@ -430,7 +346,6 @@ a:hover {
   border-top: 1px solid #efefef;
   border-bottom: 1px solid #efefef;
 }
-//爬
 .author-profile svg {
   color: #69d2e7;
   float: none;
@@ -444,14 +359,6 @@ a:hover {
 h1.entry-title {
   font-size: 24px;
   font-weight: 300;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  clear: both;
 }
 .entry-census {
   font-size: 12px;
@@ -494,7 +401,107 @@ pre,
 code {
   font-family: Consolas !important;
   font-size: 18px !important;
-  color:#fff;
-  margin-top:0
+  color:#fff!important;
+}
+.highlight-wrap {
+  position: relative;
+  background: #21252b;
+  border-radius: 5px;
+  font: 15px/22px 'Microsoft YaHei', Arial, Sans-Serif;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+  text-shadow: none;
+  color: #000;
+  padding-top: 30px;
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
+}.highlight-wrap:before {
+  content: ' ';
+  position: absolute;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #fc625d;
+  width: 12px;
+  height: 12px;
+  left: 12px;
+  margin-top: -18px;
+  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  z-index: 2;
+}
+.highlight-wrap:after{
+  // content: url(/static/image/beautify/clip-board.svg);
+  content:'CODE'
+  position:absolute;
+  left:50%;
+  top: 0;
+  font-size: 16px;
+  font-family: Ubuntu, sans-serif;
+  font-weight: 700;
+}.entry-content h4:after {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: #FF6D6D;
+}.entry-content h3, .entry-content h4, .entry-content h5 {
+    padding-left: 16px;
+}
+.entry-content h3 {
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #ddd;
+    color: #737373;
+}.entry-content h3:after {
+    content: "#";
+    position: absolute;
+    left: 0;
+    color: #FF6D6D;
+}.entry-content ul {
+    list-style: disc;
+    border: 1px dashed #E4E4E4;
+    padding: 15px 10px 15px 50px;
+    color: #616161;
+    margin-left: 0;
+    border-radius: 10px;
+
+}
+.entry-content ol {
+    list-style: decimal;
+    border: 1px dashed #E4E4E4;
+    padding: 15px 10px 15px 50px;
+    color: #616161;
+    margin-left: 0;
+    border-radius: 10px;
+}.entry-content ol li, .entry-content ul li {
+    padding: 8px 0;
+}
+.entry-content blockquote:before, .entry-content blockquote:after {
+    display: block;
+}
+.entry-content blockquote, q {
+    quotes: "" "";
+}
+
+.entry-content blockquote {
+    margin: 0;
+    padding: 30px 60px;
+    position: relative;
+    text-align: center;
+
+}
+blockquote:before {
+    content: url(/static/image/beautify/left-quotation.svg);
+    font-size: 3rem;
+    position: absolute;
+    top: -25px;
+    left: 12px;
+    font-family: FontAwesome;
+    width:44px
+}blockquote:after {
+   content: url(/static/image/beautify/right-quotation.svg);
+    font-size: 3rem;
+    position: absolute;
+    bottom: -25px;
+    right: -5px;
 }
 </style>

@@ -75,7 +75,8 @@ export default {
     [{ align: [] }], // 对齐方式
     ['clean'], // 清除字体样式
     ['image'],
-    ['blockquote', 'code-block'] //引用，代码块
+    ['blockquote', 'code-block'], //引用，代码块
+    [{ list: 'ordered' }, { list: 'bullet' }]
   ],
 
   // 自定义富文本的图片上传

@@ -27,7 +27,7 @@
               class="lazyload"
               :src="
                 'http://localhost:3001/random/' +
-                Math.floor(Math.random()*8+1) +
+                Math.floor(Math.random() * 8 + 1) +
                 '.jpg'
               "
             />
@@ -54,7 +54,7 @@
               </span>
             </div>
             <div class="float-content">
-              <p v-text="item.essay.slice(0, 100).replace(/<[^>]+>/g, '')"></p>
+              <p v-text="item.essay.slice(0, 200).replace(/<[^>]+>/g, '')"></p>
 
               <div class="post-bottom">
                 <router-link

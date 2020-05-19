@@ -51,7 +51,7 @@
           <div class="menu">
             <ul>
               <li v-for="(item, index) in menu" :key="index">
-                <router-link to="/">
+                <router-link :to="item.target">
                   <svg-icon :icon-class="item.icon" />{{
                     item.name
                   }}</router-link
