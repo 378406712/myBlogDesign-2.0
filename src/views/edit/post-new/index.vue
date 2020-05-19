@@ -246,7 +246,7 @@ export default {
         essay: this.content,
         username: this.name,
         nickname: this.nickname,
-        date: moment().format(' YYYY年MM月DD日mm分'),
+        date: moment().format(' YYYY年MM月DD日hh时mm分'),
         selectDate: moment().format(' YYYY-MM'),
         sended: this.sended
       }

@@ -9,29 +9,30 @@
         <div class="pattern-center-blank"></div>
         <div class="pattern-center single-center">
           <div
-            v-if="boke_essay.special_bg !== ''"
+            v-if="boke_essay_this.special_bg !== ''"
             class="pattern-attachment-img lazyload"
-            :style="{ backgroundImage: 'url(' + boke_essay.special_bg + ')' }"
+            :style="{
+              backgroundImage: 'url(' + boke_essay_this.special_bg + ')'
+            }"
           ></div>
           <header class="pattern-header single-header">
-            <h1 class="entry-title">{{ boke_essay.title }}</h1>
+            <h1 class="entry-title">{{ boke_essay_this.title }}</h1>
             <p class="entry-census">
               <span
                 ><router-link to=""
                   ><img
                     src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640" /></router-link></span
               ><span>
-                <router-link v-if="boke_essay.nickname" to="">{{
-                  boke_essay.nickname
+                <router-link v-if="boke_essay_this.nickname" to="">{{
+                  boke_essay_this.nickname
                 }}</router-link>
                 <router-link v-else to="">{{ name }}</router-link></span
-              ><span class="bull">·</span>{{ boke_essay.date }}
+              ><span class="bull">·</span>{{ boke_essay_this.date }}
             </p>
           </header>
         </div>
         <!-- 内容 -->
         <Content />
-
         <!-- 评论 -->
         <Comment />
       </div>
@@ -52,17 +53,15 @@ import { getBg } from '@/common/select-bg'
 import { mapGetters, mapState } from 'vuex'
 import 'highlight.js/styles/an-old-hope.css'
 export default {
+  name: 'bokepage',
   components: { Head, Foot, Setting, Comment, Content },
-  data() {
-    return {}
-  },
   computed: {
     bodyBg() {
       return this.$store.state.indexpage.bodyBg || getBg()
     },
     ...mapGetters(['name', 'avatar']),
     ...mapState({
-      boke_essay: (state) => state.bokepage.boke_essay
+      boke_essay_this: (state) => state.bokepage.boke_essay_this
     })
   },
   methods: {
@@ -87,6 +86,4 @@ export default {
 .pattern-attachment-img {
   background-color: #fff;
 }
-
 </style>
-
