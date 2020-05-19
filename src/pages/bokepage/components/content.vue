@@ -4,24 +4,16 @@
       <div id="primary" class="content-area">
         <main id="main" class="site-main" role="main">
           <article id="article" class="hentry">
-            <header v-if="boke_essay.special_bg === ''" class="entry-header">
-              <h1 class="entry-title">{{ boke_essay.title }}</h1>
-              <p class="entry-census">发布于 {{ boke_essay.date }}</p>
+            <header
+              v-if="boke_essay_this.special_bg === ''"
+              class="entry-header"
+            >
+              <h1 class="entry-title">{{ boke_essay_this.title }}</h1>
+              <p class="entry-census">发布于 {{ boke_essay_this.date }}</p>
               <hr />
             </header>
-            <div class="entry-content" v-html="boke_essay.essay">
-              <!-- essay -->
-
-              <!-- <pre
-                class="wp-block-code highlight-wrap"
-                autocomplete="off"
-                autocorrect="off"
-                autocapitalize="off"
-                spellcheck="false"
-                contenteditable="false"
-              ><code class="hljs javascript" data-rel="TEXT" id="hljs-1"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">//将404路由单独提出来</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">//notFoundRouterMap.js</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">import</span> Layout <span class="hljs-keyword">from</span> <span class="hljs-string">'@/layout/layout'</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> [</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">  {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">path</span>: <span class="hljs-string">'*'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">name</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">component</span>: Layout,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">redirect</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">meta</span>: {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      <span class="hljs-attr">title</span>: <span class="hljs-string">'404'</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="13"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    },</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="14"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">children</span>: [</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="15"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="16"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">path</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="17"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">name</span>: <span class="hljs-string">'err0r'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="18"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">component</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'@/views/error-page/index'</span>),</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="19"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">meta</span>: { <span class="hljs-attr">icon</span>: <span class="hljs-string">'svg-aperture'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'404'</span> }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="20"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="21"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    ]</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="22"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">  }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="23"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">]</div></td></tr></tbody></table></code><a class="copy-code" href="javascript:" data-clipboard-target="#hljs-1" title="拷贝代码"><i class="fa fa-clipboard" aria-hidden="true"></i></a></pre>
-          -->
-            </div>
+            <!--essay内容  -->
+            <div class="entry-content" v-html="boke_essay_this.essay"></div>
           </article>
           <footer class="post-footer">
             <div id="pagination">
@@ -29,44 +21,63 @@
             </div>
           </footer>
           <section class="post-squares nextprev">
-            <div class="post-nepre half previous">
-              <a
-                href="https://www.qdmmz.cn/378406712qq-com/1229/mongoose%e7%9a%84findoneandupdate/"
-                rel="prev"
+            <div class="post-nepre half previous" v-if="boke_essay_previous">
+              <a href="javascript:;"
                 ><div
-                  class="background lazyload"
-                  style="
-                    background-image: url('https://www.qdmmz.cn/wp-content/uploads/2020/05/51-1024x576.png');
+                  v-if="
+                    boke_essay_previous && boke_essay_previous.special_bg !== ''
                   "
-                  data-src="https://www.qdmmz.cn/wp-content/uploads/2020/05/51-1024x576.png"
+                  class="background lazyload"
+                  :style="{
+                    backgroundImage:
+                      'url(' + boke_essay_previous.special_bg + ')'
+                  }"
                 ></div>
-                <span class="label">Previous Post</span>
+                <div
+                  v-else
+                  class="background lazyload"
+                  :style="{
+                    backgroundImage:
+                      'url(http://localhost:3001/random/' +
+                      Math.floor(Math.random() * 8 + 1) +
+                      '.jpg)'
+                  }"
+                ></div>
+                <span class="label">{{ previous }}</span>
                 <div class="info">
-                  <h3>Mongoose的findOneAndUpdate</h3>
+                  <h3>{{ boke_essay_previous.title }}</h3>
                   <hr /></div
               ></a>
             </div>
-            <div class="post-nepre half next">
-              <a
-                href="https://www.qdmmz.cn/378406712qq-com/1236/vue-router%e4%bd%bf%e7%94%a8%e5%a4%9a%e8%af%ad%e8%a8%80%e6%98%be%e7%a4%ba%e4%be%a7%e6%a0%8f/"
-                rel="next"
+            <div v-if="boke_essay_next" class="post-nepre half next">
+              <a href="javascript:;"
                 ><div
+                  v-if="boke_essay_next.special_bg !== ''"
                   class="background lazyload"
-                  style="
-                    background-image: url('https://www.qdmmz.cn/wp-content/uploads/2020/05/44-1024x576.jpg');
-                  "
-                  data-src="https://www.qdmmz.cn/wp-content/uploads/2020/05/44-1024x576.jpg"
+                  :style="{
+                    backgroundImage: 'url(' + boke_essay_next.special_bg + ')'
+                  }"
                 ></div>
-                <span class="label">Next Post</span>
+                <div
+                  v-else
+                  class="background lazyload"
+                  :style="{
+                    backgroundImage:
+                      'url(http://localhost:3001/random/' +
+                      Math.floor(Math.random() * 8 + 1) +
+                      '.jpg)'
+                  }"
+                ></div>
+                <span class="label">{{ next }}</span>
                 <div class="info">
-                  <h3>vue-router使用多语言显示侧栏</h3>
+                  <h3>{{ boke_essay_next.title }}</h3>
                   <hr /></div
               ></a>
             </div>
           </section>
           <section class="author-profile">
             <div class="info">
-              <a href="#" class="profile"
+              <a href="javascripe:;" class="profile"
                 ><img
                   src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640"
                   height="70"
@@ -75,14 +86,10 @@
               <div class="meta">
                 <span class="title">Author</span>
                 <h3 itemprop="name">
-                  <a
-                    v-if="boke_essay.nickname"
-                    href="#"
-                    itemprop="url"
-                    rel="author"
-                    >{{ boke_essay.nickname }}</a
-                  >
-                  <a v-else href="#" itemprop="url" rel="author">{{ name }}</a>
+                  <a v-if="boke_essay_this.nickname" href="javascripe:;">{{
+                    boke_essay_this.nickname
+                  }}</a>
+                  <a v-else href="javascripe:;">{{ name }}</a>
                 </h3>
               </div>
             </div>
@@ -101,12 +108,16 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   data() {
     return {
-      over_tag: '很高兴你看完了...'
+      over_tag: '很高兴你看完了...',
+      previous: 'Previous Post',
+      next: 'Next Post'
     }
   },
   computed: {
     ...mapState({
-      boke_essay: (state) => state.bokepage.boke_essay
+      boke_essay_this: (state) => state.bokepage.boke_essay_this,
+      boke_essay_previous: (state) => state.bokepage.boke_essay_previous,
+      boke_essay_next: (state) => state.bokepage.boke_essay_next
     }),
     ...mapGetters(['name', 'avatar'])
   },
@@ -114,10 +125,14 @@ export default {
     $(function () {
       $('.ql-syntax').addClass('highlight-wrap')
     })
+    if (this.boke_essay_next && this.boke_essay_previous) {
+      $('.post-squares .half').css('width', '50%')
+    } else {
+      $('.post-squares .half').css('width', '100%')
+    }
   }
 }
 </script>
-
 <style lang="scss" scoped>
 #content {
   animation: main 1s;
@@ -252,16 +267,11 @@ article {
   border: 0;
   background: rgba(255, 255, 255, 0.6);
 }
-.post-squares .half {
-  width: 50%;
-  float: left;
-}
 .post-squares.nextprev .next .info {
   right: 40px;
   bottom: 40px;
   text-align: right;
 }
-
 .post-squares.nextprev a,
 .post-squares.nextprev article {
   height: 150px;
@@ -451,7 +461,8 @@ code {
     padding-bottom: 8px;
     border-bottom: 1px dashed #ddd;
     color: #737373;
-}.entry-content h3:after {
+}
+.entry-content h3:after {
     content: "#";
     position: absolute;
     left: 0;
@@ -463,7 +474,6 @@ code {
     color: #616161;
     margin-left: 0;
     border-radius: 10px;
-
 }
 .entry-content ol {
     list-style: decimal;
@@ -472,22 +482,18 @@ code {
     color: #616161;
     margin-left: 0;
     border-radius: 10px;
-}.entry-content ol li, .entry-content ul li {
+}
+.entry-content ol li, .entry-content ul li {
     padding: 8px 0;
 }
 .entry-content blockquote:before, .entry-content blockquote:after {
     display: block;
 }
-.entry-content blockquote, q {
-    quotes: "" "";
-}
-
 .entry-content blockquote {
     margin: 0;
     padding: 30px 60px;
     position: relative;
     text-align: center;
-
 }
 blockquote:before {
     content: url(/static/image/beautify/left-quotation.svg);
