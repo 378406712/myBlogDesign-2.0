@@ -17,7 +17,9 @@
             <h1 class="entry-title">{{ boke_essay.title }}</h1>
             <p class="entry-census">
               <span
-                ><a href=""><img :src="avatar" /></a></span
+                ><router-link to=""
+                  ><img
+                    src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640" /></router-link></span
               ><span>
                 <router-link v-if="boke_essay.nickname" to="">{{
                   boke_essay.nickname
@@ -29,7 +31,7 @@
         </div>
         <!-- 内容 -->
         <Content />
-    
+
         <!-- 评论 -->
         <Comment />
       </div>
@@ -48,7 +50,7 @@ import Comment from './components/comments'
 import Content from './components/content'
 import { getBg } from '@/common/select-bg'
 import { mapGetters, mapState } from 'vuex'
-import moment from 'moment'
+import 'highlight.js/styles/an-old-hope.css'
 export default {
   components: { Head, Foot, Setting, Comment, Content },
   data() {
@@ -85,4 +87,6 @@ export default {
 .pattern-attachment-img {
   background-color: #fff;
 }
+
 </style>
+

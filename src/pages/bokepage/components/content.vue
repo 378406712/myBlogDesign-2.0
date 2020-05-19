@@ -5,14 +5,14 @@
         <main id="main" class="site-main" role="main">
           <article id="article" class="hentry">
             <header v-if="boke_essay.special_bg === ''" class="entry-header">
-              <h1 class="entry-title">ces</h1>
-              <p class="entry-census">发布于 2 分钟前&nbsp;&nbsp;0 次阅读</p>
+              <h1 class="entry-title">{{ boke_essay.title }}</h1>
+              <p class="entry-census">发布于 {{ boke_essay.date }}</p>
               <hr />
             </header>
-            <div class="entry-content">
+            <div class="entry-content" v-html="boke_essay.essay">
               <!-- essay -->
-              <h4>动态路由目的</h4>
-              <pre
+
+              <!-- <pre
                 class="wp-block-code highlight-wrap"
                 autocomplete="off"
                 autocorrect="off"
@@ -20,6 +20,7 @@
                 spellcheck="false"
                 contenteditable="false"
               ><code class="hljs javascript" data-rel="TEXT" id="hljs-1"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">//将404路由单独提出来</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">//notFoundRouterMap.js</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">import</span> Layout <span class="hljs-keyword">from</span> <span class="hljs-string">'@/layout/layout'</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> [</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">  {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">path</span>: <span class="hljs-string">'*'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="7"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">name</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="8"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">component</span>: Layout,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="9"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="10"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">redirect</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="11"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">meta</span>: {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="12"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      <span class="hljs-attr">title</span>: <span class="hljs-string">'404'</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="13"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    },</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="14"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    <span class="hljs-attr">children</span>: [</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="15"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      {</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="16"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">path</span>: <span class="hljs-string">'404'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="17"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">name</span>: <span class="hljs-string">'err0r'</span>,</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="18"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">component</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'@/views/error-page/index'</span>),</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="19"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">        <span class="hljs-attr">meta</span>: { <span class="hljs-attr">icon</span>: <span class="hljs-string">'svg-aperture'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'404'</span> }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="20"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">      }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="21"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">    ]</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="22"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">  }</div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="23"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">]</div></td></tr></tbody></table></code><a class="copy-code" href="javascript:" data-clipboard-target="#hljs-1" title="拷贝代码"><i class="fa fa-clipboard" aria-hidden="true"></i></a></pre>
+          -->
             </div>
           </article>
           <footer class="post-footer">
@@ -27,7 +28,6 @@
               <svg-icon icon-class="thank" /> <span>{{ over_tag }}</span>
             </div>
           </footer>
-
           <section class="post-squares nextprev">
             <div class="post-nepre half previous">
               <a
@@ -96,8 +96,8 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import { mapGetters, mapState } from 'vuex'
-
 export default {
   data() {
     return {
@@ -109,6 +109,11 @@ export default {
       boke_essay: (state) => state.bokepage.boke_essay
     }),
     ...mapGetters(['name', 'avatar'])
+  },
+  updated() {
+    $(function () {
+      $('.ql-syntax').addClass('highlight-wrap')
+    })
   }
 }
 </script>
@@ -129,31 +134,7 @@ export default {
   display: table;
   table-layout: fixed;
 }
-.highlight-wrap code[data-rel]:before {
-  color: #fff;
-  content: attr(data-rel);
-  height: 30px;
-  line-height: 30px;
-  background: #21252b;
-  font-size: 16px;
-  position: absolute;
-  margin-top: -30px;
-  left: 0;
-  width: 100%;
-  font-family: Ubuntu, sans-serif;
-  font-weight: 700;
-  padding: 0 80px;
-  text-indent: 15px;
-  text-align: center;
-  float: left;
-  z-index: 1;
-  border-radius: 5px 5px 0 0;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  pointer-events: none;
-}
+
 .site-main {
   padding: 40px 0 0;
 }
@@ -171,14 +152,7 @@ article {
 .entry-content h5 {
   padding-left: 16px;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  clear: both;
-}
+
 .entry-content p {
   line-height: 30px;
 }
@@ -193,44 +167,7 @@ h6 {
   margin-left: 0;
   border-radius: 10px;
 }
-.highlight-wrap {
-  position: relative;
-  background: #21252b;
-  border-radius: 5px;
-  font: 15px/22px 'Microsoft YaHei', Arial, Sans-Serif;
-  line-height: 1.6;
-  margin-bottom: 1.6em;
-  max-width: 100%;
-  overflow: auto;
-  text-shadow: none;
-  color: #000;
-  padding-top: 30px;
-  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
-}
-.highlight-wrap:before {
-  content: ' ';
-  position: absolute;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background: #fc625d;
-  width: 12px;
-  height: 12px;
-  left: 12px;
-  margin-top: -18px;
-  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  z-index: 2;
-}
-.highlight-wrap code {
-  background: #1d1f21;
-  color: #fff;
-  word-break: break-word;
-  font-family: 'Source Code Pro', monospace, Helvetica, Tahoma, Arial, STXihei,
-    'STHeiti Light', 'Microsoft YaHei', sans-serif;
-  padding: 2px;
-  text-shadow: none;
-  border-radius: 0 0 5px 5px;
-}
+
 .clear:after,
 .comment-content:after,
 .entry-content:after,
@@ -320,6 +257,8 @@ h6 {
   float: left;
 }
 .post-squares.nextprev .next .info {
+  right: 40px;
+  bottom: 40px;
   text-align: right;
 }
 
@@ -407,7 +346,6 @@ a:hover {
   border-top: 1px solid #efefef;
   border-bottom: 1px solid #efefef;
 }
-//爬
 .author-profile svg {
   color: #69d2e7;
   float: none;
@@ -421,14 +359,6 @@ a:hover {
 h1.entry-title {
   font-size: 24px;
   font-weight: 300;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  clear: both;
 }
 .entry-census {
   font-size: 12px;
@@ -464,5 +394,114 @@ h6 {
       margin-left: 5px;
     }
   }
+}
+</style>
+<style lang="stylus">
+pre,
+code {
+  font-family: Consolas !important;
+  font-size: 18px !important;
+  color:#fff!important;
+}
+.highlight-wrap {
+  position: relative;
+  background: #21252b;
+  border-radius: 5px;
+  font: 15px/22px 'Microsoft YaHei', Arial, Sans-Serif;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+  text-shadow: none;
+  color: #000;
+  padding-top: 30px;
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
+}.highlight-wrap:before {
+  content: ' ';
+  position: absolute;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #fc625d;
+  width: 12px;
+  height: 12px;
+  left: 12px;
+  margin-top: -18px;
+  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  z-index: 2;
+}
+.highlight-wrap:after{
+  // content: url(/static/image/beautify/clip-board.svg);
+  content:'CODE'
+  position:absolute;
+  left:50%;
+  top: 0;
+  font-size: 16px;
+  font-family: Ubuntu, sans-serif;
+  font-weight: 700;
+}.entry-content h4:after {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: #FF6D6D;
+}.entry-content h3, .entry-content h4, .entry-content h5 {
+    padding-left: 16px;
+}
+.entry-content h3 {
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #ddd;
+    color: #737373;
+}.entry-content h3:after {
+    content: "#";
+    position: absolute;
+    left: 0;
+    color: #FF6D6D;
+}.entry-content ul {
+    list-style: disc;
+    border: 1px dashed #E4E4E4;
+    padding: 15px 10px 15px 50px;
+    color: #616161;
+    margin-left: 0;
+    border-radius: 10px;
+
+}
+.entry-content ol {
+    list-style: decimal;
+    border: 1px dashed #E4E4E4;
+    padding: 15px 10px 15px 50px;
+    color: #616161;
+    margin-left: 0;
+    border-radius: 10px;
+}.entry-content ol li, .entry-content ul li {
+    padding: 8px 0;
+}
+.entry-content blockquote:before, .entry-content blockquote:after {
+    display: block;
+}
+.entry-content blockquote, q {
+    quotes: "" "";
+}
+
+.entry-content blockquote {
+    margin: 0;
+    padding: 30px 60px;
+    position: relative;
+    text-align: center;
+
+}
+blockquote:before {
+    content: url(/static/image/beautify/left-quotation.svg);
+    font-size: 3rem;
+    position: absolute;
+    top: -25px;
+    left: 12px;
+    font-family: FontAwesome;
+    width:44px
+}blockquote:after {
+   content: url(/static/image/beautify/right-quotation.svg);
+    font-size: 3rem;
+    position: absolute;
+    bottom: -25px;
+    right: -5px;
 }
 </style>

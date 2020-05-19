@@ -20,7 +20,7 @@ const indexpage = {
       setBg(bg)
     },
     [FRONT_ESSAY_LIST](state, essay) {
-      state.FrontEssay = essay
+      state.FrontEssay = essay.reverse()
     }
   },
   actions: {
