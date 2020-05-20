@@ -8,16 +8,16 @@
           :class="watch_comment ? 'fadeOutDown' : ''"
         >
           <svg-icon icon-class="comment" />查看评论 -
-          <span>NOTHING </span>
-          <span class="noticom">5 条评论 </span>
+          <span v-if="comment_length===0">NOTHING </span>
+          <span v-else class="noticom">{{comment_length}} 条评论 </span>
         </div>
       </div>
       <!-- 评论 -->
       <div class="set-comment" v-cloak v-if="watch_comment">
         <div class="comments-main">
           <h3 id="comments-list-title">
-            Comments | <span>NOTHING </span>
-            <span class="noticom">5 条评论 </span>
+            Comments | <span v-if="comment_length===0">NOTHING </span>
+          <span v-else class="noticom">{{comment_length}} 条评论 </span>
           </h3>
           <div class="comment clearFix">
             <div class="contents">
@@ -64,7 +64,7 @@
                 maxlength="100"
                 tabindex="4"
               ></textarea
-              ><label class="input-label active"
+              ><label class="input-label" :class="commentData.comment?'active':''"
                 >你是我一生只会遇见一次的惊喜 ...</label
               >
             </div>
@@ -179,9 +179,11 @@ export default {
   },
   computed:{
    ...mapState({
-     boke_comment:(state)=>state.bokepage.boke_essay_this.commentData
+     boke_comment:(state)=>state.bokepage.boke_essay_this.commentData,
+     comment_length:(state)=>state.bokepage.comment_length
    })
   }
+ 
 }
 </script>
 
@@ -360,6 +362,7 @@ h3#comments-list-title {
   resize: vertical;
   min-height: 55px;
   overflow: scroll;
+      padding: 21px 21px 20px;
 }
 .comment-respond textarea {
   display: block;
@@ -381,16 +384,6 @@ h3#comments-list-title {
 .comment-respond textarea:focus {
   outline: 0;
 }
-.comment-respond textarea {
-  display: block;
-  float: none;
-  width: 100%;
-  height: 180px;
-  margin-bottom: 10px;
-  color: #535a63;
-  border: 1px solid #ddd;
-  background-color: transparent;
-}
 .comment-respond input {
   font-size: 14px;
   margin: 0;
@@ -400,11 +393,19 @@ h3#comments-list-title {
 .commentbody:focus ~ .input-label {
   background-color: #69d2e7 !important;
 }
+//这里
 .commentbody:focus ~ .input-label {
   color: #fff;
   transform: scale(0.75) translate(-2px, -37px);
   border-radius: 3px;
 }
+.active{
+    transform: scale(0.75) translate(-2px, -37px);
+ background-color: #69d2e7 !important;
+ color: #fff;
+  border-radius: 3px;
+}
+
 .input-label {
   position: absolute;
   left: 16px;

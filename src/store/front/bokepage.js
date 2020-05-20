@@ -7,7 +7,8 @@ const bokepage = {
     boke_essay_this: {},
     boke_essay_previous: {},
     boke_essay_next: {},
-    boke_comment:[]
+    boke_comment:[],
+    comment_length:0
   },
   mutations: {
     [GET_BOKE_ESSAY](state, boke_essay) {
@@ -18,6 +19,8 @@ const bokepage = {
         switch (keys) {
           case 'now':
             state.boke_essay_this = item[keys][0]
+            state.comment_length = item[keys][0].commentData.length
+            console.log(  state.comment_length)
             break
           case 'previous':
             state.boke_essay_previous = item[keys][0]
@@ -27,10 +30,11 @@ const bokepage = {
             break
         }
       })
-      console.log(state.boke_essay_this)
     },
     [BOKE_COMMENT](state,comments){
       state.boke_essay_this = comments
+      state.comment_length = comments.commentData.length
+      console.log(state.comment_length)
     }
   },
   actions: {
