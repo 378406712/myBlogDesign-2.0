@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="app" >
+    <router-view />
   </div>
 </template>
 
@@ -11,6 +11,9 @@ export default {
 </script>
 
 <style>
-  @import 'normalize.css/normalize.css';
-  @import './style/custom.css';
+[v-cloak] {
+  display: none;
+}
+@import 'normalize.css/normalize.css';
+@import './style/custom.css';
 </style>

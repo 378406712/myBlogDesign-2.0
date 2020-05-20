@@ -18,12 +18,14 @@
             :to="{ path: '/front/bokepage', query: { essay_id: item._id } }"
           >
             <img
+              v-cloak
               v-if="item.special_bg !== ''"
               class="lazyload"
               :src="item.special_bg"
             />
             <img
               v-else
+              v-cloak
               class="lazyload"
               :src="
                 'http://localhost:3001/random/' +
@@ -99,13 +101,14 @@ export default {
     time_diff() {}
   },
   mounted() {
-    this.getEssay().then(() => {
-      console.log(this.essay)
-    })
+    this.getEssay()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+[v-cloak] {
+  display: none;
+}
 @import url(../index.scss);
 </style>

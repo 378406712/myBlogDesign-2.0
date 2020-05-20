@@ -5,6 +5,7 @@
         <main id="main" class="site-main" role="main">
           <article id="article" class="hentry">
             <header
+              v-cloak
               v-if="boke_essay_this.special_bg === ''"
               class="entry-header"
             >
@@ -24,6 +25,7 @@
             <div class="post-nepre half previous" v-if="boke_essay_previous">
               <a href="javascript:;"
                 ><div
+                  v-cloak
                   v-if="
                     boke_essay_previous && boke_essay_previous.special_bg !== ''
                   "
@@ -35,6 +37,7 @@
                 ></div>
                 <div
                   v-else
+                  v-cloak
                   class="background lazyload"
                   :style="{
                     backgroundImage:
@@ -49,9 +52,10 @@
                   <hr /></div
               ></a>
             </div>
-            <div v-if="boke_essay_next" class="post-nepre half next">
+            <div v-cloak v-if="boke_essay_next" class="post-nepre half next">
               <a href="javascript:;"
                 ><div
+                  v-cloak
                   v-if="boke_essay_next.special_bg !== ''"
                   class="background lazyload"
                   :style="{
@@ -60,6 +64,7 @@
                 ></div>
                 <div
                   v-else
+                  v-cloak
                   class="background lazyload"
                   :style="{
                     backgroundImage:
@@ -86,10 +91,13 @@
               <div class="meta">
                 <span class="title">Author</span>
                 <h3 itemprop="name">
-                  <a v-if="boke_essay_this.nickname" href="javascripe:;">{{
-                    boke_essay_this.nickname
-                  }}</a>
-                  <a v-else href="javascripe:;">{{ name }}</a>
+                  <a
+                    v-cloak
+                    v-if="boke_essay_this.nickname"
+                    href="javascripe:;"
+                    >{{ boke_essay_this.nickname }}</a
+                  >
+                  <a v-else v-cloak href="javascripe:;">{{ name }}</a>
                 </h3>
               </div>
             </div>
@@ -134,6 +142,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+[v-cloak] {
+  display: none;
+}
 #content {
   animation: main 1s;
 }

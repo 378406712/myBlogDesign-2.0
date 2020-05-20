@@ -1,8 +1,9 @@
 import { Message, MessageBox } from 'element-ui'
-export function Msg(message, type, duration = '1000') {
+export function Msg(message, type, offset=20,duration = '1000') {
   return Message({
     message,
     type,
+    offset,
     duration
   })
 }

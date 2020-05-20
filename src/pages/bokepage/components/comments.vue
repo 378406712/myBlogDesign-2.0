@@ -9,36 +9,40 @@
         >
           <svg-icon icon-class="comment" />查看评论 -
           <span>NOTHING </span>
+          <span class="noticom">5 条评论 </span>
         </div>
       </div>
       <!-- 评论 -->
-      <div class="set-comment" v-if="watch_comment">
+      <div class="set-comment" v-cloak v-if="watch_comment">
         <div class="comments-main">
-          <h3 id="comments-list-title">Comments | <span>NOTHING </span></h3>
+          <h3 id="comments-list-title">
+            Comments | <span>NOTHING </span>
+            <span class="noticom">5 条评论 </span>
+          </h3>
           <div class="comment clearFix">
             <div class="contents">
               <div class="clearFix">
-                <div class="main">
+                <div class="main" :key="index" v-for="(item,index) in boke_comment">
                   <div class="profile">
-                    <a href="" target="_blank"
+                    <a :href="'https://'+item.website" target="_blank"
                       ><img
-                        src="/static/image/register-logo.png"
+                        :src="item.qqAvatar"
                         width="24"
                         height="24"
                     /></a>
                   </div>
                   <section class="commeta">
                     <h4 class="author">
-                      <a href="" target="_blank">
-                        独酌
+                      <a :href="'https://'+item.website" target="_blank">
+                       {{item.account}}
                       </a>
                     </h4>
                     <div class="info">
-                      <time datetime="2020-05-18">发布于 35 分钟前</time>
+                      <time datetime="2020-05-18">发布于 {{item.time}}</time>
                     </div>
                   </section>
                   <div class="body">
-                    <p>hello</p>
+                    <p v-html="item.comment"></p>
                   </div>
                 </div>
               </div>
@@ -46,13 +50,20 @@
           </div>
         </div>
         <div class="comment-respond">
-          <form action="#" method="post" novalidate="">
+          <form action="#" method="post" @submit.prevent="toSubmit">
             <p>
               <svg-icon icon-class="markdown" /> Markdown Supported while
               <svg-icon icon-class="code" /> Forbidden
             </p>
             <div class="comment-textarea">
-              <textarea class="commentbody" rows="5" tabindex="4"></textarea
+              <textarea
+                required
+                v-model="commentData.comment"
+                class="commentbody"
+                rows="5"
+                maxlength="100"
+                tabindex="4"
+              ></textarea
               ><label class="input-label active"
                 >你是我一生只会遇见一次的惊喜 ...</label
               >
@@ -60,51 +71,46 @@
 
             <div class="cmt-info-container">
               <div class="comment-user-avatar">
-                <img src="/static/image/login-logo.png" />
+                <img :src="commentData.qqAvatar" />
                 <div class="socila-check" style="display: block;">
-                  <i class="fa fa-qq" aria-hidden="true"></i>
+                  <i class="fa fa-qq"></i>
                 </div>
               </div>
-              <div class="cmt-popup cmt-author" onclick="cmt_showPopup(this)">
+              <div class="cmt-popup cmt-author">
                 <input
+                  v-model="commentData.account"
                   type="text"
                   placeholder="昵称或QQ号 (昵称 )"
                   name="author"
-                  id="author"
-                  value="独酌"
                   size="22"
                   autocomplete="off"
                   tabindex="1"
-                  aria-required="true"
+                  @blur="getQqInfo(commentData.account)"
                 />
               </div>
               <div class="cmt-popup">
                 <input
+                  v-model="commentData.e_mail"
                   type="text"
                   placeholder="邮箱 (必须* )"
-                  name="email"
-                  id="email"
                   value="582463379@qq.com"
                   size="22"
+                  required
                   tabindex="1"
                   autocomplete="off"
-                  aria-required="true"
                 />
               </div>
               <div class="cmt-popup">
                 <input
+                  v-model="commentData.website"
                   type="text"
                   placeholder="网站"
-                  name="url"
-                  id="url"
-                  value=""
                   size="22"
                   autocomplete="off"
                   tabindex="1"
                 />
               </div>
             </div>
-
             <p class="form-submit">
               <input
                 name="submit"
@@ -122,16 +128,67 @@
 </template>
 
 <script>
+import { Msg } from '@/utils/message'
+import axios from 'axios'
+import moment from 'moment'
+import { MapState, mapState } from 'vuex'
 export default {
   data() {
     return {
-      watch_comment: false
+      watch_comment: false,
+      commentData: {
+        _id: this.$route.query.essay_id,
+        comment: '',
+        account: '',
+        e_mail: '',
+        website: '',
+        qqAvatar: '/static/image/beautify/QQ.png',
+        time:moment().format(' YYYY-MM-DD hh:mm a'),
+      }
     }
+  },
+  methods: {
+    getQqInfo(qq) {
+      const reg = /portraitCallBack\(\{"(.*)":\[\"(.*)",(.*),(.*),(.*),(.*),(.*),"(.*)",0\]\}\)/
+      axios
+        .get(
+          'https://api.2heng.xin/qqinfo/?type=getqqnickname&qq=' +
+            qq +
+            '&callback=portraitCallBack&_=1589974833619'
+        )
+        .then((res) => {
+          this.commentData.account = reg.exec(res.data)[8]
+          this.commentData.qqAvatar =
+            'http://q1.qlogo.cn/g?b=qq&nk=' + qq + '&s=100'
+          this.commentData.e_mail = qq + '@qq.com'
+        })
+        .catch(() => {
+          this.commentData.account = qq
+        })
+    },
+    toSubmit() {
+      Msg('提交中Commiting')
+      this.$store.dispatch('setComment', this.commentData).then(()=>{
+        Msg('提交成功 Commit')
+        this.commentData.comment=''
+        this.commentData.account=''
+        this.commentData.website=''
+        this.commentData.e_mail=''
+      })
+    }
+  },
+  computed:{
+   ...mapState({
+     boke_comment:(state)=>state.bokepage.boke_essay_this.commentData
+   })
   }
 }
 </script>
 
 <style lang="scss" scoped>
+[v-cloak] {
+  display: none;
+}
 .comments {
   clear: both;
   overflow: hidden;
@@ -296,7 +353,7 @@ h3#comments-list-title {
   position: relative;
 }
 .comment-respond textarea {
-  background-image: url(https://view.moezx.cc/images/2018/03/24/comment-bg.png);
+  background-image: url(/static/image/beautify/comment.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right;
@@ -447,5 +504,4 @@ input {
 .comment-respond textarea:focus {
   outline: 0;
 }
-
 </style>

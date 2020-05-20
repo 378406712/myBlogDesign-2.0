@@ -8,7 +8,7 @@
         <Head />
         <div class="pattern-center-blank"></div>
         <div class="pattern-center single-center">
-          <div
+          <div v-cloak
             v-if="boke_essay_this.special_bg !== ''"
             class="pattern-attachment-img lazyload"
             :style="{
@@ -23,10 +23,10 @@
                   ><img
                     src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640" /></router-link></span
               ><span>
-                <router-link v-if="boke_essay_this.nickname" to="">{{
+                <router-link v-cloak v-if="boke_essay_this.nickname" to="">{{
                   boke_essay_this.nickname
                 }}</router-link>
-                <router-link v-else to="">{{ name }}</router-link></span
+                <router-link v-else  v-cloak to="">{{ name }}</router-link></span
               ><span class="bull">·</span>{{ boke_essay_this.date }}
             </p>
           </header>
@@ -81,6 +81,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+[v-cloak] {
+  display: none;
+}
 @import url(../../style/bg.scss);
 @import url(./index.scss);
 .pattern-attachment-img {

@@ -1,11 +1,13 @@
 import * as Api from '@/api/front/front-essay'
 const GET_BOKE_ESSAY = 'GET_BOKE_ESSAY'
+const BOKE_COMMENT = 'BOKE_COMMENT'
 const bokepage = {
   state: {
     boke_essay: {},
     boke_essay_this: {},
     boke_essay_previous: {},
-    boke_essay_next: {}
+    boke_essay_next: {},
+    boke_comment:[]
   },
   mutations: {
     [GET_BOKE_ESSAY](state, boke_essay) {
@@ -25,6 +27,10 @@ const bokepage = {
             break
         }
       })
+      console.log(state.boke_essay_this)
+    },
+    [BOKE_COMMENT](state,comments){
+      state.boke_essay_this = comments
     }
   },
   actions: {
@@ -37,6 +43,17 @@ const bokepage = {
             resolve()
           })
           .catch((err) => reject(err))
+      })
+    },
+    //评论
+    setComment({commit},comments){
+      console.log(comments)
+      return new Promise((resolve,reject)=>{
+        Api.setGuestComment(comments).then((res)=>{
+          console.log(res.data)
+          commit(BOKE_COMMENT,res.data)
+          resolve()
+        }).catch((err)=>reject(err))
       })
     }
   }
