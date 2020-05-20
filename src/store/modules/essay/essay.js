@@ -65,11 +65,11 @@ const Essay = {
       essayList.map((item) => {
         if (item.reCheck === true) {
           reCheckNum.push(item)
-        } else if (item.draft === true) {
+        } if (item.draft === true) {
           draftNum.push(item)
-        } else if (item.trash === true) {
+        } if (item.trash === true) {
           trashNum.push(item)
-        } else if (item.sended === true) {
+        }  if (item.sended === true) {
           sendNum.push(item)
         }
       })
