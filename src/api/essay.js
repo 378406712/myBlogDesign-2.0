@@ -3,6 +3,9 @@ import axios from 'axios'
 function GetEssay(keywords) {
   return axios.get('/api/essay/get-essay', keywords)
 }
+function GetTrashEssay(keywords){
+  return axios.get('/api/essay/get-trash-essay',keywords)
+}
 function GetCategory(category) {
   return axios.get('/api/edit/get-category', category)
 }
@@ -24,6 +27,7 @@ function EssayDate(key) {
 
 export {
   GetEssay,
+  GetTrashEssay,
   SearchEssay,
   BatchDeleteEssay,
   BatchTrashEssay,
