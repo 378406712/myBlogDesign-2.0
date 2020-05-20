@@ -10,14 +10,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api/getmoviepiaofang': {
-        target: 'http://dianying.nuomi.com/movie/boxrefresh',
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api/getmoviepiaofang': ''
-        }
-      },
       '/api/getMovieImage': {
         target: 'http://dianying.nuomi.com/common/ranklist',
         secure: false,
