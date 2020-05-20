@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="boke_comment.commentOn">
     <section id="comments" class="comments">
       <div class="commentwrap clearFix">
         <div
@@ -13,7 +13,7 @@
         </div>
       </div>
       <!-- 评论 -->
-      <div class="set-comment" v-cloak v-if="watch_comment">
+      <div class="set-comment" v-if="watch_comment">
         <div class="comments-main">
           <h3 id="comments-list-title">
             Comments | <span v-if="comment_length===0">NOTHING </span>
@@ -22,7 +22,7 @@
           <div class="comment clearFix">
             <div class="contents">
               <div class="clearFix">
-                <div class="main" :key="index" v-for="(item,index) in boke_comment">
+                <div class="main" :key="index" v-for="(item,index) in boke_comment.commentData">
                   <div class="profile">
                     <a :href="'https://'+item.website" target="_blank"
                       ><img
@@ -34,11 +34,11 @@
                   <section class="commeta">
                     <h4 class="author">
                       <a :href="'https://'+item.website" target="_blank">
-                       {{item.account}}
+                       {{item.account}} 
                       </a>
                     </h4>
                     <div class="info">
-                      <time datetime="2020-05-18">发布于 {{item.time}}</time>
+                      <time datetime="2020-05-18"><svg-icon icon-class="time" /> 发布于 {{item.time}}</time>
                     </div>
                   </section>
                   <div class="body">
@@ -179,7 +179,7 @@ export default {
   },
   computed:{
    ...mapState({
-     boke_comment:(state)=>state.bokepage.boke_essay_this.commentData,
+     boke_comment:(state)=>state.bokepage.boke_essay_this,
      comment_length:(state)=>state.bokepage.comment_length
    })
   }

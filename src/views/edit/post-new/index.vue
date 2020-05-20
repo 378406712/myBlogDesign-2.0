@@ -261,7 +261,7 @@ export default {
         .catch(() => Msg('发布失败', 'error'))
     },
     changeTitle(data) {
-      if (this.richCurrentLength > 0 || data) this.disabled = false
+      if (this.richCurrentLength > 0 && data) this.disabled = false
       else this.disabled = true
     },
     getCategory() {
