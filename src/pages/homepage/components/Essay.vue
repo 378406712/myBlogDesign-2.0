@@ -48,7 +48,10 @@
             >
             <div class="post-meta">
               <span class="comments-number"
-                ><svg-icon icon-class="comment" /><a href="#">NOTHING</a></span
+                ><svg-icon icon-class="comment" />
+                 <span v-if="item.commentData.length===0">NOTHING </span>
+          <span v-else class="noticom">{{item.commentData.length}} 条评论 </span>
+                </span
               >
               <span
                 ><svg-icon icon-class="file" /><a href="#">{{
@@ -98,7 +101,8 @@ export default {
   computed: {
     ...mapGetters(['name']),
     ...mapState({
-      essay: (state) => state.indexpage.FrontEssay
+      essay: (state) => state.indexpage.FrontEssay,
+     
     }),
     time_diff() {}
   },

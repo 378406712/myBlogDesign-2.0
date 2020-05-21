@@ -1,8 +1,8 @@
 <template>
-  <div>
+  
     <div id="content" class="site-content">
       <div id="primary" class="content-area">
-        <main id="main" class="site-main" role="main">
+        <main  class="site-main">
           <article id="article" class="hentry">
             <header
               v-cloak
@@ -22,7 +22,7 @@
             </div>
           </footer>
           <section class="post-squares nextprev">
-            <div class="post-nepre half previous" v-if="boke_essay_previous">
+            <div @click="$emit('getEssay',boke_essay_previous._id)" class="post-nepre half previous" v-if="boke_essay_previous">
               <a href="javascript:;"
                 ><div
                   v-cloak
@@ -52,7 +52,7 @@
                   <hr /></div
               ></a>
             </div>
-            <div v-cloak v-if="boke_essay_next" class="post-nepre half next">
+            <div v-cloak @click="$emit('getEssay',boke_essay_next._id)"  v-if="boke_essay_next" class="post-nepre half next">
               <a href="javascript:;"
                 ><div
                   v-cloak
@@ -107,7 +107,7 @@
         </main>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>

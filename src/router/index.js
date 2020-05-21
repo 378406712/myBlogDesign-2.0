@@ -23,14 +23,14 @@ export const constantRouterMap = [
     name: 'FrontHomepage',
     hidden: true,
     component: HomePage,
-    meta: { noCache: false }
+    meta: { noCache: true }
   },
   {
     path: '/front/bokepage',
     name: 'FrontBokepage',
     hidden: true,
     component: BokePage,
-    meta: { noCache: false }
+    meta: { noCache: true }
   },
   {
     path: '/login',

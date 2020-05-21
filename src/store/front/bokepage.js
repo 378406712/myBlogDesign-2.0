@@ -12,7 +12,6 @@ const bokepage = {
   },
   mutations: {
     [GET_BOKE_ESSAY](state, boke_essay) {
-      // state.boke_essay = boke_essay
       const boke = JSON.parse(JSON.stringify(boke_essay))
       boke.map((item) => {
         const keys = Object.keys(item)[0]

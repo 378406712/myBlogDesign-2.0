@@ -32,7 +32,7 @@
           </header>
         </div>
         <!-- 内容 -->
-        <Content />
+        <Content @getEssay="getEssay" />
         <!-- 评论 -->
         <Comment />
       </div>
@@ -66,16 +66,17 @@ export default {
   },
   methods: {
     async getEssay(keywords) {
-      await this.$store.dispatch('getBokeEssay', keywords)
+      await this.$store.dispatch('getBokeEssay',{
+      params: {
+        _id: keywords,
+        username: this.name
+      }
+    } )
     }
   },
   mounted() {
-    this.getEssay({
-      params: {
-        _id: this.$route.query.essay_id,
-        username: this.name
-      }
-    })
+    window.scrollTo(0,0)//返回顶层
+    this.getEssay(this.$route.query.essay_id)
   }
 }
 </script>
