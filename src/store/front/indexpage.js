@@ -26,7 +26,6 @@ const indexpage = {
     },
     [SEARCH_ESSAY_LIST](state, essay) {
       state.SearchEssayList = essay
-      console.log(state.SearchEssayList)
     }
   },
   actions: {

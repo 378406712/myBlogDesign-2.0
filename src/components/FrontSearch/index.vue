@@ -54,7 +54,6 @@ export default {
       $('.js_search').removeClass('is-visible')
     },
     async toSearch() {
-      console.log(123)
       const keyword = {
         params: {
           username: this.$store.getters.name,

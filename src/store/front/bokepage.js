@@ -32,7 +32,6 @@ const bokepage = {
     [BOKE_COMMENT](state, comments) {
       state.boke_essay_this = comments
       state.comment_length = comments.commentData.length
-      console.log(state.comment_length)
     }
   },
   actions: {
@@ -52,7 +51,6 @@ const bokepage = {
       return new Promise((resolve, reject) => {
         Api.setGuestComment(comments)
           .then((res) => {
-            console.log(res.data)
             commit(BOKE_COMMENT, res.data)
             resolve()
           })
