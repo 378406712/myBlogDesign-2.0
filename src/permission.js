@@ -13,7 +13,7 @@ NProgress.configure({
 })
 
 // 路由全局前置守卫
-const whiteList = ['/login', '/register','/front/homepage','/front/bokepage'] // 白名单
+const whiteList = ['/login', '/register','/front/homepage','/front/bokepage','/front/about'] // 白名单
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   if (getToken()) {

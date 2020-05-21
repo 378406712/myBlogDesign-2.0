@@ -87,8 +87,7 @@ export default {
       menu: [
         { name: ' 首页', target: '/front/homepage', icon: 'fort-awesome' },
         { name: ' 归档', target: '', icon: 'archive' },
-        { name: ' 友链', target: '', icon: 'link' },
-        { name: ' About Me', target: '', icon: 'leaf' }
+        { name: ' About Me', target: '/front/about', icon: 'leaf' }
       ]
     }
   },

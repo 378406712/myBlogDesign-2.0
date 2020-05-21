@@ -5,11 +5,11 @@
     <section class="main_container">
       <!-- 壁纸 -->
       <div class="header_top">
-        <figure id="centerBg">
+        <figure id="centerBg" v-lazy:background-image="'https://www.qdmmz.cn/wp-content/themes/Sakura/cover/index.php'">
           <div class="focus_info">
             <div class="header_avatar">
               <a href>
-                <img src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640" />
+                <img v-lazy="'http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640'" />
               </a>
             </div>
             <Link />
@@ -86,5 +86,11 @@ export default {
 @import url(../../style/bg.scss);
 .home_page {
   background-attachment: fixed;
+}
+[lazy='error']{
+ background-position: 0 center!important;
+}
+[lazy='loading']{
+ background-position: 0 center!important;  
 }
 </style>

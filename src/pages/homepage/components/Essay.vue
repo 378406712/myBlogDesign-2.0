@@ -22,13 +22,13 @@
               v-cloak
               v-if="item.special_bg !== ''"
               class="lazyload"
-              :src="item.special_bg"
+              v-lazy="item.special_bg"
             />
             <img
               v-else
               v-cloak
               class="lazyload"
-              :src="
+              v-lazy="
                 'http://localhost:3001/random/' +
                 Math.floor(Math.random() * 8 + 1) +
                 '.jpg'

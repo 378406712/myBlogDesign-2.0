@@ -10,10 +10,8 @@
         <div class="pattern-center single-center">
           <div v-cloak
             v-if="boke_essay_this.special_bg !== ''"
-            class="pattern-attachment-img lazyload"
-            :style="{
-              backgroundImage: 'url(' + boke_essay_this.special_bg + ')'
-            }"
+            class="pattern-attachment-img"
+             v-lazy:background-image='boke_essay_this.special_bg'
           ></div>
           <header class="pattern-header single-header">
             <h1 class="entry-title">{{ boke_essay_this.title }}</h1>
@@ -21,7 +19,7 @@
               <span
                 ><router-link to=""
                   ><img
-                    src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640" /></router-link></span
+                    v-lazy="'http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640'" /></router-link></span
               ><span>
                 <router-link v-cloak v-if="boke_essay_this.nickname" to="">{{
                   boke_essay_this.nickname
@@ -89,5 +87,8 @@ export default {
 @import url(./index.scss);
 .pattern-attachment-img {
   background-color: #fff;
+}
+.boke_page {
+  background-attachment: fixed;
 }
 </style>

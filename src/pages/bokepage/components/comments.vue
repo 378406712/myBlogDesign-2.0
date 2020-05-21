@@ -26,7 +26,7 @@
                   <div class="profile">
                     <a :href="'https://'+item.website" target="_blank"
                       ><img
-                        :src="item.qqAvatar"
+                        v-lazy="item.qqAvatar"
                         width="24"
                         height="24"
                     /></a>
@@ -71,7 +71,7 @@
 
             <div class="cmt-info-container">
               <div class="comment-user-avatar">
-                <img :src="commentData.qqAvatar" />
+                <img v-lazy="commentData.qqAvatar" />
                 <div class="socila-check" style="display: block;">
                   <i class="fa fa-qq"></i>
                 </div>

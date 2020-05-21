@@ -1,113 +1,120 @@
 <template>
-  
-    <div id="content" class="site-content">
-      <div id="primary" class="content-area">
-        <main  class="site-main">
-          <article id="article" class="hentry">
-            <header
-              v-cloak
-              v-if="boke_essay_this.special_bg === ''"
-              class="entry-header"
-            >
-              <h1 class="entry-title">{{ boke_essay_this.title }}</h1>
-              <p class="entry-census">发布于 {{ boke_essay_this.date }}</p>
-              <hr />
-            </header>
-            <!--essay内容  -->
-            <div class="entry-content" v-html="boke_essay_this.essay"></div>
-          </article>
-          <footer class="post-footer">
-            <div id="pagination">
-              <svg-icon icon-class="thank" /> <span>{{ over_tag }}</span>
-            </div>
-          </footer>
-          <section class="post-squares nextprev">
-            <div @click="$emit('getEssay',boke_essay_previous._id)" class="post-nepre half previous" v-if="boke_essay_previous">
-              <a href="javascript:;"
-                ><div
-                  v-cloak
-                  v-if="
-                    boke_essay_previous && boke_essay_previous.special_bg !== ''
-                  "
-                  class="background lazyload"
-                  :style="{
-                    backgroundImage:
-                      'url(' + boke_essay_previous.special_bg + ')'
-                  }"
-                ></div>
-                <div
-                  v-else
-                  v-cloak
-                  class="background lazyload"
-                  :style="{
-                    backgroundImage:
-                      'url(http://localhost:3001/random/' +
-                      Math.floor(Math.random() * 8 + 1) +
-                      '.jpg)'
-                  }"
-                ></div>
-                <span class="label">{{ previous }}</span>
-                <div class="info">
-                  <h3>{{ boke_essay_previous.title }}</h3>
-                  <hr /></div
-              ></a>
-            </div>
-            <div v-cloak @click="$emit('getEssay',boke_essay_next._id)"  v-if="boke_essay_next" class="post-nepre half next">
-              <a href="javascript:;"
-                ><div
-                  v-cloak
-                  v-if="boke_essay_next.special_bg !== ''"
-                  class="background lazyload"
-                  :style="{
-                    backgroundImage: 'url(' + boke_essay_next.special_bg + ')'
-                  }"
-                ></div>
-                <div
-                  v-else
-                  v-cloak
-                  class="background lazyload"
-                  :style="{
-                    backgroundImage:
-                      'url(http://localhost:3001/random/' +
-                      Math.floor(Math.random() * 8 + 1) +
-                      '.jpg)'
-                  }"
-                ></div>
-                <span class="label">{{ next }}</span>
-                <div class="info">
-                  <h3>{{ boke_essay_next.title }}</h3>
-                  <hr /></div
-              ></a>
-            </div>
-          </section>
-          <section class="author-profile">
-            <div class="info">
-              <a href="javascripe:;" class="profile"
-                ><img
-                  src="http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640"
-                  height="70"
-                  width="70"
-              /></a>
-              <div class="meta">
-                <span class="title">Author</span>
-                <h3 itemprop="name">
-                  <a
-                    v-cloak
-                    v-if="boke_essay_this.nickname"
-                    href="javascripe:;"
-                    >{{ boke_essay_this.nickname }}</a
-                  >
-                  <a v-else v-cloak href="javascripe:;">{{ name }}</a>
-                </h3>
-              </div>
-            </div>
+  <div id="content" class="site-content">
+    <div id="primary" >
+      <main class="site-main">
+        <article id="article" class="hentry">
+          <header
+            v-cloak
+            v-if="boke_essay_this.special_bg === ''"
+            class="entry-header"
+          >
+            <h1 class="entry-title">{{ boke_essay_this.title }}</h1>
+            <p class="entry-census">发布于 {{ boke_essay_this.date }}</p>
             <hr />
-            <p><svg-icon icon-class="write" />爬。</p>
-          </section>
-        </main>
-      </div>
+          </header>
+          <!--essay内容  -->
+          <div class="entry-content" v-html="boke_essay_this.essay"></div>
+        </article>
+        <footer class="post-footer">
+          <div id="pagination">
+            <svg-icon icon-class="thank" /> <span>{{ over_tag }}</span>
+          </div>
+        </footer>
+        <section class="post-squares nextprev">
+          <div
+            @click="$emit('getEssay', boke_essay_previous._id)"
+            class="post-nepre half previous"
+            v-if="boke_essay_previous"
+          >
+            <router-link
+              :to="{
+                path: '/front/bokepage',
+                query: { essay_id: boke_essay_previous._id }
+              }"
+              ><div
+                v-cloak
+                v-if="
+                  boke_essay_previous && boke_essay_previous.special_bg !== ''
+                "
+                class="background lazyload"
+                v-lazy:background-image="boke_essay_previous.special_bg"
+              ></div>
+              <div
+                v-else
+                class="background lazyload"
+                v-lazy:background-image="
+                  'http://localhost:3001/random/' +
+                  Math.floor(Math.random() * 8 + 1) +
+                  '.jpg'
+                "
+              ></div>
+              <span class="label">{{ previous }}</span>
+              <div class="info">
+                <h3>{{ boke_essay_previous.title }}</h3>
+                <hr /></div
+            ></router-link>
+          </div>
+          <div
+            v-cloak
+            @click="$emit('getEssay', boke_essay_next._id)"
+            v-if="boke_essay_next"
+            class="post-nepre half next"
+          >
+            <router-link
+              :to="{
+                path: '/front/bokepage',
+                query: { essay_id: boke_essay_next._id }
+              }"
+              ><div
+                v-cloak
+                v-if="boke_essay_next.special_bg !== ''"
+                class="background lazyload"
+                v-lazy:background-image="boke_essay_next.special_bg"
+              ></div>
+              <div
+                v-else
+                v-cloak
+                class="background lazyload"
+                v-lazy:background-image="
+                  'http://localhost:3001/random/' +
+                  Math.floor(Math.random() * 8 + 1) +
+                  '.jpg'
+                "
+              ></div>
+              <span class="label">{{ next }}</span>
+              <div class="info">
+                <h3>{{ boke_essay_next.title }}</h3>
+                <hr /></div
+            ></router-link>
+          </div>
+        </section>
+        <section class="author-profile">
+          <div class="info">
+            <a href="javascripe:;" class="profile"
+              ><img
+                v-lazy="'http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640'"
+                height="70"
+                width="70"
+            /></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+                <a
+                  v-cloak
+                  v-if="boke_essay_this.nickname"
+                  href="javascripe:;"
+                  >{{ boke_essay_this.nickname }}</a
+                >
+                <a v-else v-cloak href="javascripe:;">{{ name }}</a>
+              </h3>
+            </div>
+          </div>
+          <hr />
+          <p><svg-icon icon-class="write" />爬。</p>
+        </section>
+      </main>
     </div>
-  
+  </div>
 </template>
 
 <script>
@@ -415,6 +422,14 @@ h1.entry-title {
       margin-left: 5px;
     }
   }
+}
+[lazy='error'] {
+  background-position: 0 -120px !important;
+  background-repeat: no-repeat;
+}
+[lazy='loading'] {
+  background-position: 0 -120px !important;
+  background-repeat: no-repeat;
 }
 </style>
 <style lang="stylus">
