@@ -116,7 +116,8 @@ export default {
         })
         const param = {
           username: this.name,
-          _id: JSON.stringify(data)
+          _id: JSON.stringify(data),
+            tag: 'batch'
         }
         await this.BatchTrashEssay(param)
         this.$emit('getEssay')
