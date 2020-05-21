@@ -34,6 +34,7 @@
         </div>
       </div>
     </section>
+    <Search />
     <Foot />
   </div>
 </template>
@@ -42,10 +43,11 @@
 import Head from '@/components/FrontHead'
 import Foot from '@/components/FrontFoot'
 import About from '@/components/About'
+import Search from '@/components/FrontSearch'
 import { getBg } from '@/common/select-bg'
 export default {
   name: 'bokepage',
-  components: { Head, Foot, About },
+  components: { Head, Foot, About, Search },
   data() {
     return {
       title: 'Clover'

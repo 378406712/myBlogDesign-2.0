@@ -8,10 +8,11 @@
         <Head />
         <div class="pattern-center-blank"></div>
         <div class="pattern-center single-center">
-          <div v-cloak
+          <div
+            v-cloak
             v-if="boke_essay_this.special_bg !== ''"
             class="pattern-attachment-img"
-             v-lazy:background-image='boke_essay_this.special_bg'
+            v-lazy:background-image="boke_essay_this.special_bg"
           ></div>
           <header class="pattern-header single-header">
             <h1 class="entry-title">{{ boke_essay_this.title }}</h1>
@@ -19,12 +20,14 @@
               <span
                 ><router-link to=""
                   ><img
-                    v-lazy="'http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640'" /></router-link></span
+                    v-lazy="
+                      'http://q1.qlogo.cn/g?b=qq&nk=378406712&s=640'
+                    " /></router-link></span
               ><span>
                 <router-link v-cloak v-if="boke_essay_this.nickname" to="">{{
                   boke_essay_this.nickname
                 }}</router-link>
-                <router-link v-else  v-cloak to="">{{ name }}</router-link></span
+                <router-link v-else v-cloak to="">{{ name }}</router-link></span
               ><span class="bull">·</span>{{ boke_essay_this.date }}
             </p>
           </header>
@@ -36,6 +39,7 @@
       </div>
       <Setting />
     </section>
+    <Search />
     <Foot />
   </div>
 </template>
@@ -47,12 +51,13 @@ import Foot from '@/components/FrontFoot'
 import Setting from '@/components/FrontToolSetting'
 import Comment from './components/comments'
 import Content from './components/content'
+import Search from '@/components/FrontSearch'
 import { getBg } from '@/common/select-bg'
 import { mapGetters, mapState } from 'vuex'
 import 'highlight.js/styles/an-old-hope.css'
 export default {
   name: 'bokepage',
-  components: { Head, Foot, Setting, Comment, Content },
+  components: { Head, Foot, Setting, Comment, Content, Search },
   computed: {
     bodyBg() {
       return this.$store.state.indexpage.bodyBg || getBg()
@@ -64,16 +69,16 @@ export default {
   },
   methods: {
     async getEssay(keywords) {
-      await this.$store.dispatch('getBokeEssay',{
-      params: {
-        _id: keywords,
-        username: this.name
-      }
-    } )
+      await this.$store.dispatch('getBokeEssay', {
+        params: {
+          _id: keywords,
+          username: this.name
+        }
+      })
     }
   },
   mounted() {
-    window.scrollTo(0,0)//返回顶层
+    window.scrollTo(0, 0) //返回顶层
     this.getEssay(this.$route.query.essay_id)
   }
 }

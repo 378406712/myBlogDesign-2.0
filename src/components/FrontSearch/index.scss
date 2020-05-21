@@ -1,0 +1,189 @@
+/* 搜索 */
+.is-visible {
+  visibility: visible !important;
+  opacity: 0.99 !important;
+  background-image: url(/static/image/beautify/iloli.gif) !important;
+  background-repeat: no-repeat !important;
+  background-position: bottom right !important;
+}
+.search_inner {
+  max-width: 640px;
+  padding: 0 20px;
+  margin: auto;
+  text-align: left;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  height: 285px;
+  bottom: unset !important;
+  top: 10% !important;
+}
+.search_model {
+  transition: visibility 0.35s ease, opacity 0.35s ease;
+  overflow: hidden;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  visibility: hidden;
+  opacity: 0;
+}
+.search_inner input {
+  font-size: 24px;
+  font-size: 1.5rem;
+  background: #fff;
+  padding: 12px 24px 12px 64px;
+  width: 100%;
+  outline: 0;
+  border-radius: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #666;
+  border: 1px solid #ccc;
+}
+.micro {
+  position: relative;
+}
+.micro p {
+  padding-left: 24px;
+}
+.micro span {
+  font-size: 2rem;
+  line-height: 1;
+  color: #ddd;
+  position: absolute;
+  bottom: 15px;
+  margin-top: -16px;
+  left: 16px;
+}
+/* 关闭搜索X */
+.search_close {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background: 0 0;
+  top: 20px;
+  right: 15px;
+  cursor: pointer;
+}
+.search_close::before,
+.search_close::after {
+  background-color: #222;
+  position: absolute;
+  content: '';
+  width: 30px;
+  height: 2px;
+  top: 17px;
+  left: 2px;
+}
+.search_close:before {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+.search_close:after {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.ins-section-wrapper {
+  left: 0;
+  right: 0;
+  top: 45px;
+  bottom: 0;
+  margin-top: 45px;
+  height: 70vh;
+  overflow-y: auto;
+  position: absolute;
+  border-radius: 14px 0 0 14px;
+  scroll-behavior: smooth;
+}
+.ins-section-wrapper a {
+  -webkit-transition: none;
+  transition: none;
+}
+.ins-section {
+  font-size: 14px;
+}
+.ins-section .ins-section-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  text-align: center;
+  padding: 8px 15px;
+  z-index: 1;
+  color: #9a9a9a;
+  border-bottom: 1px solid #e2e2e2;
+}
+.ins-section .ins-section-header,
+.ins-section .ins-search-item {
+  padding: 8px 15px;
+}
+.ins-section .ins-search-item header,
+.ins-section .ins-search-item .ins-search-preview {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #9a9a9a;
+  margin-left: 20px;
+}
+.ins-section .ins-search-item .ins-search-preview {
+  font-size: 12px;
+  color: #9a9a9a;
+  margin: 5px 0 0 0px;
+}
+.ins-section .ins-search-item .search-keyword {
+  font-size: 15px;
+  border-radius: 5px;
+}
+.ins-section .ins-search-item .search-keyword {
+  font-size: 15px;
+  border-radius: 5px;
+}
+ins,
+mark {
+  background: #fff9c0;
+  text-decoration: none;
+}
+.search-form--modal .search-form__inner {
+  text-align: left;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #69d2e7;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: #eee;
+}
+#document {
+  margin-right: 8px;
+  font-size: 18px;
+  color: #333;
+  bottom: unset;
+  left: 12px;
+  margin-top: -3px;
+  line-height: unset;
+}
+#comment {
+  font-size: 13px;
+  bottom: unset;
+  margin-top: unset;
+  line-height: unset;
+  margin-left: 16px;
+  left: unset;
+  position: unset;
+  margin-right: 8px;
+}
+
+.ins-section .ins-search-item .ins-search-preview {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #9a9a9a;
+  margin-left: 20px;
+  padding-left: 24px !important;
+}

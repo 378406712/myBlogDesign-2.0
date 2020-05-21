@@ -44,7 +44,11 @@
         </transition>
       </div>
       <div class="search_box">
-        <i class="el-icon-search" @click="toSearch"></i>
+        <svg-icon
+          icon-class="search"
+          style="color: #ee9ca7; cursor: pointer; font-size: 20px !important;"
+          @click="toSearch"
+        />
       </div>
       <div class="lower">
         <nav>
@@ -87,7 +91,7 @@ export default {
       menu: [
         { name: ' 首页', target: '/front/homepage', icon: 'fort-awesome' },
         { name: ' 归档', target: '', icon: 'archive' },
-        { name: ' About Me', target: '/front/about', icon: 'leaf' }
+        { name: ' 关于', target: '/front/about', icon: 'leaf' }
       ]
     }
   },
