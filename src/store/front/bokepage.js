@@ -7,12 +7,11 @@ const bokepage = {
     boke_essay_this: {},
     boke_essay_previous: {},
     boke_essay_next: {},
-    boke_comment:[],
-    comment_length:0
+    boke_comment: [],
+    comment_length: 0
   },
   mutations: {
     [GET_BOKE_ESSAY](state, boke_essay) {
-      // state.boke_essay = boke_essay
       const boke = JSON.parse(JSON.stringify(boke_essay))
       boke.map((item) => {
         const keys = Object.keys(item)[0]
@@ -20,7 +19,6 @@ const bokepage = {
           case 'now':
             state.boke_essay_this = item[keys][0]
             state.comment_length = item[keys][0].commentData.length
-            console.log(  state.comment_length)
             break
           case 'previous':
             state.boke_essay_previous = item[keys][0]
@@ -31,10 +29,9 @@ const bokepage = {
         }
       })
     },
-    [BOKE_COMMENT](state,comments){
+    [BOKE_COMMENT](state, comments) {
       state.boke_essay_this = comments
       state.comment_length = comments.commentData.length
-      console.log(state.comment_length)
     }
   },
   actions: {
@@ -50,14 +47,14 @@ const bokepage = {
       })
     },
     //评论
-    setComment({commit},comments){
-      console.log(comments)
-      return new Promise((resolve,reject)=>{
-        Api.setGuestComment(comments).then((res)=>{
-          console.log(res.data)
-          commit(BOKE_COMMENT,res.data)
-          resolve()
-        }).catch((err)=>reject(err))
+    setComment({ commit }, comments) {
+      return new Promise((resolve, reject) => {
+        Api.setGuestComment(comments)
+          .then((res) => {
+            commit(BOKE_COMMENT, res.data)
+            resolve()
+          })
+          .catch((err) => reject(err))
       })
     }
   }

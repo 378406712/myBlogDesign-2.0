@@ -3,6 +3,13 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import './element-variables.scss'
+import VueLazyload from 'vue-lazyload'//懒加载
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  loading: '/static/image/loader/orange.progress-bar-stripe-loader.svg',
+  error:'/static/image/loader/orange.square-circle-preloader.svg',
+  attempt: 1
+})
 
 //弹窗
 import VueSwal from 'vue-swal'

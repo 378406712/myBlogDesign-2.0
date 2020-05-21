@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import HomePage from '@/pages/homepage'
-import BokePage from '@/pages/bokepage'
-import Login from '@/views/login'
-import Register from '@/views/register'
 import Layout from '@/layout/layout'
 import essayRouter from './modules/essay'
+const HomePage = () => import('@/pages/homepage')
+const BokePage = () => import('@/pages/bokepage')
+const About = () => import('@/pages/about')
+const Login = () => import('@/views/login')
+const Register = () => import('@/views/register')
+
 Vue.use(Router)
 
 /**
@@ -23,14 +25,21 @@ export const constantRouterMap = [
     name: 'FrontHomepage',
     hidden: true,
     component: HomePage,
-    meta: { noCache: false }
+    meta: { noCache: true }
   },
   {
     path: '/front/bokepage',
     name: 'FrontBokepage',
     hidden: true,
     component: BokePage,
-    meta: { noCache: false }
+    meta: { noCache: true }
+  },
+  {
+    path: '/front/about',
+    name: 'AboutMe',
+    hidden: true,
+    component: About,
+    meta: { noCache: true }
   },
   {
     path: '/login',

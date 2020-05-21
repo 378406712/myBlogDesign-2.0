@@ -21,7 +21,6 @@
   height: 550px;
   margin: 0;
   padding: 0;
-  background-image: url(https://www.qdmmz.cn/wp-content/themes/Sakura/cover/index.php);
   background-position: top center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -185,98 +184,11 @@ section {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-/* 搜索 */
-.is-visible {
-  visibility: visible !important;
-  opacity: 0.99 !important;
-  background-image: url(/static//image//beautify/iloli.gif) !important;
-  background-repeat: no-repeat !important;
-  background-position: bottom right !important;
-}
-.search_inner {
-  max-width: 640px;
-  padding: 0 20px;
-  margin: auto;
-  text-align: left;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
-  height: 285px;
-  top: 0;
-  bottom: 0;
-}
-.search_model {
-  transition: visibility 0.35s ease, opacity 0.35s ease;
-  overflow: hidden;
-  z-index: 9999;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: #fff;
-  visibility: hidden;
-  opacity: 0;
-}
-.micro {
-  position: relative;
-}
-.micro p {
-  padding-left: 24px;
-}
-.micro span {
-  font-size: 2rem;
-  line-height: 1;
-  color: #ddd;
-  position: absolute;
-  bottom: 15px;
-  margin-top: -16px;
-  left: 16px;
-}
-.search_inner input {
-  font-size: 24px;
-  font-size: 1.5rem;
-  background: #fff;
-  padding: 12px 24px 12px 64px;
-  width: 100%;
-  outline: 0;
-  border-radius: 50px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #666;
-  border: 1px solid #ccc;
-}
 
-/* 关闭搜索X */
-.search_close {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  background: 0 0;
-  top: 20px;
-  right: 15px;
-  cursor: pointer;
-}
-.search_close::before,
-.search_close::after {
-  background-color: #222;
-  position: absolute;
-  content: '';
-  width: 30px;
-  height: 2px;
-  top: 17px;
-  left: 2px;
-}
-.search_close:before {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-.search_close:after {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
+
+
+
+
 .page_content {
   max-width: 800px;
   padding: 0 10px;
@@ -643,7 +555,7 @@ p {
   user-select: none;
 }
 .comments-number {
-  margin: 0 10px;
+  margin: 0 10px 0 0 ;
 }
 .post-list-thumb span svg {
   margin-right: 5px;
