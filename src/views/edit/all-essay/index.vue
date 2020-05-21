@@ -83,7 +83,8 @@ export default {
       'AllCategoryCount',
       'EssayDate',
       'EssayCategory',
-      'GetEssayNum'
+      'GetEssayNum',
+      'GetTrashNum'
     ]),
     clearTag() {
       this.tag = ''
@@ -116,6 +117,10 @@ export default {
           keyword: 'all'
         }
       })
+      this.GetTrashNum({  params: {
+          username: this.name,
+          keyword: 'all'
+        }})
     },
     isCategory(Essaycategory) {
       let array = []

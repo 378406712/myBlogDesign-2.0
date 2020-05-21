@@ -60,21 +60,18 @@ const Essay = {
       state.num.all = essayList.length
       const reCheckNum = []
       const draftNum = []
-      const trashNum = []
       const sendNum = []
       essayList.map((item) => {
+        console.log(item)
         if (item.reCheck === true) {
           reCheckNum.push(item)
         } else if (item.draft === true) {
           draftNum.push(item)
-        } else if (item.trash === true) {
-          trashNum.push(item)
-        } else if (item.sended === true) {
+        }  else if (item.sended === true) {
           sendNum.push(item)
         }
       })
       state.num.pend = reCheckNum.length
-      state.num.trash = trashNum.length
       state.num.draft = draftNum.length
       state.num.sended = sendNum.length
       state.essaySend = sendNum
@@ -88,6 +85,9 @@ const Essay = {
     [ESSAY_TOTALS](state, totals) {
       state.totals = totals
     },
+    trashNum(state,essay){
+      state.num.trash = essay.length
+    }
   },
   actions: {
     BatchTrashEssay({}, key) {
@@ -115,6 +115,7 @@ const Essay = {
           .then((res) => {
             commit(ESSAY_LIST, res.data)
             commit(ESSAY_TOTALS, res.data.length)
+            
             resolve()
           })
           .catch((err) => reject(err))
@@ -125,6 +126,16 @@ const Essay = {
         Api.GetEssay(keyword)
           .then((res) => {
             commit(ESSAY_STATUS, res.data)
+            resolve()
+          })
+          .catch((err) => reject(err))
+      })
+    },
+    GetTrashNum({ commit },keywords ) {
+      return new Promise((resolve, reject) => {
+        Api.GetTrashEssay(keywords)
+          .then((res) => {
+            commit('trashNum', res.data)
             resolve()
           })
           .catch((err) => reject(err))

@@ -225,13 +225,7 @@ export default {
       quill.on('editor-change', this.onEditorChange)
     },
     async toPublish(visiable) {
-      const { reCheck, draft, trash } = visiable
 
-      if (!reCheck || !draft || !trash) {
-        this.sended = false
-      } else {
-        this.sended = true
-      }
       if (this.essay.title === '') {
         this.essay.title = '(无标题)'
       }
@@ -248,7 +242,7 @@ export default {
         nickname: this.nickname,
         date: moment().format(' YYYY年MM月DD日hh时mm分'),
         selectDate: moment().format(' YYYY-MM'),
-        sended: this.sended
+       
       }
       delete EssayData.visible
       this.PostEssay(EssayData)
@@ -261,7 +255,7 @@ export default {
         .catch(() => Msg('发布失败', 'error'))
     },
     changeTitle(data) {
-      if (this.richCurrentLength > 0 || data) this.disabled = false
+      if (this.richCurrentLength > 0 && data) this.disabled = false
       else this.disabled = true
     },
     getCategory() {

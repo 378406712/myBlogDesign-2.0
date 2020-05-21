@@ -166,6 +166,7 @@ export default {
           await this.BatchTrashEssay(param)
           this.$emit('getEssay')
           this.$emit('getEssayNum')
+         
           break
         case 'watch':
           console.log('watch')

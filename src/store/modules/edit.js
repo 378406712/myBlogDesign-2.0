@@ -22,9 +22,10 @@ const Edit = {
       showVisible: '公开',
       keepTop: false,
       reCheck: false,
-      commentOn: false,
+      commentOn: true,
       draft: false,
       trash: false,
+      sended:true,
       visible: [
         { status: 'public', info: '所有人可见。', title: '公开' },
         {

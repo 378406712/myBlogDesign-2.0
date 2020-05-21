@@ -5,7 +5,8 @@
         <i class="fa fa-envira" aria-hidden="true"></i
         ><svg-icon icon-class="anchor" /> Dirctory
       </h1>
-      <article
+      <div>
+        <article
         v-for="(item, index) in essay"
         :key="index"
         class="post post-list-thumb post-list-show"
@@ -72,6 +73,7 @@
           </div>
         </div>
       </article>
+      </div>
     </main>
   </div>
 </template>

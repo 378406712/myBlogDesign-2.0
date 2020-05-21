@@ -206,6 +206,21 @@ export default {
         this.essay.reCheck = false
         this.essay.keepTop = false
         this.essay.trash = false
+        this.essay.sended=false
+      }
+       if(this.essay.reCheck){
+        this.essay.draft = false
+        this.essay.reCheck = true
+        this.essay.keepTop = false
+        this.essay.trash = false
+        this.essay.sended=false
+      }
+      if(this.essay.trash){
+        this.essay.draft = false
+        this.essay.reCheck = false
+        this.essay.keepTop = false
+        this.essay.trash = true
+        this.essay.sended=false
       }
       const { special_bg } = this
       let info = Object.assign(
