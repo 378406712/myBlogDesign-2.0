@@ -48,7 +48,7 @@
                           ><span id="status"
                             >({{ data.commentData.length }}
                             <svg-icon icon-class="comment" />
-                             / <svg-icon icon-class="file" />
+                            / <svg-icon icon-class="file" />
                             {{ data.checkCategory[0] }}
                             <span
                               class="fa fa-commenting"
@@ -110,35 +110,6 @@ export default {
       this.$store.commit('ARCHIVE', ArchiveArr)
       //   this.sortMonth(ArchiveArr)
     }
-    // sortMonth(archive) {
-    //   let ArchiveArr = []
-    //   archive.map((item) => {
-    //     let index = -1
-    //     item.monthArr.map((data) => {
-    //       const month = data.selectDate.substring(5, 7)
-    //       let alreadyExists = ArchiveArr.some((currentValue, i) => {
-    //         if (month === currentValue.month) {
-    //           index = i
-    //           return true
-    //         }
-    //       })
-    //       if (!alreadyExists) {
-    //         let essay = []
-    //         essay.push(data)
-    //         ArchiveArr.push({
-    //           month: month,
-    //           essay: essay
-    //         })
-    //       } else {
-    //         ArchiveArr[index].essay.push(data)
-    //       }
-    //       this.month = ArchiveArr
-    //       return ArchiveArr
-    //     })
-    //   })
-    //   console.log(this.month)
-    //   console.log(this.year)
-    // }
   },
   computed: {
     ...mapState({

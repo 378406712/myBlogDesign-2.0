@@ -2,9 +2,9 @@
   <header class="site_header" :class="shadow ? 'shadow' : ''">
     <div class="site_top">
       <div class="site_branding">
-        <a href>
+        <router-link to="/front/homepage">
           <span>{{ title }}</span>
-        </a>
+        </router-link>
       </div>
       <div
         class="h_user_avatar"
@@ -73,7 +73,7 @@ import $ from 'jquery'
 import throttle from '@/utils/throttle'
 import { mapGetters } from 'vuex'
 import { getToken } from '@/common/auth'
-
+import '@/components/Sakura/index.js'
 export default {
   data() {
     return {
@@ -94,7 +94,12 @@ export default {
           target: '/front/homepage',
           icon: 'fort-awesome'
         },
-        { class: '', name: ' 归档', target: '/front/time-axis', icon: 'archive' },
+        {
+          class: '',
+          name: ' 归档',
+          target: '/front/time-axis',
+          icon: 'archive'
+        },
         { class: 'about', name: ' 关于', target: '/front/about', icon: 'leaf' }
       ]
     }
