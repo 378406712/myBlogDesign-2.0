@@ -13,3 +13,7 @@ export function setGuestComment(comments) {
 export function searchEssay(keywords) {
   return axios.get('/api/indexpage/search-essay', keywords)
 }
+export function getTimeAxis(keywords) {
+  return axios.get('/api/indexpage/time-axis', keywords)
+}
+

@@ -2,7 +2,7 @@
   <form action class="js_search search_model">
     <div class="search_inner">
       <div class="micro">
-        <span class="iconfont icon-search"></span>
+        <svg-icon icon-class="search" />
         <input
           type="seach"
           class="text-input"
@@ -100,4 +100,5 @@ export default {
 
 <style scoped>
 @import url(./index.scss);
+
 </style>

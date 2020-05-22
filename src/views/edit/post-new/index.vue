@@ -225,7 +225,6 @@ export default {
       quill.on('editor-change', this.onEditorChange)
     },
     async toPublish(visiable) {
-
       if (this.essay.title === '') {
         this.essay.title = '(无标题)'
       }
@@ -240,9 +239,9 @@ export default {
         essay: this.content,
         username: this.name,
         nickname: this.nickname,
-        date: moment().format(' YYYY年MM月DD日hh时mm分'),
-        selectDate: moment().format(' YYYY-MM'),
-       
+        date: moment().format('YYYY年MM月DD日hh时mm分'),
+        selectDate: moment().format('YYYY-MM'),
+        time: moment().format('YYYY-MM-DD')
       }
       delete EssayData.visible
       this.PostEssay(EssayData)

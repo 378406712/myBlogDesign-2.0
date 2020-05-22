@@ -34,7 +34,6 @@
               Whether to
               <router-link
                 to="/login"
-                target="_blank"
                 style="color: #333; font-weight: bold; text-decoration: none;"
                 >log in</router-link
               >
@@ -55,7 +54,7 @@
           <div class="menu">
             <ul>
               <li v-for="(item, index) in menu" :key="index">
-                <router-link :to="item.target">
+                <router-link :class="item.class" :to="item.target">
                   <svg-icon :icon-class="item.icon" />{{
                     item.name
                   }}</router-link
@@ -89,9 +88,14 @@ export default {
         { name: '退出登录', target: '' }
       ],
       menu: [
-        { name: ' 首页', target: '/front/homepage', icon: 'fort-awesome' },
-        { name: ' 归档', target: '', icon: 'archive' },
-        { name: ' 关于', target: '/front/about', icon: 'leaf' }
+        {
+          class: '',
+          name: ' 首页',
+          target: '/front/homepage',
+          icon: 'fort-awesome'
+        },
+        { class: '', name: ' 归档', target: '/front/time-axis', icon: 'archive' },
+        { class: 'about', name: ' 关于', target: '/front/about', icon: 'leaf' }
       ]
     }
   },
@@ -142,4 +146,7 @@ export default {
 </style>
 <style scoped>
 @import url(./index.scss);
+.about {
+  color: #9ed36a !important;
+}
 </style>

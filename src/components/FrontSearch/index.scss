@@ -52,12 +52,13 @@
 .micro p {
   padding-left: 24px;
 }
-.micro span {
+.micro svg {
+  font-size: 32px;
   font-size: 2rem;
   line-height: 1;
   color: #ddd;
   position: absolute;
-  bottom: 15px;
+  bottom: 12px;
   margin-top: -16px;
   left: 16px;
 }
@@ -185,5 +186,5 @@ mark {
   text-overflow: ellipsis;
   color: #9a9a9a;
   margin-left: 20px;
-  padding-left: 24px !important;
+  padding-left: 30px !important;
 }

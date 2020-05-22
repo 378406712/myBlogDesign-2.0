@@ -14,6 +14,7 @@ import essay from './modules/essay/essay'
 import dashboard from './modules/dashboard'
 import indexpage from './front/indexpage'
 import bokepage from './front/bokepage'
+import archive from './front/archive'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     essay,
 
     indexpage,
-    bokepage
+    bokepage,
+    archive
   }
 })
