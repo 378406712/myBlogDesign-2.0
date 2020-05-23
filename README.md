@@ -25,7 +25,7 @@
 
 ## 预览
 
-在线体验：
+在线体验前台: https://qdmmz.cn 
 
 ## 简介
 
@@ -35,7 +35,7 @@
 
 ## 写在前面
 
-请确保你安装了 [node](https://nodejs.org/en/) 和 [git](https://git-scm.com/)，与此同时，你应该对 [Vue](https://cn.vuejs.org/v2/guide/)、[Vuex](https://vuex.vuejs.org/zh/)、[Vue Router](https://router.vuejs.org/zh/)、[ES2015+](http://es6.ruanyifeng.com/)、[ElementUI](http://element-cn.eleme.io/#/zh-CN) 有所了解。我们的请求有使用 [Mock.js](https://github.com/nuysoft/Mock/wiki/Getting-Started) 模拟，也有使用线上真实的接口数据，提前了解和学习这些知识会对使用本项目有很大的帮助。
+请确保你安装了 [node](https://nodejs.org/en/) 和 [git](https://git-scm.com/)，与此同时，你应该对 [Vue](https://cn.vuejs.org/v2/guide/)、[Vuex](https://vuex.vuejs.org/zh/)、[Vue Router](https://router.vuejs.org/zh/)、[ES2015+](http://es6.ruanyifeng.com/)、[ElementUI](http://element-cn.eleme.io/#/zh-CN) 有所了解。~~我们的请求有使用 [Mock.js](https://github.com/nuysoft/Mock/wiki/Getting-Started) 模拟~~，请求均使用了本地真实的接口数据[blog_behind](https://github.com/378406712/blog_behind)，提前了解和学习这些知识会对使用本项目有很大的帮助。
 
 ## Build Setup
 
@@ -49,7 +49,8 @@ cd myBlogDesign-2.0
 # install dependencies
 npm install
 
-// 或者
+# 可能出现node-scss安装失败：
+npm rebuild node-sass
 
 # 建议不要用 cnpm 安装 会有各种诡异的bug 可以通过如下操作解决 npm 下载速度慢的问题
 npm install --registry=https://registry.npm.taobao.org
@@ -85,6 +86,7 @@ npm run build --report
 - 自定义组件
 - 换肤
 - 富文本
+- 文章/目录管理
 ```
 
 ## 截图
