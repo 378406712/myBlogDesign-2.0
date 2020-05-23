@@ -205,7 +205,8 @@ export default {
                   this.loading = false
                   Msg('邮箱重复', 'warning')
                 } else if (res.data.status === 'SUCCESS') {
-                  Msg('注册成功,3秒后跳转', 'success', '3000')
+                  console.log(res.data.status)
+                  Msg('注册成功,3秒后跳转', 'success', '', '3000')
                   setTimeout(() => {
                     this.$router.push('/login')
                   }, 3000)

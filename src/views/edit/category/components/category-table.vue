@@ -66,14 +66,6 @@ export default {
       this.AllCategoryCount({ username: this.name })
       this.CATEGORY_CHECK({})
     },
-    // EssayDetail(data) {
-    //   this.GetEssay({
-    //     params: {
-    //       username: this.name,
-    //       checkCategory: data
-    //     }
-    //   })
-    // },
     selectable(row, index) {
       if (row.category !== '未分类') return true
       else {

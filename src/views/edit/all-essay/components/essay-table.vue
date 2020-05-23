@@ -166,10 +166,13 @@ export default {
           await this.BatchTrashEssay(param)
           this.$emit('getEssay')
           this.$emit('getEssayNum')
-         
+
           break
         case 'watch':
-          console.log('watch')
+          this.$router.push({
+            path: '/front/bokepage/',
+            query: { essay_id: row._id }
+          })
           break
       }
     },

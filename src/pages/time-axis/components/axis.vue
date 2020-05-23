@@ -15,6 +15,8 @@
                 src="/static/image/time-axis-s.jpg"
                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
               />
+             
+             
               <div id="archives">
                 <p style="text-align: right;">
                   <!-- [<span id="al_expand_collapse" style="cursor: s-resize;"
@@ -40,12 +42,15 @@
 
                       <ul class="al_post_list" style="">
                         <li>
-                          <a
-                            v-html="data.essay"
-                            href="https://www.qdmmz.cn/378406712qq-com/1265/%e5%89%8d%e7%ab%af%e5%b0%86%e8%bf%94%e5%9b%9e%e7%9a%84%e6%90%9c%e7%b4%a2%e5%86%85%e5%ae%b9%e9%ab%98%e4%ba%ae%e6%98%be%e7%a4%ba/"
+                          <router-link
+                            v-html="data.title"
+                            :to="{
+                              path: '/front/bokepage',
+                              query: { essay_id: data._id }
+                            }"
                           >
-                          </a
-                          ><span id="status"
+                          </router-link
+                          ><span
                             >({{ data.commentData.length }}
                             <svg-icon icon-class="comment" />
                             / <svg-icon icon-class="file" />
