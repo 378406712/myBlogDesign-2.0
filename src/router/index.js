@@ -70,7 +70,6 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
     children: [
       {
         path: 'dashboard',
@@ -97,7 +96,6 @@ export const constantRouterMap = [
     path: '/account',
     component: Layout,
     hidden: false,
-
     children: [
       {
         path: 'account',
@@ -110,7 +108,6 @@ export const constantRouterMap = [
   {
     path: '/guide',
     component: Layout,
-    redirect: '/guide/index',
     children: [
       {
         path: 'index',
@@ -120,10 +117,10 @@ export const constantRouterMap = [
       }
     ]
   },
+
   {
     path: '/introduction',
     component: Layout,
-    redirect: '/introduction/index',
     children: [
       {
         path: 'index',
@@ -133,11 +130,22 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/echats',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'echarts',
+        component: () => import('@/views/echarts/index'),
+        meta: { icon: 'svg-television', title: 'router.echarts' }
+      }
+    ]
+  },
   essayRouter,
   {
     path: '/media',
     component: Layout,
-    redirect: '/media/index',
     children: [
       {
         path: 'index',
@@ -205,7 +213,6 @@ export const asyncRouterMap = [
   {
     path: '/theme',
     component: Layout,
-    redirect: 'index',
 
     children: [
       {

@@ -48,7 +48,7 @@ export default {
     all_essay: '所有文章',
     category: '分类目录',
     essay_detail: '文章详情',
-    category_detail:'编辑分类目录'
-  },
-  dashboard: '仪表盘'
+    category_detail: '编辑分类目录',
+    echarts: '可视化'
+  }
 }

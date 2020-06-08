@@ -48,6 +48,7 @@ export default {
     all_essay: 'All Essay',
     category: 'Category',
     essay_detail: 'Essay Detail',
-    category_detail: 'Category Detail'
+    category_detail: 'Category Detail',
+    echarts: 'Visualization'
   }
 }
