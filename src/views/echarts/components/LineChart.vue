@@ -26,9 +26,11 @@ export default {
     },
     chartData: {
       type: Object,
-      required: true
+      required: true,
+      default: {}
     }
   },
+
   methods: {
     initCharts() {
       this.chart = echarts.init(this.$el, 'sakura')
@@ -101,6 +103,17 @@ export default {
       })
     }
   },
+  watch: {
+    chartData: {
+      deep: true,
+      handler(val, oldVal) {
+        if (val) {
+          this.initCharts()
+        }
+      }
+    }
+  },
+
   mounted() {
     this.initCharts()
   }

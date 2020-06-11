@@ -21,7 +21,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-
 // 国际化
 import i18n from './lang'
 // 全局权限检查
@@ -31,10 +30,10 @@ import './icons'
 // 全局Ua
 import './icons/ua'
 // 全局 Mock 接口
-//import './mock'
+import './mock'
 import moment from 'moment' //导入文件
 
-import inportJs from './common/importJs'
+// import inportJs from './common/importJs'
 Vue.prototype.$moment = moment //赋值使用
 Vue.use(VueSwal)
 

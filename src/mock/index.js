@@ -16,19 +16,20 @@ Mock.setup({
 // // 用户信息相关接口
 // Mock.mock('/user/getInfo', 'post', userAPI.pullUserInfo)
 
-// 首页 homepage 相关的接口
-Mock.mock('/homepage/hometotal', 'post', homepageAPI.getHomeTotal)
-// 首页 homepageDetailItem 接口
-Mock.mock('/homepage/detailItem', 'post', homepageAPI.getHomeDetailItem)
-// 首页 investmentRank 接口
-Mock.mock('/homepage/investmentRank', 'post', homepageAPI.getHomeInvestmentRank)
+// // 首页 homepage 相关的接口
+// Mock.mock('/homepage/hometotal', 'post', homepageAPI.getHomeTotal)
+// // 首页 homepageDetailItem 接口
+// Mock.mock('/homepage/detailItem', 'post', homepageAPI.getHomeDetailItem)
+// // 首页 investmentRank 接口
+// Mock.mock('/homepage/investmentRank', 'post', homepageAPI.getHomeInvestmentRank)
 
-// 表格部分【导出表格中的票房数据】
-Mock.mock('/api/getmoviepiaofang-mock', 'post', excel.piaofang)
-Mock.mock('/excel/getMergeTableData', 'post', excel.mergeTableData)
+// // 表格部分【导出表格中的票房数据】
+// Mock.mock('/api/getmoviepiaofang-mock', 'post', excel.piaofang)
+// Mock.mock('/excel/getMergeTableData', 'post', excel.mergeTableData)
 
 // echarts菜单
-Mock.mock('/echarts/getCateData', 'get', echarts.getCateData)
-Mock.mock('/echarts/getDepartTop', 'post', echarts.getDepartTop)
+// Mock.mock('/echarts/getCateData', 'get', echarts.getCateData)
+// Mock.mock('/echarts/getDepartTop', 'post', echarts.getDepartTop)
 
+Mock.mock('/echarts/getEchartsData', 'get', echarts.echartsData)
 export default Mock
